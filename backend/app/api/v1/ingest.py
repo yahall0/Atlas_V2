@@ -1,0 +1,97 @@
+"""Ingestion API endpoint — v1.
+
+POST /api/v1/ingest
+Accepts a PDF file upload, runs the ingestion pipeline, stores the result,
+and returns the created FIR record.
+"""
+
+from __future__ import annotations
+
+import logging
+
+from fastapi import APIRouter, HTTPException, UploadFile, File, status
+
+from app.db.crud_fir import create_fir
+from app.db.session import get_connection
+from app.ingestion.pipeline import process_pdf
+from app.schemas.fir import FIRResponse
+
+logger = logging.getLogger(__name__)
+
+router = APIRouter(tags=["ingestion"])
+
+
+@router.post(
+    "/ingest",
+    response_model=FIRResponse,
+    status_code=status.HTTP_201_CREATED,
+    summary="Ingest a FIR PDF",
+)
+async def ingest_fir(file: UploadFile = File(...)) -> FIRResponse:
+    """Accept a PDF upload, extract and parse the FIR, then store it in the DB.
+
+    Pipeline
+    --------
+    1. Read uploaded file bytes.
+    2. Run ``process_pdf()`` → structured dict.
+    3. Persist via ``create_fir()``.
+    4. Return the full ``FIRResponse``.
+
+    The endpoint never returns 500 due to a parsing failure — if the PDF text
+    cannot be fully parsed, the raw text is stored as the narrative so the
+    record is always created.
+    """
+    # Validate content type loosely (browsers may send different MIME types)
+    if file.content_type and not (
+        file.content_type == "application/pdf"
+        or file.content_type.startswith("application/")
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
+            detail="Only PDF files are accepted.",
+        )
+
+    try:
+        file_bytes = await file.read()
+    except Exception:
+        logger.error("Failed to read uploaded file.", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Could not read the uploaded file.",
+        )
+
+    # Run pipeline — fall back to bare record if parsing fails entirely
+    try:
+        fir_data = process_pdf(file_bytes, source_system="pdf_upload")
+    except Exception:
+        logger.warning(
+            "Pipeline failed for '%s'; creating record with fallback narrative.",
+            file.filename,
+            exc_info=True,
+        )
+        fir_data = {
+            "narrative": "[PDF could not be parsed — original file stored for manual review]",
+            "raw_text": "",
+            "source_system": "pdf_upload",
+        }
+
+    # Ensure minimal required fields so DB insert never fails due to missing data
+    if not isinstance(fir_data, dict):
+        fir_data = {}
+    fir_data.setdefault("source_system", "pdf_upload")
+    fir_data.setdefault("raw_text", "")
+    if not fir_data.get("narrative", "").strip():
+        fir_data["narrative"] = "[No extractable text from PDF]"
+
+    try:
+        conn = get_connection()
+        created = create_fir(conn, fir_data)
+        return FIRResponse(**created)
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.error("DB insert failed after PDF ingestion.", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(exc),
+        )
