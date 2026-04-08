@@ -4,4 +4,6 @@ __pycache__/
 node_modules/
 .next/
 .claude/
-backend/models/atlas_classifier_v1/model.safetensors
+
+# Model weights and HuggingFace cache — downloaded at runtime, do not commit
+backend/models/

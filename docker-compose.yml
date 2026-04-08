@@ -14,10 +14,8 @@ services:
       - MLFLOW_TRACKING_URI=http://mlflow:5000
       - FASTTEXT_MODEL_PATH=/app/models/lid.176.bin
       - TRANSFORMERS_CACHE=/app/models/hf_cache
-      - INDIC_BERT_MODEL=/app/models/hf_cache/muril-base-cased
+      - INDIC_BERT_MODEL=google/muril-base-cased
       - INDIC_BERT_CHECKPOINT=/app/models/atlas_classifier_v1
-      - TRANSFORMERS_OFFLINE=1
-      - HF_DATASETS_OFFLINE=1
     volumes:
       - ./backend/models:/app/models
     depends_on:
