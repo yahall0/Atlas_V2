@@ -1,7 +1,0 @@
-0000000000000000000000000000000000000000 b1883f46ff6f19ffac4a952b8f81c89257a8fc01 Prishiv Singh Jamwal <prishiv123@hotmail.com> 1775290792 +0530	commit (initial): setup backend, CI/CD and docker (T1)
-b1883f46ff6f19ffac4a952b8f81c89257a8fc01 d3b0c511fecf7fe9b44cd5ec60c86392219bd8d5 Prishiv Singh Jamwal <prishiv123@hotmail.com> 1775290873 +0530	commit: fix: add httpx dependency for tests
-d3b0c511fecf7fe9b44cd5ec60c86392219bd8d5 bd38de85993de42ff8529c6cef7ae836541fd82a Prishiv Singh Jamwal <prishiv123@hotmail.com> 1775290997 +0530	commit: fix: set PYTHONPATH for backend tests
-bd38de85993de42ff8529c6cef7ae836541fd82a 7a9912f9804f91f859c69ec95a1af7d3175ece63 Prishiv Singh Jamwal <prishiv123@hotmail.com> 1775639920 +0530	pull --tags origin main: Fast-forward
-7a9912f9804f91f859c69ec95a1af7d3175ece63 657e75599c151dc0dc4b4a18a80495fecbeae1bc Prishiv Singh Jamwal <prishiv123@hotmail.com> 1775640599 +0530	commit: fixes
-657e75599c151dc0dc4b4a18a80495fecbeae1bc 53adfc02f0fe64761dbc6e67cc193e1fa370b8d1 Prishiv Singh Jamwal <prishiv123@hotmail.com> 1775640617 +0530	commit: fix
-53adfc02f0fe64761dbc6e67cc193e1fa370b8d1 c28a826d44208e47b76fefb4ad792dd5cd6f6fa9 Prishiv Singh Jamwal <prishiv123@hotmail.com> 1775640617 +0530	filter-branch: rewrite
