@@ -31,5 +31,10 @@ export async function apiClient(endpoint: string, options: RequestInit = {}) {
     throw new Error("Unauthorized");
   }
 
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error((body as { detail?: string }).detail ?? `HTTP ${res.status}`);
+  }
+
   return res.json();
 }

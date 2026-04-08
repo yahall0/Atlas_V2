@@ -11,6 +11,9 @@ services:
       - DATABASE_URL=postgresql://atlas:atlaspass@db:5432/atlas_db
       - REDIS_URL=redis://redis:6379
       - MONGO_URL=mongodb://mongodb:27017
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - FASTTEXT_MODEL_PATH=/app/models/lid.176.bin
+      - TRANSFORMERS_CACHE=/transformers_cache
     depends_on:
       db:
         condition: service_healthy
@@ -115,8 +118,39 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
+  # ── Sprint 2: annotation + experiment tracking ──────────────────────────
+
+  labelstudio:
+    image: heartexlabs/label-studio:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - LABEL_STUDIO_USERNAME=atlas@atlas.local
+      - LABEL_STUDIO_PASSWORD=atlasadmin
+    volumes:
+      - atlas_labelstudio_data:/label-studio/data
+    restart: unless-stopped
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.11.1
+    ports:
+      - "5000:5000"
+    command: >
+      mlflow server
+      --backend-store-uri /mlflow/mlruns
+      --default-artifact-root /mlflow/artifacts
+      --host 0.0.0.0
+      --port 5000
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    volumes:
+      - atlas_mlflow_data:/mlflow
+    restart: unless-stopped
+
 volumes:
   postgres_data:
   mongodb_data:
   prometheus_data:
   grafana_data:
+  atlas_labelstudio_data:
+  atlas_mlflow_data:

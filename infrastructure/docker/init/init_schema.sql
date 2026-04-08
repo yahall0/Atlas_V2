@@ -85,7 +85,15 @@ CREATE TABLE IF NOT EXISTS firs (
 
     -- Metadata
     source_system       TEXT DEFAULT 'manual',
-    created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    -- Sprint 2: NLP pipeline columns
+    status              TEXT DEFAULT 'pending',
+    nlp_metadata        JSONB DEFAULT '{}',
+    nlp_classification  TEXT,
+    nlp_confidence      NUMERIC(5,4),
+    nlp_classified_at   TIMESTAMP,
+    nlp_classified_by   TEXT
 );
 
 CREATE INDEX IF NOT EXISTS idx_fir_number  ON firs (fir_number);

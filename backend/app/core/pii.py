@@ -12,6 +12,12 @@ IO, SHO     [AADHAAR] [PHONE-XXXX] last 4     Full
 DYSP,       [AADHAAR] [PHONE-XXXX] last 4     First + last initial
 READONLY    [AADHAAR] [PHONE-XXXX] last 4     First + last initial
 (any other) [AADHAAR] [PHONE-XXXX] last 4     First + last initial
+
+Victim identity (BNS Chapter V — §63-99 sexual offences)
+---------------------------------------------------------
+For FIRs whose primary_sections contain any BNS Ch.V section (63-99)
+the complainant_name and place_address fields are always masked
+regardless of role (Section 228A CrPC / BNS §73 prohibition).
 """
 
 from __future__ import annotations
@@ -22,11 +28,29 @@ from typing import Any, Dict
 _PHONE_RE = re.compile(r"(?:\+91|91|0)?[6-9]\d{9}")
 _AADHAAR_RE = re.compile(r"\b\d{4}[\s\-]\d{4}[\s\-]\d{4}\b")
 
-# Roles that receive unredacted data
+# Roles that receive unredacted data (except victim identity — always masked)
 _UNRESTRICTED = {"SP", "ADMIN"}
 
 # Free-text fields whose content must be scanned for PII patterns
 _TEXT_FIELDS = ("narrative", "raw_text", "place_address")
+
+# BNS Chapter V sections (sexual offences) — victim identity always protected
+# Includes legacy IPC 376 family for FIRs not yet BNS-mapped.
+_SEXUAL_OFFENCE_SECTIONS = {
+    # BNS §63-99
+    *[str(i) for i in range(63, 100)],
+    # Legacy IPC equivalents
+    "376", "376A", "376B", "376C", "376D", "376DA", "376DB", "354", "354A",
+    "354B", "354C", "354D",
+}
+
+
+def _is_sexual_offence_fir(fir: Dict[str, Any]) -> bool:
+    """Return True if any primary_section belongs to the sexual offence list."""
+    sections = fir.get("primary_sections") or []
+    if isinstance(sections, str):
+        sections = [s.strip() for s in sections.split(",") if s.strip()]
+    return any(s.strip() in _SEXUAL_OFFENCE_SECTIONS for s in sections)
 
 
 def _redact_phone(m: re.Match) -> str:
@@ -67,11 +91,28 @@ def mask_pii_for_role(fir: Dict[str, Any], role: str) -> Dict[str, Any]:
     dict
         Copy of *fir* with PII fields replaced according to role policy.
     """
-    if role in _UNRESTRICTED:
-        return fir
-
     result = dict(fir)
 
+    # ── Victim identity masking (BNS §73 / Section 228A CrPC) ────────────
+    # Applied BEFORE role-based masking and for ALL roles including SP/ADMIN.
+    if _is_sexual_offence_fir(result):
+        result["complainant_name"] = "[VICTIM-PROTECTED]"
+        if result.get("place_address"):
+            result["place_address"] = "[ADDRESS-PROTECTED]"
+        if result.get("complainants"):
+            masked_complainants = []
+            for c in result["complainants"]:
+                c = dict(c)
+                c["name"] = "[VICTIM-PROTECTED]"
+                if c.get("address"):
+                    c["address"] = "[ADDRESS-PROTECTED]"
+                masked_complainants.append(c)
+            result["complainants"] = masked_complainants
+
+    if role in _UNRESTRICTED:
+        return result
+
+    # ── Role-based PII masking ─────────────────────────────────────────────
     # Sanitise free-text fields
     for field in _TEXT_FIELDS:
         if result.get(field):
@@ -79,14 +120,15 @@ def mask_pii_for_role(fir: Dict[str, Any], role: str) -> Dict[str, Any]:
 
     # Name masking for lower-privilege roles
     if role not in ("IO", "SHO"):
-        if result.get("complainant_name"):
+        # Only mask if not already victim-protected
+        if result.get("complainant_name") and result["complainant_name"] != "[VICTIM-PROTECTED]":
             result["complainant_name"] = _mask_name(result["complainant_name"])
         # Also mask complainants list entries
         if result.get("complainants"):
             masked = []
             for c in result["complainants"]:
                 c = dict(c)
-                if c.get("name"):
+                if c.get("name") and c["name"] != "[VICTIM-PROTECTED]":
                     c["name"] = _mask_name(c["name"])
                 masked.append(c)
             result["complainants"] = masked

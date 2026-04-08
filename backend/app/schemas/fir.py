@@ -210,6 +210,14 @@ class FIRResponse(BaseModel):
     source_system: str
     created_at: datetime
 
+    # Sprint 2 — NLP fields
+    status: Optional[str] = None
+    nlp_metadata: Optional[dict] = None
+    nlp_classification: Optional[str] = None
+    nlp_confidence: Optional[float] = None
+    nlp_classified_at: Optional[datetime] = None
+    nlp_classified_by: Optional[str] = None
+
     complainants: List[Complainant] = Field(default_factory=list)
     accused: List[Accused] = Field(default_factory=list)
 

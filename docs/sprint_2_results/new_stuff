@@ -1,0 +1,18 @@
+New API Features
+POST /predict/classify — Submit any FIR text and get back a crime category (theft, murder, fraud, etc.), confidence score, and detected language. Can optionally persist the result directly to a FIR record.
+GET /predict/model-info — See which model variant is active and the full list of supported crime categories.
+PATCH /firs/{id}/classification — SHO/DYSP/SP/ADMIN can manually correct or set the NLP classification on any FIR (writes an audit trail).
+GET /dashboard/stats — Dashboard stats are now live (previously hardcoded zeros). Returns total FIRs, pending review count, districts, average completeness %, and FIRs ingested today — all district-scoped for IO/SHO roles.
+New UI Features
+FIR Browse Table — The FIR page now has a full paginated table below the upload zone. Shows FIR number, district, police station, status badge, NLP category badge, completeness, and date. Has a district filter input.
+FIR Detail Slide-over — Clicking "View" on any FIR row opens a right-side panel with all fields, NLP classification + confidence %, and the full narrative.
+Live Dashboard Cards — Two new stat cards: "Completeness Avg" and "Ingested Today" (previously both showed "—").
+New Security Feature
+Victim Identity Protection (BNS §73) — If a FIR contains any sexual offence section (BNS §63-99 or IPC §376 family), the complainant name becomes [VICTIM-PROTECTED] and the address becomes [ADDRESS-PROTECTED] for all roles including SP and ADMIN. Previously this masking did not exist.
+New Infrastructure
+Label Studio (port 8080) — Self-hosted annotation tool for building the training dataset.
+MLflow (port 5000) — Experiment tracking for future fine-tuning runs. Both start with docker compose up.
+New Developer Tools
+batch_import_firs.py — Bulk-import a folder of eGujCop PDFs in one command with automatic IPC→BNS section remapping.
+create_gold_standard.py — Stratified-sample 200 FIRs from the DB for annotation.
+setup_labelstudio.py — Creates both annotation projects in Label Studio automatically.
