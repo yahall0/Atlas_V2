@@ -8,9 +8,11 @@ and returns the created FIR record.
 from __future__ import annotations
 
 import logging
+from datetime import datetime, timezone
 
-from fastapi import APIRouter, HTTPException, UploadFile, File, status
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 
+from app.core.rbac import Role, require_role
 from app.db.crud_fir import create_fir
 from app.db.session import get_connection
 from app.ingestion.pipeline import process_pdf
@@ -27,7 +29,10 @@ router = APIRouter(tags=["ingestion"])
     status_code=status.HTTP_201_CREATED,
     summary="Ingest a FIR PDF",
 )
-async def ingest_fir(file: UploadFile = File(...)) -> FIRResponse:
+async def ingest_fir(
+    file: UploadFile = File(...),
+    user: dict = Depends(require_role(Role.IO, Role.SHO, Role.ADMIN)),
+) -> FIRResponse:
     """Accept a PDF upload, extract and parse the FIR, then store it in the DB.
 
     Pipeline
@@ -35,7 +40,8 @@ async def ingest_fir(file: UploadFile = File(...)) -> FIRResponse:
     1. Read uploaded file bytes.
     2. Run ``process_pdf()`` → structured dict.
     3. Persist via ``create_fir()``.
-    4. Return the full ``FIRResponse``.
+    4. Write raw OCR text to MongoDB (fire-and-forget; never blocks the response).
+    5. Return the full ``FIRResponse``.
 
     The endpoint never returns 500 due to a parsing failure — if the PDF text
     cannot be fully parsed, the raw text is stored as the narrative so the
@@ -86,7 +92,6 @@ async def ingest_fir(file: UploadFile = File(...)) -> FIRResponse:
     try:
         conn = get_connection()
         created = create_fir(conn, fir_data)
-        return FIRResponse(**created)
     except HTTPException:
         raise
     except Exception as exc:
@@ -95,3 +100,26 @@ async def ingest_fir(file: UploadFile = File(...)) -> FIRResponse:
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(exc),
         )
+
+    # Fire-and-forget: persist raw OCR text to MongoDB for the ML pipeline.
+    # A failure here must never block the HTTP response.
+    try:
+        from app.db.mongo import get_raw_ocr_collection
+
+        collection = get_raw_ocr_collection()
+        await collection.insert_one(
+            {
+                "fir_id": str(created["id"]),
+                "fir_number": created.get("fir_number"),
+                "district": created.get("district"),
+                "raw_text": fir_data.get("raw_text", ""),
+                "ingested_by": user.get("username"),
+                "ingested_at": datetime.now(timezone.utc),
+            }
+        )
+    except Exception:
+        logger.warning(
+            "MongoDB write failed for fir_id=%s; continuing.", created.get("id"), exc_info=True
+        )
+
+    return FIRResponse(**created)

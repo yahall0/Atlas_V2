@@ -243,13 +243,21 @@ def create_fir(conn: PgConnection, fir_data: Dict[str, Any]) -> Dict[str, Any]:
     return fir_row
 
 
-def get_fir_by_id(conn: PgConnection, fir_id: str) -> Optional[Dict[str, Any]]:
+def get_fir_by_id(conn: PgConnection, fir_id: str, district: Optional[str] = None) -> Optional[Dict[str, Any]]:
     """Retrieve a single FIR by its UUID primary key.
 
+    When *district* is provided only FIRs belonging to that district are
+    returned, enforcing row-level security for IO/SHO roles.
     Returns ``None`` when no matching record exists.
     """
     with _dict_cursor(conn) as cur:
-        cur.execute("SELECT * FROM firs WHERE id = %s", (fir_id,))
+        if district is not None:
+            cur.execute(
+                "SELECT * FROM firs WHERE id = %s AND district = %s",
+                (fir_id, district),
+            )
+        else:
+            cur.execute("SELECT * FROM firs WHERE id = %s", (fir_id,))
         row = cur.fetchone()
 
     if row is None:
@@ -261,7 +269,10 @@ def get_fir_by_id(conn: PgConnection, fir_id: str) -> Optional[Dict[str, Any]]:
 
 
 def list_firs(
-    conn: PgConnection, limit: int = 10, offset: int = 0
+    conn: PgConnection,
+    limit: int = 10,
+    offset: int = 0,
+    district: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
     """Return a paginated list of FIRs (without nested entities for performance).
 
@@ -271,11 +282,19 @@ def list_firs(
         Maximum number of records to return (capped at 100, default 10).
     offset:
         Number of records to skip (default 0).
+    district:
+        When set, only FIRs for that district are returned (IO/SHO scope).
     """
     limit = min(limit, 100)  # guard against runaway queries
     with _dict_cursor(conn) as cur:
-        cur.execute(
-            "SELECT * FROM firs ORDER BY created_at DESC LIMIT %s OFFSET %s",
-            (limit, offset),
-        )
+        if district is not None:
+            cur.execute(
+                "SELECT * FROM firs WHERE district = %s ORDER BY created_at DESC LIMIT %s OFFSET %s",
+                (district, limit, offset),
+            )
+        else:
+            cur.execute(
+                "SELECT * FROM firs ORDER BY created_at DESC LIMIT %s OFFSET %s",
+                (limit, offset),
+            )
         return [dict(r) for r in cur.fetchall()]

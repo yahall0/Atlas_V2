@@ -15,8 +15,22 @@ from unittest.mock import patch, MagicMock
 import pytest
 from fastapi.testclient import TestClient
 from app.main import app
+from app.core.rbac import get_current_user as _rbac_get_current_user
 
 client = TestClient(app)
+
+
+@pytest.fixture(autouse=True)
+def _auth_override():
+    """Override RBAC for all ingest tests so they run without a real JWT."""
+    app.dependency_overrides[_rbac_get_current_user] = lambda: {
+        "username": "test_admin",
+        "role": "ADMIN",
+        "district": "Ahmedabad",
+        "full_name": "Test Admin",
+    }
+    yield
+    app.dependency_overrides.pop(_rbac_get_current_user, None)
 
 # Check if ingestion modules are available
 try:

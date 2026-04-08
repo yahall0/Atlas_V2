@@ -1,3 +1,6 @@
+import logging
+
+import structlog
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -7,6 +10,21 @@ from app.api.v1.auth import router as auth_router
 from app.api.v1.chargesheet import router as chargesheet_router
 from app.api.v1.sop import router as sop_router
 from app.api.v1.dashboard import router as dashboard_router
+
+structlog.configure(
+    processors=[
+        structlog.stdlib.add_log_level,
+        structlog.stdlib.add_logger_name,
+        structlog.processors.TimeStamper(fmt="iso"),
+        structlog.processors.JSONRenderer(),
+    ],
+    wrapper_class=structlog.stdlib.BoundLogger,
+    context_class=dict,
+    logger_factory=structlog.stdlib.LoggerFactory(),
+)
+logging.basicConfig(level=logging.INFO)
+
+logger = structlog.get_logger(__name__)
 
 app = FastAPI(title="ATLAS API", version="0.1.0")
 
@@ -40,7 +58,7 @@ except ImportError:
 
 @app.on_event("startup")
 def startup_event():
-    print("ATLAS backend starting...")
+    logger.info("ATLAS backend starting")
 
 
 @app.get("/")

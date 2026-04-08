@@ -15,6 +15,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 from fastapi.testclient import TestClient
 
+from app.core.rbac import get_current_user as _rbac_get_current_user
 from app.main import app
 
 # ─────────────────────────────────────────────
@@ -56,12 +57,19 @@ def _fake_create_fir(conn: Any, fir_data: Dict[str, Any]) -> Dict[str, Any]:
     return record
 
 
-def _fake_get_fir_by_id(conn: Any, fir_id: str) -> Optional[Dict[str, Any]]:
-    return _STORE.get(fir_id)
+def _fake_get_fir_by_id(conn: Any, fir_id: str, district: Optional[str] = None) -> Optional[Dict[str, Any]]:
+    record = _STORE.get(fir_id)
+    if record is None:
+        return None
+    if district is not None and record.get("district") != district:
+        return None
+    return record
 
 
-def _fake_list_firs(conn: Any, limit: int = 10, offset: int = 0) -> List[Dict[str, Any]]:
+def _fake_list_firs(conn: Any, limit: int = 10, offset: int = 0, district: Optional[str] = None) -> List[Dict[str, Any]]:
     rows = list(_STORE.values())
+    if district is not None:
+        rows = [r for r in rows if r.get("district") == district]
     return rows[offset:offset + limit]
 
 
@@ -80,8 +88,15 @@ def _clear_store():
 
 @pytest.fixture()
 def client():
-    """Return a TestClient with CRUD and session patched."""
+    """Return a TestClient with CRUD, session, and RBAC patched."""
     mock_conn = MagicMock()
+    # Override RBAC so endpoints don't need a real JWT in tests
+    app.dependency_overrides[_rbac_get_current_user] = lambda: {
+        "username": "test_admin",
+        "role": "ADMIN",
+        "district": "Ahmedabad",
+        "full_name": "Test Admin",
+    }
     with (
         patch("app.api.v1.firs.get_connection", return_value=mock_conn),
         patch("app.api.v1.firs.create_fir", side_effect=_fake_create_fir),
@@ -89,6 +104,7 @@ def client():
         patch("app.api.v1.firs.list_firs", side_effect=_fake_list_firs),
     ):
         yield TestClient(app)
+    app.dependency_overrides.pop(_rbac_get_current_user, None)
 
 
 # ─────────────────────────────────────────────
