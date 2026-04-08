@@ -93,7 +93,8 @@ CREATE TABLE IF NOT EXISTS firs (
     nlp_classification  TEXT,
     nlp_confidence      NUMERIC(5,4),
     nlp_classified_at   TIMESTAMP,
-    nlp_classified_by   TEXT
+    nlp_classified_by   TEXT,
+    nlp_model_version   TEXT
 );
 
 CREATE INDEX IF NOT EXISTS idx_fir_number  ON firs (fir_number);

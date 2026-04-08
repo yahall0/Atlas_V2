@@ -23,6 +23,8 @@ motor>=3.3
 fasttext-wheel==0.9.2
 indic-nlp-library==0.91
 transformers>=4.38.0
+datasets>=2.18.0
+accelerate>=1.1.0
 # torch is installed separately in the Dockerfile using the CPU-only wheel
 sentencepiece>=0.1.99
 mlflow>=2.10.2

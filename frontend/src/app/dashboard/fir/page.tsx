@@ -4,9 +4,15 @@ import { useCallback, useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { AlertTriangle } from "lucide-react";
 import { apiClient } from "@/lib/api";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
+interface NlpMeta {
+  mismatch?: boolean;
+  section_inferred_category?: string | null;
+}
 
 interface FIRResult {
   id?: string;
@@ -20,6 +26,7 @@ interface FIRResult {
   status?: string;
   nlp_classification?: string;
   nlp_confidence?: number;
+  nlp_metadata?: NlpMeta;
   created_at?: string;
 }
 
@@ -27,6 +34,7 @@ const STATUS_COLOURS: Record<string, string> = {
   pending: "bg-yellow-100 text-yellow-800",
   classified: "bg-green-100 text-green-800",
   reviewed: "bg-blue-100 text-blue-800",
+  review_needed: "bg-amber-100 text-amber-800",
 };
 
 export default function FIRPage() {
@@ -247,7 +255,34 @@ export default function FIRPage() {
                   </td>
                   <td className="px-4 py-3">
                     {fir.nlp_classification ? (
-                      <Badge variant="outline">{fir.nlp_classification}</Badge>
+                      <div className="flex flex-col gap-1 min-w-[120px]">
+                        <div className="flex items-center gap-1.5">
+                          <Badge variant="outline">{fir.nlp_classification}</Badge>
+                          {fir.nlp_metadata?.mismatch && (
+                            <span title="Section mismatch detected">
+                              <AlertTriangle className="w-3.5 h-3.5 text-amber-500" />
+                            </span>
+                          )}
+                        </div>
+                        {fir.nlp_metadata?.mismatch && fir.nlp_metadata.section_inferred_category && (
+                          <span className="text-[10px] text-amber-700 bg-amber-50 border border-amber-200 rounded px-1.5 py-0.5">
+                            sections → {fir.nlp_metadata.section_inferred_category}
+                          </span>
+                        )}
+                        {fir.nlp_confidence != null && (
+                          <div className="flex items-center gap-1">
+                            <div className="flex-1 h-1.5 rounded-full bg-gray-200 overflow-hidden">
+                              <div
+                                className="h-full rounded-full bg-blue-500"
+                                style={{ width: `${Math.round(fir.nlp_confidence * 100)}%` }}
+                              />
+                            </div>
+                            <span className="text-xs text-muted-foreground tabular-nums w-9 text-right">
+                              {Math.round(fir.nlp_confidence * 100)}%
+                            </span>
+                          </div>
+                        )}
+                      </div>
                     ) : (
                       <span className="text-muted-foreground">—</span>
                     )}
@@ -331,12 +366,26 @@ export default function FIRPage() {
 
               {selectedFir.nlp_classification && (
                 <div className="border rounded p-3 mt-4 bg-gray-50">
-                  <p className="font-medium mb-1">NLP Classification</p>
-                  <Badge>{selectedFir.nlp_classification}</Badge>
-                  {selectedFir.nlp_confidence != null && (
-                    <p className="text-muted-foreground mt-1">
-                      Confidence: {(selectedFir.nlp_confidence * 100).toFixed(1)}%
-                    </p>
+                  <p className="font-medium mb-2">NLP Classification</p>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <Badge>{selectedFir.nlp_classification}</Badge>
+                    {selectedFir.nlp_confidence != null && (
+                      <span className="text-xs text-muted-foreground">
+                        {(selectedFir.nlp_confidence * 100).toFixed(1)}% confidence
+                      </span>
+                    )}
+                  </div>
+                  {selectedFir.nlp_metadata?.mismatch && (
+                    <div className="mt-3 flex items-start gap-2 p-2.5 rounded-lg bg-amber-50 border border-amber-200">
+                      <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                      <div className="text-xs">
+                        <p className="font-semibold text-amber-800">Section mismatch detected</p>
+                        <p className="text-amber-700 mt-0.5">
+                          The narrative text suggests <strong>{selectedFir.nlp_classification}</strong>, but the registered sections ({selectedFir.primary_sections?.join(", ") ?? "—"}) imply <strong>{selectedFir.nlp_metadata.section_inferred_category ?? "unknown"}</strong>.
+                          This FIR has been flagged for review.
+                        </p>
+                      </div>
+                    </div>
                   )}
                 </div>
               )}

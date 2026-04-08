@@ -16,6 +16,9 @@ from app.core.rbac import Role, require_role
 from app.db.crud_fir import create_fir
 from app.db.session import get_connection
 from app.ingestion.pipeline import process_pdf
+from app.nlp.classify import classify_fir
+from app.nlp.language import normalise_text
+from app.nlp.section_map import infer_category_from_sections
 from app.schemas.fir import FIRResponse
 
 logger = logging.getLogger(__name__)
@@ -120,6 +123,87 @@ async def ingest_fir(
     except Exception:
         logger.warning(
             "MongoDB write failed for fir_id=%s; continuing.", created.get("id"), exc_info=True
+        )
+
+    # Auto-classify the narrative and detect section mismatches — non-fatal
+    try:
+        narrative = fir_data.get("narrative", "")
+        if narrative and narrative != "[No extractable text from PDF]":
+            normalised = normalise_text(narrative)
+            prediction = classify_fir(normalised, log_to_mlflow=False)
+
+            import os as _os
+            import json as _json
+            from pathlib import Path as _Path
+
+            checkpoint = _os.getenv("INDIC_BERT_CHECKPOINT", "")
+            model_version = None
+            if checkpoint:
+                _mp = _Path(checkpoint) / "evaluation_metrics.json"
+                if _mp.exists():
+                    try:
+                        model_version = _json.loads(_mp.read_text()).get("model_version")
+                    except Exception:
+                        pass
+
+            # Compare NLP prediction against registered sections
+            section_category = infer_category_from_sections(
+                fir_data.get("primary_act"),
+                fir_data.get("primary_sections") or [],
+            )
+
+            mismatch = (
+                section_category is not None
+                and prediction.category != section_category
+            )
+            new_status = "review_needed" if mismatch else "classified"
+
+            if mismatch:
+                logger.warning(
+                    "Section mismatch for fir_id=%s: NLP=%s, sections imply=%s — flagged review_needed",
+                    created.get("id"), prediction.category, section_category,
+                )
+
+            fir_id = created.get("id")
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    UPDATE firs
+                    SET
+                        nlp_classification = %s,
+                        nlp_confidence     = %s,
+                        nlp_classified_at  = %s,
+                        nlp_classified_by  = %s,
+                        nlp_model_version  = %s,
+                        nlp_metadata       = nlp_metadata || %s::jsonb,
+                        status             = %s
+                    WHERE id = %s
+                    """,
+                    (
+                        prediction.category,
+                        float(prediction.confidence),
+                        datetime.now(timezone.utc).replace(tzinfo=None),
+                        "auto_ingest",
+                        model_version,
+                        _json.dumps({
+                            "section_inferred_category": section_category,
+                            "mismatch": mismatch,
+                        }),
+                        new_status,
+                        fir_id,
+                    ),
+                )
+            conn.commit()
+            logger.info(
+                "Auto-classified fir_id=%s → %s (%.2f) status=%s",
+                fir_id, prediction.category, prediction.confidence, new_status,
+            )
+            created["nlp_classification"] = prediction.category
+            created["nlp_confidence"] = float(prediction.confidence)
+    except Exception:
+        logger.warning(
+            "Auto-classification failed for fir_id=%s; FIR saved without NLP category.",
+            created.get("id"), exc_info=True
         )
 
     return FIRResponse(**created)

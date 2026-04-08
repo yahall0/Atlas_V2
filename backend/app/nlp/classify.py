@@ -16,6 +16,7 @@ from __future__ import annotations
 import logging
 import os
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Optional
 
 import mlflow  # type: ignore
@@ -23,7 +24,7 @@ import mlflow  # type: ignore
 logger = logging.getLogger(__name__)
 
 _CHECKPOINT = os.getenv("INDIC_BERT_CHECKPOINT", "")
-_INDIC_BERT_MODEL = os.getenv("INDIC_BERT_MODEL", "ai4bharat/indic-bert")
+_INDIC_BERT_MODEL = os.getenv("INDIC_BERT_MODEL", "google/muril-base-cased")
 _CACHE_DIR = os.getenv("TRANSFORMERS_CACHE", "/transformers_cache")
 _MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI", "http://mlflow:5000")
 
@@ -119,7 +120,15 @@ class ATLASClassifier:
                 self.checkpoint, cache_dir=_CACHE_DIR
             )
             self._model.eval()
-            self._id2label = self._model.config.id2label or {}
+            self._id2label = dict(self._model.config.id2label or {})
+            # Fall back to label_map.json if config.id2label is empty
+            if not self._id2label:
+                _label_map_path = Path(self.checkpoint) / "label_map.json"
+                if _label_map_path.exists():
+                    import json as _json
+                    _label_map = _json.loads(_label_map_path.read_text(encoding="utf-8"))
+                    self._id2label = {v: k for k, v in _label_map.items()}
+                    logger.info("Loaded id2label from label_map.json (%d labels)", len(self._id2label))
             logger.info("ATLASClassifier model loaded from %s", self.checkpoint)
         except Exception as exc:
             logger.warning(

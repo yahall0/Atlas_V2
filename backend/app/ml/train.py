@@ -29,12 +29,13 @@ import json
 import logging
 import os
 import random
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
 logger = logging.getLogger(__name__)
 
-_INDIC_BERT_MODEL = os.getenv("INDIC_BERT_MODEL", "ai4bharat/indic-bert")
+_INDIC_BERT_MODEL = os.getenv("INDIC_BERT_MODEL", "google/muril-base-cased")
 _CACHE_DIR = os.getenv("TRANSFORMERS_CACHE", "/transformers_cache")
 _MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI", "http://mlflow:5000")
 
@@ -81,7 +82,7 @@ def split_data(rows: list[dict], seed: int = 42) -> tuple[list, list, list]:
 # ---------------------------------------------------------------------------
 
 
-def _make_hf_dataset(rows: list[dict], label_map: dict[str, int], tokenizer):
+def _make_hf_dataset(rows: list[dict], label_map: dict[str, int], tokenizer, max_length: int = 128):
     """Convert a list of row dicts into a HuggingFace Dataset."""
     from datasets import Dataset  # type: ignore
 
@@ -89,7 +90,7 @@ def _make_hf_dataset(rows: list[dict], label_map: dict[str, int], tokenizer):
     labels = [label_map[r[CSV_LABEL_COL]] for r in rows]
     encoded = tokenizer(
         texts,
-        max_length=512,
+        max_length=max_length,
         truncation=True,
         padding="max_length",
     )
@@ -109,9 +110,44 @@ def _compute_metrics(eval_pred):
 
     logits, labels = eval_pred
     preds = np.argmax(logits, axis=-1)
-    acc = accuracy_score(labels, preds)
-    f1 = f1_score(labels, preds, average="macro", zero_division=0)
+    acc = float(accuracy_score(labels, preds))
+    f1 = float(f1_score(labels, preds, average="macro", zero_division=0))
     return {"accuracy": acc, "f1_macro": f1}
+
+
+def _class_weights(rows: list[dict], label_map: dict[str, int]):
+    """Compute inverse-frequency class weights as a torch.Tensor."""
+    import torch  # type: ignore
+
+    counts = [0] * len(label_map)
+    for r in rows:
+        counts[label_map[r[CSV_LABEL_COL]]] += 1
+    total = sum(counts)
+    weights = [total / (len(counts) * max(c, 1)) for c in counts]
+    return torch.tensor(weights, dtype=torch.float)
+
+
+class WeightedTrainer:  # type: ignore
+    """HuggingFace Trainer subclass that applies class-weight loss."""
+
+    # Will be set before instantiation
+    _class_weights = None
+
+    def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
+        import torch  # type: ignore
+        import torch.nn as nn  # type: ignore
+
+        labels = inputs.pop("labels")
+        outputs = model(**inputs)
+        logits = outputs.logits
+        device = logits.device
+        weights = (
+            self._class_weights.to(device)
+            if self._class_weights is not None
+            else None
+        )
+        loss = nn.CrossEntropyLoss(weight=weights)(logits, labels)
+        return (loss, outputs) if return_outputs else loss
 
 
 # ---------------------------------------------------------------------------
@@ -124,9 +160,13 @@ def train(
     output_dir: str,
     *,
     epochs: int = 3,
-    batch_size: int = 16,
+    batch_size: int = 2,
     lr: float = 2e-5,
     dry_run: bool = False,
+    cpu_mode: bool = False,
+    max_samples: Optional[int] = None,
+    use_class_weights: bool = True,
+    max_length: int = 128,
 ) -> None:
     """Fine-tune IndicBERT and save the checkpoint.
 
@@ -153,8 +193,15 @@ def train(
         TrainingArguments,
     )
 
+    if cpu_mode:
+        os.environ["CUDA_VISIBLE_DEVICES"] = ""
+        logger.info("CPU mode enabled — CUDA disabled.")
+
     mlflow.set_tracking_uri(_MLFLOW_TRACKING_URI)
-    mlflow.transformers.autolog()
+    try:
+        mlflow.transformers.autolog()
+    except Exception as _autolog_exc:
+        logger.warning("mlflow.transformers.autolog() unavailable (%s) — using manual logging.", _autolog_exc)
 
     logger.info("Loading tokeniser from %s …", _INDIC_BERT_MODEL)
     tokenizer = AutoTokenizer.from_pretrained(_INDIC_BERT_MODEL, cache_dir=_CACHE_DIR)
@@ -169,15 +216,20 @@ def train(
     if not rows:
         raise ValueError(f"No valid rows found in {data_path}")
 
+    if max_samples and max_samples < len(rows):
+        random.shuffle(rows)
+        rows = rows[:max_samples]
+        logger.info("Capped to %d samples (--max_samples).", max_samples)
+
     label_map = build_label_map(rows)
     id2label = {v: k for k, v in label_map.items()}
     num_labels = len(label_map)
     logger.info("Labels (%d): %s", num_labels, list(label_map.keys()))
 
     train_rows, val_rows, test_rows = split_data(rows)
-    train_ds = _make_hf_dataset(train_rows, label_map, tokenizer)
-    val_ds = _make_hf_dataset(val_rows, label_map, tokenizer)
-    test_ds = _make_hf_dataset(test_rows, label_map, tokenizer)
+    train_ds = _make_hf_dataset(train_rows, label_map, tokenizer, max_length=max_length)
+    val_ds = _make_hf_dataset(val_rows, label_map, tokenizer, max_length=max_length)
+    test_ds = _make_hf_dataset(test_rows, label_map, tokenizer, max_length=max_length)
 
     logger.info("Train=%d Val=%d Test=%d", len(train_rows), len(val_rows), len(test_rows))
 
@@ -188,23 +240,43 @@ def train(
         label2id=label_map,
         cache_dir=_CACHE_DIR,
     )
+    # Reduce peak memory during backprop (trades compute for memory)
+    model.gradient_checkpointing_enable()
 
     training_args = TrainingArguments(
         output_dir=output_dir,
         num_train_epochs=epochs,
         per_device_train_batch_size=batch_size,
         per_device_eval_batch_size=batch_size,
+        gradient_accumulation_steps=4,
         learning_rate=lr,
-        evaluation_strategy="epoch",
+        eval_strategy="epoch",
         save_strategy="epoch",
         load_best_model_at_end=True,
         metric_for_best_model="f1_macro",
         greater_is_better=True,
-        logging_dir=str(Path(output_dir) / "logs"),
         report_to=["mlflow"],
+        use_cpu=cpu_mode,
+        dataloader_num_workers=0,
     )
 
-    trainer = Trainer(
+    from transformers import Trainer as _BaseTrainer  # type: ignore
+
+    TrainerClass = _BaseTrainer
+    if use_class_weights:
+        try:
+            cw = _class_weights(train_rows, label_map)
+            WeightedTrainer._class_weights = cw
+
+            class _WeightedTrainer(WeightedTrainer, _BaseTrainer):  # type: ignore
+                pass
+
+            TrainerClass = _WeightedTrainer
+            logger.info("Using class-weighted loss.")
+        except Exception as exc:
+            logger.warning("Could not apply class weights: %s", exc)
+
+    trainer = TrainerClass(
         model=model,
         args=training_args,
         train_dataset=train_ds,
@@ -212,33 +284,79 @@ def train(
         compute_metrics=_compute_metrics,
     )
 
-    with mlflow.start_run(run_name="atlas_bert_finetune"):
-        mlflow.log_params(
-            {
-                "base_model": _INDIC_BERT_MODEL,
-                "epochs": epochs,
-                "batch_size": batch_size,
-                "lr": lr,
-                "train_size": len(train_rows),
-                "num_labels": num_labels,
-            }
-        )
-        trainer.train()
-        results = trainer.evaluate(test_ds)
-        mlflow.log_metrics(
-            {
-                "test_accuracy": results.get("eval_accuracy", 0.0),
-                "test_f1_macro": results.get("eval_f1_macro", 0.0),
-            }
-        )
+    # Run training — trainer.train() is always executed
+    trainer.train()
+    results = trainer.evaluate(test_ds)
+    test_acc = results.get("eval_accuracy", 0.0)
+    test_f1 = results.get("eval_f1_macro", 0.0)
 
-    # Save checkpoint + label map
+    # MLflow logging is best-effort — never block the checkpoint save
+    try:
+        with mlflow.start_run(run_name="atlas_bert_finetune"):
+            mlflow.log_params(
+                {
+                    "base_model": _INDIC_BERT_MODEL,
+                    "epochs": epochs,
+                    "batch_size": batch_size,
+                    "lr": lr,
+                    "train_size": len(train_rows),
+                    "num_labels": num_labels,
+                    "cpu_mode": cpu_mode,
+                    "max_samples": max_samples,
+                }
+            )
+            mlflow.log_metrics({"test_accuracy": test_acc, "test_f1_macro": test_f1})
+
+            try:
+                import numpy as np  # type: ignore
+                from sklearn.metrics import classification_report, confusion_matrix  # type: ignore
+
+                preds_output = trainer.predict(test_ds)
+                y_pred = np.argmax(preds_output.predictions, axis=-1)
+                y_true = preds_output.label_ids
+                cm = confusion_matrix(y_true, y_pred).tolist()
+                cr = classification_report(
+                    y_true, y_pred,
+                    target_names=[id2label[i] for i in range(num_labels)],
+                    output_dict=True,
+                    zero_division=0,
+                )
+                artifacts_dir = Path(output_dir) / "artifacts"
+                artifacts_dir.mkdir(parents=True, exist_ok=True)
+                (artifacts_dir / "confusion_matrix.json").write_text(
+                    json.dumps(cm), encoding="utf-8"
+                )
+                (artifacts_dir / "classification_report.json").write_text(
+                    json.dumps(cr, ensure_ascii=False), encoding="utf-8"
+                )
+                mlflow.log_artifacts(str(artifacts_dir), artifact_path="evaluation")
+            except Exception as exc:
+                logger.warning("Could not generate confusion matrix: %s", exc)
+    except Exception as exc:
+        logger.warning("MLflow logging failed (non-fatal): %s", exc)
+
+    # Save checkpoint + label map + evaluation metrics
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
     trainer.save_model(str(out))
     tokenizer.save_pretrained(str(out))
-    (out / "label_map.json").write_text(json.dumps(label_map, ensure_ascii=False), encoding="utf-8")
-    logger.info("Checkpoint saved to %s", output_dir)
+    (out / "label_map.json").write_text(
+        json.dumps(label_map, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    eval_metrics = {
+        "model_version": Path(output_dir).name,
+        "base_model": _INDIC_BERT_MODEL,
+        "best_val_f1": test_f1,
+        "test_accuracy": test_acc,
+        "num_labels": num_labels,
+        "train_size": len(train_rows),
+        "training_date": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "epochs": epochs,
+    }
+    (out / "evaluation_metrics.json").write_text(
+        json.dumps(eval_metrics, indent=2), encoding="utf-8"
+    )
+    logger.info("Checkpoint + metrics saved to %s", output_dir)
 
 
 # ---------------------------------------------------------------------------
@@ -254,6 +372,10 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size", type=int, default=16)
     parser.add_argument("--lr", type=float, default=2e-5)
     parser.add_argument("--dry_run", action="store_true", help="Validate pipeline without training")
+    parser.add_argument("--cpu_mode", action="store_true", help="Disable CUDA (CPU-only training)")
+    parser.add_argument("--max_samples", type=int, default=None, help="Cap dataset rows (for testing)")
+    parser.add_argument("--no_class_weights", action="store_true", help="Disable class-weight balancing")
+    parser.add_argument("--max_length", type=int, default=128, help="Max token length for tokenizer")
     args = parser.parse_args()
     train(
         args.data_path,
@@ -262,4 +384,8 @@ if __name__ == "__main__":
         batch_size=args.batch_size,
         lr=args.lr,
         dry_run=args.dry_run,
+        cpu_mode=args.cpu_mode,
+        max_samples=args.max_samples,
+        use_class_weights=not args.no_class_weights,
+        max_length=args.max_length,
     )

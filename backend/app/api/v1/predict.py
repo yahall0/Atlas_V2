@@ -11,8 +11,11 @@ GET /predict/model-info
 
 from __future__ import annotations
 
+import json as _json
 import logging
+import os
 from datetime import datetime, timezone
+from pathlib import Path as _Path
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -67,6 +70,9 @@ class ModelInfoResponse(BaseModel):
     model_variant: str
     categories: list[str]
     status: str
+    model_version: Optional[str] = None
+    best_f1: Optional[float] = None
+    training_date: Optional[str] = None
 
 
 # ---------------------------------------------------------------------------
@@ -84,6 +90,18 @@ def _persist_classification(
 
     Returns ``True`` on success, ``False`` if the FIR was not found.
     """
+    checkpoint = os.getenv("INDIC_BERT_CHECKPOINT", "")
+    model_version: Optional[str] = None
+    if checkpoint:
+        _metrics_path = _Path(checkpoint) / "evaluation_metrics.json"
+        if _metrics_path.exists():
+            try:
+                model_version = _json.loads(
+                    _metrics_path.read_text(encoding="utf-8")
+                ).get("model_version")
+            except Exception:
+                pass
+
     sql = """
         UPDATE firs
         SET
@@ -91,6 +109,7 @@ def _persist_classification(
             nlp_confidence      = %(confidence)s,
             nlp_classified_at   = %(classified_at)s,
             nlp_classified_by   = %(classified_by)s,
+            nlp_model_version   = %(model_version)s,
             status              = 'classified',
             nlp_metadata        = nlp_metadata || %(meta)s::jsonb
         WHERE id = %(fir_id)s
@@ -102,6 +121,7 @@ def _persist_classification(
         "confidence": float(prediction.confidence),
         "classified_at": datetime.now(timezone.utc).replace(tzinfo=None),
         "classified_by": classified_by,
+        "model_version": model_version,
         "meta": '{"method": "' + prediction.method + '"}',
     }
     try:
@@ -200,12 +220,28 @@ def model_info_endpoint(
     _user: dict = Depends(get_current_user),
 ) -> ModelInfoResponse:
     """Return metadata about the currently active classification model."""
-    import os
-
     checkpoint = os.getenv("INDIC_BERT_CHECKPOINT", "")
     variant = checkpoint if checkpoint else "ai4bharat/indic-bert (heuristic fallback)"
+    model_version: Optional[str] = None
+    best_f1: Optional[float] = None
+    training_date: Optional[str] = None
+
+    if checkpoint:
+        _metrics_path = _Path(checkpoint) / "evaluation_metrics.json"
+        if _metrics_path.exists():
+            try:
+                _m = _json.loads(_metrics_path.read_text(encoding="utf-8"))
+                model_version = _m.get("model_version")
+                best_f1 = _m.get("best_val_f1")
+                training_date = _m.get("training_date")
+            except Exception as exc:
+                logger.warning("Could not read evaluation_metrics.json: %s", exc)
+
     return ModelInfoResponse(
         model_variant=variant,
         categories=ATLAS_CATEGORIES,
         status="heuristic" if not checkpoint else "fine-tuned",
+        model_version=model_version,
+        best_f1=best_f1,
+        training_date=training_date,
     )
