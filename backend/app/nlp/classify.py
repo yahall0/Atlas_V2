@@ -26,6 +26,11 @@ logger = logging.getLogger(__name__)
 _CHECKPOINT = os.getenv("INDIC_BERT_CHECKPOINT", "")
 _INDIC_BERT_MODEL = os.getenv("INDIC_BERT_MODEL", "google/muril-base-cased")
 _CACHE_DIR = os.getenv("TRANSFORMERS_CACHE", "/transformers_cache")
+
+# Minimum softmax confidence for a model prediction to be accepted.
+# 1/11 classes ≈ 0.091 is random chance; anything below 0.25 is treated as
+# near-random and falls back to keyword heuristics.
+_MODEL_CONFIDENCE_THRESHOLD = float(os.getenv("NLP_CONFIDENCE_THRESHOLD", "0.25"))
 _MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI", "http://mlflow:5000")
 
 # ---------------------------------------------------------------------------
@@ -204,7 +209,14 @@ class ATLASClassifier:
             return ATLASPrediction(category="other", confidence=0.0, method="default")
 
         if self._model is not None and self._tokenizer is not None:
-            return self._model_classify(text)
+            prediction = self._model_classify(text)
+            if prediction.confidence >= _MODEL_CONFIDENCE_THRESHOLD:
+                return prediction
+            logger.debug(
+                "Model confidence %.3f below threshold %.3f; falling back to heuristics.",
+                prediction.confidence,
+                _MODEL_CONFIDENCE_THRESHOLD,
+            )
         return self._heuristic_classify(text)
 
 
