@@ -1,14 +1,13 @@
-"""FIR category classification using IndicBERT.
+"""FIR category classification.
 
-``ATLASClassifier`` wraps ``ai4bharat/indic-bert`` (fine-tuned checkpoint or
-zero-shot base) and exposes a ``classify(text)`` method that returns an
-``ATLASPrediction`` named-tuple.
+Fallback chain (best → fastest):
+  1. Fine-tuned MuRIL checkpoint (INDIC_BERT_CHECKPOINT), if confidence ≥ threshold
+  2. Zero-shot NLI (MoritzLaurer/mDeBERTa-v3-base-mnli-xnli) — no training data needed
+  3. Keyword heuristics — deterministic, always available
 
-During Sprint 2 (before fine-tuning data is ready) the classifier operates
-in *keyword heuristic* mode as a functional scaffold so that the REST API
-and DB write paths can be exercised end-to-end.  Once the fine-tuned
-checkpoint is available it is swapped in by setting the
-``INDIC_BERT_CHECKPOINT`` environment variable.
+For most FIRs, section_map.py (called in ingest.py) already provides the
+classification from registered sections.  This module handles FIRs where
+no sections are available or the section lookup returns None.
 """
 
 from __future__ import annotations
@@ -20,6 +19,8 @@ from pathlib import Path
 from typing import Optional
 
 import mlflow  # type: ignore
+
+from app.nlp.zero_shot import zero_shot_classify  # type: ignore
 
 logger = logging.getLogger(__name__)
 
@@ -213,10 +214,17 @@ class ATLASClassifier:
             if prediction.confidence >= _MODEL_CONFIDENCE_THRESHOLD:
                 return prediction
             logger.debug(
-                "Model confidence %.3f below threshold %.3f; falling back to heuristics.",
+                "Model confidence %.3f below threshold %.3f; trying zero-shot.",
                 prediction.confidence,
                 _MODEL_CONFIDENCE_THRESHOLD,
             )
+
+        # Zero-shot NLI fallback — multilingual, no training data required
+        zs = zero_shot_classify(text)
+        if zs is not None:
+            category, score = zs
+            return ATLASPrediction(category=category, confidence=score, method="zero_shot")
+
         return self._heuristic_classify(text)
 
 

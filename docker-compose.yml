@@ -16,6 +16,8 @@ services:
       - TRANSFORMERS_CACHE=/app/models/hf_cache
       - INDIC_BERT_MODEL=google/muril-base-cased
       - INDIC_BERT_CHECKPOINT=/app/models/atlas_classifier_v1
+      - ZERO_SHOT_MODEL=MoritzLaurer/mDeBERTa-v3-base-mnli-xnli
+      - ZERO_SHOT_THRESHOLD=0.20
     volumes:
       - ./backend/models:/app/models
     depends_on:
