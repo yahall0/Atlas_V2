@@ -31,6 +31,18 @@ def _dict_cursor(conn: PgConnection):
     return conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
 
+def _sanitize(value: Any) -> Any:
+    """Strip NUL bytes from strings so PostgreSQL does not reject them.
+
+    PostgreSQL raises ``ValueError: A string literal cannot contain NUL (0x00)
+    characters`` when a string value contains embedded NUL bytes, which can
+    arrive from PDF text extraction on malformed or scanned documents.
+    """
+    if isinstance(value, str):
+        return value.replace("\x00", "")
+    return value
+
+
 def _insert_complainants(
     conn: PgConnection,
     fir_id: uuid.UUID,
@@ -128,6 +140,10 @@ def create_fir(conn: PgConnection, fir_data: Dict[str, Any]) -> Dict[str, Any]:
         The created FIR row merged with its complainants and accused lists.
     """
     fir_id = uuid.uuid4()
+
+    # ── Sanitize all string values from PDF extraction ──────────────────────
+    # PDF-extracted text can contain NUL bytes (\\x00) which PostgreSQL rejects.
+    fir_data = {k: _sanitize(v) for k, v in fir_data.items()}
 
     # ── Normalise primary_sections ──────────────────────────────────────────
     primary_sections = fir_data.get("primary_sections")

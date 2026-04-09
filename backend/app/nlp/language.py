@@ -114,6 +114,9 @@ def detect_language(text: str) -> str:
 def normalise_text(text: str) -> str:
     """Apply Unicode NFC normalisation and strip leading/trailing whitespace.
 
+    Also removes NUL bytes (\\x00) which PostgreSQL rejects and can appear in
+    PDF-extracted text from malformed or scanned documents.
+
     Parameters
     ----------
     text:
@@ -121,6 +124,8 @@ def normalise_text(text: str) -> str:
     """
     if not text:
         return ""
+    # Strip NUL bytes before NFC normalisation
+    text = text.replace("\x00", "")
     return unicodedata.normalize("NFC", text).strip()
 
 
