@@ -134,20 +134,27 @@ def infer_category_from_sections(
         return "rape_sexoff"
 
     # Section-level lookup
+    import re as _re
     table = _BNS if act == "BNS" else _IPC  # default IPC for unknown acts
     categories: set[str] = set()
     for sec in sections:
+        # Normalise: remove spaces, then strip sub-clause suffixes like (a), (4),
+        # (1)(ii) so that "305(a)" matches "305" and "331(4)" matches "331".
         sec_norm = sec.strip().replace(" ", "")
-        cat = table.get(sec_norm)
-        if cat:
-            categories.add(cat)
+        sec_base = _re.sub(r'[\(\[].*$', '', sec_norm)  # strip from first ( or [
+        for key in (sec_norm, sec_base):
+            cat = table.get(key)
+            if cat:
+                categories.add(cat)
+                break
         # NDPS / IT Act / POCSO sections embedded in a mixed registration
-        if sec_norm in _NDPS_SECTIONS:
-            categories.add("narcotics")
-        if sec_norm in _IT_SECTIONS:
-            categories.add("cybercrime")
-        if sec_norm in _POCSO_SECTIONS:
-            categories.add("rape_sexoff")
+        for key in (sec_norm, sec_base):
+            if key in _NDPS_SECTIONS:
+                categories.add("narcotics")
+            if key in _IT_SECTIONS:
+                categories.add("cybercrime")
+            if key in _POCSO_SECTIONS:
+                categories.add("rape_sexoff")
 
     if not categories:
         return None

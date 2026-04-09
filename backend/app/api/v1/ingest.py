@@ -156,6 +156,13 @@ async def ingest_fir(
                 section_category is not None
                 and prediction.category != section_category
             )
+
+            # Sections are ground truth — prefer section_category when available.
+            # NLP is only used when no registered sections could be mapped.
+            final_category = section_category if section_category is not None else prediction.category
+            final_confidence = 1.0 if section_category is not None else float(prediction.confidence)
+            final_classified_by = "section_map" if section_category is not None else "auto_ingest"
+
             new_status = "review_needed" if mismatch else "classified"
 
             if mismatch:
@@ -180,13 +187,15 @@ async def ingest_fir(
                     WHERE id = %s
                     """,
                     (
-                        prediction.category,
-                        float(prediction.confidence),
+                        final_category,
+                        final_confidence,
                         datetime.now(timezone.utc).replace(tzinfo=None),
-                        "auto_ingest",
+                        final_classified_by,
                         model_version,
                         _json.dumps({
                             "section_inferred_category": section_category,
+                            "nlp_category": prediction.category,
+                            "nlp_confidence": float(prediction.confidence),
                             "mismatch": mismatch,
                         }),
                         new_status,
@@ -195,11 +204,11 @@ async def ingest_fir(
                 )
             conn.commit()
             logger.info(
-                "Auto-classified fir_id=%s → %s (%.2f) status=%s",
-                fir_id, prediction.category, prediction.confidence, new_status,
+                "Auto-classified fir_id=%s → %s (method=%s) status=%s",
+                fir_id, final_category, final_classified_by, new_status,
             )
-            created["nlp_classification"] = prediction.category
-            created["nlp_confidence"] = float(prediction.confidence)
+            created["nlp_classification"] = final_category
+            created["nlp_confidence"] = final_confidence
     except Exception:
         logger.warning(
             "Auto-classification failed for fir_id=%s; FIR saved without NLP category.",
