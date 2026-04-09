@@ -53,6 +53,11 @@ _HYPOTHESES: list[str] = list(_CANDIDATE_LABELS.values())
 # Minimum entailment score below which zero-shot result is not trusted
 _ZERO_SHOT_THRESHOLD = float(os.getenv("ZERO_SHOT_THRESHOLD", "0.20"))
 
+# Max characters fed to the NLI model. Long narratives don't improve accuracy
+# and make CPU inference extremely slow (each of 11 labels is a forward pass).
+# First ~600 chars capture the FIR header + opening facts — enough for classification.
+_MAX_INPUT_CHARS = int(os.getenv("ZERO_SHOT_MAX_CHARS", "600"))
+
 _pipeline = None  # lazy-loaded on first call
 
 
@@ -94,6 +99,9 @@ def zero_shot_classify(text: str) -> Optional[tuple[str, float]]:
     pipe = _get_pipeline()
     if pipe is None:
         return None
+
+    # Truncate to avoid extremely slow CPU inference on long narratives
+    text = text[:_MAX_INPUT_CHARS]
 
     try:
         result = pipe(

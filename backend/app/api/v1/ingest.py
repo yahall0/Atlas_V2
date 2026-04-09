@@ -130,7 +130,14 @@ async def ingest_fir(
         narrative = fir_data.get("narrative", "")
         if narrative and narrative != "[No extractable text from PDF]":
             normalised = normalise_text(narrative)
-            prediction = classify_fir(normalised, log_to_mlflow=False)
+
+            # Run synchronous ML inference in a thread so the async event loop
+            # is not blocked (zero-shot NLI on CPU can take 10-30 seconds).
+            import asyncio as _asyncio
+            loop = _asyncio.get_event_loop()
+            prediction = await loop.run_in_executor(
+                None, lambda: classify_fir(normalised, log_to_mlflow=False)
+            )
 
             import os as _os
             import json as _json
