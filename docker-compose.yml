@@ -14,8 +14,9 @@ services:
       - MLFLOW_TRACKING_URI=http://mlflow:5000
       - FASTTEXT_MODEL_PATH=/app/models/lid.176.bin
       - TRANSFORMERS_CACHE=/app/models/hf_cache
+      - HF_HUB_CACHE=/app/models/hf_cache
       - INDIC_BERT_MODEL=google/muril-base-cased
-      - INDIC_BERT_CHECKPOINT=/app/models/atlas_classifier_v1
+      - INDIC_BERT_CHECKPOINT=
       - ZERO_SHOT_MODEL=MoritzLaurer/mDeBERTa-v3-base-mnli-xnli
       - ZERO_SHOT_THRESHOLD=0.20
     volumes:
