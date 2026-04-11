@@ -182,8 +182,8 @@ export default function FIRPage() {
         <Card className="mb-6">
           <CardHeader>
             <CardTitle>
-              Extracted FIR Data
-              {result.completeness_pct !== undefined && (
+              {result.narrative?.startsWith("[Processing") ? "FIR Upload Accepted" : "Extracted FIR Data"}
+              {result.completeness_pct !== undefined && result.completeness_pct > 0 && (
                 <Badge className="ml-2" variant="secondary">
                   {result.completeness_pct}% complete
                 </Badge>
@@ -191,13 +191,19 @@ export default function FIRPage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            {result.fir_number && <p><span className="font-medium">FIR Number:</span> {result.fir_number}</p>}
-            {result.district && <p><span className="font-medium">District:</span> {result.district}</p>}
-            {result.police_station && <p><span className="font-medium">Police Station:</span> {result.police_station}</p>}
-            {result.primary_sections && result.primary_sections.length > 0 && (
-              <p><span className="font-medium">Sections:</span> {result.primary_sections.join(", ")}</p>
+            {result.narrative?.startsWith("[Processing") ? (
+              <p className="text-muted-foreground">PDF is being processed in the background. Refresh the page in a few seconds to see extracted data.</p>
+            ) : (
+              <>
+                {result.fir_number && <p><span className="font-medium">FIR Number:</span> {result.fir_number}</p>}
+                {result.district && <p><span className="font-medium">District:</span> {result.district}</p>}
+                {result.police_station && <p><span className="font-medium">Police Station:</span> {result.police_station}</p>}
+                {result.primary_sections && result.primary_sections.length > 0 && (
+                  <p><span className="font-medium">Sections:</span> {result.primary_sections.join(", ")}</p>
+                )}
+                {result.complainant_name && <p><span className="font-medium">Complainant:</span> {result.complainant_name}</p>}
+              </>
             )}
-            {result.complainant_name && <p><span className="font-medium">Complainant:</span> {result.complainant_name}</p>}
           </CardContent>
         </Card>
       )}

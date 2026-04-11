@@ -73,7 +73,7 @@ def chargesheet_health():
     status_code=status.HTTP_202_ACCEPTED,
     summary="Upload a charge-sheet PDF for parsing",
 )
-async def upload_chargesheet(
+def upload_chargesheet(
     file: UploadFile = File(...),
     user: dict = Depends(require_role(Role.SHO, Role.DYSP, Role.SP, Role.ADMIN)),
 ) -> ChargeSheetResponse:
@@ -86,6 +86,11 @@ async def upload_chargesheet(
     3. Parse structured fields via ``parse_chargesheet_text``.
     4. Auto-link to existing FIR if ``fir_reference_number`` matches.
     5. Persist to ``chargesheets`` table.
+
+    This is a sync (def) endpoint so FastAPI runs it in its thread-pool.
+    Each thread-pool thread gets its own DB connection via threading.local(),
+    avoiding the race condition where async + sync endpoints share a single
+    psycopg2 handle.
     """
     # Validate content type
     if file.content_type and not (
@@ -98,7 +103,7 @@ async def upload_chargesheet(
         )
 
     try:
-        file_bytes = await file.read()
+        file_bytes = file.file.read()
     except Exception:
         logger.error("Failed to read uploaded file.", exc_info=True)
         raise HTTPException(

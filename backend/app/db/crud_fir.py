@@ -259,6 +259,125 @@ def create_fir(conn: PgConnection, fir_data: Dict[str, Any]) -> Dict[str, Any]:
     return fir_row
 
 
+def update_fir_from_pipeline(
+    conn: PgConnection,
+    fir_id: str,
+    fir_data: Dict[str, Any],
+) -> Optional[Dict[str, Any]]:
+    """Update an existing FIR record with data from the ingestion pipeline.
+
+    Used when the PDF is processed in a background task — this writes the
+    parsed fields back into the placeholder row created at upload time.
+    """
+    fir_data = {k: _sanitize(v) for k, v in fir_data.items()}
+
+    primary_sections = fir_data.get("primary_sections")
+    if isinstance(primary_sections, str):
+        primary_sections = [primary_sections]
+    elif not primary_sections:
+        primary_sections = []
+
+    raw_text = fir_data.get("raw_text") or fir_data.get("narrative")
+    validation = fir_data.get("sections_validation") or {}
+    sections_flagged = validation.get("unknown") or []
+
+    stolen_property = fir_data.get("stolen_property")
+    if stolen_property is not None:
+        stolen_property = PgJson(stolen_property)
+
+    with conn:
+        with _dict_cursor(conn) as cur:
+            cur.execute(
+                """
+                UPDATE firs SET
+                    fir_number          = %s,
+                    police_station      = %s,
+                    district            = %s,
+                    fir_date            = %s,
+                    occurrence_start    = %s,
+                    occurrence_end      = %s,
+                    primary_act         = %s,
+                    primary_sections    = %s,
+                    sections_flagged    = %s,
+                    complainant_name    = %s,
+                    accused_name        = %s,
+                    gpf_no              = %s,
+                    occurrence_from     = %s,
+                    occurrence_to       = %s,
+                    time_from           = %s,
+                    time_to             = %s,
+                    info_received_date  = %s,
+                    info_received_time  = %s,
+                    info_type           = %s,
+                    place_distance_km   = %s,
+                    place_address       = %s,
+                    complainant_father_name  = %s,
+                    complainant_age          = %s,
+                    complainant_nationality  = %s,
+                    complainant_occupation   = %s,
+                    io_name             = %s,
+                    io_rank             = %s,
+                    io_number           = %s,
+                    officer_name        = %s,
+                    dispatch_date       = %s,
+                    dispatch_time       = %s,
+                    stolen_property     = %s,
+                    completeness_pct    = %s,
+                    narrative           = %s,
+                    raw_text            = %s,
+                    status              = 'pending'
+                WHERE id = %s
+                RETURNING *
+                """,
+                (
+                    fir_data.get("fir_number"),
+                    fir_data.get("police_station"),
+                    fir_data.get("district"),
+                    fir_data.get("fir_date"),
+                    fir_data.get("occurrence_start"),
+                    fir_data.get("occurrence_end"),
+                    fir_data.get("primary_act"),
+                    primary_sections,
+                    sections_flagged,
+                    fir_data.get("complainant_name"),
+                    fir_data.get("accused_name"),
+                    fir_data.get("gpf_no"),
+                    fir_data.get("occurrence_from"),
+                    fir_data.get("occurrence_to"),
+                    fir_data.get("time_from"),
+                    fir_data.get("time_to"),
+                    fir_data.get("info_received_date"),
+                    fir_data.get("info_received_time"),
+                    fir_data.get("info_type"),
+                    fir_data.get("place_distance_km"),
+                    fir_data.get("place_address"),
+                    fir_data.get("complainant_father_name"),
+                    fir_data.get("complainant_age"),
+                    fir_data.get("complainant_nationality"),
+                    fir_data.get("complainant_occupation"),
+                    fir_data.get("io_name"),
+                    fir_data.get("io_rank"),
+                    fir_data.get("io_number"),
+                    fir_data.get("officer_name"),
+                    fir_data.get("dispatch_date"),
+                    fir_data.get("dispatch_time"),
+                    stolen_property,
+                    fir_data.get("completeness_pct"),
+                    fir_data.get("narrative"),
+                    raw_text,
+                    fir_id,
+                ),
+            )
+            row = cur.fetchone()
+
+        # Insert related entities (complainants / accused)
+        fir_uuid = uuid.UUID(fir_id)
+        _insert_complainants(conn, fir_uuid, fir_data.get("complainants") or [])
+        _insert_accused(conn, fir_uuid, fir_data.get("accused") or [])
+
+    return dict(row) if row else None
+
+
 def get_fir_by_id(conn: PgConnection, fir_id: str, district: Optional[str] = None) -> Optional[Dict[str, Any]]:
     """Retrieve a single FIR by its UUID primary key.
 

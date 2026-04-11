@@ -1,5 +1,6 @@
 import logging
 import os
+import threading
 
 import psycopg2
 import psycopg2.extensions
@@ -7,36 +8,44 @@ from psycopg2 import OperationalError
 
 logger = logging.getLogger(__name__)
 
-_connection = None
+# Each thread (event-loop, thread-pool workers, background tasks) gets its
+# own psycopg2 connection via threading.local().  This avoids the race
+# condition where two threads issue SQL on the same libpq handle
+# simultaneously (psycopg2 releases the GIL during wire I/O).
+_thread_local = threading.local()
 
 
 def get_connection() -> psycopg2.extensions.connection:
-    """Return a lazy psycopg2 connection.
+    """Return a per-thread psycopg2 connection (lazy, auto-recovering).
 
-    Does not connect at import time. Re-establishes the connection if it has
-    been closed or is in an unrecoverable state.  Raises ``RuntimeError``
-    when ``DATABASE_URL`` is not set.
+    Each thread gets its own connection stored in ``threading.local()``.
+    Re-establishes the connection if it has been closed or is stuck in an
+    unrecoverable transaction state.  Raises ``RuntimeError`` when
+    ``DATABASE_URL`` is not set.
     """
-    global _connection
+    conn = getattr(_thread_local, "connection", None)
 
     # Re-create if missing or closed
-    if _connection is None or _connection.closed:
-        _connection = _new_connection()
-        return _connection
+    if conn is None or conn.closed:
+        conn = _new_connection()
+        _thread_local.connection = conn
+        return conn
 
     # If the connection is stuck in a failed transaction, roll back to reset
     # it to IDLE so the next query can proceed cleanly.
-    tx_status = _connection.info.transaction_status
+    tx_status = conn.info.transaction_status
     if tx_status == psycopg2.extensions.TRANSACTION_STATUS_INERROR:
         try:
-            _connection.rollback()
+            conn.rollback()
             logger.warning("Rolled back aborted transaction on reused connection.")
         except Exception:
-            _connection = _new_connection()
+            conn = _new_connection()
+            _thread_local.connection = conn
     elif tx_status == psycopg2.extensions.TRANSACTION_STATUS_UNKNOWN:
-        _connection = _new_connection()
+        conn = _new_connection()
+        _thread_local.connection = conn
 
-    return _connection
+    return conn
 
 
 def _new_connection() -> psycopg2.extensions.connection:
