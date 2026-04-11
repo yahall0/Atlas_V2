@@ -1,6 +1,9 @@
 FROM python:3.11-slim
 
 ENV PYTHONUNBUFFERED=1
+ENV DATABASE_URL=postgresql://localhost:5432/atlas_db
+ENV REDIS_URL=redis://localhost:6379
+ENV MONGO_URL=mongodb://localhost:27017
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -41,5 +44,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 EXPOSE 7860
 
-# Run FastAPI directly
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "7860"]
+# Create startup wrapper to handle missing services gracefully
+RUN echo '#!/bin/bash\necho "Starting ATLAS API on HF Spaces..."\necho "Note: Database connections may fail - this is expected without active services"\necho "Health check at: http://localhost:7860/api/v1/health"\nexec uvicorn app.main:app --host 0.0.0.0 --port 7860 --log-level info' > /app/start.sh && chmod +x /app/start.sh
+
+CMD ["/app/start.sh"]
