@@ -36,8 +36,9 @@ RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
 
 # Build frontend
 WORKDIR /app/frontend
-RUN npm ci --omit=dev 2>/dev/null || npm install --omit=dev || true && \
-    npm run build 2>/dev/null || echo "Frontend built or skipped"
+RUN npm ci --include=dev && \
+    npm run build && \
+    npm prune --omit=dev
 
 # Copy service configuration
 WORKDIR /app
