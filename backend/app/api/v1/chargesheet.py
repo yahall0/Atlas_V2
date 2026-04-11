@@ -180,6 +180,11 @@ def upload_chargesheet(
 
 
 @router.get(
+    "/",
+    response_model=list[ChargeSheetResponse],
+    include_in_schema=False,
+)
+@router.get(
     "",
     response_model=list[ChargeSheetResponse],
     summary="List charge-sheets (paginated, filtered)",
