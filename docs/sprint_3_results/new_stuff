@@ -1,0 +1,36 @@
+New Developer Tools
+generate_synthetic_training_data.py — Generates a ready-to-use labelled training corpus in seconds with no annotations needed. Run it with --samples_per_class 30 to get ~330 rows across 11 crime categories (Gujarati/Hindi/English narratives). Outputs a training CSV, a held-out test CSV, and label_map.json.
+scripts/download_base_model.py — Downloads google/muril-base-cased (900 MB, fully public) to backend/models/hf_cache/muril-base-cased/ on the host using huggingface_hub.snapshot_download — no PyTorch required on the host machine. Skips TF/Flax/Rust weights to save ~500 MB. Run this once before docker compose up; the container works fully offline after that.
+src/ml/fine-tuning/dataset.py — Turns a CSV or Label Studio JSON export into a HuggingFace DatasetDict with stratified train/val/test splits. Works with both the synthetic data (now) and real Label Studio annotations (Sprint 4).
+src/ml/fine-tuning/run_training.sh — One command to fine-tune MuRIL: bash src/ml/fine-tuning/run_training.sh. Auto-generates synthetic data if the CSV isn't there yet, runs training inside the backend container with memory-safe defaults (--batch_size 2, --max_length 128), and prints evaluation_metrics.json at the end.
+src/ml/evaluation/evaluate.py — Offline evaluation script with a hard pass/fail gate. Exits with code 1 if macro-F1 drops below 0.80. Use it in CI to prevent regressions: python -m src.ml.evaluation.evaluate --checkpoint /app/models/atlas_classifier_v1 --test_data /data/synthetic_fir_test.csv.
+src/ml/bias/bias_report.py — Bias analysis from a predictions CSV. Runs a chi-square test per district to detect if any district is getting systematically different predictions (flags p < 0.05). Also computes the Gini coefficient for label distribution skew.
+
+New Training Features
+Base model: google/muril-base-cased — Switched from ai4bharat/indic-bert (gated repo, requires authentication) to Google's MuRIL which is fully public. MuRIL covers 17 Indian languages including Gujarati, Hindi, and Marathi using the same BERT architecture. No access tokens needed.
+Class-weighted loss — Training now auto-computes inverse-frequency weights per category. Rare categories like dacoity_robbery and kidnapping get higher loss contribution so the model doesn't ignore them. Disable with --no_class_weights.
+CPU-only mode — Pass --cpu_mode to training to disable CUDA entirely (sets CUDA_VISIBLE_DEVICES="" and use_cpu=True). Required for the Docker Compose environment which has no GPU.
+Memory-safe defaults — Default batch_size is 2 with gradient_accumulation_steps=4 (effective batch = 8) and max_length=128. gradient_checkpointing is enabled. These settings let MuRIL train on CPU containers with ≤ 4 GB RAM without OOM kills.
+--max_length flag — Controls tokeniser padding length (default 128). FIR key phrases fit well within 128 tokens; 512 causes out-of-memory kills on CPU containers.
+evaluation_metrics.json — Every training run now writes a JSON file next to the checkpoint with: model_version, base_model, best_val_f1, test_accuracy, num_labels, train_size, training_date, epochs. This file drives the dashboard and the DB persist columns.
+Confusion matrix artifacts — Training saves confusion_matrix.json and classification_report.json to MLflow under evaluation/ so you can inspect per-category confusion at http://localhost:5000.
+Offline mode — TRANSFORMERS_OFFLINE=1 and HF_DATASETS_OFFLINE=1 are set in docker-compose.yml so training never tries to reach huggingface.co from inside the container.
+
+New API Features
+GET /predict/model-info (updated) — Now returns three additional fields: model_version (e.g. "atlas_classifier_v1"), best_f1 (the macro-F1 from the last training run), and training_date (ISO 8601 UTC). Returns null for all three while running in heuristic mode.
+Classification persist now records model version — Every time a classification is saved to a FIR record (POST /predict/classify with fir_id), the nlp_model_version column is written, so you can always tell which checkpoint produced a stored result.
+
+New Database Column
+nlp_model_version (TEXT) on the firs table — Added by migration 004. Indexed for querying. Stores the checkpoint version string (e.g. "atlas_classifier_v1") alongside every persisted NLP classification.
+
+New UI Features
+Model F1 Card on Dashboard — A sixth card on the main dashboard shows the current model's best macro-F1 score fetched live from /predict/model-info. Shows "heuristic" when no fine-tuned checkpoint is loaded, and shows the model_version name below the number when one is.
+Confidence Bar in FIR Browse Table — The NLP Category column in the FIR browse table now shows a compact inline progress bar under the category badge. The bar fills blue to the confidence percentage (e.g. 87%) with the number displayed to the right. Previously only the category badge was shown.
+
+New Architecture Decision
+ADR-D05 (Evaluation Strategy) — Documents the decision to use macro-F1 ≥ 0.80 as the acceptance gate, why macro over micro or accuracy, the dataset split rationale, what gets stored in MLflow, how the bias check feeds into the annotation cycle, and the retraining triggers. Located at docs/decisions/ADR-D05-evaluation-strategy.md.
+
+Infrastructure Change
+Models bind mount — docker-compose.yml now mounts ./backend/models into the backend container at /app/models. Place a trained checkpoint at backend/models/atlas_classifier_v1/ and restart the backend (docker compose restart backend) — no rebuild needed. The INDIC_BERT_CHECKPOINT env var is pre-set to point to that path.
+New environment variables — INDIC_BERT_MODEL=/app/models/hf_cache/muril-base-cased (offline model path), TRANSFORMERS_CACHE=/app/models/hf_cache, TRANSFORMERS_OFFLINE=1, HF_DATASETS_OFFLINE=1.
+New dependencies — Three packages were added to requirements.txt: datasets>=2.18.0 (HuggingFace dataset input to Trainer), accelerate>=1.1.0 (required by Trainer for the PyTorch training loop), and torch>=2.6.0 CPU wheel (upgraded from 2.4.x due to CVE-2025-32434 which blocks torch.load in earlier versions).
