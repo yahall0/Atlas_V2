@@ -45,7 +45,8 @@ RUN pip install --no-cache-dir --upgrade pip && \
     fasttext-wheel==0.9.2 \
     sentencepiece>=0.1.99 \
     scikit-learn>=1.4.0 \
-    rapidfuzz>=3.6.0
+    rapidfuzz>=3.6.0 && \
+    pip install --no-cache-dir xlit || true
 
 EXPOSE 7860
 
