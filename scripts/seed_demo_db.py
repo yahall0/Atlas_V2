@@ -396,7 +396,6 @@ def main() -> None:
         with conn.cursor() as cursor:
             _ensure_seed_users(cursor)
             _seed_fir(cursor, fir)
-            _seed_chargesheet(cursor, fir["id"])
         conn.commit()
     print("Demo database seeded.")
 
