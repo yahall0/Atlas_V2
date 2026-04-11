@@ -10,7 +10,7 @@ import RecommendationCard from "@/components/RecommendationCard";
 import AuditTimeline from "@/components/AuditTimeline";
 import CoverageMeter from "@/components/CoverageMeter";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 

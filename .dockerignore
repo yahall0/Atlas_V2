@@ -1,0 +1,17 @@
+**
+!Dockerfile
+!Dockerfile.hf
+!README.md
+!hf_nginx.conf
+!hf_supervisord.conf
+!backend/**
+!frontend/**
+
+# Exclude heavyweight local/runtime artifacts from the build context.
+backend/models/**
+frontend/.next/**
+frontend/node_modules/**
+**/__pycache__/**
+**/*.pyc
+**/.pytest_cache/**
+*.log
