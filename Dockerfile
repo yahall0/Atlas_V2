@@ -1,22 +1,42 @@
+# Stage 1: Build Next.js frontend
+FROM node:20-alpine AS frontend-builder
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm ci --prefer-offline --no-audit
+COPY frontend/ .
+RUN npm run build
+
+# Stage 2: Final image with Python backend, Node runtime, and services
 FROM python:3.11-slim
 
 ENV PYTHONUNBUFFERED=1
+ENV NODE_ENV=production
 ENV DATABASE_URL=postgresql://localhost:5432/atlas_db
 ENV REDIS_URL=redis://localhost:6379
 ENV MONGO_URL=mongodb://localhost:27017
 
-# Install system dependencies
+# Install system dependencies (supervisor, nginx, Node.js runtime)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl wget \
+    supervisor nginx \
     tesseract-ocr tesseract-ocr-eng \
     libglib2.0-0 poppler-utils \
     postgresql-client \
+    nodejs npm \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
+# Copy pre-built frontend
+COPY --from=frontend-builder /app/frontend/.next /app/frontend/.next
+COPY --from=frontend-builder /app/frontend/public /app/frontend/public
+COPY --from=frontend-builder /app/frontend/package*.json /app/frontend/
+
 # Copy backend code
 COPY backend/ /app/backend/
+
+# Copy frontend remaining files
+COPY frontend/next.config.mjs /app/frontend/
 
 WORKDIR /app/backend
 
@@ -48,9 +68,11 @@ RUN pip install --no-cache-dir --upgrade pip && \
     rapidfuzz>=3.6.0 && \
     pip install --no-cache-dir xlit || true
 
+# Setup configurations
+COPY hf_nginx.conf /etc/nginx/sites-available/default
+COPY hf_supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+WORKDIR /app
 EXPOSE 7860
 
-# Create startup wrapper to handle missing services gracefully
-RUN echo '#!/bin/bash\necho "Starting ATLAS API on HF Spaces..."\necho "Note: Database connections may fail - this is expected without active services"\necho "Health check at: http://localhost:7860/api/v1/health"\nexec uvicorn app.main:app --host 0.0.0.0 --port 7860 --log-level info' > /app/start.sh && chmod +x /app/start.sh
-
-CMD ["/app/start.sh"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
