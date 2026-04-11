@@ -40,7 +40,12 @@ RUN pip install --no-cache-dir --upgrade pip && \
     redis==5.0.3 \
     sqlalchemy==2.0.28 \
     alembic==1.13.1 \
-    motor>=3.3
+    motor>=3.3 \
+    transformers>=4.38.0 \
+    fasttext-wheel==0.9.2 \
+    sentencepiece>=0.1.99 \
+    scikit-learn>=1.4.0 \
+    rapidfuzz>=3.6.0
 
 EXPOSE 7860
 
