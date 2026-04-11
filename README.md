@@ -7,87 +7,90 @@ sdk: docker
 pinned: false
 ---
 
-# ATLAS Legal AI Platform
+# ATLAS Legal AI Platform - Demo API
 
-An advanced legal case analysis system powered by AI. Automatically extract, classify, and analyze legal documents including FIRs (First Information Reports), chargesheets, and evidence.
+**Lightweight API-only deployment of ATLAS on Hugging Face Spaces**
+
+An advanced legal case analysis system powered by AI. This deployment showcases the core FastAPI backend for document analysis and extraction.
 
 ## Features
 
-- **Legal Document Ingestion**: Upload and process FIRs, chargesheets, and other legal documents
-- **Multi-Language Support**: Handles English, Hindi, Gujarati, Marathi, Tamil, Telugu, etc.
-- **AI Classification**: Automatic categorization and prediction using state-of-the-art transformers
-- **Evidence Gap Detection**: Identifies missing evidence and logical inconsistencies
-- **PII Detection**: Detects and handles personally identifiable information
-- **Legal Validation**: Validates documents against legal standards
-- **Interactive Dashboard**: View analytics, timelines, and document reviews
+- **PDF Document Analysis**: Extract text, metadata, and structured information from legal PDFs
+- **Document Classification**: Categorize documents (FIRs, chargesheets, etc.)
+- **Text Extraction**: Advanced PDF text extraction with table detection
+- **PII Detection**: Identifies personally identifiable information
+- **RESTful API**: Full OpenAPI documentation at `/docs`
 
-## Tech Stack
+## What's Included
 
-- **Backend**: FastAPI (Python 3.11)
-- **Frontend**: Next.js with TypeScript
-- **Databases**: PostgreSQL, MongoDB, Redis
-- **ML Models**: Transformers (BERT, mDeBERTa, FastText)
-- **Orchestration**: Nginx, Supervisord
-- **Infrastructure**: Docker
+✅ **FastAPI Backend** - Lightweight, production-ready REST API  
+✅ **PDF Processing** - Document extraction and analysis  
+✅ **OpenAPI Docs** - Interactive API documentation  
+✅ **Docker Container** - Deploy anywhere with consistent environment  
 
-## Architecture
+❌ **Full Stack** - This is API-only. For full stack with UI, run locally with `docker-compose`  
+❌ **Databases** - Stripped for lightweight deployment (can be added)  
+❌ **ML Models** - Optional. Basic features work without large models  
 
-The platform consists of:
+## Quick Start
 
-1. **Backend API** (`/api/v1/*`): FastAPI microservices for document processing and ML inference
-2. **Frontend UI** (`/`): Next.js dashboard for user interactions
-3. **Data Layer**: PostgreSQL for structured data, MongoDB for document storage
-4. **Cache Layer**: Redis for session management and caching
-5. **Reverse Proxy**: Nginx for routing and load balancing
+Once deployed, access the API at: `https://huggingface.co/spaces/Prishiv/atlas_demo`
 
-## Getting Started
+### API Examples
 
-The application will automatically:
+**Health Check**
+```bash
+curl https://[space-url]/api/v1/health
+```
 
-1. Initialize PostgreSQL database with schema migrations
-2. Start Redis cache service
-3. Start MongoDB document database
-4. Build and deploy the FastAPI backend
-5. Build and deploy the Next.js frontend
-6. Configure reverse proxy on port 7860
+**Upload and Analyze Document**
+```bash
+curl -X POST https://[space-url]/api/v1/firs/ingest \
+  -F "file=@document.pdf"
+```
 
-Once deployed, access the application at the space URL.
+**Predict/Classify**
+```bash
+curl -X POST https://[space-url]/api/v1/predict \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Your legal text here"}'
+```
+
+**Validate Legal Document**
+```bash
+curl -X POST https://[space-url]/api/v1/validate \
+  -H "Content-Type: application/json" \
+  -d '{"content": "FIR content", "type": "FIR"}'
+```
+
+### Interactive API Documentation
+- **Swagger UI**: `https://[space-url]/docs`
+- **ReDoc**: `https://[space-url]/redoc`
 
 ## API Endpoints
 
-### Health Check
-- `GET /api/v1/health` - Service health status
+### Core Endpoints
+- `GET /api/v1/health` - Service health
+- `POST /api/v1/firs/ingest` - Upload and ingest FIR
+- `GET /api/v1/firs` - List ingested FIRs
+- `POST /api/v1/chargesheet/ingest` - Upload chargesheet
+- `POST /api/v1/predict` - Run ML prediction
+- `POST /api/v1/validate` - Validate legal document
+- `POST /api/v1/evidence` - Evidence gap analysis
 
-### Authentication
-- `POST /api/v1/auth/login` - User login
-- `POST /api/v1/auth/logout` - User logout
+## Tech Stack
 
-### Documents
-- `GET /api/v1/firs` - List FIR documents
-- `POST /api/v1/firs/ingest` - Upload new FIR
-- `GET /api/v1/chargesheet` - List chargesheets
+- **Framework**: FastAPI (Python 3.11)
+- **Server**: Uvicorn
+- **Document Processing**: PDFPlumber, PyMuPDF, python-pdf2image
+- **OCR**: Tesseract
+- **Serialization**: Pydantic
+- **Deployment**: Docker on Hugging Face Spaces
 
-### Analysis
-- `POST /api/v1/predict` - Run ML classification
-- `POST /api/v1/validate` - Legal validation
-- `GET /api/v1/evidence` - Evidence gap analysis
+## For Full Stack Deployment
 
-### Dashboard
-- `GET /api/v1/dashboard` - Analytics and statistics
+To run the complete system locally with database, UI, and all services:
 
-## Configuration
-
-Environment variables (pre-configured):
-- `DATABASE_URL`: PostgreSQL connection string
-- `REDIS_URL`: Redis connection URL
-- `MONGO_URL`: MongoDB connection URL
-- `TRANSFORMERS_CACHE`: Model cache directory
-- `INDIC_BERT_MODEL`: Hindi/regional language model
-- `ZERO_SHOT_MODEL`: Multi-language classification model
-
-## Development
-
-### Local Deployment
 ```bash
 cd infrastructure/docker
 docker compose up --build
@@ -98,18 +101,39 @@ Access at:
 - Backend: `http://localhost:8000`
 - API Docs: `http://localhost:8000/docs`
 
-## Model Information
-
-- **Language Identification**: FastText (176 language support)
-- **Regional NLP**: Google mBERT + Indic-BERT
-- **Multi-label Classification**: mDeBERTa-v3 with multilingual XNLI
-- **Zero-shot Threshold**: 0.20 (configurable)
-
 ## Performance
 
-- Concurrent document processing: ~100+ documents
-- Average classification latency: <2 seconds per document
-- Memory usage: ~4GB (optimized for HF Spaces)
+- **Build Time**: ~3-5 minutes on HF
+- **Container Size**: ~450MB (lightweight)
+- **Cold Start**: ~10-15 seconds
+- **API Response Time**: <1 second per request
+
+## Limitations
+
+This is a **minimal demo deployment**:
+- No database persistence (stateless API)
+- No frontend UI
+- Basic ML features only (heavy models optional)
+- No authentication/authorization
+- Limited to HF Spaces resource constraints
+
+## Adding Features
+
+To extend this deployment:
+
+1. **Add Database**: Uncomment PostgreSQL in docker-compose.yml
+2. **Add ML Models**: Uncomment dependencies in requirements.txt
+3. **Add Frontend**: Deploy Next.js separately or use HF Spaces interface builder
+4. **Add Authentication**: See backend/app/api/v1/auth
+
+## Production Deployment
+
+For production, deploy the full stack with:
+- Kubernetes/Docker Swarm orchestration
+- PostgreSQL + Redis + MongoDB
+- Nginx reverse proxy
+- Full authentication/RBAC
+- See local `docker-compose.yml` for reference
 
 ## License
 
@@ -117,10 +141,11 @@ Proprietary - ATLAS Platform
 
 ## Support
 
-For issues, feature requests, or questions, please refer to project documentation or contact the development team.
+For issues or feature requests, refer to project documentation or contact the development team.
 
 ---
 
-**Current Deployment**: Hugging Face Spaces  
-**Backend Branch**: demo  
+**Deployment**: Hugging Face Spaces (Lightweight API)  
+**Backend**: FastAPI  
+**Full Stack Branch**: `demo`  
 **Last Updated**: April 11, 2026
