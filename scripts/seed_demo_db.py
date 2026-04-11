@@ -40,6 +40,56 @@ def _seed_fir(cursor, fir: dict) -> None:
     stolen_property = fir.get("stolen_property")
     if stolen_property is not None:
         stolen_property = Json(stolen_property)
+    fir_params = {
+        "id": fir.get("id"),
+        "fir_number": fir.get("fir_number"),
+        "police_station": fir.get("police_station"),
+        "district": fir.get("district"),
+        "fir_date": fir.get("fir_date"),
+        "primary_act": fir.get("primary_act"),
+        "primary_sections": fir.get("primary_sections") or [],
+        "sections_flagged": fir.get("sections_flagged") or [],
+        "complainant_name": fir.get("complainant_name"),
+        "accused_name": fir.get("accused_name"),
+        "gpf_no": fir.get("gpf_no"),
+        "occurrence_from": fir.get("occurrence_from"),
+        "occurrence_to": fir.get("occurrence_to"),
+        "time_from": fir.get("time_from"),
+        "time_to": fir.get("time_to"),
+        "info_received_date": fir.get("info_received_date"),
+        "info_received_time": fir.get("info_received_time"),
+        "info_type": fir.get("info_type"),
+        "place_distance_km": fir.get("place_distance_km"),
+        "place_address": fir.get("place_address"),
+        "complainant_father_name": fir.get("complainant_father_name"),
+        "complainant_age": fir.get("complainant_age"),
+        "complainant_nationality": fir.get("complainant_nationality"),
+        "complainant_occupation": fir.get("complainant_occupation"),
+        "io_name": fir.get("io_name"),
+        "io_rank": fir.get("io_rank"),
+        "io_number": fir.get("io_number"),
+        "officer_name": fir.get("officer_name"),
+        "dispatch_date": fir.get("dispatch_date"),
+        "dispatch_time": fir.get("dispatch_time"),
+        "stolen_property": stolen_property,
+        "completeness_pct": fir.get("completeness_pct"),
+        "narrative": fir.get("narrative"),
+        "raw_text": fir.get("raw_text"),
+        "source_system": fir.get("source_system", "manual"),
+        "created_at": now,
+        "status": "classified",
+        "nlp_metadata": Json({
+            "mismatch": False,
+            "section_inferred_category": "theft",
+            "nlp_category": "theft",
+            "nlp_confidence": 0.97,
+        }),
+        "nlp_classification": "theft",
+        "nlp_confidence": 0.97,
+        "nlp_classified_at": now,
+        "nlp_classified_by": "section_map",
+        "nlp_model_version": "demo-seed",
+    }
     cursor.execute(
         """
         INSERT INTO firs (
@@ -117,23 +167,7 @@ def _seed_fir(cursor, fir: dict) -> None:
             nlp_model_version = EXCLUDED.nlp_model_version
         ;
         """,
-        {
-            **fir,
-            "created_at": now,
-            "status": "classified",
-            "stolen_property": stolen_property,
-            "nlp_metadata": Json({
-                "mismatch": False,
-                "section_inferred_category": "theft",
-                "nlp_category": "theft",
-                "nlp_confidence": 0.97,
-            }),
-            "nlp_classification": "theft",
-            "nlp_confidence": 0.97,
-            "nlp_classified_at": now,
-            "nlp_classified_by": "section_map",
-            "nlp_model_version": "demo-seed",
-        },
+        fir_params,
     )
 
     cursor.execute("DELETE FROM complainants WHERE fir_id = %s", (fir["id"],))
