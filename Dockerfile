@@ -6,27 +6,21 @@ FROM python:3.11-slim
 ENV PYTHONUNBUFFERED=1
 ENV NODE_ENV=production
 ENV NEXT_PUBLIC_API_URL=
-ENV DATABASE_URL=postgresql://localhost:5432/atlas_db
-ENV REDIS_URL=redis://localhost:6379
-ENV MONGO_URL=mongodb://localhost:27017
+ENV DATABASE_URL=postgresql://user@127.0.0.1:5432/atlas_db
+ENV REDIS_URL=redis://127.0.0.1:6379
+ENV MONGO_URL=mongodb://127.0.0.1:27017
+ENV HOME=/home/user
+ENV PATH=/home/user/.local/bin:$PATH
 
-# Install all system dependencies in one layer
+# Install system dependencies, including a local PostgreSQL server.
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl wget supervisor nginx nodejs npm git \
-    tesseract-ocr libglib2.0-0 poppler-utils postgresql-client \
+    curl wget supervisor nodejs npm git \
+    postgresql postgresql-contrib postgresql-client \
+    tesseract-ocr libglib2.0-0 poppler-utils \
     build-essential python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
-
-# Copy backend code
-COPY backend/ /app/backend/
-
-# Copy frontend code
-COPY frontend/ /app/frontend/
-
-# Install Python dependencies
-WORKDIR /app/backend
+# Install Python dependencies before dropping privileges.
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
     pip install --no-cache-dir --prefer-binary \
     fastapi uvicorn pydantic python-multipart python-dotenv \
@@ -34,19 +28,30 @@ RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
     psycopg2-binary redis sqlalchemy alembic motor structlog transformers \
     fasttext-wheel sentencepiece scikit-learn rapidfuzz
 
-# Build frontend
-WORKDIR /app/frontend
+RUN useradd -m -u 1000 user && \
+    mkdir -p /home/user/app /home/user/postgres /home/user/logs && \
+    chown -R user:user /home/user
+
+WORKDIR /home/user/app
+
+# Copy application code owned by the runtime user.
+COPY --chown=user:user backend/ /home/user/app/backend/
+COPY --chown=user:user frontend/ /home/user/app/frontend/
+COPY --chown=user:user scripts/ /home/user/app/scripts/
+COPY --chown=user:user infrastructure/docker/init/ /home/user/app/infrastructure/docker/init/
+COPY --chown=user:user hf_start.sh /home/user/app/hf_start.sh
+COPY --chown=user:user hf_supervisord.conf /home/user/app/hf_supervisord.conf
+COPY --chown=user:user result.json /home/user/app/result.json
+RUN chmod +x /home/user/app/hf_start.sh
+
+# Build frontend as the non-root runtime user.
+USER user
+WORKDIR /home/user/app/frontend
 RUN npm ci --include=dev && \
     npm run build && \
     npm prune --omit=dev
 
-# Copy service configuration
-WORKDIR /app
-COPY hf_nginx.conf /etc/nginx/sites-available/default
-COPY hf_supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# Expose the frontend entry point used by Spaces.
+EXPOSE 7860 8000
 
-# Expose HF Spaces port
-EXPOSE 7860
-
-# Start services via supervisord
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD ["/home/user/app/hf_start.sh"]
