@@ -9,7 +9,7 @@ import {
   MapPin,
   BarChart2,
   CalendarCheck,
-  Cpu,
+  ScrollText,
   TrendingUp,
   AlertTriangle,
 } from "lucide-react";
@@ -20,35 +20,27 @@ interface Stats {
   pending_review: number;
   completeness_avg: number;
   ingested_today: number;
+  total_chargesheets: number;
 }
 
-interface ModelInfo {
-  status: string;
-  best_f1?: number;
-  model_version?: string;
-}
-
-const METRIC_ICONS = [FileText, Clock, MapPin, BarChart2, CalendarCheck];
+const METRIC_ICONS = [FileText, Clock, MapPin, BarChart2, CalendarCheck, ScrollText];
 const METRIC_COLORS = [
   "bg-blue-50 text-blue-600",
   "bg-amber-50 text-amber-600",
   "bg-emerald-50 text-emerald-600",
   "bg-violet-50 text-violet-600",
   "bg-sky-50 text-sky-600",
+  "bg-indigo-50 text-indigo-600",
 ];
 
 export default function DashboardPage() {
   const [stats, setStats] = useState<Stats | null>(null);
-  const [modelInfo, setModelInfo] = useState<ModelInfo | null>(null);
   const [error, setError] = useState(false);
 
   useEffect(() => {
     apiClient("/api/v1/dashboard/stats")
       .then(setStats)
       .catch(() => setError(true));
-    apiClient("/api/v1/predict/model-info")
-      .then((data: ModelInfo) => setModelInfo(data))
-      .catch(() => {/* non-critical */});
   }, []);
 
   const metrics = [
@@ -57,14 +49,8 @@ export default function DashboardPage() {
     { title: "Districts", value: stats?.districts ?? "—", sub: "covered" },
     { title: "Avg Completeness", value: stats ? `${stats.completeness_avg}%` : "—", sub: "extraction score" },
     { title: "Ingested Today", value: stats?.ingested_today ?? "—", sub: "PDFs processed" },
+    { title: "Chargesheets", value: stats?.total_chargesheets ?? "—", sub: "ingested" },
   ];
-
-  const modelF1Value =
-    modelInfo?.best_f1 != null
-      ? modelInfo.best_f1.toFixed(3)
-      : modelInfo?.status === "heuristic"
-      ? "heuristic"
-      : "—";
 
   return (
     <div className="space-y-6">
@@ -98,19 +84,6 @@ export default function DashboardPage() {
           );
         })}
 
-        {/* Model card */}
-        <Card className="border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-          <CardContent className="p-4">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-3 bg-indigo-50 text-indigo-600">
-              <Cpu className="w-4 h-4" />
-            </div>
-            <p className="text-2xl font-bold text-slate-800">{modelF1Value}</p>
-            <p className="text-xs font-medium text-slate-600 mt-0.5">Model F1</p>
-            <p className="text-[10px] text-slate-400 truncate" title={modelInfo?.model_version ?? ""}>
-              {modelInfo?.model_version ?? "macro-averaged"}
-            </p>
-          </CardContent>
-        </Card>
       </div>
 
       {/* Mismatch callout */}

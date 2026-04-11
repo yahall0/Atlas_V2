@@ -27,6 +27,7 @@ class DashboardStats(BaseModel):
     districts: int
     completeness_avg: float
     ingested_today: int
+    total_chargesheets: int
 
 
 def _get_stats(conn, district: str | None) -> DashboardStats:
@@ -67,12 +68,18 @@ def _get_stats(conn, district: str | None) -> DashboardStats:
         cur.execute(f"SELECT COUNT(*) FROM firs {today_where};", params)
         ingested_today: int = cur.fetchone()[0]
 
+        # 6 — total chargesheets
+        cs_where = "WHERE district = %(d)s" if district else ""
+        cur.execute(f"SELECT COUNT(*) FROM chargesheets {cs_where};", params)
+        total_chargesheets: int = cur.fetchone()[0]
+
     return DashboardStats(
         total_firs=total_firs,
         pending_review=pending_review,
         districts=distinct_districts,
         completeness_avg=round(completeness_avg, 1),
         ingested_today=ingested_today,
+        total_chargesheets=total_chargesheets,
     )
 
 
