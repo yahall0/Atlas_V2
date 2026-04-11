@@ -11,6 +11,8 @@ from app.api.v1.chargesheet import router as chargesheet_router
 from app.api.v1.sop import router as sop_router
 from app.api.v1.dashboard import router as dashboard_router
 from app.api.v1.predict import router as predict_router
+from app.api.v1.validate import router as validate_router
+from app.api.v1.evidence import router as evidence_router
 
 structlog.configure(
     processors=[
@@ -44,6 +46,8 @@ app.include_router(chargesheet_router, prefix="/api/v1")
 app.include_router(sop_router, prefix="/api/v1")
 app.include_router(dashboard_router, prefix="/api/v1")
 app.include_router(predict_router, prefix="/api/v1")
+app.include_router(validate_router, prefix="/api/v1")
+app.include_router(evidence_router, prefix="/api/v1")
 
 try:
     from app.api.v1.ingest import router as ingest_router

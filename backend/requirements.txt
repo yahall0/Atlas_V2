@@ -29,3 +29,6 @@ accelerate>=1.1.0
 sentencepiece>=0.1.99
 mlflow>=2.10.2
 label-studio-sdk>=0.8.0
+# Evidence gap detection — Sprint 5
+scikit-learn>=1.4.0
+rapidfuzz>=3.6.0
