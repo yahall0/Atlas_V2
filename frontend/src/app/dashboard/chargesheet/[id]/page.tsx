@@ -36,6 +36,9 @@ interface ValidationFinding {
   description: string;
   recommendation: string;
   confidence: number;
+  is_likely_routine?: boolean;
+  routine_score?: number;
+  merged_count?: number;
 }
 
 interface EvidenceGap {

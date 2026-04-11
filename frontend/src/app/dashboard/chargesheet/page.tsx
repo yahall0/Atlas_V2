@@ -62,6 +62,10 @@ interface ValidationFinding {
   description: string;
   recommendation: string;
   confidence: number;
+  // NLP filter annotations (added by legal_nlp_filter post-processor)
+  is_likely_routine?: boolean;
+  routine_score?: number;
+  merged_count?: number;
 }
 
 interface ValidationSummary {
@@ -79,6 +83,9 @@ interface ValidationReport {
   fir_id?: string | null;
   overall_status: string;
   findings: ValidationFinding[];
+  filtered_findings?: ValidationFinding[];
+  suppressed_duplicate_count?: number;
+  narrative_summary?: string;
   summary: ValidationSummary;
 }
 
@@ -119,6 +126,7 @@ interface EvidenceGapReport {
   total_expected: number;
   total_present: number;
   total_gaps: number;
+  narrative_summary?: string;
 }
 
 const STATUS_COLOURS: Record<string, string> = {
@@ -997,46 +1005,94 @@ export default function ChargesheetPage() {
                     )}
                   {validationReport &&
                     validationReport.findings.length > 0 && (
-                      <div className="space-y-2">
-                        {validationReport.findings.map((f, i) => {
-                          const style =
-                            SEVERITY_STYLES[f.severity] ??
-                            SEVERITY_STYLES.WARNING;
-                          return (
-                            <div
-                              key={i}
-                              className={`p-3 rounded-lg border text-sm ${style.bg}`}
-                            >
-                              <div className="flex items-start gap-2">
-                                <span
-                                  className={`text-lg leading-none ${style.icon}`}
-                                >
-                                  {SEVERITY_ICON[f.severity] ?? "\u25B3"}
-                                </span>
-                                <div className="flex-1 min-w-0">
-                                  <div className="flex items-center gap-2 flex-wrap">
-                                    <span className="font-semibold text-xs uppercase">
-                                      {f.rule_id}
-                                    </span>
-                                    <Badge
-                                      variant="outline"
-                                      className="text-xs"
-                                    >
-                                      {f.section}
-                                    </Badge>
-                                    <span className="text-xs font-medium uppercase">
-                                      {f.severity}
-                                    </span>
+                      <div className="space-y-3">
+                        {/* NLP narrative summary */}
+                        {validationReport.narrative_summary && (
+                          <div className="rounded-lg border border-blue-200 bg-blue-50 p-3 text-sm text-blue-900">
+                            <p className="font-semibold text-xs uppercase tracking-wide mb-1 text-blue-700">
+                              AI Summary
+                            </p>
+                            {validationReport.narrative_summary
+                              .split("\n\n")
+                              .map((para, pi) => (
+                                <p key={pi} className={pi > 0 ? "mt-2" : ""}>
+                                  {para}
+                                </p>
+                              ))}
+                            {(validationReport.suppressed_duplicate_count ?? 0) >
+                              0 && (
+                              <p className="mt-2 text-xs text-blue-600">
+                                {validationReport.suppressed_duplicate_count}{" "}
+                                duplicate finding(s) were merged above.
+                              </p>
+                            )}
+                          </div>
+                        )}
+                        {/* Finding cards — use filtered_findings (deduplicated + scored) when available */}
+                        <div className="space-y-2">
+                          {(
+                            validationReport.filtered_findings ??
+                            validationReport.findings
+                          ).map((f, i) => {
+                            const style =
+                              SEVERITY_STYLES[f.severity] ??
+                              SEVERITY_STYLES.WARNING;
+                            return (
+                              <div
+                                key={i}
+                                className={`p-3 rounded-lg border text-sm ${
+                                  f.is_likely_routine
+                                    ? "opacity-60 " + style.bg
+                                    : style.bg
+                                }`}
+                              >
+                                <div className="flex items-start gap-2">
+                                  <span
+                                    className={`text-lg leading-none ${style.icon}`}
+                                  >
+                                    {SEVERITY_ICON[f.severity] ?? "\u25B3"}
+                                  </span>
+                                  <div className="flex-1 min-w-0">
+                                    <div className="flex items-center gap-2 flex-wrap">
+                                      <span className="font-semibold text-xs uppercase">
+                                        {f.rule_id}
+                                      </span>
+                                      <Badge
+                                        variant="outline"
+                                        className="text-xs"
+                                      >
+                                        {f.section}
+                                      </Badge>
+                                      <span className="text-xs font-medium uppercase">
+                                        {f.severity}
+                                      </span>
+                                      {(f.merged_count ?? 1) > 1 && (
+                                        <Badge
+                                          variant="secondary"
+                                          className="text-xs"
+                                        >
+                                          {f.merged_count} merged
+                                        </Badge>
+                                      )}
+                                      {f.is_likely_routine && (
+                                        <Badge
+                                          variant="outline"
+                                          className="text-xs text-gray-500 border-gray-300"
+                                        >
+                                          likely routine
+                                        </Badge>
+                                      )}
+                                    </div>
+                                    <p className="mt-1">{f.description}</p>
+                                    <p className="mt-1 text-xs opacity-80">
+                                      Recommendation: {f.recommendation}
+                                    </p>
                                   </div>
-                                  <p className="mt-1">{f.description}</p>
-                                  <p className="mt-1 text-xs opacity-80">
-                                    Recommendation: {f.recommendation}
-                                  </p>
                                 </div>
                               </div>
-                            </div>
-                          );
-                        })}
+                            );
+                          })}
+                        </div>
                       </div>
                     )}
                 </div>
@@ -1065,7 +1121,23 @@ export default function ChargesheetPage() {
                     )}
                   {evidenceReport &&
                     evidenceReport.evidence_gaps.length > 0 && (
-                      <div className="space-y-2">
+                      <div className="space-y-3">
+                        {/* AI narrative summary */}
+                        {evidenceReport.narrative_summary && (
+                          <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">
+                            <p className="font-semibold text-xs uppercase tracking-wide mb-1 text-emerald-700">
+                              AI Summary
+                            </p>
+                            {evidenceReport.narrative_summary
+                              .split("\n\n")
+                              .map((para, pi) => (
+                                <p key={pi} className={pi > 0 ? "mt-2" : ""}>
+                                  {para}
+                                </p>
+                              ))}
+                          </div>
+                        )}
+                        <div className="space-y-2">
                         {evidenceReport.evidence_gaps.map((gap, i) => (
                           <div
                             key={i}
@@ -1112,6 +1184,7 @@ export default function ChargesheetPage() {
                             </div>
                           </div>
                         ))}
+                        </div>
                       </div>
                     )}
 

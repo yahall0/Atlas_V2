@@ -115,6 +115,19 @@ VERIFICATION:
 Investigation completed as per procedure.
 """
 
+SAMPLE_CHARGESHEET_EVIDENCE_NOISE = """
+SUPPLEMENTARY Chargesheet
+
+iii. List of Material Objects:
+Result of laboratory Analysis Forensic Science Laboratory Reports/Expert opinions
+1. SLR bearing Arsenal No. 15132128 sent for examination and expert opinion to SFSL Guwahati and report received back.
+If F.I.R. is false, action taken : Not Applicable.
+
+Brief facts of the case:
+The case was initially registered at Zunheboto Police Station vide F.I.R. No. 28/2016.
+During the course of investigation, the following facts have been established.
+"""
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Auth fixtures
@@ -182,6 +195,18 @@ class TestChargesheetParser:
         assert result["filing_date"] is not None
         assert "2026" in result["filing_date"]
 
+    def test_evidence_filter_excludes_background_narrative(self):
+        from app.ingestion.chargesheet_parser import parse_chargesheet_text
+        result = parse_chargesheet_text(SAMPLE_CHARGESHEET_EVIDENCE_NOISE)
+        evidence = result.get("evidence_list", [])
+        descriptions = [item.get("description", "").lower() for item in evidence]
+
+        assert any("forensic science laboratory reports" in text for text in descriptions)
+        assert any("slr bearing arsenal no." in text for text in descriptions)
+        assert not any("brief facts of the case" in text for text in descriptions)
+        assert not any("if f.i.r. is false" in text for text in descriptions)
+        assert not any("the case was initially registered" in text for text in descriptions)
+
     def test_english_io(self):
         from app.ingestion.chargesheet_parser import parse_chargesheet_text
         result = parse_chargesheet_text(SAMPLE_CHARGESHEET_ENGLISH)
@@ -221,6 +246,14 @@ class TestChargesheetParser:
         from app.ingestion.chargesheet_parser import parse_chargesheet_text
         result = parse_chargesheet_text(SAMPLE_CHARGESHEET_ENGLISH)
         assert result.get("completeness_pct", 0) >= 50.0
+
+    def test_parser_adds_extraction_metadata(self):
+        from app.ingestion.chargesheet_parser import parse_chargesheet_text
+        result = parse_chargesheet_text(SAMPLE_CHARGESHEET_ENGLISH)
+        assert result["document_family"] in {"court_filing", "chargesheet_report", "mixed_format"}
+        assert result["extraction_strategy"] == "hybrid_anchor_block_parser"
+        assert isinstance(result["field_confidence"], dict)
+        assert "quality_flags" in result
 
     def test_mixed_fir_reference(self):
         from app.ingestion.chargesheet_parser import parse_chargesheet_text

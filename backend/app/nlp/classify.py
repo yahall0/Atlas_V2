@@ -18,7 +18,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
-import mlflow  # type: ignore
+try:
+    import mlflow  # type: ignore
+except Exception:  # pragma: no cover - optional dependency
+    mlflow = None
 
 from app.nlp.zero_shot import zero_shot_classify  # type: ignore
 
@@ -251,7 +254,7 @@ def classify_fir(text: str, *, log_to_mlflow: bool = False) -> ATLASPrediction:
 
     prediction = _default_classifier.classify(text)
 
-    if log_to_mlflow:
+    if log_to_mlflow and mlflow is not None:
         try:
             mlflow.set_tracking_uri(_MLFLOW_TRACKING_URI)
             with mlflow.start_run(run_name="fir_inference", nested=True):

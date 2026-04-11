@@ -19,6 +19,7 @@ from app.db.crud_fir import get_fir_by_id
 from app.db.session import get_connection
 from app.ml.evidence_gap_model import EvidenceGapDetector
 from app.ml.evidence_taxonomy import EVIDENCE_CATEGORIES
+from app.ml.legal_nlp_filter import enhance_evidence_report
 
 logger = logging.getLogger(__name__)
 
@@ -70,6 +71,9 @@ def analyze_evidence(
 
         # Run gap detection
         report = _detector.detect_gaps(cs, fir_data)
+
+        # Post-process: add narrative summary.
+        enhance_evidence_report(report)
 
         # Persist
         db_row = create_evidence_gap_report(conn, {

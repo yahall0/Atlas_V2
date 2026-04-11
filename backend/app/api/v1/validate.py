@@ -19,6 +19,7 @@ from app.db.crud_validation import create_validation_report, get_validation_repo
 from app.db.session import get_connection
 from app.legal_db import get_section, get_bns_equivalent, get_ipc_equivalent
 from app.legal_validator import LegalCrossReferenceValidator
+from app.ml.legal_nlp_filter import enhance_validation_report
 
 logger = logging.getLogger(__name__)
 
@@ -68,11 +69,14 @@ def validate_chargesheet(
         if fir_id:
             fir_data = get_fir_by_id(conn, str(fir_id))
 
-        # Run validation
+        # Run validation (deterministic rule engine)
         report = _validator.validate(cs, fir_data)
         report_dict = report.to_dict()
 
-        # Persist
+        # Post-process: deduplicate, score routine likelihood, and add narrative.
+        enhance_validation_report(report_dict)
+
+        # Persist — store the raw rule-engine findings for the audit trail.
         db_row = create_validation_report(conn, {
             "chargesheet_id": chargesheet_id,
             "fir_id": str(fir_id) if fir_id else None,

@@ -10,6 +10,7 @@ import logging
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
+from psycopg2.errors import UndefinedTable
 
 from app.core.rbac import Role, get_current_user
 from app.db.session import get_connection
@@ -69,9 +70,17 @@ def _get_stats(conn, district: str | None) -> DashboardStats:
         ingested_today: int = cur.fetchone()[0]
 
         # 6 — total chargesheets
+        # Chargesheet tables are introduced in later migrations. If the running
+        # database is older, we keep the dashboard functional and report 0
+        # instead of failing the whole page.
         cs_where = "WHERE district = %(d)s" if district else ""
-        cur.execute(f"SELECT COUNT(*) FROM chargesheets {cs_where};", params)
-        total_chargesheets: int = cur.fetchone()[0]
+        try:
+            cur.execute(f"SELECT COUNT(*) FROM chargesheets {cs_where};", params)
+            total_chargesheets: int = cur.fetchone()[0]
+        except UndefinedTable:
+            conn.rollback()
+            logger.warning("Chargesheet table missing; returning total_chargesheets=0 in dashboard stats.")
+            total_chargesheets = 0
 
     return DashboardStats(
         total_firs=total_firs,

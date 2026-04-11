@@ -12,6 +12,7 @@ import logging
 from typing import Optional
 
 from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile, status
+from psycopg2.errors import UndefinedTable
 
 from app.core.rbac import Role, get_current_user, require_role
 from app.db.crud_chargesheet import (
@@ -38,6 +39,17 @@ _DISTRICT_SCOPED_ROLES = {Role.IO.value, Role.SHO.value}
 
 def _district_for(user: dict) -> str | None:
     return user["district"] if user["role"] in _DISTRICT_SCOPED_ROLES else None
+
+
+def _schema_not_ready_error() -> HTTPException:
+    return HTTPException(
+        status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+        detail=(
+            "Charge-sheet schema is not initialized in the database. "
+            "Run Alembic migrations (`alembic upgrade head`) or restart the backend "
+            "with the migration-enabled image."
+        ),
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -144,6 +156,9 @@ async def upload_chargesheet(
     try:
         conn = get_connection()
         created = create_chargesheet(conn, cs_data)
+    except UndefinedTable:
+        logger.error("Chargesheet schema is missing during upload.", exc_info=True)
+        raise _schema_not_ready_error()
     except Exception as exc:
         logger.error("DB insert failed for chargesheet.", exc_info=True)
         raise HTTPException(
@@ -181,6 +196,9 @@ def get_chargesheet_endpoint(
         return ChargeSheetResponse(**cs)
     except HTTPException:
         raise
+    except UndefinedTable:
+        logger.error("Chargesheet schema is missing during get by id.", exc_info=True)
+        raise _schema_not_ready_error()
     except Exception as exc:
         logger.error("API error in GET /chargesheet/%s", cs_id, exc_info=True)
         raise HTTPException(
@@ -224,6 +242,9 @@ def list_chargesheets_endpoint(
             date_to=date_to,
         )
         return [ChargeSheetResponse(**r) for r in rows]
+    except UndefinedTable:
+        logger.error("Chargesheet schema is missing during list.", exc_info=True)
+        raise _schema_not_ready_error()
     except Exception as exc:
         logger.error("API error in GET /chargesheet/", exc_info=True)
         raise HTTPException(
@@ -274,6 +295,9 @@ def review_chargesheet_endpoint(
 
     except HTTPException:
         raise
+    except UndefinedTable:
+        logger.error("Chargesheet schema is missing during review.", exc_info=True)
+        raise _schema_not_ready_error()
     except Exception as exc:
         logger.error("API error in PATCH /chargesheet/%s/review", cs_id, exc_info=True)
         raise HTTPException(

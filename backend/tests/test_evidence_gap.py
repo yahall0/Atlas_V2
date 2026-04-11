@@ -218,6 +218,29 @@ class TestRuleBasedTier:
         assert report["evidence_coverage_pct"] < 100.0
         assert report["total_gaps"] > 0
 
+    def test_semantic_recovery_from_raw_text(self):
+        """Semantic tier should recover likely evidence mentions from raw text."""
+        detector = EvidenceGapDetector()
+        detector._model = None
+        detector._tfidf = None
+
+        cs = _make_cs(
+            [{"section": "420", "act": "IPC"}],
+            evidence=[],
+        )
+        cs["raw_text"] = """
+        Evidence List:
+        Bank transaction records collected from Axis Bank.
+        WhatsApp chat export obtained from complainant mobile.
+        """
+        fir = _make_fir(nlp_classification="fraud")
+        report = detector.detect_gaps(cs, fir)
+
+        present_cats = {item["category"] for item in report["evidence_present"]}
+        assert "financial_records" in present_cats
+        assert "electronic_evidence" in present_cats
+        assert report["analysis_metadata"]["semantic_matches_used"] >= 1
+
 
 # ═════════════════════════════════════════════════════════════════════════════
 # ML TIER TESTS
