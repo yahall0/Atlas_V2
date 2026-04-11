@@ -170,45 +170,7 @@ async def upload_chargesheet(
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# GET /{id}
-# ─────────────────────────────────────────────────────────────────────────────
-
-
-@router.get(
-    "/{cs_id}",
-    response_model=ChargeSheetResponse,
-    summary="Retrieve a charge-sheet by ID",
-)
-def get_chargesheet_endpoint(
-    cs_id: str,
-    user: dict = Depends(
-        require_role(Role.IO, Role.SHO, Role.DYSP, Role.SP, Role.ADMIN, Role.READONLY)
-    ),
-) -> ChargeSheetResponse:
-    try:
-        conn = get_connection()
-        cs = get_chargesheet_by_id(conn, cs_id, district=_district_for(user))
-        if cs is None:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"Chargesheet '{cs_id}' not found.",
-            )
-        return ChargeSheetResponse(**cs)
-    except HTTPException:
-        raise
-    except UndefinedTable:
-        logger.error("Chargesheet schema is missing during get by id.", exc_info=True)
-        raise _schema_not_ready_error()
-    except Exception as exc:
-        logger.error("API error in GET /chargesheet/%s", cs_id, exc_info=True)
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=str(exc),
-        )
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# GET /
+# GET /  (MUST be before /{cs_id} so FastAPI doesn't swallow it)
 # ─────────────────────────────────────────────────────────────────────────────
 
 
@@ -247,6 +209,44 @@ def list_chargesheets_endpoint(
         raise _schema_not_ready_error()
     except Exception as exc:
         logger.error("API error in GET /chargesheet/", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(exc),
+        )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# GET /{id}
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+@router.get(
+    "/{cs_id}",
+    response_model=ChargeSheetResponse,
+    summary="Retrieve a charge-sheet by ID",
+)
+def get_chargesheet_endpoint(
+    cs_id: str,
+    user: dict = Depends(
+        require_role(Role.IO, Role.SHO, Role.DYSP, Role.SP, Role.ADMIN, Role.READONLY)
+    ),
+) -> ChargeSheetResponse:
+    try:
+        conn = get_connection()
+        cs = get_chargesheet_by_id(conn, cs_id, district=_district_for(user))
+        if cs is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Chargesheet '{cs_id}' not found.",
+            )
+        return ChargeSheetResponse(**cs)
+    except HTTPException:
+        raise
+    except UndefinedTable:
+        logger.error("Chargesheet schema is missing during get by id.", exc_info=True)
+        raise _schema_not_ready_error()
+    except Exception as exc:
+        logger.error("API error in GET /chargesheet/%s", cs_id, exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(exc),
