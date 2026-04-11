@@ -51,12 +51,6 @@ WORKDIR /app
 EXPOSE 7860
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-    psycopg2-binary redis sqlalchemy alembic motor structlog transformers \
-    fasttext-wheel sentencepiece scikit-learn rapidfuzz 2>&1 | grep -v "already satisfied" || true
-
-# Setup nginx and supervisord
-COPY hf_nginx.conf /etc/nginx/sites-available/default
-COPY hf_supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 WORKDIR /app
 EXPOSE 7860
