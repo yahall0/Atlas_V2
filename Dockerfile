@@ -51,8 +51,3 @@ WORKDIR /app
 EXPOSE 7860
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-
-WORKDIR /app
-EXPOSE 7860
-
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
