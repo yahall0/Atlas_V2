@@ -37,6 +37,9 @@ def _ensure_seed_users(cursor) -> None:
 
 def _seed_fir(cursor, fir: dict) -> None:
     now = datetime.now(timezone.utc).replace(tzinfo=None)
+    stolen_property = fir.get("stolen_property")
+    if stolen_property is not None:
+        stolen_property = Json(stolen_property)
     cursor.execute(
         """
         INSERT INTO firs (
@@ -118,6 +121,7 @@ def _seed_fir(cursor, fir: dict) -> None:
             **fir,
             "created_at": now,
             "status": "classified",
+            "stolen_property": stolen_property,
             "nlp_metadata": Json({
                 "mismatch": False,
                 "section_inferred_category": "theft",
