@@ -20,7 +20,7 @@ if [ ! -s "$PGDATA/PG_VERSION" ]; then
 fi
 
 echo "Starting PostgreSQL..."
-pg_ctl -D "$PGDATA" -l "$PGLOG" -o "-c listen_addresses=127.0.0.1 -p 5432" start
+pg_ctl -D "$PGDATA" -l "$PGLOG" -o "-c listen_addresses=127.0.0.1 -c unix_socket_directories=$HOME/postgres -p 5432" start
 
 echo "Waiting for PostgreSQL to be ready..."
 until pg_isready -h 127.0.0.1 -p 5432 >/dev/null 2>&1; do
