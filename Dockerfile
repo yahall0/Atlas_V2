@@ -16,7 +16,7 @@ ENV PATH=/home/user/.local/bin:$PATH
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl wget supervisor nodejs npm git \
     postgresql-17 postgresql-client-17 postgresql-contrib-17 \
-    tesseract-ocr libglib2.0-0 poppler-utils \
+    tesseract-ocr tesseract-ocr-guj libglib2.0-0 poppler-utils \
     build-essential python3-dev \
     && rm -rf /var/lib/apt/lists/*
 

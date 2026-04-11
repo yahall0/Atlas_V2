@@ -30,6 +30,16 @@ _MIN_TEXT_LENGTH = 50
 # Tesseract language pack — English + Gujarati
 _OCR_LANG = "eng+guj"
 
+# Indic Unicode range — Devanagari (U+0900) through Gujarati (U+0AFF)
+_INDIC_RE = re.compile(r'[\u0900-\u0AFF]')
+
+# Common English keywords found in eGujCop FIR PDFs with standard encoding.
+_FIR_ANCHOR_RE = re.compile(
+    r'\b(?:F\.?I\.?R|First\s+Information|Police\s+Station|District|'
+    r'Complainant|Accused|Section\s+\d|Occurrence|Under\s+Section)\b',
+    re.IGNORECASE,
+)
+
 # PyMuPDF fallback resolution (DPI)
 _DPI = 200
 
@@ -41,6 +51,33 @@ def _clean_text(text: str) -> str:
     text = text.replace("\u0964\u0964", "")    # remove Devanagari double-danda artefact
     text = text.replace("€", "")              # stray euro-sign artefact
     return text.strip()
+
+
+def _looks_garbled(text: str) -> bool:
+    """Detect garbled text from custom-font-encoded Indian language PDFs.
+
+    Many Indian government PDFs (eGujCop, etc.) embed custom fonts that map
+    Gujarati glyphs to Latin codepoints internally.  PDF viewers render the
+    correct shapes because they use the embedded font outlines, but text
+    extraction tools (pdfplumber, PyMuPDF) read the underlying codepoints
+    and produce gibberish Latin text.
+
+    Returns ``True`` when the text appears garbled so the caller can fall
+    back to OCR (which reads visual glyphs, not codepoints).
+    """
+    # A real Gujarati FIR will have dozens to hundreds of Indic characters.
+    indic_chars = len(_INDIC_RE.findall(text))
+    if indic_chars >= 20:
+        return False
+
+    # No meaningful Indic chars — check for recognisable English FIR
+    # structure (plausible English-only or bilingual FIR).
+    anchor_hits = len(_FIR_ANCHOR_RE.findall(text))
+    if anchor_hits >= 3:
+        return False
+
+    # Neither Indic characters nor English FIR anchors → garbled.
+    return True
 
 
 def _ocr_pdf(file_bytes: bytes) -> str:
@@ -106,12 +143,18 @@ def extract_text_from_pdf(file_bytes: bytes) -> str:
         logger.debug("pdfplumber: %d real chars extracted.", real_chars)
 
         if real_chars >= _MIN_TEXT_LENGTH:
-            return text
-
-        logger.info(
-            "pdfplumber returned only %d real chars — falling back to OCR.",
-            real_chars,
-        )
+            if _looks_garbled(text):
+                logger.info(
+                    "pdfplumber text appears garbled (custom font encoding); "
+                    "falling back to OCR.",
+                )
+            else:
+                return text
+        else:
+            logger.info(
+                "pdfplumber returned only %d real chars — falling back to OCR.",
+                real_chars,
+            )
     except Exception:
         logger.error("pdfplumber failed; falling back to OCR.", exc_info=True)
 
