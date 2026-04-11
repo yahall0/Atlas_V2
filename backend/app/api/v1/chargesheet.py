@@ -175,12 +175,12 @@ def upload_chargesheet(
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# GET /  (MUST be before /{cs_id} so FastAPI doesn't swallow it)
+# GET /chargesheet  (MUST be before /{cs_id} so FastAPI doesn't swallow it)
 # ─────────────────────────────────────────────────────────────────────────────
 
 
 @router.get(
-    "/",
+    "",
     response_model=list[ChargeSheetResponse],
     summary="List charge-sheets (paginated, filtered)",
 )
@@ -213,7 +213,7 @@ def list_chargesheets_endpoint(
         logger.error("Chargesheet schema is missing during list.", exc_info=True)
         raise _schema_not_ready_error()
     except Exception as exc:
-        logger.error("API error in GET /chargesheet/", exc_info=True)
+        logger.error("API error in GET /chargesheet", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(exc),

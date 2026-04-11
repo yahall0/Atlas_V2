@@ -202,7 +202,7 @@ export default function ChargesheetPage() {
         if (district) params.set("district", district);
         if (status) params.set("status", status);
         const data: ChargeSheet[] = await apiClient(
-          `/api/v1/chargesheet/?${params.toString()}`
+          `/api/v1/chargesheet?${params.toString()}`
         );
         if (pageIndex === 0) {
           setSheets(data);
