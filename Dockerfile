@@ -1,73 +1,95 @@
-FROM ubuntu:22.04
+# Build stage for frontend
+FROM node:20-alpine as frontend-builder
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm ci --prefer-offline --no-audit
+COPY frontend/ .
+RUN npm run build
 
-ENV DEBIAN_FRONTEND=noninteractive
-ENV NODE_ENV=production
+# Final stage - optimized for HF Spaces
+FROM python:3.11-slim
+
 ENV PYTHONUNBUFFERED=1
+ENV NODE_ENV=production
 ENV NEXT_PUBLIC_API_URL=""
+ENV DATABASE_URL="postgresql://atlas:atlaspass@127.0.0.1:5432/atlas_db"
+ENV REDIS_URL="redis://127.0.0.1:6379"
+ENV MONGO_URL="mongodb://127.0.0.1:27017"
 
-# Install prerequisites
-RUN apt-get update && apt-get install -y \
-    curl gnupg software-properties-common wget \
+# Install minimal system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl wget gnupg \
     supervisor nginx \
-    tesseract-ocr tesseract-ocr-eng tesseract-ocr-guj \
+    tesseract-ocr tesseract-ocr-eng \
     libglib2.0-0 poppler-utils \
-    postgresql-14 postgresql-contrib redis-server \
+    postgresql postgresql-contrib redis-server \
+    nodejs npm \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python 3.11
-RUN add-apt-repository ppa:deadsnakes/ppa -y && \
-    apt-get update && \
-    apt-get install -y python3.11 python3.11-venv python3.11-dev build-essential && \
-    curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
-
-# Install Node.js 20
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs
-
-# Install MongoDB
-RUN curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
-    gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor && \
-    echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-7.0.list && \
-    apt-get update && apt-get install -y mongodb-org && \
-    rm -rf /var/lib/apt/lists/* && \
-    mkdir -p /data/db /var/log/mongodb && \
-    chown -R mongodb:mongodb /data/db /var/log/mongodb
-
-# Setup Postgres Database
-USER postgres
+# Initialize PostgreSQL database
 RUN /etc/init.d/postgresql start && \
-    psql -c "CREATE USER atlas WITH SUPERUSER PASSWORD 'atlaspass';" && \
-    createdb -O atlas atlas_db && \
-    /etc/init.d/postgresql stop
-USER root
-# Allow local connections
-RUN echo "host all all 127.0.0.1/32 trust" >> /etc/postgresql/14/main/pg_hba.conf && \
-    echo "listen_addresses='*'" >> /etc/postgresql/14/main/postgresql.conf
+    su - postgres -c "psql -c \"CREATE USER atlas WITH SUPERUSER PASSWORD 'atlaspass';\"" && \
+    su - postgres -c "createdb -O atlas atlas_db" && \
+    /etc/init.d/postgresql stop || true
+
+# Install MongoDB (lightweight approach)
+RUN curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | apt-key add - && \
+    echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/debian bullseye/mongodb-org/7.0 main" | tee /etc/apt/sources.list.d/mongodb-org-7.0.list && \
+    apt-get update && apt-get install -y --no-install-recommends mongodb-org-server && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# 1. Setup Backend
+# Copy pre-built frontend
+COPY --from=frontend-builder /app/frontend/.next /app/frontend/.next
+COPY frontend/public /app/frontend/public
+COPY frontend/package.json /app/frontend/
+COPY frontend/next.config.mjs /app/frontend/
+
+# Setup Python backend
 COPY backend/ /app/backend/
+
+# Install Python dependencies (skip torch for now - add only if needed)
 WORKDIR /app/backend
-RUN python3.11 -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-# Force CPU-only PyTorch wheel to save container space and build time
-RUN pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir \
+    fastapi==0.110.0 \
+    uvicorn[standard]==0.27.1 \
+    psycopg2-binary==2.9.9 \
+    python-dotenv==1.0.1 \
+    redis==5.0.3 \
+    pydantic>=2.6.0 \
+    python-jose[cryptography]==3.3.0 \
+    bcrypt==4.2.1 \
+    structlog==24.1.0 \
+    prometheus-fastapi-instrumentator==6.1.0 \
+    pdfplumber==0.11.0 \
+    PyMuPDF==1.26.7 \
+    pytesseract==0.3.13 \
+    pdf2image==1.17.0 \
+    Pillow>=10.0.0 \
+    python-multipart==0.0.9 \
+    alembic==1.13.1 \
+    sqlalchemy==2.0.28 \
+    motor>=3.3 \
+    fasttext-wheel==0.9.2 \
+    sentencepiece>=0.1.99 \
+    mlflow>=2.10.2 \
+    label-studio-sdk>=0.8.0 \
+    scikit-learn>=1.4.0 \
+    rapidfuzz>=3.6.0
 
-# 2. Setup Frontend
-WORKDIR /app/frontend
-COPY frontend/ /app/frontend/
-RUN npm ci && npm run build
+# Optional: Install transformers separately with minimal deps
+RUN pip install --no-cache-dir --no-deps transformers>=4.38.0 && \
+    pip install --no-cache-dir huggingface_hub
 
-# 3. Setup Configurations
-WORKDIR /app
+# Setup configurations
 COPY hf_nginx.conf /etc/nginx/sites-available/default
 COPY hf_supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY hf_start.sh /app/hf_start.sh
 RUN chmod +x /app/hf_start.sh
 
-# Expose the single port that Hugging Face expects
+WORKDIR /app
 EXPOSE 7860
 
 CMD ["/app/hf_start.sh"]
