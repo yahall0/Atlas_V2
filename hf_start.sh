@@ -9,6 +9,11 @@ export PGLOG="${PGLOG:-$HOME/logs/postgres.log}"
 echo "ATLAS Platform Starting on HF Spaces..."
 mkdir -p "$PGDATA" "$(dirname "$PGLOG")"
 
+if ! command -v initdb >/dev/null 2>&1 || ! command -v pg_ctl >/dev/null 2>&1 || ! command -v postgres >/dev/null 2>&1; then
+	echo "PostgreSQL server binaries are missing from the image."
+	exit 1
+fi
+
 if [ ! -s "$PGDATA/PG_VERSION" ]; then
 	echo "Initializing PostgreSQL cluster..."
 	initdb -D "$PGDATA" --auth=trust --encoding=UTF8 --locale=C

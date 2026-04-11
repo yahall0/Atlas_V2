@@ -15,7 +15,7 @@ ENV PATH=/home/user/.local/bin:$PATH
 # Install system dependencies, including a local PostgreSQL server.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl wget supervisor nodejs npm git \
-    postgresql postgresql-contrib postgresql-client \
+    postgresql-17 postgresql-client-17 postgresql-contrib-17 \
     tesseract-ocr libglib2.0-0 poppler-utils \
     build-essential python3-dev \
     && rm -rf /var/lib/apt/lists/*
