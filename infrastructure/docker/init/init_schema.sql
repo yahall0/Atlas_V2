@@ -185,3 +185,32 @@ CREATE TABLE IF NOT EXISTS ocr_jobs (
     completed_at TIMESTAMP
 );
 CREATE INDEX IF NOT EXISTS idx_ocr_jobs_status ON ocr_jobs(status);
+
+-- ─────────────────────────────────────────────
+-- Charge-sheets
+-- ─────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS chargesheets (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    fir_id          UUID REFERENCES firs(id) ON DELETE SET NULL,
+    filing_date     DATE,
+    court_name      TEXT,
+    accused_json    JSONB DEFAULT '[]',
+    charges_json    JSONB DEFAULT '[]',
+    evidence_json   JSONB DEFAULT '[]',
+    witnesses_json  JSONB DEFAULT '[]',
+    io_name         TEXT,
+    raw_text        TEXT NOT NULL DEFAULT '',
+    parsed_json     JSONB DEFAULT '{}',
+    status          TEXT NOT NULL DEFAULT 'pending'
+                    CHECK (status IN ('pending','parsed','reviewed','flagged')),
+    reviewer_notes  TEXT,
+    uploaded_by     TEXT,
+    district        TEXT,
+    police_station  TEXT,
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_chargesheets_fir_id ON chargesheets(fir_id);
+CREATE INDEX IF NOT EXISTS idx_chargesheets_status ON chargesheets(status);
+CREATE INDEX IF NOT EXISTS idx_chargesheets_district ON chargesheets(district);
+CREATE INDEX IF NOT EXISTS idx_chargesheets_created_at ON chargesheets(created_at);
