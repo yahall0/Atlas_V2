@@ -1,0 +1,451 @@
+offence_code: BNS_S137_KIDNAPPING
+category_id: missing_persons_misc
+bns_section: "137"
+bns_subsection: ""
+display_name_en: "Kidnapping"
+display_name_gu: "અપહરણ"
+short_description_md: |
+  BNS S.137 defines two types of kidnapping: (1) Kidnapping from India —
+  conveying any person beyond the limits of India without consent; (2)
+  Kidnapping from lawful guardianship — taking or enticing any minor (male
+  under 16, female under 18) or any person of unsound mind, out of the
+  keeping of the lawful guardian without the guardian's consent. The related
+  offence of abduction (BNS S.138) involves compelling or inducing any person
+  to go from any place by force, threat, or deceitful means.
+punishment: "Kidnapping from India: imprisonment up to 7 years and fine; Kidnapping from lawful guardianship: imprisonment up to 7 years and fine"
+cognizable: true
+bailable: false
+triable_by: "Magistrate of the first class"
+compoundable: "no"
+schedule_reference: "BNS Schedule I, Part I"
+related_offence_codes:
+  - BNS_S138_ABDUCTION
+  - BNS_S139_KIDNAPPING_FOR_RANSOM
+  - BNS_S140_KIDNAPPING_TO_COMPEL_MARRIAGE
+  - BNS_S141_PROCURATION_OF_MINOR
+special_acts:
+  - "Protection of Children from Sexual Offences Act, 2012 (POCSO)"
+  - "Juvenile Justice (Care and Protection of Children) Act, 2015"
+
+knowledge_nodes:
+
+  # ── LEGAL SECTION NODES ─────────────────────────────────────────────────────
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BNS S.137 — Kidnapping: Definition and Elements"
+    description_md: |
+      S.137 of the Bharatiya Nyaya Sanhita 2023 defines kidnapping in two
+      forms:
+
+      (1) Kidnapping from India (S.137(1)): Conveying any person beyond the
+      limits of India without the consent of that person or of some person
+      legally authorised to consent on behalf of that person.
+
+      (2) Kidnapping from lawful guardianship (S.137(2)): Taking or enticing
+      any minor (male under 16 years, female under 18 years) or any person
+      of unsound mind, out of the keeping of the lawful guardian of such
+      minor or person of unsound mind, without the consent of such guardian.
+
+      Key elements: (a) the victim must be a minor or person of unsound
+      mind (for S.137(2)), (b) the victim must be taken or enticed, (c) out
+      of the keeping of the lawful guardian, (d) without the guardian's
+      consent. Consent of the minor is immaterial.
+    legal_basis_citations:
+      - framework: BNS
+        section: "137"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BNS S.139 — Kidnapping for Ransom"
+    description_md: |
+      S.139 BNS punishes kidnapping or abducting any person in order to
+      compel the Government or any other person to do or abstain from doing
+      any act, or for ransom. Punishment: death or imprisonment for life,
+      and fine. This is the most serious form of kidnapping and is tried
+      by the Court of Session. If the victim dies during kidnapping for
+      ransom, S.139 carries the death penalty option.
+    legal_basis_citations:
+      - framework: BNS
+        section: "139"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "BNS S.138 — Abduction"
+    description_md: |
+      Abduction (S.138) differs from kidnapping: abduction applies to any
+      person (not just minors), requires force or deceitful means, and is
+      not an offence by itself — it is punishable only when committed with
+      the intent specified in S.139-143 (for ransom, murder, grievous hurt,
+      slavery, forced marriage, or illicit intercourse). The distinction is
+      important for framing the correct charge.
+    legal_basis_citations:
+      - framework: BNS
+        section: "138"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "BNS S.140 — Kidnapping to Compel Marriage"
+    description_md: |
+      Kidnapping or abducting a woman with intent to compel her marriage or
+      to force or seduce her to illicit intercourse. Punishment: imprisonment
+      up to 10 years and fine. This section is often used in forced marriage
+      cases and honour-related offences. If the victim is a minor, POCSO
+      Act provisions also apply.
+    legal_basis_citations:
+      - framework: BNS
+        section: "140"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── IMMEDIATE ACTION NODES ─────────────────────────────────────────────────
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Register FIR Immediately — No Waiting Period"
+    description_md: |
+      Register FIR under BNSS S.173 immediately upon receiving information
+      of kidnapping. There is NO mandatory waiting period for registering
+      a missing person FIR — per Supreme Court directions in Horilal v.
+      Commissioner of Police (2003). For kidnapping of children, immediate
+      registration is critical. Collect detailed description of the victim:
+      age, height, build, complexion, clothing last worn, photographs, any
+      distinguishing marks, and details of the person last seen with.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "173"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Activate Missing Persons Alert and Search"
+    description_md: |
+      Immediately activate search: circulate photograph and description to
+      all police stations in the district and neighbouring districts. Alert
+      railway stations, bus stations, airports, and border check-posts.
+      Issue lookout circular (LOC) if accused is known. Circulate on
+      police wireless network. For child kidnapping, activate the state's
+      child tracking system and upload details to the TrackChild portal
+      (NCRB). Check CCTNS database for matching missing persons reports.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "CDR and Mobile Phone Tracking"
+    description_md: |
+      Obtain CDR/IPDR for the victim's mobile phone and any suspected
+      accused's phone immediately. Request real-time location tracking
+      from the service provider if the phone is still active. Cell tower
+      location data can identify the last known location and direction of
+      movement. Check the victim's phone records for last calls, messages,
+      and contacts. Time is critical — every hour's delay reduces the
+      chances of recovery.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "94"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "CCTV Collection Along Route"
+    description_md: |
+      Identify and seize CCTV footage from: the place where the victim was
+      last seen, the route likely taken, nearby traffic cameras, ATM cameras,
+      petrol station cameras, toll plaza cameras, and any private CCTV.
+      Check ANPR camera records for vehicle identification. Must be done
+      within 24-48 hours before footage is overwritten.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── PANCHNAMA NODES ─────────────────────────────────────────────────────────
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Spot Panchnama — Place of Kidnapping"
+    description_md: |
+      If the place of kidnapping is known: prepare spot panchnama describing
+      the exact location, signs of struggle, articles found (victim's
+      belongings, attacker's dropped items), tyre marks, footprints, CCTV
+      locations noted, and condition of surroundings. If the victim was
+      taken from home, document the state of the house (forced entry,
+      broken locks, disturbed items).
+    legal_basis_citations:
+      - framework: BNSS
+        section: "175"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Recovery Panchnama — Rescue of Victim"
+    description_md: |
+      When the victim is rescued: prepare a detailed recovery panchnama
+      documenting the location of recovery, condition of the victim
+      (injuries, state of clothing, mental state), persons present at the
+      location, articles seized from the location and from the accused.
+      If the victim is a child, record the recovery in the presence of a
+      Child Welfare Committee member. Immediate medical examination of
+      the victim. Photograph the location and the victim's condition.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── EVIDENCE NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "CCTV and Vehicle Tracking Evidence"
+    description_md: |
+      CCTV footage showing the kidnapping or the victim being taken into a
+      vehicle. Vehicle identification through ANPR, FASTag records, and toll
+      plaza cameras. GPS tracking data if the vehicle is equipped. CCTV
+      footage from the location where the victim is held. All electronic
+      evidence requires S.63 BSA certificate.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "CDR and Digital Communication Evidence"
+    description_md: |
+      CDR analysis for victim's and accused's phones: call patterns,
+      cell tower locations showing movement, ransom demand calls (number,
+      duration, tower location). WhatsApp/messaging app analysis for
+      communications. Recording of ransom demands if available. IPDR data
+      for internet-based communications. IP address tracing for online
+      ransom demands.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Age Determination — Proof of Minority"
+    description_md: |
+      For kidnapping from lawful guardianship (S.137(2)), proof that the
+      victim is a minor is essential. Age proof: birth certificate, school
+      records (admission register, transfer certificate), Aadhaar card,
+      medical age determination (ossification test — bone age X-ray) if
+      documentary proof is unavailable. Per Jarnail Singh v. State of
+      Haryana (2013) 7 SCC 263, the preference order is: birth certificate,
+      school records, and only then medical opinion.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: medium
+    title_en: "Ransom Money — Marked Currency and Financial Trail"
+    description_md: |
+      In kidnapping for ransom cases: if the family is preparing to pay
+      ransom, note the serial numbers of all currency notes. If possible,
+      use chemical marking. After payment, trace the money through bank
+      deposits, ATM withdrawals, and spending. Financial analysis of the
+      accused's accounts for unexplained credits. Seizure of ransom money
+      from the accused is powerful evidence.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── FORENSIC NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: forensic
+    tier: canonical
+    priority: critical
+    title_en: "Digital Forensics — Phone and Communication Analysis"
+    description_md: |
+      Forensic examination of the accused's phone: call logs, messages,
+      GPS location history, photographs (of the victim during captivity),
+      communication with co-conspirators, financial app transactions for
+      ransom receipt. Voice analysis of ransom call recordings. Examine
+      for deleted data recovery. Location data correlation with captivity
+      location. S.63 BSA certificate for all digital evidence.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "DNA and Physical Evidence"
+    description_md: |
+      DNA evidence from the captivity location linking the accused and
+      victim. Fingerprints at the captivity location and on ransom notes.
+      Fibre transfer between the victim's clothing and the accused's
+      vehicle/premises. Soil analysis from the accused's vehicle matching
+      the captivity location. Ligature analysis if the victim was bound.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── WITNESS / BAYAN NODES ───────────────────────────────────────────────────
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Victim's Statement After Rescue"
+    description_md: |
+      Record detailed statement of the rescued victim under BNSS S.180:
+      who kidnapped them, how, where they were taken, how they were treated,
+      who they saw, description of the location, vehicles used, ransom
+      demands made in their presence. If the victim is a child, the
+      statement must be recorded in a child-friendly manner, by a woman
+      officer, in the presence of a person the child trusts. Also obtain
+      S.183 BNSS statement before a Magistrate.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BNSS
+        section: "183"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Complainant / Guardian Statement"
+    description_md: |
+      Record the complainant's (parent/guardian) statement about: when they
+      last saw the victim, when they realised the victim was missing, any
+      ransom demands received (mode, timing, content, voice identification),
+      any prior threats from the accused, relationship with the accused (if
+      known), whether ransom was paid and how.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: medium
+    title_en: "Last Seen and Eyewitness Statements"
+    description_md: |
+      Statements of persons who last saw the victim, who saw the victim
+      being taken into a vehicle, or who saw the accused near the place
+      of kidnapping. Description of the vehicle, number of persons,
+      weapons displayed. Neighbours or passers-by who witnessed anything
+      unusual.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── GAP / HISTORICAL NODES ─────────────────────────────────────────────────
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Delay in FIR Registration for Missing Children"
+    description_md: |
+      In Bachpan Bachao Andolan v. Union of India (2011), the Supreme Court
+      directed that all cases of missing children must be registered as FIR
+      immediately without any waiting period. Despite these directions, NCRB
+      data shows that delayed registration remains common. The 2013 Supreme
+      Court Advisory mandated: immediate registration, investigation by an
+      officer not below SI rank, and entry into CCTNS and TrackChild database
+      within 24 hours.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: medium
+    title_en: "Missing Cases Treated as Non-Cognizable"
+    description_md: |
+      In Horilal v. Commissioner of Police (2003), the Delhi High Court
+      noted the institutional tendency to register missing person complaints
+      as non-cognizable "missing reports" rather than FIRs. NCRB data shows
+      that a significant percentage of missing children are never traced.
+      The IO must register a cognizable FIR if there is any suspicion of
+      kidnapping and convert missing reports to FIRs if investigation
+      reveals foul play.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  # ── PROCEDURAL SAFEGUARD NODES ──────────────────────────────────────────────
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Arrest and Remand — Non-Bailable Offence"
+    description_md: |
+      Kidnapping is a non-bailable offence. Arrest must comply with D.K.
+      Basu guidelines and BNSS S.35-36. Prepare arrest memo, inform family,
+      produce before Magistrate within 24 hours. Police custody remand may
+      be sought under BNSS S.187 for recovery of the victim and discovery
+      of the captivity location. Maximum 15 days police custody.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "35"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BNSS
+        section: "187"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Child Victim Safeguards"
+    description_md: |
+      If the victim is a child (below 18 years):
+      - Statement must be recorded by a woman officer in a child-friendly manner.
+      - Child Welfare Committee (CWC) must be informed immediately upon rescue.
+      - Medical examination with consent of parent/guardian.
+      - No media disclosure of the child's identity.
+      - Rehabilitation and reintegration plan per Juvenile Justice Act 2015.
+      - If sexual offence is disclosed, POCSO Act provisions apply (mandatory
+        reporting, special court, S.183 BNSS statement).
+      - Psychosocial support through DCPU (District Child Protection Unit).
+    legal_basis_citations:
+      - framework: Special Act
+        section: "Various"
+        source_authority: "Juvenile Justice (Care and Protection of Children) Act, 2015"
+    requires_disclaimer: false
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: medium
+    title_en: "Rights of the Accused"
+    description_md: |
+      The accused retains all constitutional rights: grounds of arrest
+      (BNSS S.36), legal representation, free legal aid, production before
+      Magistrate within 24 hours (BNSS S.187), right against self-
+      incrimination (Article 20(3)), no custodial torture. In kidnapping
+      for ransom cases (S.139), bail is highly restrictive but not
+      impossible — the court considers flight risk, severity, and evidence
+      strength.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "36"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false

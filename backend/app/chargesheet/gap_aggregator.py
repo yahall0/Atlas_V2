@@ -1,0 +1,663 @@
+"""Gap aggregation service — T56-E1.
+
+Unifies outputs from T54 legal validator, T55 evidence gap classifier,
+mindmap diff (T53-M), and static completeness rules into a single
+GapReport snapshot.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import logging
+import time
+import uuid
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
+
+import psycopg2.extras
+from psycopg2.extensions import connection as PgConnection
+
+psycopg2.extras.register_uuid()
+logger = logging.getLogger(__name__)
+
+_GENESIS = "GENESIS"
+_GENERATOR_VERSION = "gap-aggregator-v1"
+_COMPLETENESS_RULES_DIR = Path(__file__).parent / "completeness_rules"
+
+# Severity ordering for sort
+_SEVERITY_ORDER = {"critical": 0, "high": 1, "medium": 2, "low": 3, "advisory": 4}
+# Map T54 severities to our enum
+_T54_SEVERITY_MAP = {"CRITICAL": "critical", "ERROR": "high", "WARNING": "medium"}
+# Map T55 severities
+_T55_SEVERITY_MAP = {"critical": "critical", "important": "high", "suggested": "medium"}
+
+
+def _dict_cursor(conn: PgConnection):
+    return conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+
+def _compute_action_hash(
+    gap_id: str, user_id: str, action: str,
+    note: str, timestamp: str, previous_hash: str,
+) -> str:
+    payload = f"{gap_id}|{user_id}|{action}|{note}|{timestamp}|{previous_hash}"
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+# ── Source fetchers ──────────────────────────────────────────────────────────
+
+def _fetch_chargesheet(conn: PgConnection, cs_id: uuid.UUID) -> Optional[Dict]:
+    with _dict_cursor(conn) as cur:
+        cur.execute("SELECT * FROM chargesheets WHERE id = %s", (cs_id,))
+        row = cur.fetchone()
+        return dict(row) if row else None
+
+
+def _fetch_linked_fir(conn: PgConnection, cs: Dict) -> Optional[Dict]:
+    fir_id = cs.get("fir_id")
+    if not fir_id:
+        return None
+    with _dict_cursor(conn) as cur:
+        cur.execute("SELECT * FROM firs WHERE id = %s", (fir_id,))
+        row = cur.fetchone()
+        return dict(row) if row else None
+
+
+def _fetch_legal_findings(conn: PgConnection, cs_id: uuid.UUID) -> List[Dict]:
+    """Fetch T54 legal validator findings from validation_reports."""
+    try:
+        with _dict_cursor(conn) as cur:
+            cur.execute(
+                """SELECT * FROM validation_reports
+                   WHERE chargesheet_id = %s
+                   ORDER BY created_at DESC LIMIT 1""",
+                (cs_id,),
+            )
+            row = cur.fetchone()
+            if not row:
+                return []
+
+            report_data = row.get("report_data") or row.get("findings_json") or {}
+            if isinstance(report_data, str):
+                report_data = json.loads(report_data)
+
+            findings = report_data.get("findings", [])
+            if isinstance(findings, list):
+                return findings
+            return []
+    except Exception:
+        logger.warning("Could not fetch T54 legal findings for chargesheet %s", cs_id)
+        return []
+
+
+def _fetch_evidence_gaps(conn: PgConnection, cs_id: uuid.UUID) -> List[Dict]:
+    """Fetch T55 evidence gap classifier output."""
+    try:
+        with _dict_cursor(conn) as cur:
+            cur.execute(
+                """SELECT * FROM evidence_gap_reports
+                   WHERE chargesheet_id = %s
+                   ORDER BY created_at DESC LIMIT 1""",
+                (cs_id,),
+            )
+            row = cur.fetchone()
+            if not row:
+                return []
+
+            gaps_data = row.get("gaps_json") or []
+            if isinstance(gaps_data, str):
+                gaps_data = json.loads(gaps_data)
+            return gaps_data if isinstance(gaps_data, list) else []
+    except Exception:
+        logger.warning("Could not fetch T55 evidence gaps for chargesheet %s", cs_id)
+        return []
+
+
+def _fetch_mindmap_for_fir(conn: PgConnection, fir_id: uuid.UUID) -> Optional[Dict]:
+    """Fetch latest active mindmap and its nodes for the linked FIR."""
+    try:
+        with _dict_cursor(conn) as cur:
+            cur.execute(
+                """SELECT id FROM chargesheet_mindmaps
+                   WHERE fir_id = %s AND status = 'active'
+                   ORDER BY generated_at DESC LIMIT 1""",
+                (fir_id,),
+            )
+            mm = cur.fetchone()
+            if not mm:
+                return None
+
+            cur.execute(
+                """SELECT n.*,
+                          (SELECT s.status FROM mindmap_node_status s
+                           WHERE s.node_id = n.id
+                           ORDER BY s.updated_at DESC LIMIT 1) AS current_status
+                   FROM mindmap_nodes n
+                   WHERE n.mindmap_id = %s""",
+                (mm["id"],),
+            )
+            nodes = [dict(r) for r in cur.fetchall()]
+            return {"mindmap_id": mm["id"], "nodes": nodes}
+    except Exception:
+        logger.warning("Could not fetch mindmap for FIR %s", fir_id)
+        return None
+
+
+# ── Gap converters ───────────────────────────────────────────────────────────
+
+def _convert_legal_findings(findings: List[Dict]) -> List[Dict]:
+    """Convert T54 legal validator findings to unified gap format."""
+    gaps = []
+    for f in findings:
+        severity = _T54_SEVERITY_MAP.get(f.get("severity", ""), "medium")
+        section = f.get("section", "")
+        gaps.append({
+            "category": "legal",
+            "severity": severity,
+            "source": "T54_legal_validator",
+            "requires_disclaimer": False,
+            "title": f.get("description", f.get("rule_id", "Legal finding")),
+            "description_md": f.get("recommendation", ""),
+            "legal_refs": [{"framework": "IPC", "section": section}] if section else [],
+            "remediation": {
+                "summary": f.get("recommendation", ""),
+                "steps": [],
+                "estimated_effort": "minutes",
+            },
+            "confidence": f.get("confidence", 0.9),
+            "tags": [f.get("rule_id", "")] if f.get("rule_id") else [],
+            "_dedup_key": ("legal", section, f.get("rule_id", "")),
+        })
+    return gaps
+
+
+def _convert_evidence_gaps(evidence_gaps: List[Dict]) -> List[Dict]:
+    """Convert T55 evidence gap classifier output to unified gap format."""
+    gaps = []
+    for eg in evidence_gaps:
+        severity = _T55_SEVERITY_MAP.get(eg.get("severity", ""), "medium")
+        gaps.append({
+            "category": "evidence",
+            "severity": severity,
+            "source": "T55_evidence_ml",
+            "requires_disclaimer": True,
+            "title": f"Evidence Gap: {eg.get('category', 'Unknown')}",
+            "description_md": eg.get("recommendation", ""),
+            "legal_refs": (
+                [{"framework": "CrPC", "section": eg["legal_basis"]}]
+                if eg.get("legal_basis") else []
+            ),
+            "remediation": {
+                "summary": eg.get("recommendation", ""),
+                "steps": [],
+                "estimated_effort": "hours",
+            },
+            "confidence": eg.get("confidence", 0.7),
+            "tags": [eg.get("tier", ""), eg.get("category", "")],
+            "_dedup_key": ("evidence", eg.get("category", ""), ""),
+        })
+    return gaps
+
+
+def _compute_mindmap_divergences(
+    mindmap_data: Dict, cs: Dict,
+) -> List[Dict]:
+    """Diff: find 'addressed' mindmap nodes with no chargesheet counterpart."""
+    if not mindmap_data:
+        return []
+
+    cs_text = (cs.get("raw_text") or "").lower()
+    cs_evidence = cs.get("evidence_json") or []
+    cs_witnesses = cs.get("witnesses_json") or []
+    cs_charges = cs.get("charges_json") or []
+
+    divergences = []
+    for node in mindmap_data["nodes"]:
+        if node.get("current_status") != "addressed":
+            continue
+
+        node_type = node.get("node_type", "")
+        title = (node.get("title") or "").lower()
+        matched = False
+        confidence = 0.0
+
+        if node_type == "panchnama":
+            if any(kw in cs_text for kw in ["panchnama", "panchnam", title[:20]]):
+                matched = True
+                confidence = 0.7
+        elif node_type == "evidence":
+            for ev in cs_evidence if isinstance(cs_evidence, list) else []:
+                ev_desc = (ev.get("description") or ev.get("type") or "").lower()
+                if any(w in ev_desc for w in title.split()[:3] if len(w) > 3):
+                    matched = True
+                    confidence = 0.6
+                    break
+        elif node_type == "witness_bayan":
+            if cs_witnesses and len(cs_witnesses) > 0:
+                matched = True
+                confidence = 0.5
+        elif node_type == "forensic":
+            if any(kw in cs_text for kw in ["forensic", "fsl", "dna", "ballistic"]):
+                matched = True
+                confidence = 0.6
+        elif node_type == "legal_section":
+            bns = node.get("bns_section", "")
+            ipc = node.get("ipc_section", "")
+            for charge in cs_charges if isinstance(cs_charges, list) else []:
+                sec = (charge.get("section") or "").strip()
+                if (bns and bns in sec) or (ipc and ipc in sec):
+                    matched = True
+                    confidence = 0.9
+                    break
+        else:
+            if title[:15] in cs_text:
+                matched = True
+                confidence = 0.4
+
+        if not matched:
+            label = "likely_divergence" if confidence < 0.5 else "possible_divergence"
+            divergences.append({
+                "category": "mindmap_divergence",
+                "severity": "medium",
+                "source": "mindmap_diff",
+                "requires_disclaimer": True,
+                "title": f"Mindmap Divergence: {node.get('title', 'Unknown')}",
+                "description_md": (
+                    f"Mindmap node '{node.get('title')}' (type: {node_type}) was marked "
+                    f"as 'addressed' in the investigation mindmap, but no corresponding "
+                    f"artifact was found in the chargesheet. Classification: {label}."
+                ),
+                "remediation": {
+                    "summary": f"Verify whether {node.get('title')} is reflected in the chargesheet",
+                    "steps": [
+                        f"Check if {node_type} content is present under a different name",
+                        "If missing, add the relevant content to the chargesheet",
+                        "If intentionally excluded, document the reason",
+                    ],
+                    "estimated_effort": "minutes",
+                },
+                "related_mindmap_node_id": str(node["id"]),
+                "confidence": max(0.1, 1.0 - confidence),
+                "tags": [label, node_type],
+                "_dedup_key": ("mindmap_divergence", str(node["id"]), ""),
+            })
+
+    return divergences
+
+
+def _run_completeness_rules(cs: Dict, case_category: str) -> List[Dict]:
+    """Run static completeness rules against chargesheet data."""
+    gaps = []
+    rules = _load_completeness_rules(case_category)
+
+    for rule in rules:
+        check_type = rule.get("check_type", "")
+        config = rule.get("check_config", {})
+        failed = False
+
+        if check_type == "field_present":
+            field = config.get("field", "")
+            val = cs.get(field)
+            allow_null = config.get("allow_null", True)
+            min_entries = config.get("min_entries", 0)
+
+            if not allow_null and val is None:
+                failed = True
+            elif min_entries > 0:
+                if isinstance(val, list):
+                    failed = len(val) < min_entries
+                elif isinstance(val, str):
+                    try:
+                        parsed = json.loads(val) if val else []
+                        failed = len(parsed) < min_entries
+                    except (json.JSONDecodeError, TypeError):
+                        failed = not bool(val)
+                else:
+                    failed = val is None
+
+        elif check_type == "text_contains":
+            raw = (cs.get("raw_text") or "").lower()
+            keywords = [k.lower() for k in config.get("keywords", [])]
+            min_matches = config.get("min_matches", 1)
+            matches = sum(1 for kw in keywords if kw in raw)
+            failed = matches < min_matches
+
+        if failed:
+            remediation = rule.get("remediation", {})
+            gaps.append({
+                "category": rule.get("category", "completeness"),
+                "severity": rule.get("severity", "medium"),
+                "source": "completeness_rules",
+                "requires_disclaimer": False,
+                "title": rule.get("title", "Completeness Issue"),
+                "description_md": rule.get("description", ""),
+                "remediation": {
+                    "summary": remediation.get("summary", ""),
+                    "steps": remediation.get("steps", []),
+                    "estimated_effort": remediation.get("estimated_effort", "minutes"),
+                },
+                "confidence": 1.0,
+                "tags": [rule.get("id", "")],
+                "_dedup_key": (rule.get("category", "completeness"), rule.get("id", ""), ""),
+            })
+
+    return gaps
+
+
+def _load_completeness_rules(case_category: str) -> List[Dict]:
+    """Load completeness rules for generic + case-specific."""
+    rules = []
+    for name in ["generic", case_category]:
+        fp = _COMPLETENESS_RULES_DIR / f"{name}.json"
+        if fp.is_file():
+            try:
+                data = json.loads(fp.read_text(encoding="utf-8"))
+                rules.extend(data.get("rules", []))
+            except Exception:
+                logger.warning("Could not load completeness rules from %s", fp)
+    return rules
+
+
+# ── Dedup + merge ────────────────────────────────────────────────────────────
+
+def _deduplicate(gaps: List[Dict]) -> List[Dict]:
+    """Deduplicate gaps by (category, key1, key2). Merge sources if overlapping."""
+    seen: Dict[tuple, int] = {}
+    result = []
+
+    for gap in gaps:
+        key = gap.pop("_dedup_key", None)
+        if key and key in seen:
+            idx = seen[key]
+            existing = result[idx]
+            # Merge: keep higher severity
+            if _SEVERITY_ORDER.get(gap["severity"], 4) < _SEVERITY_ORDER.get(existing["severity"], 4):
+                existing["severity"] = gap["severity"]
+            # Combine tags
+            existing["tags"] = list(set(existing.get("tags", []) + gap.get("tags", [])))
+            # Note combined source
+            if gap["source"] not in existing.get("combined_sources", [existing["source"]]):
+                existing.setdefault("combined_sources", [existing["source"]])
+                existing["combined_sources"].append(gap["source"])
+        else:
+            if key:
+                seen[key] = len(result)
+            result.append(gap)
+
+    return result
+
+
+# ── Persist ──────────────────────────────────────────────────────────────────
+
+def _persist_report(
+    conn: PgConnection,
+    cs_id: uuid.UUID,
+    gaps: List[Dict],
+    duration_ms: int,
+    partial_sources: List[str],
+) -> uuid.UUID:
+    """Persist gap report and gaps to database. Returns report ID."""
+    report_id = uuid.uuid4()
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
+
+    severity_counts = {"critical": 0, "high": 0, "medium": 0, "low": 0, "advisory": 0}
+    for g in gaps:
+        sev = g.get("severity", "medium")
+        if sev in severity_counts:
+            severity_counts[sev] += 1
+
+    version = _GENERATOR_VERSION
+    if partial_sources:
+        version += "+partial(" + ",".join(partial_sources) + ")"
+
+    with conn.cursor() as cur:
+        cur.execute(
+            """INSERT INTO chargesheet_gap_reports
+               (id, chargesheet_id, generated_at, generator_version,
+                gap_count, critical_count, high_count, medium_count,
+                low_count, advisory_count, generation_duration_ms)
+               VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
+            (report_id, cs_id, now, version,
+             len(gaps), severity_counts["critical"], severity_counts["high"],
+             severity_counts["medium"], severity_counts["low"],
+             severity_counts["advisory"], duration_ms),
+        )
+
+        for i, gap in enumerate(gaps):
+            gap_id = uuid.uuid4()
+            legal_refs = gap.get("legal_refs", [])
+            remediation = gap.get("remediation", {})
+            location = gap.get("location")
+            related_node = gap.get("related_mindmap_node_id")
+
+            cur.execute(
+                """INSERT INTO chargesheet_gaps
+                   (id, report_id, category, severity, source,
+                    requires_disclaimer, title, description_md,
+                    location, legal_refs, remediation,
+                    related_mindmap_node_id, confidence, tags, display_order)
+                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s,
+                           %s::jsonb, %s::jsonb, %s::jsonb,
+                           %s, %s, %s, %s)""",
+                (gap_id, report_id, gap["category"], gap["severity"],
+                 gap["source"], gap.get("requires_disclaimer", False),
+                 gap["title"], gap.get("description_md", ""),
+                 json.dumps(location) if location else None,
+                 json.dumps(legal_refs),
+                 json.dumps(remediation),
+                 uuid.UUID(related_node) if related_node else None,
+                 gap.get("confidence", 0.0),
+                 gap.get("tags", []),
+                 i),
+            )
+
+    conn.commit()
+    return report_id
+
+
+# ── Fetch helpers ────────────────────────────────────────────────────────────
+
+def _fetch_report(conn: PgConnection, report_id: uuid.UUID) -> Optional[Dict]:
+    with _dict_cursor(conn) as cur:
+        cur.execute(
+            "SELECT * FROM chargesheet_gap_reports WHERE id = %s", (report_id,),
+        )
+        report = cur.fetchone()
+        if not report:
+            return None
+        report = dict(report)
+
+        cur.execute(
+            """SELECT g.*,
+                      (SELECT a.action FROM chargesheet_gap_actions a
+                       WHERE a.gap_id = g.id
+                       ORDER BY a.created_at DESC LIMIT 1) AS current_action
+               FROM chargesheet_gaps g
+               WHERE g.report_id = %s
+               ORDER BY g.display_order""",
+            (report_id,),
+        )
+        report["gaps"] = [dict(r) for r in cur.fetchall()]
+        return report
+
+
+# ── Public API ───────────────────────────────────────────────────────────────
+
+def aggregate_gaps(
+    chargesheet_id: uuid.UUID,
+    *,
+    conn: PgConnection,
+    regenerate: bool = False,
+) -> Dict:
+    """Generate (or return existing) gap analysis report.
+
+    Idempotent by default. Set regenerate=True for a new version.
+    """
+    start = time.monotonic()
+    partial_sources: List[str] = []
+
+    cs = _fetch_chargesheet(conn, chargesheet_id)
+    if cs is None:
+        raise ValueError(f"Chargesheet {chargesheet_id} not found")
+
+    # Idempotency check
+    if not regenerate:
+        with _dict_cursor(conn) as cur:
+            cur.execute(
+                """SELECT id FROM chargesheet_gap_reports
+                   WHERE chargesheet_id = %s
+                   ORDER BY generated_at DESC LIMIT 1""",
+                (chargesheet_id,),
+            )
+            existing = cur.fetchone()
+            if existing:
+                return _fetch_report(conn, existing["id"])
+
+    # Determine case category from linked FIR
+    fir = _fetch_linked_fir(conn, cs)
+    case_category = (fir.get("nlp_classification") or "generic") if fir else "generic"
+
+    # 1. T54 legal validator findings
+    legal_findings = _fetch_legal_findings(conn, chargesheet_id)
+    if not legal_findings:
+        partial_sources.append("T54_legal_validator")
+
+    # 2. T55 evidence gap classifier
+    evidence_gaps = _fetch_evidence_gaps(conn, chargesheet_id)
+    if not evidence_gaps:
+        partial_sources.append("T55_evidence_ml")
+
+    # 3. Mindmap diff
+    mindmap_data = None
+    if fir:
+        mindmap_data = _fetch_mindmap_for_fir(conn, fir["id"])
+        if not mindmap_data:
+            partial_sources.append("mindmap_diff")
+
+    # 4. Static completeness rules
+    completeness_gaps = _run_completeness_rules(cs, case_category)
+
+    # Convert and unify
+    all_gaps = []
+    all_gaps.extend(_convert_legal_findings(legal_findings))
+    all_gaps.extend(_convert_evidence_gaps(evidence_gaps))
+    if mindmap_data:
+        all_gaps.extend(_compute_mindmap_divergences(mindmap_data, cs))
+    all_gaps.extend(completeness_gaps)
+
+    # Deduplicate
+    all_gaps = _deduplicate(all_gaps)
+
+    # Sort by severity desc, then confidence desc
+    all_gaps.sort(key=lambda g: (
+        _SEVERITY_ORDER.get(g["severity"], 4),
+        -g.get("confidence", 0),
+    ))
+
+    duration_ms = int((time.monotonic() - start) * 1000)
+
+    # Persist
+    report_id = _persist_report(conn, chargesheet_id, all_gaps, duration_ms, partial_sources)
+
+    logger.info(
+        "Gap report generated: cs=%s, gaps=%d, duration=%dms, partial=%s",
+        chargesheet_id, len(all_gaps), duration_ms, partial_sources,
+    )
+
+    return _fetch_report(conn, report_id)
+
+
+def get_latest_report(conn: PgConnection, cs_id: uuid.UUID) -> Optional[Dict]:
+    with _dict_cursor(conn) as cur:
+        cur.execute(
+            """SELECT id FROM chargesheet_gap_reports
+               WHERE chargesheet_id = %s
+               ORDER BY generated_at DESC LIMIT 1""",
+            (cs_id,),
+        )
+        row = cur.fetchone()
+        if not row:
+            return None
+        return _fetch_report(conn, row["id"])
+
+
+def list_reports(conn: PgConnection, cs_id: uuid.UUID) -> List[Dict]:
+    with _dict_cursor(conn) as cur:
+        cur.execute(
+            """SELECT id, chargesheet_id, generated_at, generator_version,
+                      gap_count, critical_count, high_count
+               FROM chargesheet_gap_reports
+               WHERE chargesheet_id = %s
+               ORDER BY generated_at DESC""",
+            (cs_id,),
+        )
+        return [dict(r) for r in cur.fetchall()]
+
+
+def get_report_by_id(conn: PgConnection, report_id: uuid.UUID) -> Optional[Dict]:
+    return _fetch_report(conn, report_id)
+
+
+def add_gap_action(
+    conn: PgConnection,
+    gap_id: uuid.UUID,
+    user_id: str,
+    action: str,
+    note: str = "",
+    modification_diff: str = "",
+    evidence_ref: str = "",
+    hash_prev: str = "",
+) -> Dict:
+    """Append a gap action to the hash chain. Returns the new action entry."""
+    with _dict_cursor(conn) as cur:
+        cur.execute("SELECT id FROM chargesheet_gaps WHERE id = %s", (gap_id,))
+        if cur.fetchone() is None:
+            raise ValueError(f"Gap {gap_id} not found")
+
+        cur.execute(
+            """SELECT hash_self FROM chargesheet_gap_actions
+               WHERE gap_id = %s ORDER BY created_at DESC LIMIT 1""",
+            (gap_id,),
+        )
+        latest = cur.fetchone()
+        actual_prev = latest["hash_self"] if latest else _GENESIS
+
+        if hash_prev != actual_prev:
+            raise ValueError(
+                f"Hash chain conflict: expected {actual_prev}, got {hash_prev}"
+            )
+
+        now = datetime.now(timezone.utc)
+        entry_id = uuid.uuid4()
+        hash_self = _compute_action_hash(
+            str(gap_id), user_id, action,
+            note or "", now.isoformat(), actual_prev,
+        )
+
+        cur.execute(
+            """INSERT INTO chargesheet_gap_actions
+               (id, gap_id, user_id, action, note, modification_diff,
+                evidence_ref, created_at, hash_prev, hash_self)
+               VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+               RETURNING *""",
+            (entry_id, gap_id, user_id, action,
+             note or None, modification_diff or None,
+             evidence_ref or None, now.replace(tzinfo=None),
+             actual_prev, hash_self),
+        )
+        row = dict(cur.fetchone())
+        conn.commit()
+
+    return row
+
+
+def get_gap_action_history(conn: PgConnection, gap_id: uuid.UUID) -> List[Dict]:
+    with _dict_cursor(conn) as cur:
+        cur.execute(
+            """SELECT * FROM chargesheet_gap_actions
+               WHERE gap_id = %s ORDER BY created_at ASC""",
+            (gap_id,),
+        )
+        return [dict(r) for r in cur.fetchall()]

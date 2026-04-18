@@ -10,16 +10,19 @@ import {
   FileText,
   ScrollText,
   BookOpen,
+  Library,
   LogOut,
   Shield,
   ChevronRight,
 } from "lucide-react";
+import { QueryProvider } from "@/lib/query-provider";
 
 const NAV_ITEMS = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { label: "FIR Review", href: "/dashboard/fir", icon: FileText },
   { label: "Charge Sheet", href: "/dashboard/chargesheet", icon: ScrollText },
   { label: "SOP Assistant", href: "/dashboard/sop", icon: BookOpen },
+  { label: "Knowledge Base", href: "/dashboard/kb", icon: Library },
 ];
 
 const ROLE_COLOURS: Record<string, string> = {
@@ -55,15 +58,15 @@ export default function DashboardLayout({
   return (
     <div className="min-h-screen flex bg-slate-50">
       {/* Sidebar */}
-      <aside className="w-64 bg-gradient-to-b from-slate-900 to-slate-800 text-white flex flex-col shadow-xl">
+      <aside className="w-52 bg-gradient-to-b from-slate-900 to-slate-800 text-white flex flex-col shadow-xl">
         {/* Brand */}
-        <div className="p-6 flex items-center gap-3">
-          <div className="w-9 h-9 bg-blue-500 rounded-lg flex items-center justify-center shadow">
-            <Shield className="w-5 h-5 text-white" />
+        <div className="px-4 py-4 flex items-center gap-2">
+          <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center shadow">
+            <Shield className="w-4 h-4 text-white" />
           </div>
           <div>
-            <h1 className="text-lg font-bold tracking-wide">ATLAS</h1>
-            <p className="text-[10px] text-slate-400 leading-none">Criminal Justice Platform</p>
+            <h1 className="text-base font-bold tracking-wide">ATLAS</h1>
+            <p className="text-[9px] text-slate-400 leading-none">Criminal Justice Platform</p>
           </div>
         </div>
 
@@ -124,7 +127,9 @@ export default function DashboardLayout({
         </header>
 
         {/* Page content */}
-        <main className="flex-1 p-6 overflow-auto">{children}</main>
+        <main className="flex-1 p-6 overflow-auto">
+          <QueryProvider>{children}</QueryProvider>
+        </main>
       </div>
     </div>
   );

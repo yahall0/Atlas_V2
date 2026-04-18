@@ -1,0 +1,320 @@
+{
+  "case_category": "rape",
+  "template_version": "1.0.0",
+  "description": "Chargesheet mindmap template for sexual offence cases under IPC 375/376/376A/354 and corresponding BNS provisions. MANDATORY: Women police officer involvement throughout investigation.",
+  "branches": [
+    {
+      "node_type": "legal_section",
+      "title": "Applicable Legal Sections",
+      "description_md": "Legal sections for sexual offences. Investigation must be conducted or supervised by a woman police officer not below the rank of Inspector as per CrPC 154(1) proviso.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "legal_section",
+          "title": "IPC 375/376 / BNS 63/64 -- Rape",
+          "description_md": "IPC 375 defines rape; IPC 376 prescribes punishment. Rigorous imprisonment not less than 10 years which may extend to life imprisonment + fine. Consent must be free, voluntary, and informed. Absence of physical injury does not negate rape.",
+          "ipc_section": "376",
+          "bns_section": "64",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 376A / BNS 66 -- Rape Causing Death or Vegetative State",
+          "description_md": "Where rape causes death or persistent vegetative state. Minimum 20 years rigorous imprisonment which may extend to life or death. Applies when injury inflicted during rape leads to death.",
+          "ipc_section": "376A",
+          "bns_section": "66",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 376D / BNS 70(1) -- Gang Rape",
+          "description_md": "Where a woman is raped by one or more persons constituting a group acting in furtherance of common intention. Minimum 20 years rigorous imprisonment which may extend to life. Each member of group deemed to have committed the offence.",
+          "ipc_section": "376D",
+          "bns_section": "70(1)",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 354 / BNS 74 -- Assault on Woman to Outrage Modesty",
+          "description_md": "Assault or criminal force to any woman intending to outrage her modesty. Punishment: 1 to 5 years imprisonment + fine. May be added as alternative or additional charge.",
+          "ipc_section": "354",
+          "bns_section": "74",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 354A / BNS 75 -- Sexual Harassment",
+          "description_md": "Physical contact and advances involving unwelcome and explicit sexual overtures. Punishment: up to 3 years imprisonment or fine or both. Applicable in cases of workplace harassment or stalking-related incidents.",
+          "ipc_section": "354A",
+          "bns_section": "75",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 506 / BNS 351(2) -- Criminal Intimidation",
+          "description_md": "Companion charge when accused threatened victim to prevent complaint or for coercion. Punishment: up to 7 years if threat is of death or grievous hurt.",
+          "ipc_section": "506",
+          "bns_section": "351(2)",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "immediate_action",
+      "title": "Immediate Actions",
+      "description_md": "Time-critical steps. MANDATORY: Woman police officer must be involved. Victim's statement must be recorded with sensitivity and without judgment. No two-finger test to be conducted (SC directive).",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "immediate_action",
+          "title": "Record FIR by Woman Police Officer",
+          "description_md": "FIR must be recorded by a woman police officer at the residence of the victim or at a place of her choice (CrPC 154 proviso / BNSS 173). Record statement verbatim in the victim's own words. Do not ask insensitive or victim-blaming questions. Provide free copy of FIR.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Medical Examination Within 24 Hours",
+          "description_md": "Rush victim to nearest government hospital for medical examination by a registered female medical practitioner. Examination must be conducted as per MoHFW guidelines. Collect samples: vaginal swabs, oral swabs, nail clippings, pubic hair combing. No two-finger test (Lillu v. State of Haryana). Obtain informed written consent.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Record CrPC 164 / BNSS 183 Statement Before Magistrate",
+          "description_md": "Victim's statement must be recorded before a Judicial Magistrate at the earliest opportunity. This statement has high evidentiary value and can corroborate the victim's testimony at trial. Magistrate must ensure statement is voluntary. No police officer to be present during recording.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Preserve Scene of Crime",
+          "description_md": "Seal and secure the location where the offence occurred. Collect bedsheets, clothing, condoms, tissue papers, and any articles. Photograph the scene. Do not allow cleaning or washing of the location.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Collect and Preserve Victim's Clothing",
+          "description_md": "Collect clothes worn by victim at the time of the offence in separate paper bags. If victim has changed clothes, collect those too. Do not fold clothes together. Each garment in a separate bag. Provide fresh clothing to victim.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Initiate Victim Protection Measures",
+          "description_md": "Ensure victim's identity is not disclosed (IPC 228A / BNS 72). Arrange shelter home or safe accommodation if needed. Provide contact of legal aid services and women's helpline. Inform victim about compensation under Victim Compensation Scheme.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "evidence",
+      "title": "Evidence Collection",
+      "description_md": "Comprehensive evidence collection with special sensitivity to the nature of the offence. All evidence must be collected by or under supervision of a woman officer.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "evidence",
+          "title": "Medical Evidence and MLC",
+          "description_md": "Medico-Legal Certificate detailing: injuries on the body (genital and extra-genital), condition of hymen (not determinative), swab analysis results, presence of semen/sperm. Medical opinion on consistency with alleged assault. Also examine accused for scratches, bite marks, DNA material under nails.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Forensic DNA Evidence",
+          "description_md": "DNA samples from: vaginal/oral/anal swabs, semen stains on clothing and bedsheets, skin cells under victim's fingernails, blood and saliva of accused. DNA match between accused's sample and semen/material recovered from victim is conclusive evidence.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Digital Evidence (Messages, Social Media)",
+          "description_md": "Collect and preserve: WhatsApp/SMS messages between victim and accused, call records (CDR/CAF), social media interactions, dating app conversations, photographs/videos exchanged. May establish acquaintance, luring, threats, or prior consent pattern. Comply with Section 65B IE Act.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "CCTV and Location Evidence",
+          "description_md": "CCTV footage from the location, nearby areas, hotel check-in records, Ola/Uber trip details, mobile tower location data. Establish presence of both parties at the scene. Timeline of movement before and after the incident.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Clothing and Physical Trace Evidence",
+          "description_md": "Victim's and accused's clothing for: semen stains, blood stains, fiber transfer, soil/vegetation traces. Torn clothing as evidence of resistance. All items packed separately in paper bags and sent to FSL with proper sealing.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "interrogation",
+      "title": "Interrogation Plan",
+      "description_md": "Interrogation must be conducted with sensitivity. Victim should never be confronted with the accused. Accused's medical examination to be conducted for corroboration.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "interrogation",
+          "title": "Accused Interrogation and Medical Examination",
+          "description_md": "Interrogate accused on: relationship with victim, movements on the day, alibi, presence at the location. Conduct medical examination of accused: collect blood, semen, pubic hair, nail clippings. Check for scratches, bite marks, or defensive injuries. Potency test if relevant.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Witness Statements (Persons in Vicinity)",
+          "description_md": "Record statements of persons who may have seen victim and accused together, heard cries for help, or noticed suspicious activity. Hotel staff, auto/cab drivers, neighbours, security guards.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Victim's Trusted Person Statement",
+          "description_md": "Record statement of the person the victim first confided in (first disclosure witness). This is crucial corroborative evidence. Also record statements of family members who noticed victim's distress or behavioral changes.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Previous Complaint and Conduct Verification",
+          "description_md": "Check if any prior complaints exist against the accused. Verify if accused has history of similar offences. However, victim's past sexual history is completely inadmissible under Section 146(3) of Indian Evidence Act / Section 122 BSA.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "panchnama",
+      "title": "Panchnama Requirements",
+      "description_md": "Panchnamas for sexual offence cases. Prefer female panch witnesses where possible.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "panchnama",
+          "title": "Scene of Crime Panchnama",
+          "description_md": "Detailed panchnama of the location: room layout, condition of bed/floor, stains, torn articles, signs of struggle. Photograph everything. Note access points, locks, and whether location was isolated or public.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Seizure Panchnama (Clothing and Articles)",
+          "description_md": "Seizure of clothing, bedsheets, towels, condoms, tissues, and any other article from the scene or from victim/accused. Each item described individually with stain details. Sealed in separate paper bags with FSL labels.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Electronic Device Seizure Panchnama",
+          "description_md": "Seizure of mobile phones, laptops, cameras of accused and victim. Note: IMEI numbers, model, condition, SIM details. Calculate and record hash values of storage media. Seal devices properly.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "forensic",
+      "title": "Forensic Requirements",
+      "description_md": "Forensic analysis essential for scientific corroboration of the victim's testimony. Expedited processing should be requested from FSL.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "forensic",
+          "title": "DNA Profiling and Matching",
+          "description_md": "DNA profiling of semen, blood, saliva, and skin cell samples. Match accused's DNA profile with biological material recovered from victim's body and clothing. DNA evidence is conclusive proof of sexual contact. Samples must be refrigerated and sent to FSL within 24 hours.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Semen and Biological Fluid Analysis",
+          "description_md": "FSL examination of vaginal/oral/anal swabs and clothing for presence of semen, spermatozoa, and seminal fluid. Even in absence of sperm (vasectomy/condom use), seminal fluid constituents like PSA can be detected. Test victim's clothing under UV light for stain detection.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Clothing Fiber and Trace Analysis",
+          "description_md": "Cross-transfer of fibers between victim's and accused's clothing. Soil, vegetation, paint chips, or other trace materials that link accused to the scene. Micro-trace analysis at FSL.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Digital Forensics",
+          "description_md": "Extraction and analysis of data from seized mobile phones and devices. Recover deleted messages, photos, videos, location history, and browsing history. Prepare Section 65B certificate. Use forensic imaging tools to create bit-by-bit copies.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Toxicology Screening",
+          "description_md": "If drugging is suspected (drink spiking, sedation), analyze victim's blood and urine for: benzodiazepines, GHB, ketamine, and other date-rape drugs. Must be collected within 24-72 hours as these drugs metabolize rapidly. Also test any recovered drinks or containers.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "witness_bayan",
+      "title": "Witness Statements (Bayan)",
+      "description_md": "Witness statements under CrPC 161 / BNSS 180. Victim's identity must be protected in all records. Use initials or pseudonyms in public documents.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "witness_bayan",
+          "title": "Victim's Detailed Statement",
+          "description_md": "Record victim's complete account in her own words. Include: how she knew the accused, circumstances leading to the incident, exact details of the offence, injuries sustained, first person she told. Statement to be recorded by a woman police officer in a comfortable setting. Do not press for graphic details unnecessarily.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "First Disclosure Witness",
+          "description_md": "The person to whom the victim first narrated the incident. This witness's testimony strongly corroborates the victim's account and establishes the timeline of disclosure. Record what the victim told them and their observations of victim's condition.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Medical Witness (Examining Doctor)",
+          "description_md": "Statement of the doctor who examined the victim and the accused. Must correlate clinical findings with the alleged assault. Opinion on nature of injuries, age of injuries, and consistency with the victim's account.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Corroborative Witnesses",
+          "description_md": "Persons who saw victim and accused together, heard cries, noticed victim's distressed condition after the incident. Hotel/lodge staff who can confirm check-in details. Auto/taxi drivers who transported parties.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Character and Prior Conduct Witnesses",
+          "description_md": "Witnesses who can testify about accused's prior misconduct, pattern of behavior, or previous complaints by other women. Note: victim's character or past sexual history is completely irrelevant and inadmissible (Section 53A IEA / Section 122 BSA).",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    }
+  ]
+}

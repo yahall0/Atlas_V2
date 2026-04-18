@@ -1,0 +1,60 @@
+{
+  "case_category": "murder",
+  "version": "1.0.0",
+  "rules": [
+    {
+      "id": "MUR_001",
+      "title": "Missing Post-Mortem Report Reference",
+      "description": "Murder chargesheets must reference the post-mortem examination report",
+      "severity": "critical",
+      "category": "evidence",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["post mortem", "post-mortem", "autopsy", "PM report"], "min_matches": 1},
+      "remediation": {
+        "summary": "Include post-mortem report in evidence schedule",
+        "steps": [
+          "Reference PM report with doctor name and date",
+          "Include cause of death finding",
+          "Cross-reference with inquest report"
+        ],
+        "estimated_effort": "minutes"
+      }
+    },
+    {
+      "id": "MUR_002",
+      "title": "Missing Inquest Reference",
+      "description": "Murder cases require inquest proceedings under CrPC 174/BNSS 194",
+      "severity": "critical",
+      "category": "procedural",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["inquest", "174 CrPC", "194 BNSS", "panchnama of dead body"], "min_matches": 1},
+      "remediation": {
+        "summary": "Reference inquest proceedings in chargesheet",
+        "steps": [
+          "Include inquest panchnama reference",
+          "State date and place of inquest",
+          "Reference the magistrate notification if applicable"
+        ],
+        "estimated_effort": "minutes"
+      }
+    },
+    {
+      "id": "MUR_003",
+      "title": "Missing Weapon Recovery Reference",
+      "description": "If weapon used, chargesheet should reference weapon recovery and FSL report",
+      "severity": "high",
+      "category": "evidence",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["weapon", "recovery", "knife", "firearm", "gun", "FSL", "forensic"], "min_matches": 1},
+      "remediation": {
+        "summary": "Document weapon recovery and forensic analysis",
+        "steps": [
+          "Reference weapon seizure panchnama",
+          "Include FSL report reference for weapon analysis",
+          "Document chain of custody for the weapon"
+        ],
+        "estimated_effort": "hours"
+      }
+    }
+  ]
+}

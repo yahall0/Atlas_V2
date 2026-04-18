@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -50,7 +51,6 @@ export default function FIRPage() {
   const [listError, setListError] = useState("");
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
-  const [selectedFir, setSelectedFir] = useState<FIRResult | null>(null);
   const [filterDistrict, setFilterDistrict] = useState("");
   const PAGE_SIZE = 10;
 
@@ -294,9 +294,13 @@ export default function FIRPage() {
                     {fir.created_at ? new Date(fir.created_at).toLocaleDateString() : "—"}
                   </td>
                   <td className="px-4 py-3">
-                    <Button size="sm" variant="outline" onClick={() => setSelectedFir(fir)}>
-                      View
-                    </Button>
+                    {fir.id && (
+                      <Link href={`/dashboard/fir/${fir.id}`}>
+                        <Button size="sm" variant="default" className="bg-blue-600 hover:bg-blue-700 text-white">
+                          Details
+                        </Button>
+                      </Link>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -324,84 +328,6 @@ export default function FIRPage() {
         )}
       </div>
 
-      {/* Slide-over detail panel */}
-      {selectedFir && (
-        <div className="fixed inset-0 z-50 flex">
-          {/* Backdrop */}
-          <div
-            className="flex-1 bg-black/40"
-            onClick={() => setSelectedFir(null)}
-          />
-          {/* Panel */}
-          <div className="w-full max-w-lg bg-white shadow-xl overflow-y-auto p-6">
-            <div className="flex items-start justify-between mb-6">
-              <h3 className="text-lg font-bold">
-                FIR {selectedFir.fir_number ?? selectedFir.id}
-              </h3>
-              <button
-                onClick={() => setSelectedFir(null)}
-                className="text-muted-foreground hover:text-foreground text-xl leading-none"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="space-y-3 text-sm">
-              <div className="grid grid-cols-2 gap-2">
-                <span className="font-medium">District</span>
-                <span>{selectedFir.district ?? "—"}</span>
-                <span className="font-medium">Police Station</span>
-                <span>{selectedFir.police_station ?? "—"}</span>
-                <span className="font-medium">Status</span>
-                <span className={`px-2 py-0.5 rounded text-xs font-medium w-fit ${STATUS_COLOURS[selectedFir.status ?? ""] ?? "bg-gray-100 text-gray-700"}`}>
-                  {selectedFir.status ?? "pending"}
-                </span>
-                <span className="font-medium">Sections</span>
-                <span>{selectedFir.primary_sections?.join(", ") ?? "—"}</span>
-                <span className="font-medium">Complainant</span>
-                <span>{selectedFir.complainant_name ?? "—"}</span>
-                <span className="font-medium">Completeness</span>
-                <span>{selectedFir.completeness_pct != null ? `${selectedFir.completeness_pct}%` : "—"}</span>
-              </div>
-
-              {selectedFir.nlp_classification && (
-                <div className="border rounded p-3 mt-4 bg-gray-50">
-                  <p className="font-medium mb-2">NLP Classification</p>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <Badge>{selectedFir.nlp_classification}</Badge>
-                    {selectedFir.nlp_confidence != null && (
-                      <span className="text-xs text-muted-foreground">
-                        {(selectedFir.nlp_confidence * 100).toFixed(1)}% confidence
-                      </span>
-                    )}
-                  </div>
-                  {selectedFir.nlp_metadata?.mismatch && (
-                    <div className="mt-3 flex items-start gap-2 p-2.5 rounded-lg bg-amber-50 border border-amber-200">
-                      <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                      <div className="text-xs">
-                        <p className="font-semibold text-amber-800">Section mismatch detected</p>
-                        <p className="text-amber-700 mt-0.5">
-                          The narrative text suggests <strong>{selectedFir.nlp_classification}</strong>, but the registered sections ({selectedFir.primary_sections?.join(", ") ?? "—"}) imply <strong>{selectedFir.nlp_metadata.section_inferred_category ?? "unknown"}</strong>.
-                          This FIR has been flagged for review.
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {selectedFir.narrative && (
-                <div className="mt-4">
-                  <p className="font-medium mb-2">Narrative</p>
-                  <div className="max-h-64 overflow-y-auto whitespace-pre-wrap bg-gray-50 p-3 rounded text-xs border">
-                    {selectedFir.narrative}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -1,0 +1,363 @@
+offence_code: BNS_S303_THEFT
+category_id: property_crimes
+bns_section: "303"
+bns_subsection: ""
+display_name_en: "Theft"
+display_name_gu: "ચોરી"
+short_description_md: |
+  Whoever, intending to take dishonestly any movable property out of the
+  possession of any person without that person's consent, moves that property
+  in order to such taking, is said to commit theft. The offence is complete
+  the moment the property is moved with dishonest intention.
+punishment: "Imprisonment up to 3 years, or fine, or both"
+cognizable: true
+bailable: true
+triable_by: "Any Magistrate"
+compoundable: "yes (by the owner of the property stolen, with the permission of the court)"
+schedule_reference: "BNS Schedule I, Part II"
+related_offence_codes:
+  - BNS_S305_THEFT_IN_DWELLING
+  - BNS_S306_THEFT_BY_CLERK_OR_SERVANT
+  - BNS_S304_SNATCHING
+  - BNS_S309_ROBBERY
+  - BNS_S331_CRIMINAL_BREACH_OF_TRUST
+special_acts: []
+
+knowledge_nodes:
+
+  # ── LEGAL SECTION NODES ─────────────────────────────────────────────────────
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BNS S.303 — Theft: Definition and Elements"
+    description_md: |
+      S.303 of the Bharatiya Nyaya Sanhita 2023 defines theft. Essential
+      ingredients:
+      1. There must be dishonest intention to take property.
+      2. The property must be movable property.
+      3. The property must be in the possession of some person.
+      4. The property must be taken without the consent of that person.
+      5. There must be moving of the property in order to such taking.
+
+      The offence is complete when the property is moved, regardless of
+      whether the accused successfully carries it away. "Dishonest intention"
+      is defined under BNS S.24 — intention to cause wrongful gain to one
+      person or wrongful loss to another.
+    legal_basis_citations:
+      - framework: BNS
+        section: "303"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+      - framework: BNS
+        section: "24"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "BNS S.305 — Theft in Dwelling House (Aggravated Theft)"
+    description_md: |
+      Theft in a building, tent, or vessel used as a human dwelling or for
+      custody of property. Punishment: up to 7 years and fine. This aggravated
+      form applies to housebreaking and burglary-related theft. IO must
+      establish that the theft occurred in a dwelling house.
+    legal_basis_citations:
+      - framework: BNS
+        section: "305"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "BNS S.304 — Snatching"
+    description_md: |
+      BNS introduces a new offence of snatching under S.304. Snatching means
+      theft by suddenly or quickly seizing or grabbing movable property from
+      the victim. Punishment: up to 3 years RI and fine. This is a new
+      provision without a direct IPC equivalent, introduced to address
+      chain-snatching and mobile phone snatching offences.
+    legal_basis_citations:
+      - framework: BNS
+        section: "304"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── IMMEDIATE ACTION NODES ─────────────────────────────────────────────────
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Register FIR and Record Complainant's Statement"
+    description_md: |
+      Register FIR under BNSS S.173 with detailed description of stolen
+      property: type, quantity, value, distinguishing marks, serial numbers
+      (for electronics), and where the property was kept. Record the exact
+      time and place of theft, how the theft was discovered, and who had
+      access to the property or premises.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "173"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Inspect the Scene and Collect Evidence"
+    description_md: |
+      Visit the scene immediately. Look for: point of entry (broken locks,
+      windows, doors), tool marks on doors/windows, footprints/shoe prints,
+      fingerprints on surfaces, CCTV cameras in the area, items left behind
+      by the thief, signs of vehicle used for transport. Photograph
+      everything before disturbing the scene. Call SOCO for fingerprint
+      development if needed.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Circulate Stolen Property Details"
+    description_md: |
+      Circulate descriptions and serial numbers of stolen property to:
+      local pawnshops and second-hand dealers, neighbouring police stations,
+      online stolen property databases, and relevant trade associations
+      (jewellers for gold, dealers for electronics). For stolen vehicles,
+      alert all nakas, toll plazas, and enter into CCTNS database. For
+      stolen mobile phones, obtain the IMEI number and request blocking
+      through CEIR portal (Central Equipment Identity Register).
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: medium
+    title_en: "CCTV and Electronic Trail"
+    description_md: |
+      Identify and seize CCTV footage from the premises and surrounding
+      areas. Check ATM cameras, traffic cameras, and private CCTV. If
+      mobile phones or electronic devices are stolen, obtain CDR/IPDR for
+      the stolen device's number and IMEI tracking. Check for UPI/digital
+      payment transactions if wallets or cards are stolen. Time-critical
+      as CCTV footage is overwritten and SIM cards may be changed.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── PANCHNAMA NODES ─────────────────────────────────────────────────────────
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Spot Panchnama — Scene of Theft"
+    description_md: |
+      Prepare spot panchnama describing: premises where theft occurred,
+      point of entry and method of entry, condition of locks/doors/windows,
+      items displaced or disturbed, empty spaces where stolen property was
+      kept, tool marks, footprints, and any articles left by the thief.
+      Rough sketch map of the premises showing entry/exit points.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "175"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Recovery Panchnama — Stolen Property"
+    description_md: |
+      When stolen property is recovered, prepare a recovery panchnama in
+      the presence of independent panchas. If recovered pursuant to a
+      disclosure statement, record discovery panchnama under BSA S.8.
+      Identify the recovered property through the complainant. Photograph
+      recovered items. Match serial numbers and distinguishing marks with
+      the FIR description. Prepare identification memo signed by the
+      complainant.
+    legal_basis_citations:
+      - framework: BSA
+        section: "8"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  # ── EVIDENCE NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Ownership and Possession Proof"
+    description_md: |
+      Establish the complainant's ownership or rightful possession of the
+      stolen property through: purchase receipts, bills, warranty cards,
+      photographs of the property, bank statements showing purchase, insurance
+      documents, registration documents (for vehicles). For gold/jewellery,
+      obtain the jeweller's bill and photographs. For electronics, obtain
+      IMEI/serial number records and purchase receipts.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "CCTV and Digital Evidence"
+    description_md: |
+      CCTV footage showing the accused entering or leaving the premises, or
+      in possession of stolen property. Prepare S.63 BSA certificate for
+      electronic evidence. CDR/IPDR data for stolen mobile phones. Digital
+      payment trail if stolen cards/UPI are used by the accused. IMEI
+      tracking data from CEIR/DoT.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: medium
+    title_en: "Recovery of Stolen Property — Identification"
+    description_md: |
+      Identification of recovered stolen property by the complainant is
+      critical. Conduct a formal identification proceeding: show recovered
+      items mixed with similar items to the complainant and ask them to
+      identify their property with distinguishing features. Record the
+      identification proceeding with panchas. The complainant must state
+      how they identify the property (serial number, marks, defects).
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── FORENSIC NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Fingerprint and Tool Mark Analysis"
+    description_md: |
+      Develop and lift fingerprints from surfaces at the scene — doors,
+      windows, almirah, safe, and any article touched by the thief.
+      Collect tool marks from forced entry points (jimmy marks, drill marks)
+      and send to FSL along with suspected tools recovered from the accused
+      for comparison. AFIS search if the thief's identity is unknown.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Digital Forensics — Stolen Device Tracking"
+    description_md: |
+      If electronic devices are stolen: IMEI tracking through CEIR,
+      examination of the accused's device for photographs of stolen property,
+      messages about disposal/sale, GPS location data. If the accused used
+      the stolen phone, extract data from that phone. All electronic evidence
+      requires S.63 BSA certificate.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  # ── WITNESS / BAYAN NODES ───────────────────────────────────────────────────
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Complainant's Statement — Property Description"
+    description_md: |
+      Detailed statement of the complainant under BNSS S.180 covering:
+      complete list of stolen property with values, when the property was
+      last seen, how and when the theft was discovered, who had access to
+      the premises, any suspicion on specific persons, whether the property
+      was insured, and any prior incidents of theft.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: medium
+    title_en: "Eyewitnesses and Neighbour Statements"
+    description_md: |
+      Statements of persons who saw the accused near the premises at the
+      relevant time, saw the accused carrying property, or noticed
+      suspicious activity (unfamiliar vehicle, persons loitering, sounds
+      of breaking). Night watchman or security guard statements if
+      applicable. CCTV operator statements if applicable.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── GAP / HISTORICAL NODES ─────────────────────────────────────────────────
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: medium
+    title_en: "Low Recovery Rate of Stolen Property"
+    description_md: |
+      NCRB Crime in India 2022 reports that property recovery rates in theft
+      cases remain low, particularly for cash and jewellery. In Om Prakash
+      v. State of UP (2006) 12 SCC 564, the Supreme Court noted that failure
+      to recover stolen property is not fatal to conviction if other evidence
+      (CCTV, eyewitness, fingerprints) connects the accused to the theft.
+      However, recovery significantly strengthens the case. IO must prioritize
+      tracking stolen property through pawnshops, online marketplaces, and
+      CCTNS/CEIR databases.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: medium
+    title_en: "Failure to Collect CCTV Evidence in Time"
+    description_md: |
+      CCTV footage from private establishments is typically overwritten within
+      7-30 days. Institutional delays in visiting the scene, identifying CCTV
+      locations, and requisitioning footage result in loss of critical evidence.
+      In State of Punjab v. Baljinder Singh (2019) 9 SCC 608, the court noted
+      the importance of electronic evidence in property crime cases. IO must
+      seize or preserve CCTV footage within the first 48 hours.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  # ── PROCEDURAL SAFEGUARD NODES ──────────────────────────────────────────────
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Arrest and Bail — Bailable Offence"
+    description_md: |
+      Simple theft under BNS S.303 is a bailable offence. The accused has
+      the right to bail under BNSS S.478. If arrested, the accused must be
+      informed of the right to bail and released on furnishing bail bond.
+      D.K. Basu guidelines apply. If the accused is a juvenile (below 18),
+      the case must be handled under the Juvenile Justice Act 2015 and the
+      juvenile cannot be sent to a police station — must be produced before
+      the Juvenile Justice Board within 24 hours.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "478"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: medium
+    title_en: "Compounding of Offence"
+    description_md: |
+      Theft under BNS S.303 is compoundable with the permission of the court.
+      The owner of the stolen property may compound the offence under BNSS
+      S.359 by entering into a settlement with the accused. The court must
+      be satisfied that the compromise is genuine and voluntary. Once
+      compounded, the accused is acquitted. However, aggravated forms (S.305,
+      S.306) and repeated offenders may not be allowed compounding at the
+      court's discretion.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "359"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false

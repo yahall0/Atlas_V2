@@ -1,0 +1,357 @@
+{
+  "case_category": "murder",
+  "template_version": "1.0.0",
+  "description": "Chargesheet mindmap template for murder cases under IPC 302/304/304A/304B and corresponding BNS provisions",
+  "branches": [
+    {
+      "node_type": "legal_section",
+      "title": "Applicable Legal Sections",
+      "description_md": "Legal sections applicable to murder and culpable homicide cases. Charge must be framed based on evidence of intent, motive, and manner of death.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "legal_section",
+          "title": "IPC 302 / BNS 103(1) -- Murder",
+          "description_md": "Primary charge for intentional killing. Requires proof of intention to cause death or bodily injury sufficient to cause death, or knowledge that the act is likely to cause death. Punishment: death or life imprisonment + fine.",
+          "ipc_section": "302",
+          "bns_section": "103(1)",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 304 / BNS 105 -- Culpable Homicide not amounting to Murder",
+          "description_md": "Alternative charge when act is done with knowledge that it is likely to cause death but without intention. Applicable when Exception 1-5 of Section 300 IPC apply. Part I: imprisonment for life or up to 10 years + fine. Part II: up to 10 years + fine.",
+          "ipc_section": "304",
+          "bns_section": "105",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 304A / BNS 106(1) -- Death by Negligence",
+          "description_md": "Applicable when death is caused by a rash or negligent act not amounting to culpable homicide. Mutually exclusive with IPC 302 and 304. Punishment: up to 2 years imprisonment or fine or both.",
+          "ipc_section": "304A",
+          "bns_section": "106(1)",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 304B / BNS 80 -- Dowry Death",
+          "description_md": "Death of a woman within 7 years of marriage under abnormal circumstances, where she was subjected to cruelty or harassment for dowry. Raises presumption under Section 113-B Indian Evidence Act. Minimum 7 years imprisonment, up to life.",
+          "ipc_section": "304B",
+          "bns_section": "80",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 201 / BNS 238 -- Causing Disappearance of Evidence",
+          "description_md": "Companion charge when accused has attempted to destroy evidence, conceal the body, or give false information to screen the offender. Up to 7 years imprisonment.",
+          "ipc_section": "201",
+          "bns_section": "238",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 120B / BNS 61(2) -- Criminal Conspiracy",
+          "description_md": "Applicable when two or more persons agree to commit murder or do an illegal act in furtherance of conspiracy. Punishment same as the substantive offence.",
+          "ipc_section": "120B",
+          "bns_section": "61(2)",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 34 / BNS 3(5) -- Common Intention",
+          "description_md": "Applied when a criminal act is done by several persons in furtherance of common intention. Each person is liable as if the act was done by them alone. Mutually exclusive with IPC 149.",
+          "ipc_section": "34",
+          "bns_section": "3(5)",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "immediate_action",
+      "title": "Immediate Actions",
+      "description_md": "Time-sensitive investigative steps to be completed within the first 24-72 hours of the offence being reported.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "immediate_action",
+          "title": "Secure the Crime Scene",
+          "description_md": "Immediately cordon off the area. Post constables to prevent contamination. No unauthorized person should enter. Use barricade tape and maintain a scene log of all entrants with timestamps.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Record FIR under CrPC 154 / BNSS 173",
+          "description_md": "Register First Information Report immediately upon receiving information of cognizable offence. Record the informant's statement verbatim. Provide free copy to informant. If the informant is injured, record statement at hospital.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Preserve Perishable Evidence",
+          "description_md": "Collect blood samples, biological material, and other perishable evidence before degradation. Photograph the scene from multiple angles. Ensure chain of custody from the first moment. Collect samples in sterile containers.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Arrange Medical Examination of Injured / Post-Mortem",
+          "description_md": "If victim is alive, rush to hospital and obtain MLC (Medico-Legal Certificate). If deceased, arrange post-mortem examination. Request senior medical officer for post-mortem. Ensure videography of post-mortem if possible.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Conduct Inquest under CrPC 174 / BNSS 194",
+          "description_md": "Prepare inquest report in the presence of two or more respectable inhabitants. Record apparent cause of death, wounds/marks on body, and circumstances. Inquest panchnama must be detailed and thorough.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Identify and Secure Witnesses",
+          "description_md": "Identify eyewitnesses, last-seen witnesses, and neighbours immediately. Record their initial statements under CrPC 161 / BNSS 180 before they can be influenced. Note mobile numbers and addresses for future contact.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "evidence",
+      "title": "Evidence Collection",
+      "description_md": "Comprehensive evidence gathering plan for building a watertight chargesheet. Every item must maintain chain of custody documentation.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "evidence",
+          "title": "Post-Mortem Report",
+          "description_md": "Obtain detailed post-mortem report from authorized medical officer. Must include: cause of death, time of death (approximate), nature and number of injuries, internal organ examination, viscera preservation for chemical analysis. Cross-reference injuries with alleged weapon.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Scene of Crime Report",
+          "description_md": "Detailed SOC report prepared by forensic team. Must include: scene sketches (rough and scaled), photographs, videography, measurements, location of physical evidence, bloodstain pattern analysis, and point of entry/exit analysis.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Weapon Recovery and Seizure",
+          "description_md": "Recovery of murder weapon through discovery under Section 27 of Indian Evidence Act. Prepare seizure memo with independent witnesses (panchas). Weapon must be sent to FSL for matching with wound patterns. If firearm, conduct ballistic examination.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Bloodstain and Biological Evidence",
+          "description_md": "Collect blood samples from scene (control and test samples), victim's clothing, accused's clothing and body. Collect hair, fibers, and tissue samples. Package in paper bags (not plastic) to prevent degradation. Send to FSL for serology and DNA analysis.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "CCTV and Electronic Surveillance",
+          "description_md": "Seize CCTV footage from the scene and surrounding areas. Obtain tower dump/CDR (Call Detail Records) of the accused and victim. Check for dashcam footage from vehicles. Preserve original digital media with hash values. Time-critical as CCTV footage is often overwritten within 7-30 days.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Documentary Evidence",
+          "description_md": "Collect call records, bank statements, property documents, insurance papers, and any documents establishing motive. Obtain certified copies where applicable. Check for threatening messages, social media posts, or prior complaints between parties.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "interrogation",
+      "title": "Interrogation Plan",
+      "description_md": "Systematic interrogation strategy. All interrogations must comply with DK Basu guidelines (1997). No custodial torture. Maintain arrest memo and inform family.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "interrogation",
+          "title": "Accused Interrogation",
+          "description_md": "Interrogate accused focusing on: alibi verification, timeline of movements, relationship with deceased, motive, opportunity, prior threats or quarrels. Note any voluntary disclosure leading to discovery of evidence (Section 27 Indian Evidence Act). Maintain proper arrest memo per DK Basu guidelines.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Eyewitness Examination",
+          "description_md": "Record detailed statements under CrPC 161 / BNSS 180. Focus on: what they saw, heard, sequence of events, identification of accused, time and lighting conditions, distance from the scene. Assess credibility and consistency.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Family Members of Deceased",
+          "description_md": "Interview family to establish: relationship dynamics, prior disputes, threats, financial arrangements, deceased's routine and last known activities. Identify who benefits from the death (cui bono). Record statements sensitively.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Associates and Acquaintances",
+          "description_md": "Question friends, colleagues, and known associates of both accused and deceased. Establish prior relationship, recent disputes, behavioral changes, and any admissions or boasts made by the accused. Check for co-conspirators.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Identification Parade (TIP)",
+          "description_md": "Conduct Test Identification Parade before a Magistrate under CrPC 164 / BNSS 183 if the accused is not previously known to the witnesses. Must be conducted as soon as possible after arrest. Minimum 8-10 persons of similar build and appearance. Magistrate to certify proceedings.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "panchnama",
+      "title": "Panchnama Requirements",
+      "description_md": "All panchnamas must be conducted in the presence of two or more independent witnesses (panchas) who are respectable inhabitants of the locality. Panchas must sign each page.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "panchnama",
+          "title": "Scene of Crime Panchnama (Spot Panchnama)",
+          "description_md": "Detailed description of the crime scene including: exact location, condition of surroundings, position and condition of the body, bloodstains, weapon (if found), signs of struggle, entry/exit points, and all articles found at the scene. Include rough sketch map. Must be prepared at the actual scene.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Seizure Panchnama (Zimma Panchnama)",
+          "description_md": "Document seizure of every physical exhibit: weapon, clothing, mobile phones, documents, biological samples. Each item must be individually described, labeled, sealed in the presence of panchas. Mention condition, quantity, distinguishing marks.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Discovery Panchnama (Section 27 IE Act)",
+          "description_md": "When accused leads to discovery of weapon, stolen property, or other evidence. Record only the admissible portion: 'accused pointed out the place and the article was recovered.' Panchas must witness the actual discovery. Exact location must be described with reference to landmarks.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Identification Panchnama",
+          "description_md": "Record proceedings of identification of the deceased (if unidentified) or identification of the accused by witnesses. Include photographs and physical descriptors. If body is decomposed, note condition and any identifying features (scars, tattoos, dental records).",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Inquest Panchnama (CrPC 174 / BNSS 194)",
+          "description_md": "Record the inquest conducted on the dead body before post-mortem. Detail: apparent cause of death, external injuries visible, clothing description, articles found on body, circumstances in which body was found. Two respectable witnesses mandatory.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "forensic",
+      "title": "Forensic Requirements",
+      "description_md": "Forensic evidence analysis to be sent to Forensic Science Laboratory (FSL). Maintain proper sealing and chain of custody. Request expedited processing for critical exhibits.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "forensic",
+          "title": "DNA Analysis",
+          "description_md": "DNA profiling of blood, hair, skin cells, and other biological samples collected from the scene, victim, and accused. Compare profiles to establish presence at scene and contact between parties. Samples must be collected in sterile containers and refrigerated.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Ballistics Examination",
+          "description_md": "If firearm is involved: test-fire recovered weapon and compare with bullet/cartridge recovered from body/scene. Determine caliber, range of fire, and angle of firing. Check weapon serial number and licensing records. Gunshot residue (GSR) analysis on accused's hands.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Toxicology Report",
+          "description_md": "Chemical analysis of viscera preserved during post-mortem to detect poison, drugs, or alcohol. Essential in suspected poisoning cases. Viscera must reach FSL within 72 hours in preserved condition. Also analyze blood alcohol level if relevant.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Digital Forensics",
+          "description_md": "Forensic imaging and analysis of mobile phones, laptops, and electronic devices of accused and victim. Extract call logs, messages, WhatsApp chats, GPS location history, deleted data, and social media activity. Prepare Section 65B certificate for electronic evidence under Indian Evidence Act.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Fingerprint Analysis",
+          "description_md": "Develop and lift latent fingerprints from the crime scene, weapon, and articles. Compare with accused's fingerprints (chance prints). Send to Fingerprint Bureau for expert examination and opinion. Photograph fingerprints before lifting.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "witness_bayan",
+      "title": "Witness Statements (Bayan)",
+      "description_md": "Comprehensive witness statement plan. All statements under CrPC 161 / BNSS 180 are not signed by witnesses. Critical witnesses should also give statements under CrPC 164 / BNSS 183 before a Magistrate.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "witness_bayan",
+          "title": "Eyewitness Statements",
+          "description_md": "Persons who directly saw the commission of the offence. Record: exact observation, position, distance, lighting, duration, identification details. Assess natural presence at the location. Corroborate with physical evidence. Most critical category of witnesses.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Last Seen Witnesses",
+          "description_md": "Persons who last saw the deceased alive, especially in the company of the accused. Record: exact time, place, circumstances, conversation overheard, demeanor of both parties. Last-seen evidence raises strong presumption if accused cannot explain.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Panch Witnesses",
+          "description_md": "Independent witnesses who participated in scene panchnama, seizure panchnama, discovery panchnama, and identification parade. Record their observation during each procedure. Ensure they are truly independent and not connected to either party.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Medical and Expert Witnesses",
+          "description_md": "Doctor who conducted post-mortem, FSL experts, fingerprint experts, and ballistics experts. Their examination-in-chief statements must correlate with written reports. Prepare them for cross-examination on technical points.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Motive and Character Witnesses",
+          "description_md": "Persons who can establish motive (enmity, financial gain, revenge, jealousy). Neighbours or family members who witnessed prior threats, quarrels, or disputes between accused and deceased. Record specific incidents with dates and details.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    }
+  ]
+}

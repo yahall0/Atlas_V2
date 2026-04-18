@@ -1,0 +1,397 @@
+offence_code: BNS_S309_ROBBERY
+category_id: property_crimes
+bns_section: "309"
+bns_subsection: ""
+display_name_en: "Robbery"
+display_name_gu: "લૂંટ"
+short_description_md: |
+  Robbery is theft or extortion coupled with the use or threat of force.
+  Under BNS S.309, in all robbery there is either theft or extortion. When
+  theft is robbery: if the offender causes or attempts to cause death, hurt,
+  or wrongful restraint, or fear thereof, to any person in order to commit
+  theft, or while committing theft, or in carrying away or attempting to
+  carry away property obtained by theft. When extortion is robbery: if the
+  offender puts or attempts to put any person in fear of death or hurt and
+  thereby dishonestly induces the person to deliver property.
+punishment: "Rigorous imprisonment up to 10 years and fine; if committed on highway between sunset and sunrise — up to 14 years"
+cognizable: true
+bailable: false
+triable_by: "Magistrate of the first class (simple); Court of Session (armed/grievous hurt)"
+compoundable: "no"
+schedule_reference: "BNS Schedule I, Part I"
+related_offence_codes:
+  - BNS_S303_THEFT
+  - BNS_S310_DACOITY
+  - BNS_S309_2_ROBBERY_WITH_ATTEMPT_TO_CAUSE_DEATH
+  - BNS_S115_VOLUNTARILY_CAUSING_HURT
+special_acts: []
+
+knowledge_nodes:
+
+  # ── LEGAL SECTION NODES ─────────────────────────────────────────────────────
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BNS S.309 — Robbery: Definition and Elements"
+    description_md: |
+      S.309 of the Bharatiya Nyaya Sanhita 2023 defines robbery. Robbery
+      requires two elements: (a) theft or extortion, and (b) use of force
+      or threat of force. Theft becomes robbery when the offender, for the
+      purpose of committing theft or while committing theft, voluntarily
+      causes or attempts to cause death, hurt, or wrongful restraint to any
+      person, or causes or attempts to cause fear of instant death, hurt,
+      or wrongful restraint.
+
+      S.309(2): If the robbery is committed with an attempt to cause death
+      or grievous hurt — punishment is imprisonment not less than 7 years,
+      up to life, and fine.
+
+      S.310: Dacoity — when five or more persons conjointly commit or
+      attempt to commit robbery, it is dacoity.
+    legal_basis_citations:
+      - framework: BNS
+        section: "309"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "BNS S.310 — Dacoity (Five or More Persons)"
+    description_md: |
+      When five or more persons conjointly commit or attempt to commit
+      robbery, every person who participates is guilty of dacoity.
+      Punishment: RI not less than 5 years, which may extend to life, and
+      fine. If during dacoity murder is committed — S.311 applies (death
+      or RI for life, and fine). IO must carefully count the number of
+      participants and establish each person's role.
+    legal_basis_citations:
+      - framework: BNS
+        section: "310"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "BNS S.3(5) — Common Intention in Group Robbery"
+    description_md: |
+      When robbery is committed by a group, each member acting in furtherance
+      of common intention is liable under BNS S.3(5). The prosecution must
+      prove that all accused shared the common intention to commit robbery.
+      Mere presence at the scene without active participation or shared
+      intention is insufficient.
+    legal_basis_citations:
+      - framework: BNS
+        section: "3"
+        subsection: "(5)"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── IMMEDIATE ACTION NODES ─────────────────────────────────────────────────
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Register FIR and Ensure Victim's Medical Treatment"
+    description_md: |
+      Register FIR under BNSS S.173 immediately. If the victim is injured,
+      ensure medical treatment and obtain MLC. Record the victim's statement
+      including: description of accused persons (number, physical features,
+      clothing, language spoken), weapons used (firearm, knife, rod),
+      property robbed (detailed description with values), manner of
+      approach, direction of escape, vehicle used by robbers.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "173"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Hot Pursuit and Area Domination"
+    description_md: |
+      Immediately alert all nearby nakas, patrol vehicles, and PCR vans
+      with descriptions of the accused and their vehicle. Set up nakas on
+      escape routes. Alert toll plazas and border check-posts. Circulate
+      descriptions and vehicle number (if known) to neighbouring districts.
+      Check ANPR (Automatic Number Plate Recognition) cameras on highways.
+      Time is critical — the first 2 hours are the golden period for
+      apprehension.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Secure Scene and Collect Forensic Evidence"
+    description_md: |
+      Secure the scene of robbery. Collect: fingerprints, footprints/shoe
+      prints, tyre marks of escape vehicle, dropped articles (mask, gloves,
+      bag), biological traces (blood if victim resisted), empty cartridge
+      casings (if firearm used), CCTV footage from all available cameras
+      in the vicinity.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "CCTV Collection — Immediate Priority"
+    description_md: |
+      Identify and seize CCTV footage from: the robbery location, approach
+      roads, ATM cameras, traffic cameras, toll plaza cameras, and any
+      private CCTV in the area. For highway robberies, check petrol station
+      cameras and dhaba (roadside eatery) cameras along the route. Must be
+      done within 24-48 hours before footage is overwritten.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── PANCHNAMA NODES ─────────────────────────────────────────────────────────
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Spot Panchnama — Scene of Robbery"
+    description_md: |
+      Describe the scene: exact location, signs of struggle, blood stains,
+      damage to property (broken door, glass), position of articles disturbed,
+      empty cartridge casings, marks of vehicle (tyre impressions), items
+      left by robbers, and condition of the victim's belongings. Rough
+      sketch map with measurements.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "175"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Recovery Panchnama — Robbed Property and Weapons"
+    description_md: |
+      When robbed property is recovered from the accused, prepare recovery
+      panchnama with panchas. If recovered through disclosure statement,
+      prepare discovery panchnama under BSA S.8. Have the complainant
+      identify recovered property. If weapons are recovered, describe each
+      weapon (make, type, condition, bloodstains), seal and send to FSL.
+      Photograph all recovered items.
+    legal_basis_citations:
+      - framework: BSA
+        section: "8"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  # ── EVIDENCE NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "CCTV and Vehicle Tracking Evidence"
+    description_md: |
+      CCTV footage showing the robbery in progress, the accused's arrival
+      and departure, their faces, weapons, and the escape vehicle. ANPR
+      camera data for vehicle identification. FASTag records for toll plaza
+      crossings. GPS data from stolen vehicles (if equipped). All electronic
+      evidence requires S.63 BSA certificate.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "MLC and Injury Documentation"
+    description_md: |
+      MLC of the victim documenting injuries caused during the robbery.
+      Nature and gravity of injuries support the charge of robbery (as
+      opposed to simple theft). If injuries are grievous, S.309(2) applies
+      with enhanced punishment. Photograph injuries with scale reference.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Recovered Property and Identification"
+    description_md: |
+      Recovery of robbed property from the accused or their associates is
+      powerful evidence. Identification by the complainant with specific
+      distinguishing features. Serial numbers matched with purchase records.
+      Recovery of cash matching the amount robbed (though fungibility makes
+      this difficult). Recovery shortly after the robbery creates a strong
+      presumption under BSA S.114, Illustration (a) — recent possession
+      of stolen property.
+    legal_basis_citations:
+      - framework: BSA
+        section: "114"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  # ── FORENSIC NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: forensic
+    tier: canonical
+    priority: critical
+    title_en: "Fingerprint and DNA Analysis"
+    description_md: |
+      Fingerprints from surfaces at the scene, dropped articles, weapons.
+      DNA from blood at the scene (victim's or accused's if injured during
+      struggle), saliva on masks/face coverings, skin cells under victim's
+      nails. AFIS search if suspects are unknown. DNA database comparison
+      for repeat offenders.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Ballistics and Weapon Analysis"
+    description_md: |
+      If firearms were used: test-fire recovered weapon, compare with
+      recovered bullets/cartridges, GSR analysis on accused's hands and
+      clothing, check weapon licensing status. If knife or blunt weapon:
+      compare with wound patterns in MLC, blood group matching on weapon
+      with victim's blood group. Tool marks comparison for forced entry.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Vehicle Forensics"
+    description_md: |
+      If the escape vehicle is recovered: fingerprints inside the vehicle,
+      DNA from seat/steering, GPS device data, dashcam footage (if equipped),
+      tyre impression comparison with scene marks, paint transfer analysis
+      if vehicle was involved in collision. Check vehicle registration,
+      ownership, and whether the vehicle was stolen.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── WITNESS / BAYAN NODES ───────────────────────────────────────────────────
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Victim's Statement — Detailed Description of Robbery"
+    description_md: |
+      Record detailed statement under BNSS S.180 covering: number of
+      robbers, physical descriptions, weapons displayed, what was said/
+      demanded, sequence of events, how the victim was restrained or hurt,
+      exactly what property was taken, direction of escape, vehicle
+      description. If the victim can identify the accused, arrange Test
+      Identification Parade under BNSS S.183.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Eyewitnesses and Bystanders"
+    description_md: |
+      Statements of persons who witnessed the robbery, observed the escape,
+      or saw the accused near the scene. Shopkeepers, vendors, pedestrians,
+      and vehicle drivers in the area. Their descriptions of the accused
+      and escape vehicle corroborate the victim's account.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: medium
+    title_en: "Test Identification Parade (TIP)"
+    description_md: |
+      When the accused is not previously known to the victim, conduct TIP
+      before a Judicial Magistrate. The accused must be mixed with at least
+      8-10 persons of similar build, age, and appearance. The Magistrate
+      certifies the proceedings. TIP must be conducted as early as possible
+      after arrest to prevent the identification from being tainted by
+      newspaper/TV/social media coverage of the arrest.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "183"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── GAP / HISTORICAL NODES ─────────────────────────────────────────────────
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Failure to Conduct Timely TIP"
+    description_md: |
+      In Malkhan Singh v. State of MP (2003) 5 SCC 746, the Supreme Court
+      held that failure to hold a TIP at the earliest opportunity weakens
+      the identification evidence. If the accused's photographs appear in
+      media before TIP, the dock identification alone is insufficient. NCRB
+      data shows that delayed TIP is a common institutional gap in robbery
+      cases. IO must arrange TIP within 7 days of arrest through the Magistrate.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: medium
+    title_en: "Delayed Alert and Loss of Golden Hours"
+    description_md: |
+      The first 2 hours after a robbery are the golden period for
+      apprehension. NCRB data shows that in cases where nakas were set up
+      within 30 minutes, the apprehension rate is significantly higher.
+      Common institutional delays: delayed FIR registration, slow
+      communication to patrol vehicles, inadequate naka deployment, failure
+      to use technology (CCTV, ANPR) in real time.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  # ── PROCEDURAL SAFEGUARD NODES ──────────────────────────────────────────────
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Arrest Procedure and D.K. Basu Compliance"
+    description_md: |
+      Robbery is a non-bailable offence. Arrest must comply with D.K. Basu
+      guidelines and BNSS S.35-36. Prepare arrest memo, inform family,
+      medical examination of arrested person, produce before Magistrate
+      within 24 hours. If multiple accused are arrested, ensure individual
+      arrest memos for each. No custodial violence — confession obtained
+      through torture is inadmissible (BSA S.23).
+    legal_basis_citations:
+      - framework: BNSS
+        section: "35"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BSA
+        section: "23"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: medium
+    title_en: "Rights of the Accused"
+    description_md: |
+      Right to know grounds of arrest (BNSS S.36). Right to legal
+      representation. Free legal aid through DLSA if indigent. Right
+      against self-incrimination (Article 20(3)). Production before
+      Magistrate within 24 hours. Right to apply for bail under BNSS S.480
+      (discretionary in non-bailable offences). No narco-analysis or
+      polygraph without consent. Medical examination at time of arrest.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "36"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BNSS
+        section: "480"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false

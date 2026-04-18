@@ -1,0 +1,464 @@
+offence_code: BNS_S80_DOWRY_DEATH
+category_id: crimes_women_children
+bns_section: "80"
+bns_subsection: ""
+display_name_en: "Dowry Death"
+display_name_gu: "દહેજ મૃત્યુ"
+short_description_md: |
+  Where the death of a woman is caused by any burns or bodily injury or occurs
+  otherwise than under normal circumstances within seven years of her marriage
+  and it is shown that soon before her death she was subjected to cruelty or
+  harassment by her husband or any relative of her husband for, or in connection
+  with, any demand for dowry, such death shall be called "dowry death" and the
+  husband or relative shall be deemed to have caused her death.
+punishment: "Imprisonment not less than 7 years, which may extend to imprisonment for life"
+cognizable: true
+bailable: false
+triable_by: "Court of Session"
+compoundable: "no"
+schedule_reference: "BNS Schedule I, Part I"
+related_offence_codes:
+  - BNS_S85_CRUELTY_HUSBAND
+  - BNS_S103_MURDER
+  - BNS_S105_CULPABLE_HOMICIDE
+  - BNS_S106_DEATH_BY_NEGLIGENCE
+special_acts:
+  - "Dowry Prohibition Act, 1961"
+
+knowledge_nodes:
+
+  # ── LEGAL SECTION NODES ─────────────────────────────────────────────────────
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BNS S.80 — Dowry Death"
+    description_md: |
+      S.80 of the Bharatiya Nyaya Sanhita 2023 defines dowry death. The
+      essential ingredients are:
+      1. Death of a woman caused by burns, bodily injury, or otherwise than
+         under normal circumstances.
+      2. Death occurred within seven years of marriage.
+      3. Soon before her death, she was subjected to cruelty or harassment
+         by husband or husband's relative.
+      4. Such cruelty or harassment was for or in connection with demand for
+         dowry.
+
+      When all four ingredients are established, there is a presumption under
+      BSA S.113 (corresponding to old S.113-B Indian Evidence Act) that the
+      husband or relative caused the death. The burden shifts to the accused
+      to rebut this presumption.
+    legal_basis_citations:
+      - framework: BNS
+        section: "80"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+      - framework: BSA
+        section: "113"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BNS S.85 — Cruelty by Husband or Relatives"
+    description_md: |
+      S.85 BNS (companion charge) penalises cruelty by husband or his
+      relatives. "Cruelty" means: (a) any wilful conduct which is of such a
+      nature as is likely to drive the woman to commit suicide or to cause
+      grave injury or danger to life, limb, or health (whether mental or
+      physical); or (b) harassment of the woman where such harassment is with
+      a view to coercing her or any related person to meet any unlawful demand
+      for property or security. Punishment: up to 3 years and fine. Should
+      always be added as a companion charge in dowry death cases.
+    legal_basis_citations:
+      - framework: BNS
+        section: "85"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BSA S.113 — Presumption as to Dowry Death"
+    description_md: |
+      When the question is whether a person has committed dowry death of a
+      woman, and it is shown that soon before her death she was subjected to
+      cruelty or harassment by such person in connection with demand for dowry,
+      the court shall presume that such person caused the dowry death. This
+      is a reverse-burden presumption — the accused must prove on preponderance
+      of probability that the death was not caused due to dowry demand.
+    legal_basis_citations:
+      - framework: BSA
+        section: "113"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "BNSS S.176 — Mandatory Magistrate Inquiry"
+    description_md: |
+      Where a woman dies within seven years of marriage under circumstances
+      raising reasonable suspicion that a cognizable offence has been committed,
+      a Judicial Magistrate or Metropolitan Magistrate shall hold an inquiry
+      into the cause of death. This is mandatory under BNSS S.176 and must be
+      conducted in addition to the police investigation. The Magistrate's
+      report is an important piece of evidence at trial.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "176"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "Dowry Prohibition Act, 1961 — Sections 3 and 4"
+    description_md: |
+      Section 3 of the Dowry Prohibition Act penalises giving or taking of
+      dowry (minimum 5 years RI and fine not less than Rs.15,000 or the
+      amount of dowry, whichever is more). Section 4 penalises demanding
+      dowry (minimum 6 months RI, which may extend to 2 years, and fine up
+      to Rs.10,000). These sections should be added as companion charges.
+      Evidence of dowry transactions (receipts, bank transfers, gold
+      purchases, demand lists) must be collected.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "3, 4"
+        source_authority: "Dowry Prohibition Act, 1961"
+    requires_disclaimer: false
+
+  # ── IMMEDIATE ACTION NODES ─────────────────────────────────────────────────
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Register FIR and Secure the Scene"
+    description_md: |
+      Register FIR under BNSS S.173. In case of death by burns, the scene
+      (kitchen, room) is critical — preserve kerosene containers, matchboxes,
+      stove, clothing remnants. If death by hanging, preserve the ligature
+      material and the point of suspension. If death by poisoning, preserve
+      the container, remaining substance, vomitus. Seal the scene before
+      forensic examination.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "173"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Conduct Inquest and Arrange Post-Mortem"
+    description_md: |
+      Conduct inquest under BNSS S.194. Since this is a death within seven
+      years of marriage, intimate the nearest Judicial Magistrate for inquiry
+      under BNSS S.176. Post-mortem to be conducted by a panel of two
+      doctors. Videography of the post-mortem is mandatory. Preserve viscera
+      for chemical analysis (essential in suspected poisoning). Record
+      percentage and degree of burns and ante-mortem vs. post-mortem burns.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "194"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BNSS
+        section: "176"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Record Dying Declaration if Victim is Alive"
+    description_md: |
+      In burn cases, the victim may survive for some time. Record the dying
+      declaration under BNSS S.192 / BSA S.26 immediately. Obtain medical
+      fitness certificate from the treating doctor that the patient is
+      conscious and oriented. Record before a Magistrate if available; if
+      not, record by the IO or doctor in the presence of witnesses. The
+      declaration must be in the victim's own words. Ask: who set her on
+      fire, why, was dowry demanded, who was present, what accelerant was
+      used. Multiple dying declarations are permissible.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "192"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BSA
+        section: "26"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Collect Dowry Evidence — Documents and Witnesses"
+    description_md: |
+      Immediately collect: marriage invitation cards (showing families),
+      marriage photographs and videos showing gifts exchanged, receipts for
+      gold/jewellery purchases, bank account statements showing transfers
+      to the husband's family, any written demand for dowry (messages, letters),
+      list of dowry articles prepared at the time of marriage (common in many
+      communities), Stridhan list. Interview the bride's parents, siblings,
+      and friends about specific dowry demands made before and after marriage.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── PANCHNAMA NODES ─────────────────────────────────────────────────────────
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Spot Panchnama — Scene of Death"
+    description_md: |
+      Prepare detailed spot panchnama: description of the room/area where
+      death occurred, condition of stove/cylinder/kerosene (if burns), presence
+      and location of accelerant, burn marks on floor/walls/ceiling, position
+      of the body, clothing condition (extent of burning), ligature material
+      (if hanging), container/substance (if poisoning). Note whether doors/
+      windows were locked from inside or outside — critical to distinguishing
+      suicide from homicide.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Seizure Panchnama — Dowry Articles and Evidence"
+    description_md: |
+      Seize: the alleged dowry articles present at the matrimonial home,
+      kerosene/petrol containers and stove (in burn cases), ligature material
+      (in hanging cases), poison container (in poisoning cases), the
+      deceased's clothing, the accused's clothing if stained, mobile phones
+      of the accused and deceased, letters/notes (suicide note if found),
+      marriage-related documents. Prepare detailed inventory with photographs.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "105"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── EVIDENCE NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Post-Mortem Report — Cause and Manner of Death"
+    description_md: |
+      The post-mortem must establish: exact cause of death (asphyxia by
+      hanging, burn injuries, poisoning, blunt trauma), whether injuries are
+      ante-mortem or post-mortem, percentage and degree of burns (in burn
+      cases), ligature mark characteristics (in hanging — ante-mortem hanging
+      shows vital reaction), presence of soot in airways (inhalation of hot
+      gases indicates victim was alive during fire), defence injuries. Viscera
+      must be preserved for chemical analysis to detect accelerants or poison.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Evidence of Cruelty and Dowry Demand"
+    description_md: |
+      The prosecution must prove "soon before her death" the deceased was
+      subjected to cruelty or harassment in connection with dowry demand.
+      Evidence sources:
+      - Statements of the deceased's parents and siblings about dowry demands.
+      - Prior complaints to police, Protection Officer, or women's helpline.
+      - Messages/calls between families showing demands.
+      - Streedhan dispute records.
+      - Neighbours who witnessed quarrels or harassment.
+      - The deceased's diary, messages, or social media posts.
+      "Soon before her death" need not mean immediately before — the SC in
+      Kans Raj v. State of Punjab (2000) 5 SCC 207 held it means proximate
+      in time, not necessarily immediately preceding death.
+    legal_basis_citations:
+      - framework: BNS
+        section: "80"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Marriage Certificate and Duration Proof"
+    description_md: |
+      Establish that death occurred within seven years of marriage. Obtain:
+      marriage certificate or registration document, marriage photographs
+      with date stamp, witness testimony on date of marriage, any official
+      records (voter ID, Aadhaar, ration card) showing change of address
+      post-marriage. If the marriage was not registered, obtain evidence
+      from pandit/maulvi/priest who solemnised the marriage and wedding
+      guests.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── FORENSIC NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: forensic
+    tier: canonical
+    priority: critical
+    title_en: "Chemical Analysis — Accelerant and Poison Detection"
+    description_md: |
+      In burn cases: analyse victim's clothing remnants and scene samples for
+      accelerants (kerosene, petrol, diesel). Gas chromatography can detect
+      accelerant residues. In poisoning cases: viscera analysis for
+      organophosphorus compounds, aluminium phosphide (Celphos), and other
+      common poisons. The FSL report on viscera analysis is critical
+      evidence. If the stove or gas cylinder was involved, obtain the
+      manufacturer's inspection report on defect possibility.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Digital Forensics — Messages and Call Records"
+    description_md: |
+      Examine the deceased's and accused's mobile phones for: messages
+      demanding dowry, threatening messages, calls to the deceased's family
+      about dowry, the deceased's messages to friends/family describing
+      harassment, social media posts or status updates indicating distress.
+      CDR analysis to show call patterns and last calls. All electronic
+      evidence requires S.63 BSA certificate.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  # ── WITNESS / BAYAN NODES ───────────────────────────────────────────────────
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Deceased's Parents and Siblings"
+    description_md: |
+      The most important witnesses in a dowry death case. Record detailed
+      statements under BNSS S.180 and S.183 about: specific dowry demands
+      made before and after marriage, what was given, subsequent demands for
+      more, complaints by the deceased about harassment, visits to the
+      matrimonial home and observations, any marks of injury seen on the
+      deceased during visits, the deceased's last communication with them.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BNSS
+        section: "183"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Neighbours and Acquaintances at Matrimonial Home"
+    description_md: |
+      Neighbours who witnessed quarrels, screaming, physical violence, or
+      the deceased being turned out of the house. Record whether they heard
+      specific demands for dowry. Also record the condition in which they
+      found the deceased (if they were first responders in burn/hanging
+      cases). Their testimony on the general treatment of the deceased in
+      the matrimonial home is relevant.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: medium
+    title_en: "Persons Present at the Time of Death"
+    description_md: |
+      If any person was present when the victim caught fire, consumed poison,
+      or was found hanging, their statement is critical. Record: exact sequence
+      of events, who was present in the house, what was the victim doing,
+      who raised the alarm, whether anyone tried to extinguish the fire/
+      provide first aid, whether the accused was present, statements made
+      by the accused at the time.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── GAP / HISTORICAL NODES ─────────────────────────────────────────────────
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Failure to Record Dying Declaration Properly"
+    description_md: |
+      In Laxman v. State of Maharashtra (2002) 6 SCC 710, the Supreme Court
+      held that a dying declaration not recorded in the victim's own words
+      or without medical fitness certificate is unreliable. NCRB data shows
+      that in burn death cases, the victim is often alive when brought to
+      hospital, yet dying declarations are either not recorded or recorded
+      improperly. Common institutional failures: delay in reaching the victim,
+      recording in police language rather than victim's words, absence of
+      medical fitness certification, not recording before a Magistrate when
+      one was available.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Inadequate Evidence of Dowry Demand"
+    description_md: |
+      Per NCRB Crime in India data, conviction rates for dowry death remain
+      below 35%. In Satvir Singh v. State of Punjab (2001) 8 SCC 633, the
+      Supreme Court emphasized that "soon before her death" requires proximate
+      temporal connection between cruelty and death. Common prosecution
+      failures: vague allegations of general unhappiness, failure to
+      particularise specific dowry demands with dates and amounts, failure
+      to collect documentary evidence (receipts, messages, bank records),
+      reliance solely on oral testimony of interested witnesses without
+      corroboration.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  # ── PROCEDURAL SAFEGUARD NODES ──────────────────────────────────────────────
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Arrest of Husband and In-Laws — Procedural Compliance"
+    description_md: |
+      In Arnesh Kumar v. State of Bihar (2014) 8 SCC 273, the Supreme Court
+      directed that in cases under S.498-A IPC (now BNS S.85), police must
+      not automatically arrest the accused. The IO must first satisfy whether
+      arrest is necessary per BNSS S.35(1) parameters: (a) whether the
+      accused would commit further offence, (b) whether the accused would
+      tamper with evidence, (c) whether the accused would influence witnesses,
+      (d) whether the accused would abscond. The Magistrate must also
+      independently satisfy before authorising detention. However, in dowry
+      death cases (S.80 BNS — punishable with 7 years minimum), arrest
+      provisions are not as restricted as in S.85 cases.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "35"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Rights of the Accused and Legal Aid"
+    description_md: |
+      Despite the gravity of the charge, the accused retains all constitutional
+      rights: right to know grounds of arrest (BNSS S.36), right to legal
+      representation, free legal aid through DLSA if indigent, production
+      before Magistrate within 24 hours (BNSS S.187), right against
+      self-incrimination (Article 20(3)). D.K. Basu guidelines apply in full.
+      The accused may apply for bail — though S.80 is non-bailable, bail is
+      not ruled out if the evidence shows weak prima facie case.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "36"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BNSS
+        section: "187"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false

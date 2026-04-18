@@ -1,0 +1,120 @@
+{
+  "case_category": "sexual_offences",
+  "version": "1.0.0",
+  "rules": [
+    {
+      "id": "SEX_001",
+      "title": "Missing Section 164 CrPC/Section 183 BNSS Statement",
+      "description": "Victim's statement must be recorded before a Magistrate under Section 164 CrPC (now Section 183 BNSS) as mandated for sexual offence cases",
+      "severity": "critical",
+      "category": "procedural",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["164 CrPC", "164 Cr.P.C", "183 BNSS", "statement before magistrate", "judicial magistrate statement"], "min_matches": 1},
+      "remediation": {
+        "summary": "Record victim's statement under Section 164 CrPC/183 BNSS before a Judicial Magistrate",
+        "steps": [
+          "Apply to the Judicial Magistrate for recording the victim's statement",
+          "Ensure statement is recorded in the victim's own words without influence",
+          "Obtain certified copy of the recorded statement",
+          "Reference the statement date, magistrate name, and court in the chargesheet"
+        ],
+        "estimated_effort": "hours"
+      }
+    },
+    {
+      "id": "SEX_002",
+      "title": "Missing Medical Examination Report",
+      "description": "Medical examination of the victim must be conducted and the report referenced in the chargesheet as per Section 164A CrPC/Section 184 BNSS",
+      "severity": "critical",
+      "category": "evidence",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["medical examination", "MLC", "medico-legal", "164A", "184 BNSS", "medical report", "medical certificate"], "min_matches": 1},
+      "remediation": {
+        "summary": "Ensure medical examination is conducted and report is included",
+        "steps": [
+          "Get victim examined by a registered medical practitioner within 24 hours",
+          "Ensure examination is conducted with victim's consent (or guardian's consent for minors)",
+          "Obtain the medical examination report with doctor's findings",
+          "Include reference to the medical report in evidence schedule with date and doctor name"
+        ],
+        "estimated_effort": "hours"
+      }
+    },
+    {
+      "id": "SEX_003",
+      "title": "Missing Women Police Officer Involvement",
+      "description": "Investigation of sexual offences must involve a woman police officer as per statutory requirements",
+      "severity": "high",
+      "category": "procedural",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["woman officer", "lady officer", "women police", "lady constable", "mahila police", "woman sub-inspector", "woman SI"], "min_matches": 1},
+      "remediation": {
+        "summary": "Ensure involvement of a woman police officer in the investigation",
+        "steps": [
+          "Assign a woman police officer to assist in the investigation",
+          "Ensure victim's statement is recorded by or in the presence of a woman officer",
+          "Document the woman officer's name and role in the chargesheet",
+          "Victim's medical examination must be attended by a woman officer"
+        ],
+        "estimated_effort": "minutes"
+      }
+    },
+    {
+      "id": "SEX_004",
+      "title": "Missing Victim Identity Protection Compliance",
+      "description": "Chargesheet must comply with Section 228A IPC/Section 72 BNS provisions protecting the identity of the victim of sexual offences",
+      "severity": "high",
+      "category": "legal",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["228A", "72 BNS", "identity protected", "name not disclosed", "prosecutrix", "victim identity"], "min_matches": 1},
+      "remediation": {
+        "summary": "Ensure victim identity protection measures are in place",
+        "steps": [
+          "Do not disclose victim's name or identity in the chargesheet beyond what is necessary for court proceedings",
+          "Refer to the victim as 'prosecutrix' or by initials where possible",
+          "Ensure no details that could lead to identification are included in publicly accessible portions",
+          "Add a note referencing compliance with Section 228A IPC/Section 72 BNS"
+        ],
+        "estimated_effort": "minutes"
+      }
+    },
+    {
+      "id": "SEX_005",
+      "title": "Missing DNA/Forensic Evidence Reference",
+      "description": "Sexual offence cases should reference DNA profiling or forensic analysis of biological evidence",
+      "severity": "high",
+      "category": "evidence",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["DNA", "forensic", "FSL", "biological sample", "semen", "forensic science laboratory"], "min_matches": 1},
+      "remediation": {
+        "summary": "Include forensic evidence references in the chargesheet",
+        "steps": [
+          "Collect biological samples and send to FSL for DNA profiling",
+          "Reference FSL report number and date in evidence schedule",
+          "Document chain of custody for all biological evidence",
+          "If FSL report is pending, note the date samples were sent and expected timeline"
+        ],
+        "estimated_effort": "hours"
+      }
+    },
+    {
+      "id": "SEX_006",
+      "title": "Missing Age Verification for POCSO Cases",
+      "description": "If victim is a minor, age verification documents must be referenced and POCSO Act sections must be invoked",
+      "severity": "critical",
+      "category": "legal",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["POCSO", "Protection of Children", "age verification", "birth certificate", "school certificate", "ossification test", "minor victim"], "min_matches": 1},
+      "remediation": {
+        "summary": "Verify victim's age and apply POCSO provisions if applicable",
+        "steps": [
+          "Obtain birth certificate or school records for age verification",
+          "If documents unavailable, request ossification test",
+          "Invoke POCSO Act sections alongside BNS/IPC sections if victim is under 18",
+          "Reference age proof documents in the chargesheet evidence schedule"
+        ],
+        "estimated_effort": "hours"
+      }
+    }
+  ]
+}

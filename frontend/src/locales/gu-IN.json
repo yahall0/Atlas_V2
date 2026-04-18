@@ -1,0 +1,118 @@
+{
+  "_comment": "TODO: Gujarati native speaker review per GUJA1 protocol before Sprint 7 cutover",
+  "mindmap": {
+    "title": "ચાર્જશીટ માઇન્ડમેપ",
+    "disclaimer": "સલાહકાર — AI-જનરેટેડ સૂચનો. તપાસ અધિકારી સંપૂર્ણ વિવેકબુદ્ધિ જાળવી રાખે છે. કાનૂની ચુકાદાનો વિકલ્પ નથી.",
+    "toolbar": {
+      "expandAll": "બધું વિસ્તારો",
+      "collapseAll": "બધું સંકોચો",
+      "treeView": "ટ્રી વ્યુ",
+      "checklistView": "ચેકલિસ્ટ વ્યુ",
+      "exportPdf": "PDF નિકાસ",
+      "regenerate": "ફરી જનરેટ કરો",
+      "addCustomNode": "કસ્ટમ નોડ ઉમેરો"
+    },
+    "status": {
+      "open": "ખુલ્લું",
+      "in_progress": "પ્રગતિમાં",
+      "addressed": "સંબોધિત",
+      "not_applicable": "લાગુ પડતું નથી",
+      "disputed": "વિવાદિત"
+    },
+    "priority": {
+      "critical": "ગંભીર",
+      "recommended": "ભલામણ કરેલ",
+      "optional": "વૈકલ્પિક"
+    },
+    "nodeType": {
+      "legal_section": "કાનૂની કલમ",
+      "immediate_action": "તાત્કાલિક કાર્યવાહી",
+      "evidence": "પુરાવા",
+      "interrogation": "પૂછપરછ",
+      "panchnama": "પંચનામું",
+      "forensic": "ફોરેન્સિક",
+      "witness_bayan": "સાક્ષી બયાન",
+      "gap_from_fir": "FIR ગેપ",
+      "custom": "કસ્ટમ"
+    },
+    "drawer": {
+      "description": "વર્ણન",
+      "legalReferences": "કાનૂની સંદર્ભો",
+      "statusUpdate": "સ્થિતિ અપડેટ કરો",
+      "note": "નોંધ",
+      "evidenceRef": "પુરાવા સંદર્ભ જોડો",
+      "save": "સાચવો",
+      "cancel": "રદ કરો",
+      "auditHistory": "સ્થિતિ ઇતિહાસ",
+      "noHistory": "હજુ સુધી કોઈ સ્થિતિ ફેરફાર નોંધાયેલ નથી."
+    },
+    "regenerateModal": {
+      "title": "માઇન્ડમેપ ફરી જનરેટ કરો",
+      "description": "આ માઇન્ડમેપનું નવું વર્ઝન બનાવશે. હાલનું વર્ઝન સાચવવામાં આવશે.",
+      "justificationLabel": "કારણ",
+      "justificationPlaceholder": "માઇન્ડમેપ શા માટે ફરીથી જનરેટ કરવાની જરૂર છે તે સમજાવો...",
+      "confirm": "ફરી જનરેટ કરો",
+      "cancel": "રદ કરો"
+    },
+    "addNodeModal": {
+      "title": "કસ્ટમ નોડ ઉમેરો",
+      "titleLabel": "નોડ શીર્ષક",
+      "descriptionLabel": "વર્ણન",
+      "priorityLabel": "પ્રાથમિકતા",
+      "confirm": "નોડ ઉમેરો",
+      "cancel": "રદ કરો"
+    },
+    "loading": "માઇન્ડમેપ લોડ થઈ રહ્યો છે...",
+    "error": "માઇન્ડમેપ લોડ કરવામાં નિષ્ફળ.",
+    "empty": "આ FIR માટે હજુ સુધી કોઈ માઇન્ડમેપ જનરેટ થયો નથી.",
+    "generate": "માઇન્ડમેપ જનરેટ કરો",
+    "generating": "માઇન્ડમેપ જનરેટ થઈ રહ્યો છે...",
+    "versions": "વર્ઝન",
+    "noVersions": "કોઈ અગાઉના વર્ઝન નથી."
+  },
+  "gapAnalysis": {
+    "title": "ગેપ વિશ્લેષણ",
+    "disclaimer": "સલાહકાર — AI-સહાયિત સમીક્ષા. તપાસ અધિકારી સંપૂર્ણ કાનૂની જવાબદારી જાળવી રાખે છે. કાનૂની ચુકાદા અથવા ઉપરી સમીક્ષાનો વિકલ્પ નથી.",
+    "analyze": "ગેપ વિશ્લેષણ કરો",
+    "analyzing": "વિશ્લેષણ થઈ રહ્યું છે...",
+    "reanalyze": "ફરીથી વિશ્લેષણ કરો",
+    "noReport": "આ ચાર્જશીટ માટે હજુ સુધી કોઈ ગેપ વિશ્લેષણ ચલાવવામાં આવ્યું નથી.",
+    "severity": {
+      "critical": "ગંભીર",
+      "high": "ઉચ્ચ",
+      "medium": "મધ્યમ",
+      "low": "નીચું",
+      "advisory": "સલાહકાર"
+    },
+    "category": {
+      "legal": "કાનૂની",
+      "evidence": "પુરાવા",
+      "witness": "સાક્ષી",
+      "procedural": "પ્રક્રિયાત્મક",
+      "mindmap_divergence": "માઇન્ડમેપ સંરેખણ",
+      "completeness": "સંપૂર્ણતા"
+    },
+    "action": {
+      "accepted": "સ્વીકૃત",
+      "modified": "સુધારેલ",
+      "dismissed": "ફગાવેલ",
+      "deferred": "મુલતવી",
+      "escalated": "ઉપરી મોકલેલ",
+      "accept": "સ્વીકારો",
+      "modify": "સુધારો",
+      "dismiss": "ફગાવો",
+      "defer": "મુલતવી રાખો",
+      "escalate": "ઉપરી મોકલો"
+    },
+    "export": {
+      "title": "નિકાસ",
+      "cleanPdf": "ક્લીન PDF (કોર્ટ-તૈયાર)",
+      "reviewReport": "AI સમીક્ષા અહેવાલ",
+      "redline": "રેડલાઇન PDF"
+    },
+    "tabs": {
+      "document": "દસ્તાવેજ",
+      "gaps": "ગેપ્સ"
+    }
+  }
+}

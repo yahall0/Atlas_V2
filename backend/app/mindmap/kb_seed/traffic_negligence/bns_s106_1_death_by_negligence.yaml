@@ -1,0 +1,451 @@
+offence_code: BNS_S106_1_DEATH_BY_NEGLIGENCE
+category_id: traffic_negligence
+bns_section: "106"
+bns_subsection: "(1)"
+display_name_en: "Causing Death by Negligence"
+display_name_gu: "બેદરકારીથી મૃત્યુ"
+short_description_md: |
+  Whoever causes death of any person by doing any rash or negligent act not
+  amounting to culpable homicide shall be punished under BNS S.106(1).
+  Sub-section (2) provides enhanced punishment if the death is caused by a
+  registered medical practitioner during medical procedure. This section is
+  most commonly invoked in road traffic accident fatalities, industrial
+  accidents, and medical negligence cases.
+punishment: "S.106(1): Imprisonment up to 5 years and fine; S.106(2) (registered medical practitioner): up to 2 years and fine"
+cognizable: true
+bailable: true
+triable_by: "Magistrate of the first class"
+compoundable: "yes (by the legal representative of the deceased, with the permission of the court)"
+schedule_reference: "BNS Schedule I, Part II"
+related_offence_codes:
+  - BNS_S125_RASH_ACT_ENDANGERING_LIFE
+  - BNS_S281_RASH_DRIVING
+  - BNS_S105_CULPABLE_HOMICIDE
+special_acts:
+  - "Motor Vehicles Act, 1988"
+
+knowledge_nodes:
+
+  # ── LEGAL SECTION NODES ─────────────────────────────────────────────────────
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BNS S.106(1) — Causing Death by Negligence"
+    description_md: |
+      S.106(1) of the Bharatiya Nyaya Sanhita 2023 punishes causing death
+      by any rash or negligent act not amounting to culpable homicide.
+      Punishment: imprisonment up to 5 years and fine. This is significantly
+      enhanced from the old IPC S.304A (maximum 2 years).
+
+      "Rash act": an act done with consciousness of risk but with hope that
+      the consequence will not follow.
+      "Negligent act": failure to exercise the care that a reasonable prudent
+      person would exercise in the circumstances.
+
+      The act must be the proximate cause of death, not a remote cause.
+      S.106(1) is mutually exclusive with S.103 (murder) and S.105
+      (culpable homicide) — if intention or knowledge to cause death is
+      established, S.106 does not apply.
+    legal_basis_citations:
+      - framework: BNS
+        section: "106"
+        subsection: "(1)"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "BNS S.281 — Rash Driving on a Public Way"
+    description_md: |
+      S.281 BNS penalises rash or negligent driving on a public way so as to
+      endanger human life or cause hurt or injury to any person. Punishment:
+      imprisonment up to 6 months, or fine up to Rs.1000, or both. This is a
+      companion charge to S.106(1) in road accident cases. For the primary
+      charge of death by negligence, S.106(1) is used; S.281 is the companion
+      charge for rash driving.
+    legal_basis_citations:
+      - framework: BNS
+        section: "281"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "Motor Vehicles Act, 1988 — Relevant Provisions"
+    description_md: |
+      In road accident cases, the following Motor Vehicles Act provisions
+      are applicable as companion charges:
+      - S.184: Driving dangerously (first offence: up to 1 year or Rs.5000;
+        second offence: up to 2 years or Rs.10,000).
+      - S.185: Driving under influence of alcohol/drugs (first offence:
+        up to 6 months or Rs.10,000; second offence: up to 2 years or
+        Rs.15,000).
+      - S.187: Duty to stop and give information in case of accident and
+        duty to report (punishment for hit-and-run: up to 6 months or
+        Rs.5000 or both).
+      - S.134: Duty of driver in case of accident.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "184, 185, 187, 134"
+        source_authority: "Motor Vehicles Act, 1988"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "BNSS S.194 — Inquest in Accident Death"
+    description_md: |
+      Inquest is mandatory in all cases of death where the cause is not
+      natural. In road accident fatalities, the IO must conduct inquest
+      under BNSS S.194 before the body is sent for post-mortem. The inquest
+      must describe injuries, circumstances of the accident, position of
+      the body relative to the vehicle, and condition of the vehicle.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "194"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── IMMEDIATE ACTION NODES ─────────────────────────────────────────────────
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Ensure Medical Aid to Injured and Register FIR"
+    description_md: |
+      First priority: ensure injured persons are rushed to the nearest hospital.
+      Under Motor Vehicles Act S.134, every hospital must provide immediate
+      treatment to accident victims without waiting for procedural formalities
+      or payment. Register FIR under BNSS S.173. If the driver has fled
+      (hit-and-run), register FIR against unknown person and add S.187 MVA.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "173"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: Special Act
+        section: "134"
+        source_authority: "Motor Vehicles Act, 1988"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Secure Accident Scene and Preserve Evidence"
+    description_md: |
+      Secure the accident scene immediately. Do not move vehicles until
+      the scene has been photographed and documented (unless blocking
+      emergency access). Mark positions of vehicles and bodies with chalk.
+      Photograph: vehicle positions, skid marks, debris field, road
+      conditions, traffic signals/signs, visibility, and road markings.
+      Collect broken parts, glass fragments, and paint chips. Measure skid
+      marks (length, direction) for speed estimation.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Seize Vehicle and Driver Documents"
+    description_md: |
+      Seize the offending vehicle under BNSS S.105 with seizure panchnama.
+      Seize: driving licence, vehicle registration certificate (RC), insurance
+      certificate, fitness certificate (for commercial vehicles), permit
+      (for commercial vehicles). Note condition of the vehicle: brakes,
+      tyres, lights, steering, horn. If the driver is suspected of being
+      under the influence of alcohol, conduct breathalyser test or obtain
+      blood sample for blood alcohol content (BAC) within 2 hours.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "105"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: Special Act
+        section: "185"
+        source_authority: "Motor Vehicles Act, 1988"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Hit-and-Run: Identify Offending Vehicle"
+    description_md: |
+      In hit-and-run cases: collect vehicle debris (broken parts with
+      manufacturer markings), paint chips, glass fragments, tyre impressions.
+      Check CCTV cameras along the route. Check ANPR cameras, toll plaza
+      records, FASTag data. Circulate the vehicle description to all nearby
+      police stations and hospitals (the driver may seek treatment for
+      injuries). Check local repair workshops/garages for recently damaged
+      vehicles matching the description.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── PANCHNAMA NODES ─────────────────────────────────────────────────────────
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Spot Panchnama — Accident Scene"
+    description_md: |
+      Detailed spot panchnama including: exact location (road name, km marker,
+      nearest landmark, GPS coordinates), road type and condition (national
+      highway, state road, potholes, under construction), weather and
+      visibility conditions, traffic signal status, road markings and signs,
+      position of vehicles relative to road centre and edge, position of
+      body/victims, skid marks (length, width, direction), debris field,
+      bloodstains, broken vehicle parts, damage to road furniture (dividers,
+      barriers, poles). Rough sketch map with measurements.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "175"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Vehicle Inspection Panchnama"
+    description_md: |
+      Detailed mechanical inspection of the offending vehicle in the presence
+      of panchas. Document: make, model, registration number, engine number,
+      chassis number, condition of brakes (tested), condition of tyres
+      (tread depth, inflation), headlights/tail lights (functional or not),
+      steering play, horn, mirrors, speedometer reading (if relevant),
+      odometer reading, damage to the vehicle consistent with the accident,
+      bloodstains or biological material on the vehicle, paint transfer.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── EVIDENCE NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Post-Mortem Report and MLC"
+    description_md: |
+      Post-mortem report establishing cause of death and correlation with
+      accident mechanics. Injuries must be described with reference to
+      which part of the vehicle likely caused them (bumper height vs.
+      injury location, windshield impact pattern). If the victim was the
+      driver, injuries consistent with steering wheel/dashboard impact.
+      MLC for surviving injured persons. BAC test results if available.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Accident Reconstruction Evidence"
+    description_md: |
+      Skid mark analysis for speed estimation (using drag factor and skid
+      distance formula). Point of impact determination from debris field
+      and vehicle damage patterns. Vehicle damage assessment by motor
+      vehicle inspector. Road condition assessment. Speed camera data or
+      GPS tracking data (if available from fleet management systems in
+      commercial vehicles). Dashcam footage from the offending vehicle or
+      other vehicles.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "CCTV and Electronic Evidence"
+    description_md: |
+      CCTV footage from traffic cameras, nearby establishments, and
+      dashcams. Speed camera data if the location has one. ANPR records
+      for vehicle identification in hit-and-run cases. FASTag transaction
+      records. GPS and telematics data from commercial vehicle tracking
+      systems. All electronic evidence requires S.63 BSA certificate.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: medium
+    title_en: "Driver's Fitness and Vehicle Documents"
+    description_md: |
+      Driving licence validity and class (whether the driver was authorised
+      to drive the vehicle type). Vehicle insurance status. Vehicle fitness
+      certificate (for commercial vehicles). Permit validity (for commercial
+      vehicles). If the driver was driving without a valid licence, this
+      constitutes additional negligence and may impact insurance coverage.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── FORENSIC NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: forensic
+    tier: canonical
+    priority: critical
+    title_en: "Mechanical Inspection and Vehicle Forensics"
+    description_md: |
+      Engage Motor Vehicle Inspector to conduct detailed mechanical
+      inspection: brake efficiency test, tyre condition analysis, steering
+      mechanism examination, headlight alignment and functionality. In
+      cases where mechanical failure is alleged, send vehicle components
+      (brake pads, brake fluid, tyre) to the forensic laboratory. Examine
+      the vehicle's Event Data Recorder (EDR) or "black box" if equipped
+      (common in modern vehicles) for pre-crash speed and braking data.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Blood Alcohol Content and Toxicology"
+    description_md: |
+      If drunk driving is suspected: breathalyser test at the scene and
+      blood sample within 2 hours under MVA S.185. Send blood sample to
+      FSL for BAC analysis. Legal limit: 30 mg per 100 ml of blood.
+      Toxicology for drugs (narcotic or psychotropic substances) if the
+      driver appears intoxicated but breathalyser is negative. Report of
+      the medical officer who examined the driver for signs of intoxication.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "185"
+        source_authority: "Motor Vehicles Act, 1988"
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Paint and Material Transfer Analysis"
+    description_md: |
+      In hit-and-run cases: compare paint chips from the scene with the
+      suspect vehicle's paint (layered paint analysis). Glass fragment
+      matching (vehicle headlight/windshield glass). Fibre transfer
+      analysis (victim's clothing on vehicle or vice versa). This forensic
+      evidence links the specific vehicle to the accident scene.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── WITNESS / BAYAN NODES ───────────────────────────────────────────────────
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Eyewitness Statements"
+    description_md: |
+      Record statements of persons who witnessed the accident: direction
+      and speed of the vehicles, which vehicle was on the wrong side, signal
+      status, whether the driver appeared intoxicated, manner of driving
+      (zigzagging, overtaking), sequence of impact, and what happened
+      immediately after (did the driver stop, did the driver flee). Note
+      the witness's position relative to the accident.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Driver's Statement"
+    description_md: |
+      Record the accused driver's statement under BNSS S.180: where was
+      the driver coming from and going to, speed at the time of accident,
+      what the driver observed, whether the driver tried to brake/swerve,
+      when the driver realised the accident occurred, whether the vehicle
+      had any mechanical issues. Note: statement under S.180 is not signed
+      and is not a confession. The driver cannot be compelled to make
+      self-incriminating statements.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: medium
+    title_en: "Motor Vehicle Inspector and Medical Expert"
+    description_md: |
+      The Motor Vehicle Inspector who conducted the mechanical inspection
+      is an expert witness. Their testimony on the condition of brakes,
+      tyres, and the vehicle's roadworthiness. The medical officer who
+      conducted the post-mortem or examined the injured — correlation of
+      injuries with accident mechanics. The forensic expert who analysed
+      BAC or examined the vehicle.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── GAP / HISTORICAL NODES ─────────────────────────────────────────────────
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Delayed Scene Documentation and Evidence Loss"
+    description_md: |
+      NCRB data shows India has one of the highest road accident fatality
+      rates globally. In State of Karnataka v. Puttaraja (2004) 1 SCC 475,
+      the Supreme Court observed that in many accident cases, the scene is
+      not preserved and vehicles are moved before documentation. Common
+      institutional gaps: delayed arrival of IO at scene, removal of
+      vehicles before photography and measurement, failure to collect skid
+      marks before they are obliterated, failure to note weather and
+      lighting conditions. The IO must reach the scene and document it
+      before vehicles are moved.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: medium
+    title_en: "Failure to Conduct BAC Test in Time"
+    description_md: |
+      Blood Alcohol Content decreases over time (approximately 15 mg/100 ml
+      per hour). If the BAC test is not conducted within 2 hours of the
+      accident, the result may not accurately reflect the driver's state
+      at the time of accident. Institutional delays: no breathalyser
+      available at the scene, delay in taking the driver to hospital for
+      blood sample, driver absconding and returning later. IO must conduct
+      breathalyser test at the scene and arrange blood sampling within
+      2 hours.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  # ── PROCEDURAL SAFEGUARD NODES ──────────────────────────────────────────────
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Arrest and Bail — Bailable Offence"
+    description_md: |
+      Death by negligence under BNS S.106(1) is a bailable offence. The
+      accused driver has the right to bail under BNSS S.478. If arrested,
+      the accused must be informed of the right to bail. D.K. Basu
+      guidelines apply. If the driver is a juvenile, the Juvenile Justice
+      Act 2015 applies. Compounding is available with the permission of the
+      court under BNSS S.359 — the legal representative of the deceased may
+      compound the offence.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "478"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: medium
+    title_en: "Good Samaritan Protection — Motor Vehicles Act S.134A"
+    description_md: |
+      The Motor Vehicles (Amendment) Act 2019 introduced S.134A providing
+      protection to Good Samaritans who assist accident victims. No Good
+      Samaritan shall be liable for any civil or criminal action for any
+      injury or death of a victim resulting from negligence in providing
+      care. The IO must not detain or harass bystanders who helped the
+      victim and brought them to hospital. The Supreme Court in Savelife
+      Foundation v. Union of India (2016) directed that no Good Samaritan
+      shall be examined by police unless they are an eyewitness, and that
+      too at a time and place of their convenience.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "134A"
+        source_authority: "Motor Vehicles Act, 1988"
+    requires_disclaimer: false

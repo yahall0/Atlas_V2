@@ -1,0 +1,494 @@
+offence_code: IT_ACT_S66_COMPUTER_OFFENCES
+category_id: cyber_crimes
+bns_section: ""
+bns_subsection: ""
+display_name_en: "Computer Related Offences"
+display_name_gu: "કમ્પ્યુટર સંબંધિત અપરાધો"
+short_description_md: |
+  Section 66 of the Information Technology Act, 2000 (as amended 2008)
+  penalises computer related offences. If any person, dishonestly or
+  fraudulently, does any act referred to in Section 43 (damage to computer,
+  computer system, etc.), he shall be punishable with imprisonment up to
+  three years or with fine up to five lakh rupees or with both. Related
+  offences include S.66A (struck down by SC), S.66B (receiving stolen
+  computer resource), S.66C (identity theft), S.66D (cheating by
+  personation using computer), S.66E (violation of privacy), S.66F
+  (cyber terrorism).
+punishment: "Imprisonment up to 3 years, or fine up to Rs. 5 lakh, or both"
+cognizable: true
+bailable: true
+triable_by: "Any Magistrate (or Special Court under IT Act if designated)"
+compoundable: "yes (S.77-A IT Act, with the permission of the court)"
+schedule_reference: "Information Technology Act, 2000"
+related_offence_codes:
+  - IT_ACT_S43_DAMAGE_TO_COMPUTER
+  - IT_ACT_S66C_IDENTITY_THEFT
+  - IT_ACT_S66D_CHEATING_BY_PERSONATION
+  - BNS_S318_CHEATING
+  - BNS_S319_CHEATING_BY_PERSONATION
+special_acts:
+  - "Information Technology Act, 2000"
+  - "Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021"
+
+knowledge_nodes:
+
+  # ── LEGAL SECTION NODES ─────────────────────────────────────────────────────
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "IT Act S.66 — Computer Related Offences"
+    description_md: |
+      Section 66 of the Information Technology Act, 2000 penalises any person
+      who, dishonestly or fraudulently, does any act referred to in S.43.
+      S.43 covers: accessing or securing access to a computer system without
+      permission, downloading or extracting data, introducing viruses or
+      contaminants, damaging a computer or computer system, disrupting access,
+      denying access (DoS attacks), providing assistance to facilitate
+      access, charging services to another person's account, destroying or
+      altering any information in a computer, stealing or concealing or
+      destroying a computer source document.
+
+      Punishment: imprisonment up to 3 years, or fine up to Rs.5 lakh, or both.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "66"
+        source_authority: "Information Technology Act, 2000"
+      - framework: Special Act
+        section: "43"
+        source_authority: "Information Technology Act, 2000"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "IT Act S.66C — Identity Theft and S.66D — Cheating by Personation"
+    description_md: |
+      S.66C: Whoever fraudulently or dishonestly makes use of the electronic
+      signature, password, or any other unique identification feature of any
+      other person — imprisonment up to 3 years and fine up to Rs.1 lakh.
+
+      S.66D: Whoever by means of any communication device or computer resource
+      cheats by personation — imprisonment up to 3 years and fine up to
+      Rs.1 lakh.
+
+      These sections often overlap with BNS S.318 (cheating) and S.319
+      (cheating by personation). Dual charges under IT Act and BNS are
+      permissible.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "66C"
+        source_authority: "Information Technology Act, 2000"
+      - framework: Special Act
+        section: "66D"
+        source_authority: "Information Technology Act, 2000"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BSA S.63 — Admissibility of Electronic Records"
+    description_md: |
+      S.63 of the Bharatiya Sakshya Adhiniyam 2023 (corresponding to old
+      S.65B Indian Evidence Act) governs admissibility of electronic records.
+      Any information contained in an electronic record which is printed on
+      paper, stored, recorded, or copied in optical or magnetic media is
+      deemed a document and is admissible as evidence if accompanied by a
+      certificate under S.63(4).
+
+      The certificate must: (a) identify the electronic record, (b) describe
+      the manner in which it was produced, (c) describe the device that
+      produced it, (d) be signed by a person occupying a responsible
+      position in relation to the operation of the relevant device.
+
+      Per Supreme Court in Arjun Panditrao Khotkar v. Kailash Kushanrao
+      Gorantyal (2020) 7 SCC 1, the S.65B certificate (now S.63 BSA) is
+      mandatory and cannot be dispensed with.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "IT Act S.66F — Cyber Terrorism"
+    description_md: |
+      Whoever with intent to threaten the unity, integrity, security, or
+      sovereignty of India or to strike terror in the people, denies or
+      causes denial of access to a computer resource, attempts to penetrate
+      a computer resource without authorisation, or introduces a computer
+      contaminant — and by means of such conduct causes or is likely to
+      cause death or injuries to persons, damage to property, disruption of
+      supplies essential to life, or adversely affects Critical Information
+      Infrastructure. Punishment: imprisonment which may extend to life.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "66F"
+        source_authority: "Information Technology Act, 2000"
+    requires_disclaimer: false
+
+  # ── IMMEDIATE ACTION NODES ─────────────────────────────────────────────────
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Register FIR and Preserve Digital Evidence"
+    description_md: |
+      Register FIR under BNSS S.173. In cyber crime cases, evidence is
+      volatile — take immediate steps to preserve it. Issue preservation
+      notices to: ISPs (Internet Service Providers), social media platforms,
+      email providers, hosting companies, and intermediaries under IT Act
+      S.69 / IT (Intermediary Guidelines) Rules, 2021. Request log retention
+      and account freezing. Note: many platforms have 90-day data retention
+      policies — delay can result in permanent loss of evidence.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "173"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: Special Act
+        section: "69"
+        source_authority: "Information Technology Act, 2000"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Identify and Freeze Financial Trail"
+    description_md: |
+      In financial cyber crimes (phishing, UPI fraud, online banking fraud):
+      immediately contact the victim's bank to freeze/reverse the
+      transaction. Use the 1930 Cyber Crime Helpline (MHA) for immediate
+      financial transaction hold. Contact the beneficiary bank to freeze
+      the receiving account. Obtain KYC details of the receiving account.
+      Track the money trail through multiple accounts (layering). Request
+      bank account statements under BNSS S.94.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "94"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Seize and Image Digital Devices"
+    description_md: |
+      Seize the suspect's computer, laptop, mobile phone, hard drives, USB
+      drives, servers, and any digital storage media. Do NOT switch on or
+      operate seized devices — this can alter evidence. Create forensic
+      images (bit-by-bit copies) using write-blockers. Compute hash values
+      (SHA-256) of original media and forensic images. Document the condition
+      of each device (on/off, screen display, cables connected). Maintain
+      chain of custody log.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── PANCHNAMA NODES ─────────────────────────────────────────────────────────
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Device Seizure Panchnama"
+    description_md: |
+      Prepare seizure panchnama for each digital device in the presence of
+      panchas. Record: device type, make, model, serial number, IMEI (for
+      phones), condition (on/off, damaged, screen display at time of seizure),
+      accessories seized (chargers, cables, SIM cards, memory cards). Each
+      device sealed in anti-static bags and labelled. If a computer is
+      running, photograph the screen before shutting down. Do not use the
+      device or guess passwords.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "105"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Scene Panchnama — Digital Scene Documentation"
+    description_md: |
+      In cases involving server rooms, cyber cafes, or physical premises:
+      prepare scene panchnama documenting the network setup, connected
+      devices, IP addresses displayed, usernames logged in, papers with
+      passwords or account details found, financial documents, SIM cards,
+      bank cards, and any handwritten notes. Photograph the entire setup
+      including cable connections and network diagrams.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── EVIDENCE NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "BSA S.63 Certificate for Electronic Evidence — Mandatory"
+    description_md: |
+      Every piece of electronic evidence produced in court MUST be
+      accompanied by a S.63 BSA certificate (formerly S.65B Indian Evidence
+      Act). The certificate must be signed by a person in a responsible
+      position who can certify: (a) the electronic record was produced by
+      a computer in regular use, (b) during the relevant period information
+      was regularly fed into the computer in the ordinary course, (c) the
+      computer was operating properly, and (d) a copy of the electronic
+      record is a true reproduction. Without this certificate, electronic
+      evidence is inadmissible — per Arjun Panditrao Khotkar (2020) 7 SCC 1.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Forensic Images and Hash Values"
+    description_md: |
+      Forensic images (bit-by-bit copies) of all seized devices are the
+      primary evidence. The hash value (SHA-256 or MD5) of the original media
+      and the forensic image must match — this proves that the data was not
+      altered during imaging. Document: date and time of imaging, tool used
+      (FTK Imager, dd, Cellebrite), hash values before and after, examining
+      officer's name and qualifications. The original media is preserved;
+      all examination is done on the forensic image.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Server Logs, IP Address, and ISP Records"
+    description_md: |
+      Obtain server access logs, IP address logs, and subscriber information
+      from the ISP under BNSS S.94 requisition. IP address identifies the
+      source of the cyber attack or fraud. ISP subscriber details link the
+      IP to a physical address and person. Dynamic IP allocation logs from
+      the ISP are essential. For VPN/proxy users, additional requests to
+      VPN providers may be needed. International cooperation through MLAT
+      (Mutual Legal Assistance Treaty) may be required for overseas servers.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "94"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Financial Transaction Evidence"
+    description_md: |
+      In financial cyber crimes: bank account statements, UPI transaction
+      records, payment gateway logs, cryptocurrency wallet addresses and
+      transaction records, hawala transaction details. KYC documents of
+      mule accounts. Trace the entire money flow from victim's account
+      through intermediary accounts to the final beneficiary. Request
+      certified copies from banks — each bank statement is a BSA S.63
+      electronic record requiring certification.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: medium
+    title_en: "Chain of Custody for Digital Evidence"
+    description_md: |
+      Maintain an unbroken chain of custody for all digital evidence from
+      the moment of seizure to production in court. The chain of custody
+      log must record: who handled the evidence, when, for what purpose,
+      how it was stored (locked cabinet, restricted access area), and hash
+      verification at each transfer point. Any break in the chain of
+      custody allows the defence to challenge the integrity of the evidence.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── FORENSIC NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: forensic
+    tier: canonical
+    priority: critical
+    title_en: "Forensic Imaging and Device Examination"
+    description_md: |
+      Use certified forensic tools (EnCase, FTK, Cellebrite, Oxygen) for
+      device examination. Process: (1) Create forensic image with write-
+      blocker, (2) Verify hash, (3) Examine forensic image for relevant
+      data — deleted files, browser history, emails, chats, financial
+      application data, GPS locations, call logs, (4) Keyword search for
+      relevant terms, (5) Timeline analysis, (6) Prepare detailed forensic
+      report with screenshots and hash values of individual artifacts.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: critical
+    title_en: "Network Forensics and Malware Analysis"
+    description_md: |
+      In hacking and malware cases: analyse network traffic logs, firewall
+      logs, IDS/IPS alerts. Identify the attack vector (phishing, brute
+      force, SQL injection, malware). Preserve malware samples for analysis
+      in a sandbox environment. Identify Command and Control (C2) servers.
+      Analyse the malware's functionality and origin. CERT-In (Indian
+      Computer Emergency Response Team) may be consulted for advanced
+      analysis under IT Act S.70B.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "70B"
+        source_authority: "Information Technology Act, 2000"
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Mobile Device Forensics"
+    description_md: |
+      Mobile phone forensic extraction using Cellebrite UFED, Oxygen, or
+      GrayKey. Levels of extraction: logical (accessible data), file system,
+      and physical (full chip dump including deleted data). Extract: call
+      logs, SMS, instant messaging (WhatsApp, Telegram, Signal), emails,
+      browser history, GPS location history, photographs with metadata,
+      app usage data, social media accounts, cryptocurrency wallets.
+      Prepare S.63 BSA certificate for each extraction.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  # ── WITNESS / BAYAN NODES ───────────────────────────────────────────────────
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Victim / Complainant Statement"
+    description_md: |
+      Record detailed statement under BNSS S.180: what system/account was
+      compromised, when the victim first noticed the breach, what data or
+      money was lost, screenshots of fraudulent transactions/messages,
+      timeline of events, any communication from the accused (emails,
+      messages, calls), what security measures were in place, and whether
+      the victim clicked any suspicious link or shared OTP/credentials.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Technical / Expert Witness"
+    description_md: |
+      The forensic examiner who analysed the devices and digital evidence
+      is a critical expert witness. Their testimony must establish: tools
+      and methodology used, hash value verification, findings and their
+      significance, chain of custody maintenance. The IT administrator of
+      the victim's organization (in corporate hacking cases) may testify
+      on network security measures and breach detection.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: medium
+    title_en: "Bank Officials and ISP/Platform Representatives"
+    description_md: |
+      Bank officials who can testify to: fraudulent transactions, KYC of
+      the mule account, account opening and operation details. ISP
+      representatives who can testify to: subscriber details linked to the
+      IP address, log records. Social media platform representatives (may
+      require international legal assistance) for account creation details,
+      IP logs, and content records.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── GAP / HISTORICAL NODES ─────────────────────────────────────────────────
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Missing S.63 BSA Certificate — Fatal to Prosecution"
+    description_md: |
+      In Arjun Panditrao Khotkar v. Kailash Kushanrao Gorantyal (2020)
+      7 SCC 1, the Supreme Court held that the S.65B certificate (now S.63
+      BSA) is a mandatory requirement for admissibility of electronic
+      evidence and cannot be dispensed with. Numerous cyber crime prosecutions
+      fail because the IO does not obtain the certificate at the time of
+      seizure or does not get it from the right person. IO must ensure S.63
+      BSA certificate is obtained from each custodian (bank, ISP, platform,
+      forensic examiner) at the time of collecting electronic evidence.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: true
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Evidence Volatility and Preservation Failure"
+    description_md: |
+      Digital evidence is inherently volatile. ISPs retain logs for 90 days
+      (or per CERT-In direction, 180 days). CCTV footage is overwritten in
+      7-30 days. Social media posts can be deleted. Cloud storage may be
+      purged. Financial transaction details have retention periods.
+
+      Common institutional failures: delayed issuance of preservation notices,
+      slow correspondence with foreign platforms (Google, Meta, Microsoft),
+      failure to use emergency disclosure processes provided by platforms.
+      IO must issue preservation notices within 24 hours and follow up with
+      formal legal requests within 15 days.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  # ── PROCEDURAL SAFEGUARD NODES ──────────────────────────────────────────────
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Search and Seizure of Digital Devices — Legal Authority"
+    description_md: |
+      Search and seizure of digital devices requires compliance with
+      BNSS S.105 (search of premises) and IT Act S.80 (power of police
+      to enter, search, and arrest without warrant). The IO must:
+      - Obtain search warrant from Magistrate under BNSS S.98 wherever
+        possible.
+      - Conduct search in the presence of two independent witnesses.
+      - Prepare a detailed seizure panchnama.
+      - Not access or operate the devices — hand over to cyber forensic lab.
+      - Provide receipt to the person from whom devices are seized.
+      - The accused has the right to have a copy of the panchnama.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "105"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: Special Act
+        section: "80"
+        source_authority: "Information Technology Act, 2000"
+    requires_disclaimer: false
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Rights of the Accused in Cyber Crime Cases"
+    description_md: |
+      Simple computer offences under S.66 IT Act are bailable. The accused
+      has the right to bail under BNSS S.478. D.K. Basu guidelines apply.
+      The accused cannot be compelled to provide passwords or decrypt data
+      (right against self-incrimination, Article 20(3)). However, under
+      IT Act S.69(4), failure to assist in decryption when directed by
+      competent authority is punishable — this provision has not been
+      tested extensively against Article 20(3). No narco-analysis or
+      polygraph without consent.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "478"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: Special Act
+        section: "69"
+        source_authority: "Information Technology Act, 2000"
+    requires_disclaimer: false

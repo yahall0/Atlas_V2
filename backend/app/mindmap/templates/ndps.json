@@ -1,0 +1,294 @@
+{
+  "case_category": "ndps",
+  "template_version": "1.0.0",
+  "description": "Chargesheet mindmap template for narcotics cases under the Narcotic Drugs and Psychotropic Substances Act, 1985 (NDPS Act Sections 20-29)",
+  "branches": [
+    {
+      "node_type": "legal_section",
+      "title": "Applicable Legal Sections",
+      "description_md": "NDPS Act provisions. Charges depend on: type of substance, quantity (small/commercial), and nature of activity (possession, sale, transport, financing). Strict compliance with procedural safeguards is mandatory.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "legal_section",
+          "title": "NDPS Act Section 20 -- Cannabis (Ganja/Charas/Hashish)",
+          "description_md": "Contravention in relation to cannabis plant and cannabis (ganja, charas). Small quantity: up to 1 year or fine or both. Quantity between small and commercial: up to 10 years + fine up to Rs.1 lakh. Commercial quantity: 10-20 years + fine Rs.1-2 lakh.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "NDPS Act Section 21 -- Manufactured Drugs (Heroin, Cocaine, etc.)",
+          "description_md": "Contravention in relation to manufactured drugs. Same punishment structure as Section 20 based on quantity. Includes heroin (diacetylmorphine), cocaine, methamphetamine, and other manufactured narcotic drugs listed in the Schedule.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "NDPS Act Section 22 -- Psychotropic Substances",
+          "description_md": "Contravention in relation to psychotropic substances (amphetamines, LSD, MDMA/ecstasy, etc.). Punishment based on quantity: small, intermediate, and commercial. Commercial quantity attracts minimum 10 years imprisonment.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "NDPS Act Section 27 -- Consumption",
+          "description_md": "Consumption of any narcotic drug or psychotropic substance. Cocaine/morphine/heroin: up to 1 year or fine or both. Other drugs: up to 6 months or fine or both. Court may release for treatment under Section 64A.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "NDPS Act Section 29 -- Abetment and Criminal Conspiracy",
+          "description_md": "Abetment of and criminal conspiracy to commit any offence under the NDPS Act. Punishment same as for the offence abetted. Applies to kingpins, financiers, and organizers of the drug supply chain.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "NDPS Act Section 27A -- Financing Illicit Traffic",
+          "description_md": "Financing, directly or indirectly, any of the activities relating to narcotic drugs. Minimum 10 years rigorous imprisonment, up to 20 years + fine Rs.1-2 lakh. Aimed at hawala operators and drug money launderers.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "immediate_action",
+      "title": "Immediate Actions",
+      "description_md": "NDPS cases require strict procedural compliance. Non-compliance with mandatory procedures leads to acquittal. Follow Sections 42, 43, 50, and 52A of the NDPS Act meticulously.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "immediate_action",
+          "title": "Section 42 NDPS -- Prior Information and Authorization",
+          "description_md": "If search is based on prior information, officer must record information in writing and send copy to immediate superior within 72 hours. If officer has reason to believe (not based on prior info), record reasons in writing. Non-compliance with Section 42 is fatal to prosecution.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Section 50 NDPS -- Personal Search Rights",
+          "description_md": "Before searching any person, inform them of their right to be searched in the presence of a Gazetted Officer or a Magistrate. This right is MANDATORY and non-compliance vitiates the entire search and seizure. Record the option given and chosen in writing. Witness the communication.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Seizure with Independent Witnesses",
+          "description_md": "Conduct seizure in the presence of at least two independent witnesses (panchas) who are respectable inhabitants of the locality. Witnesses must be genuinely independent, not police informers or connected persons. Their absence or non-availability must be documented.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Sample Drawing, Sealing, and Weighment",
+          "description_md": "Draw representative samples from the seized substance in the presence of panchas and accused. Prepare minimum 3 samples: one for FSL, one for CRCL (Central Revenue Chemical Laboratory), one as court sample. Seal each sample with unique seal. Prepare weighment memo with gross and net weight.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Inventory and Photograph of Seizure",
+          "description_md": "Prepare detailed inventory of all seized substances and articles. Photograph the seized material at the spot with panchas and accused visible. Videograph the entire process if possible. Note color, form, odor, and packaging of the substance.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "evidence",
+      "title": "Evidence Collection",
+      "description_md": "Evidence collection in NDPS cases. Chain of custody is paramount. Any break in chain leads to benefit of doubt to the accused.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "evidence",
+          "title": "Seized Substance and FSL Report",
+          "description_md": "The seized substance is the primary evidence. Must be sent to FSL within prescribed time with intact seals. FSL report must confirm the substance is a narcotic drug or psychotropic substance as defined in the Act. Weight confirmation determines whether small quantity or commercial quantity threshold is met.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Weighment Memo and Quantity Classification",
+          "description_md": "Accurate weighment of the seized substance is essential as punishment varies dramatically based on quantity. Prepare weighment memo on the spot with digital weighing scale. Distinguish between: small quantity (Section 2(xxiiia)), intermediate, and commercial quantity (Section 2(viia)). Refer to notification for threshold quantities.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Call Detail Records and Surveillance",
+          "description_md": "CDR analysis of accused's phone to identify: co-accused, suppliers, distributors, buyers, and the drug supply chain. Tower location analysis to establish presence at specific locations. Apply for phone interception records if surveillance was ongoing.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Financial Trail Investigation",
+          "description_md": "Bank account analysis: unexplained cash deposits, hawala transactions, cryptocurrency transactions. Property acquired from drug proceeds. Cash found during search. Investigate under Prevention of Money Laundering Act (PMLA) if proceeds are substantial.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Vehicle and Conveyance Seizure",
+          "description_md": "If drugs were transported in a vehicle, seize the vehicle under Section 60 NDPS Act. Document where drugs were hidden in the vehicle. Vehicle registration, ownership, and insurance details. Check for secret compartments or modifications for smuggling.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "interrogation",
+      "title": "Interrogation Plan",
+      "description_md": "Interrogation to identify the supply chain from source to street-level distribution. Focus on upstream suppliers and financiers.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "interrogation",
+          "title": "Accused (Carrier/Peddler) Interrogation",
+          "description_md": "Interrogate on: source of the drug, who supplied, payment method, frequency of transactions, delivery chain, other carriers known, stash locations, intended buyer/destination. Voluntary disclosure leading to recovery of additional contraband (Section 27 IE Act).",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Upstream Supply Chain Investigation",
+          "description_md": "Based on carrier's interrogation, identify and pursue: the supplier, manufacturer/cultivator, financier, and kingpin. Coordinate with NCB, DRI, and other states' police. Apply for court permission for phone tapping under Section 5(2) Indian Telegraph Act.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Informer Debriefing",
+          "description_md": "Debrief the informer (if case is based on source information) for additional intelligence: other members of the network, storage locations, future consignment details, routes used. Protect informer's identity under Section 54(2) NDPS Act.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Associate and Family Investigation",
+          "description_md": "Investigate accused's close associates and family members for: knowledge of drug activity, benami property holdings, unexplained wealth, financial support to the accused. Check if family members are nominees for suspicious bank accounts or properties.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "panchnama",
+      "title": "Panchnama Requirements",
+      "description_md": "Panchnamas in NDPS cases are the backbone of the prosecution. Any irregularity can result in acquittal. Must be detailed and contemporaneous.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "panchnama",
+          "title": "Search and Seizure Panchnama",
+          "description_md": "Most critical document. Must record: prior information (Section 42), compliance with Section 50 rights, search procedure, exact location where substance was found (person/premises/vehicle), description of substance, weighment details, sample drawing, sealing procedure, and signature of panchas, accused, and officers.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Sample Drawing and Sealing Panchnama",
+          "description_md": "Detailed procedure of: how samples were drawn from the bulk, number of samples, quantity in each sample, sealing with specific seal impression, labeling of each sample. Panchas must confirm they witnessed the entire process. Note seal impressions used.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "FSL Deposit Panchnama",
+          "description_md": "Record of deposit of samples at FSL: date, time, condition of seals on arrival, receipt number from FSL. Seals must be intact. Any tampered seal must be recorded and explained. This establishes unbroken chain of custody.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Section 52A NDPS -- Disposal Panchnama",
+          "description_md": "Under Section 52A, bulk quantity may be disposed of after retaining samples. Inventory of quantity retained vs disposed, disposal method, certification by Magistrate. Photographs and videography mandatory. Standing Committee must supervise disposal.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "forensic",
+      "title": "Forensic Requirements",
+      "description_md": "FSL analysis is mandatory to confirm the nature and quantity of the seized substance. Without FSL report, conviction is not possible.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "forensic",
+          "title": "FSL Chemical Analysis Report",
+          "description_md": "Primary forensic requirement: FSL must confirm the identity of the seized substance (heroin, cocaine, ganja, etc.). Report must specify: name of substance, purity percentage (for commercial quantity determination), weight of sample tested, and methodology used (GC-MS, HPLC, etc.).",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "CRCL Cross-Verification",
+          "description_md": "Central Revenue Chemical Laboratory cross-verification may be sought as independent confirmation. Especially important in cases involving commercial quantity where punishment is severe. Defence often demands re-testing.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Fingerprint Analysis on Packaging",
+          "description_md": "Develop latent fingerprints on drug packaging, wrappers, plastic bags, and containers. Match with accused's prints to establish handling. Also check for prints of co-accused and unknown persons.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Digital Forensics (Phone and Financial Records)",
+          "description_md": "Extract data from seized mobile phones: contacts of suppliers and buyers, encrypted messaging apps (Signal, Telegram), UPI/payment app transactions, GPS location history, photos of drugs/cash. Apply Section 65B certification for all electronic evidence.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "witness_bayan",
+      "title": "Witness Statements (Bayan)",
+      "description_md": "Witness statements in NDPS cases. Independent panch witnesses are critical. Their hostile turning is a major challenge; ensure genuine independence.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "witness_bayan",
+          "title": "Independent Panch Witnesses",
+          "description_md": "Statements of panch witnesses who were present during search and seizure. They must depose on: compliance with Section 50, search procedure, discovery of substance, weighment, and sample drawing. Their credibility is often challenged; ensure they are genuinely independent.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Raiding Officer and Team",
+          "description_md": "Detailed statements of the officer who conducted the raid and all team members. Cover: source of information, Section 42 compliance, how they reached the spot, identification of accused, search procedure, seizure details, and chain of custody till deposit at malkhana.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "FSL Expert Witness",
+          "description_md": "Statement of the FSL analyst who tested the samples. Must testify on: receipt of sample with intact seal, methodology used, findings, and confirmation of substance identity and quantity.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Surveillance and Intelligence Witnesses",
+          "description_md": "If case involved prior surveillance, statements of officers who conducted surveillance. Informer's identity is protected but handler's testimony about the information received and actions taken is essential.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    }
+  ]
+}

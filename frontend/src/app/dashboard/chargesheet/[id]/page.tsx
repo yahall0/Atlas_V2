@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -286,6 +287,11 @@ export default function ChargesheetReviewPage() {
               Start Review
             </Button>
           )}
+          <Link href={`/dashboard/chargesheet/${cs.id}/review`}>
+            <Button variant="outline" size="sm">
+              Gap Analysis
+            </Button>
+          </Link>
         </div>
       </div>
 

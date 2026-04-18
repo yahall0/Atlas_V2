@@ -1,0 +1,318 @@
+{
+  "case_category": "dowry",
+  "template_version": "1.0.0",
+  "description": "Chargesheet mindmap template for dowry-related cases under IPC 498A/304B/306 and corresponding BNS provisions including Dowry Prohibition Act",
+  "branches": [
+    {
+      "node_type": "legal_section",
+      "title": "Applicable Legal Sections",
+      "description_md": "Legal sections for dowry harassment, dowry death, and abetment of suicide due to dowry demand. Dowry Prohibition Act, 1961 provisions also apply.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "legal_section",
+          "title": "IPC 498A / BNS 85 -- Cruelty by Husband or Relatives",
+          "description_md": "Husband or relative of husband subjecting a woman to cruelty. Cruelty includes: (a) any willful conduct likely to drive her to suicide or cause grave injury, (b) harassment for dowry demand. Cognizable, non-bailable. Punishment: up to 3 years imprisonment + fine.",
+          "ipc_section": "498A",
+          "bns_section": "85",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 304B / BNS 80 -- Dowry Death",
+          "description_md": "Death of a woman within 7 years of marriage caused by burns or bodily injury, or occurs under abnormal circumstances, and she was subjected to cruelty or harassment for dowry soon before death. Presumption under Section 113-B IEA. Minimum 7 years, up to life imprisonment.",
+          "ipc_section": "304B",
+          "bns_section": "80",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 306 / BNS 108 -- Abetment of Suicide",
+          "description_md": "If a married woman commits suicide and it is shown that she was subjected to cruelty by her husband or in-laws. Abetment includes instigation, conspiracy, or intentional aiding. Punishment: up to 10 years imprisonment.",
+          "ipc_section": "306",
+          "bns_section": "108",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "Dowry Prohibition Act, 1961 -- Sections 3 and 4",
+          "description_md": "Section 3: Penalty for giving or taking dowry -- minimum 5 years imprisonment + fine of Rs.15,000 or amount of dowry, whichever is more. Section 4: Penalty for demanding dowry -- minimum 6 months up to 2 years imprisonment + fine up to Rs.10,000.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 406 / BNS 316(2) -- Criminal Breach of Trust (Stridhan)",
+          "description_md": "Applicable when husband or in-laws misappropriate or refuse to return the woman's stridhan (gifts, jewelry, and property given to her). Punishment: up to 3 years imprisonment or fine or both.",
+          "ipc_section": "406",
+          "bns_section": "316(2)",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 34 / BNS 3(5) -- Common Intention",
+          "description_md": "Applied when multiple family members (husband, in-laws) act together in making dowry demands and causing cruelty. All family members who participated are equally liable.",
+          "ipc_section": "34",
+          "bns_section": "3(5)",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "immediate_action",
+      "title": "Immediate Actions",
+      "description_md": "Priority steps upon receiving a dowry complaint or report of dowry death. Sensitivity and thoroughness are critical.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "immediate_action",
+          "title": "Register FIR and Record Victim's Statement",
+          "description_md": "If victim is alive: record detailed FIR covering all instances of cruelty, dowry demands with dates and amounts, persons involved. If dowry death: record complaint of victim's parents/relatives. Preferably by a woman police officer.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Dying Declaration (if victim alive but critical)",
+          "description_md": "If victim is in critical condition (burn cases), immediately record dying declaration in presence of a Magistrate (CrPC 164 / BNSS 183) or Executive Magistrate. If Magistrate unavailable, doctor must certify victim is fit to make statement before police records it. Multiple dying declarations strengthen the case.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Conduct Inquest (Dowry Death Cases)",
+          "description_md": "In dowry death cases, conduct inquest under CrPC 174 / BNSS 194. Note burn patterns, ligature marks, injury types. Request magisterial inquiry under CrPC 176 / BNSS 196 as death occurs within 7 years of marriage under suspicious circumstances.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Secure Matrimonial Home",
+          "description_md": "Seal the matrimonial home and the room where the incident occurred. Seize gas cylinders, kerosene containers, ropes, or other items related to the manner of death/injury. Do not allow cleaning or alteration of the scene.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Medical Examination and Post-Mortem",
+          "description_md": "If victim is alive, obtain MLC documenting all injuries (old and new). In death cases, arrange post-mortem with special attention to: burn percentage, accelerant traces, poisoning, strangulation marks. Preserve viscera for toxicology. Videograph the post-mortem.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "evidence",
+      "title": "Evidence Collection",
+      "description_md": "Evidence establishing dowry demand, cruelty, and causal connection to the woman's death or suffering.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "evidence",
+          "title": "Dowry Demand Evidence",
+          "description_md": "Collect all evidence of dowry demands: written demands, text messages, WhatsApp messages, emails, recorded phone calls, letters from in-laws' side. Testimony of persons who witnessed demands at engagement, marriage, or subsequent visits. Itemized list of initial dowry given.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Financial Records and Transactions",
+          "description_md": "Bank statements showing large withdrawals by victim's family, loan documents taken for dowry, receipts of gold/jewelry purchases, vehicle purchase documents in accused's name, property documents transferred. Trace money trail from victim's family to accused's family.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Stridhan Verification and Documentation",
+          "description_md": "List of stridhan (all gifts and property given to the bride by both sides). Compare with what is available at the matrimonial home. Marriage video/photos showing gifts exchanged. Receipts from jewelers. Evidence of misappropriation or refusal to return stridhan.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Medical and Psychological Evidence",
+          "description_md": "Medical records of injuries from physical abuse (hospital visits, OPD records). Psychological evaluation reports if victim suffered mental cruelty. Prescription records for depression/anxiety medications. Previous MLC or police complaints, if any.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Communication Records",
+          "description_md": "Victim's calls, messages, and communications with parents/friends narrating her suffering. These constitute res gestae or dying declarations (in death cases). WhatsApp groups showing family disputes. Voice recordings of threats or demands.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Marriage and Legal Documents",
+          "description_md": "Marriage certificate, engagement agreement, any written dowry agreement, previous court proceedings (DV Act, RCR applications), divorce petition if filed. Protection officer's reports under DV Act, if any.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "interrogation",
+      "title": "Interrogation Plan",
+      "description_md": "Interrogation of accused and relatives. Multiple family members may be involved. Each must be questioned separately to identify contradictions.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "interrogation",
+          "title": "Husband (Primary Accused)",
+          "description_md": "Interrogate on: what dowry was received at marriage, any demands made, relationship with wife, version of events leading to death/injury, alibi, knowledge of wife's mental state, previous quarrels, and his role in the cruelty. Check for prior marriages.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "In-Laws (Co-Accused)",
+          "description_md": "Question father-in-law, mother-in-law, brother-in-law, and sister-in-law individually. Focus on: their role in dowry demands, treatment of the victim, who controlled the household, whether victim was allowed to contact her parents, their version of events.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Victim's Parents and Family",
+          "description_md": "Detailed statements from victim's parents, siblings, and close relatives about: dowry given at marriage, subsequent demands, victim's complaints during visits, phone calls reporting cruelty, efforts made to reconcile, and circumstances of the final incident.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Neighbours and Common Acquaintances",
+          "description_md": "Neighbours who heard quarrels, screams, or witnessed domestic violence. Persons who attended the marriage and witnessed dowry exchange. Common friends who were aware of the matrimonial discord. Domestic help who worked in the household.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "panchnama",
+      "title": "Panchnama Requirements",
+      "description_md": "Essential panchnamas for building the dowry case. Detailed documentation of the matrimonial home and all seized items.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "panchnama",
+          "title": "Scene Panchnama (Matrimonial Home)",
+          "description_md": "Detailed inspection of the matrimonial home: room where death/injury occurred, kitchen (for burn cases), stove/gas cylinder condition, kerosene storage, condition of victim's belongings, signs of struggle, burn marks on floor/walls. Note living conditions of the victim.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Seizure Panchnama (Instruments and Articles)",
+          "description_md": "Seize items related to the manner of death/injury: kerosene can, matchbox, rope, poison bottle, gas cylinder. Also seize victim's phone, diary, letters. Each item individually described and sealed. Note quantity of kerosene/accelerant found.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Stridhan and Dowry Articles Panchnama",
+          "description_md": "Inventory of all dowry articles and stridhan present at the matrimonial home. Compare with the list provided by victim's parents. Note what is missing or misappropriated. Photograph gold jewelry, electronics, and other valuable items with descriptions.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Inquest Panchnama (CrPC 174 / BNSS 194)",
+          "description_md": "Inquest on the body noting: burn pattern and percentage (for burn cases), ligature marks (for hanging), color of lips and nails (for poisoning), defensive injuries, and general condition. Record statements of persons who first found the body.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "forensic",
+      "title": "Forensic Requirements",
+      "description_md": "Forensic analysis to determine manner and cause of death, and to corroborate evidence of cruelty.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "forensic",
+          "title": "Post-Mortem and Viscera Analysis",
+          "description_md": "Detailed post-mortem report with cause of death. In poisoning cases, viscera sent to FSL for chemical analysis (organophosphorus, cyanide, aluminum phosphide). In burn cases, presence of accelerants on clothing and body. Determine ante-mortem vs post-mortem injuries.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Accelerant and Fire Pattern Analysis",
+          "description_md": "In burn death cases: analyze pour patterns, accelerant residue on clothing and floor, whether burns are consistent with self-immolation or assault. Kerosene detection on victim's clothing and accused's hands. Fire investigation report.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Digital Evidence Analysis",
+          "description_md": "Forensic extraction from victim's and accused's mobile phones: call logs, messages narrating cruelty, dowry demand communications, photos of injuries taken by victim, social media posts. Apply Section 65B certification.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Injury Age Estimation",
+          "description_md": "Medical examination of old injuries on victim's body (healed fractures, old scars) to establish pattern of continuous cruelty. X-ray examination for healed bone injuries. Dermatological opinion on age of bruises and scars.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "witness_bayan",
+      "title": "Witness Statements (Bayan)",
+      "description_md": "Comprehensive witness testimony to establish dowry demand, cruelty, and circumstances of death/injury.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "witness_bayan",
+          "title": "Victim's Parents and Siblings",
+          "description_md": "Most important witnesses. Record: exact dowry given at marriage (itemized), subsequent demands with dates and witnesses, victim's phone calls and visits reporting cruelty, their efforts to intervene, what victim told them about her suffering. These statements invoke Section 113-B presumption.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Marriage Witnesses",
+          "description_md": "Persons who attended the marriage ceremony and can testify about dowry given. Priest/pandit who solemnized the marriage. Photographer/videographer. Persons who witnessed dowry negotiations. Their testimony establishes what was originally given.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Neighbours and Community Witnesses",
+          "description_md": "Neighbours who heard quarrels, witnessed beatings, or saw the victim in distress. Community members who witnessed dowry demands or mediation efforts. Domestic help, milkman, or other regular visitors to the household.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Medical Witnesses",
+          "description_md": "Doctor who treated victim for injuries, doctor who conducted post-mortem, psychologist/counselor if consulted. Hospital records staff who can produce treatment records. Their testimony establishes physical and mental cruelty.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Official Witnesses",
+          "description_md": "Protection Officer under DV Act (if approached earlier), counselors from women's cell, previous IO if prior complaints were filed, NGO workers who assisted the victim. Official records corroborate the pattern of cruelty.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,563 @@
+offence_code: POCSO_LINKED
+category_id: crimes_women_children
+bns_section: ""
+bns_subsection: ""
+display_name_en: "POCSO Act — Protection of Children from Sexual Offences"
+display_name_gu: "POCSO એક્ટ — બાળકોને જાતીય અપરાધોથી સુરક્ષા"
+short_description_md: |
+  The Protection of Children from Sexual Offences Act, 2012 (POCSO Act)
+  provides a comprehensive legal framework for the protection of children
+  (below 18 years) from sexual assault, sexual harassment, and pornography.
+  The Act is gender-neutral — it protects both male and female children.
+  It establishes Special Courts for speedy trial and mandates child-friendly
+  investigation and trial procedures. Key offences: penetrative sexual
+  assault (S.4), aggravated penetrative sexual assault (S.6), sexual
+  assault (S.8), aggravated sexual assault (S.10), sexual harassment (S.12),
+  and use of child for pornographic purposes (S.14).
+punishment: "Penetrative sexual assault (S.4): RI not less than 10 years up to life and fine; Aggravated (S.6): RI not less than 20 years up to life (and fine) or death"
+cognizable: true
+bailable: false
+triable_by: "Special Court designated under POCSO Act S.28"
+compoundable: "no"
+schedule_reference: "POCSO Act, 2012"
+related_offence_codes:
+  - BNS_S64_RAPE
+  - BNS_S66_AGGRAVATED_RAPE
+  - BNS_S69_RAPE_OF_MINOR
+  - BNS_S74_ASSAULT_ON_WOMAN
+  - BNS_S79_WORD_GESTURE_ACT_TO_INSULT_MODESTY
+special_acts:
+  - "Protection of Children from Sexual Offences Act, 2012 (POCSO)"
+  - "Juvenile Justice (Care and Protection of Children) Act, 2015"
+  - "Information Technology Act, 2000 (for child pornography — S.67B)"
+
+knowledge_nodes:
+
+  # ── LEGAL SECTION NODES ─────────────────────────────────────────────────────
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "POCSO S.4 — Penetrative Sexual Assault"
+    description_md: |
+      S.3 defines penetrative sexual assault: a person who (a) penetrates
+      the penis into the vagina, mouth, urethra, or anus of a child, or
+      makes the child do so with him or any other person; (b) inserts any
+      object or body part into the vagina, urethra, or anus of a child;
+      (c) manipulates any part of the body to cause penetration; (d) applies
+      his mouth to the penis, vagina, anus, or urethra of a child.
+
+      S.4 punishment: RI not less than 10 years, which may extend to
+      imprisonment for life, and fine. The POCSO Amendment Act 2019 increased
+      the minimum from 7 to 10 years and added the death penalty for
+      aggravated cases involving children below 12 years.
+
+      Note: POCSO is gender-neutral — both male and female children are
+      protected and both male and female persons can be offenders.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "3, 4"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "POCSO S.6 — Aggravated Penetrative Sexual Assault"
+    description_md: |
+      S.5 defines aggravated penetrative sexual assault: committed by police
+      officer, armed forces, public servant, management/staff of educational
+      institution, management/staff of hospital, management/staff of
+      children's home, relative/guardian, gang penetrative sexual assault,
+      using deadly weapons, causing grievous hurt, causing physical or
+      mental incapacity, making child pregnant, giving child any chemical
+      or hormonal substance to attain early sexual maturity, on a child
+      below 12 years, or repeat offender.
+
+      S.6 punishment (post-2019 Amendment): RI not less than 20 years,
+      which may extend to life (meaning remainder of natural life), and
+      fine, or with death. For children below 12: minimum 20 years RI or
+      death.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "5, 6"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "POCSO S.19 — Mandatory Reporting"
+    description_md: |
+      S.19 imposes a mandatory reporting obligation on any person who has
+      knowledge that an offence has been committed against a child. Failure
+      to report is punishable under S.21 with imprisonment up to 6 months
+      and/or fine. This obligation extends to: teachers, doctors, hospital
+      staff, childcare workers, and any person who comes to know of the
+      offence. The police must accept the report even if made by a person
+      who is not the child's parent or guardian. Media personnel who fail
+      to report but publish the news are also liable.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "19, 21"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "POCSO S.28-35 — Special Court and Trial Procedures"
+    description_md: |
+      S.28: The State Government shall designate a Special Court in each
+      district for trial of POCSO offences. S.33: The Special Court shall
+      ensure that the child is not exposed to the accused during testimony
+      — the court may use screens or video link. S.35: The Special Court
+      shall complete the trial within one year of taking cognizance. S.36:
+      The child's testimony shall be recorded within 30 days of the court
+      taking cognizance. No aggressive cross-examination of the child is
+      permitted.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "28, 33, 35, 36"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "POCSO S.29-30 — Presumption of Guilt"
+    description_md: |
+      S.29: The Special Court shall presume that the accused has committed
+      the offence unless the contrary is proved (reverse burden). This is
+      one of the most significant features of POCSO. S.30: The Special
+      Court shall presume that the accused had culpable mental state
+      unless the contrary is proved. These presumptions shift the burden
+      to the accused once the prosecution establishes the basic facts.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "29, 30"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+    requires_disclaimer: false
+
+  # ── IMMEDIATE ACTION NODES ─────────────────────────────────────────────────
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Register FIR Immediately — Zero Tolerance for Delay"
+    description_md: |
+      Register FIR under BNSS S.173 citing POCSO Act sections immediately.
+      Under POCSO S.19(6), the police must register FIR and record the
+      information under BNSS S.173 within 24 hours. No preliminary inquiry.
+      The report can be made by the child, parent, guardian, teacher,
+      doctor, or any person. Zero FIR applies if the offence occurred
+      outside jurisdiction — transfer within 24 hours.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "19"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+      - framework: BNSS
+        section: "173"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Special Juvenile Police Unit (SJPU) and Child-Friendly Recording"
+    description_md: |
+      Under POCSO S.19(3), the statement of the child must be recorded by
+      the Special Juvenile Police Unit (SJPU) or the local police. The
+      statement must be recorded at the child's residence or a place of
+      the child's choice (POCSO S.24(1)), preferably not at the police
+      station. A woman police officer not below the rank of ASI shall
+      record the statement. The child's parent or any person the child
+      trusts must be present. The IO must not be in uniform. No child
+      shall be detained at the police station at night (POCSO S.24(3)).
+    legal_basis_citations:
+      - framework: Special Act
+        section: "19, 24"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Medical Examination Within 24 Hours"
+    description_md: |
+      Medical examination of the child must be conducted within 24 hours
+      by a registered medical practitioner at a government hospital.
+      Under POCSO S.27, the examination must be conducted in the presence
+      of the child's parent or any person the child trusts. If the child
+      is female, the examination must be by a female doctor. The medical
+      practitioner must provide emergency medical care and treatment
+      immediately. Consent: if the child is below 12, consent of the
+      parent/guardian; if above 12, the child's own informed consent
+      is sufficient. The two-finger test is prohibited.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "27"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Record S.183 BNSS Statement Before Magistrate — Mandatory"
+    description_md: |
+      The child's statement must be recorded by a Magistrate under BNSS
+      S.183. Under POCSO S.25, the Magistrate shall record the statement
+      as spoken by the child. The Magistrate shall not express disbelief
+      or harshness. The child may be accompanied by a parent, guardian,
+      or person of trust. Audio-video recording is mandatory. Questions
+      must be asked in a simple, child-friendly language. The statement
+      should be completed without multiple sessions if possible.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "183"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: Special Act
+        section: "25"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Inform Child Welfare Committee (CWC)"
+    description_md: |
+      Under POCSO S.19(6), the SJPU or local police must report the matter
+      to the Child Welfare Committee (CWC) within 24 hours. The CWC
+      assesses the child's need for care and protection. If the offender
+      is a family member or guardian, the CWC may place the child in a
+      children's home or with a fit person. The CWC may also appoint a
+      support person under POCSO S.39 to assist the child through the
+      investigation and trial.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "19"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+    requires_disclaimer: false
+
+  # ── PANCHNAMA NODES ─────────────────────────────────────────────────────────
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Scene of Crime Panchnama"
+    description_md: |
+      Prepare spot panchnama describing the location where the offence
+      occurred: room layout, bed/floor condition, biological stains,
+      articles of clothing, any articles used by the offender, signs of
+      force or struggle. Photograph and video-record. Use female panchas
+      wherever possible. The child should NOT be brought to the scene for
+      reconstruction.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "175"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Seizure Panchnama — Clothing and Evidence"
+    description_md: |
+      Seize the child's clothing worn at the time of the offence and the
+      accused's clothing separately in paper bags. Seize bedsheets, floor
+      mats, and any article from the scene. Collect biological samples
+      from the scene. Seize the accused's electronic devices for child
+      pornography or grooming evidence. Each article sealed and labelled
+      in the presence of panchas.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "105"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── EVIDENCE NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Medical Examination Report"
+    description_md: |
+      Detailed medical examination report: injuries on the body, genital/
+      anal examination findings, samples collected (swabs, nail clippings,
+      pubic hair, blood), assessment of developmental stage, and opinion
+      on whether findings are consistent with the child's account. The
+      report must NOT contain observations on "habituation" or sexual
+      history. If the child has STI, this is corroborative evidence. If
+      the child is pregnant, DNA of the foetus may be obtained for matching
+      with the accused.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "27"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Age Determination Evidence"
+    description_md: |
+      Proof that the victim is below 18 years is an essential element of
+      POCSO. Priority order per S.34(2) POCSO and Jarnail Singh v. State
+      of Haryana (2013) 7 SCC 263: (1) Birth certificate from school or
+      maternity hospital, (2) Municipality or Panchayat birth register,
+      (3) School admission register (date of birth entry), (4) If
+      documentary evidence is unavailable — medical age determination by
+      ossification test (X-ray of wrist, shoulder, pelvis) by a government
+      medical board. The court shall consider the age on the date of the
+      offence, not the date of trial.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "34"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Electronic Evidence — Online Grooming and Child Pornography"
+    description_md: |
+      If the offence involved online grooming: seize the accused's devices
+      and the child's devices. Extract chat history, photographs, videos
+      exchanged, social media interactions, gaming platform communications.
+      For child pornography offences (POCSO S.14-15, IT Act S.67B): forensic
+      imaging of devices, search for child sexual abuse material (CSAM),
+      hash matching against known CSAM databases (NCMEC). All electronic
+      evidence requires S.63 BSA certificate.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+      - framework: Special Act
+        section: "67B"
+        source_authority: "Information Technology Act, 2000"
+    requires_disclaimer: false
+
+  # ── FORENSIC NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: forensic
+    tier: canonical
+    priority: critical
+    title_en: "DNA Profiling"
+    description_md: |
+      DNA profiling of biological samples collected from the child (vaginal/
+      anal swabs, oral swabs) and from the accused (blood, penile swabs).
+      DNA from semen stains on clothing and scene articles. If the child
+      is pregnant, foetal DNA matching with the accused. DNA evidence is
+      conclusive when properly collected and maintained. Cold chain must
+      be maintained. Samples to FSL within 72 hours.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: critical
+    title_en: "Digital Forensics — Device Analysis"
+    description_md: |
+      Forensic examination of the accused's electronic devices: search for
+      CSAM (child sexual abuse material), grooming communications, location
+      data at the time of offence, photographs/videos of the victim,
+      internet search history for child-related sexual content. Mobile
+      phone forensic extraction. Cloud storage analysis (Google Drive,
+      iCloud). Social media account forensics. S.63 BSA certificate
+      for each device extraction.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Forensic Analysis of Clothing and Scene"
+    description_md: |
+      FSL analysis of the child's and accused's clothing for: semen stains,
+      blood stains, saliva, hair and fibre transfer. Scene articles
+      (bedsheets, mats) for biological stains. UV light examination. Blood
+      grouping and DNA profiling. Torn clothing as corroborative evidence
+      of force.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── WITNESS / BAYAN NODES ───────────────────────────────────────────────────
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Child's Statement — Child-Friendly Procedures"
+    description_md: |
+      The child's statement must be recorded following child-friendly
+      procedures under POCSO S.24-26:
+      - By SJPU or woman police officer.
+      - At the child's home or place of choice, not police station.
+      - In simple language understood by the child.
+      - With parent/guardian or person of trust present.
+      - No leading questions.
+      - No aggressive or intimidating demeanour.
+      - Record in the child's own words.
+      - Use age-appropriate aids (dolls, drawings) if needed to help the
+        child describe what happened.
+      - The child must not be made to repeat the account multiple times
+        to different officers.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "24, 25, 26"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "First Disclosure Witness"
+    description_md: |
+      The person to whom the child first disclosed the offence — parent,
+      teacher, friend, counsellor. Their statement establishes: when the
+      disclosure was made, the child's emotional state, what the child said,
+      and the child's demeanour. The first disclosure is important
+      corroborative evidence. Under BSA S.6 (res gestae), statements
+      forming part of the same transaction may be admissible.
+    legal_basis_citations:
+      - framework: BSA
+        section: "6"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: medium
+    title_en: "Support Person and CWC Member"
+    description_md: |
+      The support person appointed by the CWC under POCSO S.39 assists the
+      child through investigation and trial. They can testify about the
+      child's condition, behaviour changes, and distress. The CWC member
+      who assessed the child's need for care and protection provides
+      testimony on the child's circumstances and safety assessment.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "39"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+    requires_disclaimer: false
+
+  # ── GAP / HISTORICAL NODES ─────────────────────────────────────────────────
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Delay in Reporting and Institutional Barriers"
+    description_md: |
+      NCRB Crime in India 2022 data shows that crimes against children have
+      increased significantly, yet underreporting remains pervasive. In
+      Alakh Alok Srivastava v. Union of India (2018) 17 SCC 291, the
+      Supreme Court observed that many POCSO cases are reported late due to:
+      the child's inability to understand the offence, fear of the offender
+      (often a known person — NCRB data shows over 96% of offenders are
+      known to the child), family pressure to suppress, and institutional
+      indifference. Delay in reporting does not discredit the child's
+      testimony (Bharwada Bhoginbhai v. State of Gujarat (1983) 3 SCC 217).
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Failure to Follow Child-Friendly Procedures"
+    description_md: |
+      In Nipun Saxena v. Union of India (2019) 2 SCC 703, the Supreme Court
+      noted that POCSO procedures are frequently not followed: children are
+      made to record statements at police stations, statements are recorded
+      by male officers, children are made to confront the accused, multiple
+      recordings causing re-traumatisation, and S.183 BNSS statement not
+      recorded promptly. Non-compliance with POCSO procedures does not
+      affect the validity of the conviction, but it re-traumatises the
+      child and may affect the quality of evidence.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: medium
+    title_en: "Pendency and Delay in Trial"
+    description_md: |
+      POCSO S.35 mandates completion of trial within one year. NCRB data
+      shows that pendency rates in POCSO cases exceed 90% in many states,
+      with trials stretching over 3-5 years. The Supreme Court in In Re:
+      Alarming Rise in Number of Reported Child Rape Incidents (2023)
+      expressed serious concern about trial delays. IO must ensure
+      investigation is completed within 60 days (per POCSO S.19(6)) and
+      the chargesheet is filed promptly.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "35"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+    requires_disclaimer: true
+
+  # ── PROCEDURAL SAFEGUARD NODES ──────────────────────────────────────────────
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Child Victim's Rights under POCSO"
+    description_md: |
+      The child victim has the following rights under POCSO:
+      - Right to be informed about the progress of the case (S.19(7)).
+      - Right to legal representation through DLSA at every stage.
+      - Right not to be exposed to the accused during trial (screen/video link).
+      - Right to have S.183 BNSS statement recorded by Magistrate.
+      - Right to a support person appointed by CWC.
+      - Right to interim compensation under POCSO S.33(8) and BNSS S.396.
+      - Right not to be called to the police station at night.
+      - Right to identity protection — no media disclosure (POCSO S.23).
+      - Right to shelter, medical care, and psychosocial counselling.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "19, 23, 33, 39"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+    requires_disclaimer: false
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Rights of the Accused"
+    description_md: |
+      POCSO is a non-bailable offence. The accused retains:
+      - Right to know grounds of arrest (BNSS S.36).
+      - Right to legal representation and free legal aid.
+      - Right against self-incrimination (Article 20(3)).
+      - Right to be produced before Magistrate within 24 hours (BNSS S.187).
+      - Right to apply for bail under BNSS S.480 (restrictive standard
+        due to POCSO S.29 presumption).
+      - D.K. Basu guidelines in full.
+      - If the accused is a juvenile (below 18), the Juvenile Justice Act
+        2015 applies — the accused must be produced before the Juvenile
+        Justice Board, not the regular court.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "35"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BNSS
+        section: "36"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: medium
+    title_en: "False Complaint Safeguard — POCSO S.22"
+    description_md: |
+      POCSO S.22 provides that any person who makes a false complaint or
+      provides false information against a person with respect to an offence
+      under POCSO shall be punished with imprisonment up to 6 months or
+      fine or both. However, S.22(2) specifically provides that no punishment
+      for false complaint shall be imposed on a child. This ensures that
+      children are never deterred from reporting. The IO must investigate
+      the complaint on merits regardless of the source.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "22"
+        source_authority: "Protection of Children from Sexual Offences Act, 2012"
+    requires_disclaimer: false

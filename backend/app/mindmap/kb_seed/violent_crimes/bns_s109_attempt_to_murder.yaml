@@ -1,0 +1,393 @@
+offence_code: BNS_S109_ATTEMPT_TO_MURDER
+category_id: violent_crimes
+bns_section: "109"
+bns_subsection: ""
+display_name_en: "Attempt to Murder"
+display_name_gu: "હત્યાનો પ્રયાસ"
+short_description_md: |
+  Whoever does any act with the intention of causing death or with the intention
+  of causing such bodily injury as is likely to cause death, or with the knowledge
+  that by such act death is likely to be caused, if such act causes hurt to any
+  person, or if by such act any person is put in fear of death or of grievous hurt,
+  commits the offence of attempt to murder under BNS S.109.
+punishment: "Imprisonment up to 10 years, and fine; if hurt is caused, imprisonment up to life and fine"
+cognizable: true
+bailable: false
+triable_by: "Court of Session"
+compoundable: "no"
+schedule_reference: "BNS Schedule I, Part I"
+related_offence_codes:
+  - BNS_S103_MURDER
+  - BNS_S115_VOLUNTARILY_CAUSING_HURT
+  - BNS_S117_VOLUNTARILY_CAUSING_GRIEVOUS_HURT
+  - BNS_S3_5_COMMON_INTENTION
+special_acts: []
+
+knowledge_nodes:
+
+  # ── LEGAL SECTION NODES ─────────────────────────────────────────────────────
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BNS S.109 — Attempt to Murder"
+    description_md: |
+      S.109 of the Bharatiya Nyaya Sanhita 2023 penalises attempt to murder.
+      The essential elements are: (a) the act must be done with the intention
+      or knowledge described in S.103 (murder), and (b) the act must be of such
+      a nature that if it were to cause death, it would amount to murder.
+
+      The distinction between S.109 (attempt to murder) and S.115/117 (voluntarily
+      causing hurt/grievous hurt) lies in the intention — the prosecution must
+      prove intention to cause death, not merely intention to cause hurt.
+
+      Sub-section (1): If no hurt is caused — up to 10 years and fine.
+      Sub-section (2): If hurt is caused — up to life imprisonment and fine.
+      Sub-section (3): If hurt is caused to a public servant on duty — up to
+      life imprisonment and fine, with minimum 3 years.
+    legal_basis_citations:
+      - framework: BNS
+        section: "109"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "BNS S.3(5) — Acts Done with Common Intention"
+    description_md: |
+      When the criminal act is done by several persons in furtherance of common
+      intention, each person is liable as if the act was done by them alone.
+      Applicable in group attack cases where multiple accused share the common
+      intention to kill. Must be distinguished from BNS S.190 (unlawful
+      assembly) where the common object test applies.
+    legal_basis_citations:
+      - framework: BNS
+        section: "3"
+        subsection: "(5)"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "BNS S.117 — Voluntarily Causing Grievous Hurt (Alternative Charge)"
+    description_md: |
+      If the evidence does not support intention to cause death but proves
+      intention to cause grievous hurt, S.117 is the appropriate alternative
+      charge. Grievous hurt includes emasculation, permanent privation of
+      sight/hearing, fracture/dislocation of bone, danger to life, and
+      20+ days inability to pursue ordinary pursuits. The IO must frame the
+      chargesheet to support both S.109 and the alternative under S.117.
+    legal_basis_citations:
+      - framework: BNS
+        section: "117"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── IMMEDIATE ACTION NODES ─────────────────────────────────────────────────
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Ensure Medical Treatment of Victim"
+    description_md: |
+      The immediate priority is to ensure the victim receives medical treatment.
+      Obtain a Medico-Legal Certificate (MLC) from the treating hospital.
+      Record the victim's statement at the earliest opportunity — if the
+      victim is in danger of dying, record a dying declaration under BNSS
+      S.192 in the presence of a Magistrate if possible, or before two
+      witnesses. The MLC should detail: nature and number of injuries, weapon
+      type (sharp/blunt/firearm), whether injuries are simple or grievous,
+      and whether injuries are dangerous to life.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "192"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Register FIR and Secure Scene"
+    description_md: |
+      Register FIR under BNSS S.173 immediately. If the offence occurred at a
+      specific location, secure and cordon off the scene. Photograph the scene,
+      bloodstains, and any weapon or article left by the attacker. Collect
+      the victim's torn/bloodstained clothing as evidence. Seize any weapon
+      found at the scene with seizure panchnama.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "173"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Victim's Statement and Dying Declaration"
+    description_md: |
+      Record the victim's statement under BNSS S.180 at the earliest. If the
+      victim is in a critical condition and there is apprehension of death,
+      record a dying declaration under BNSS S.192 and BSA S.26. A dying
+      declaration may be recorded by a Magistrate, doctor, or police officer
+      in the absence of a Magistrate. It must be in the victim's own words
+      and language. Medical fitness certificate from the doctor is essential
+      before recording.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "192"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BSA
+        section: "26"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Identify and Apprehend Accused"
+    description_md: |
+      If the accused is known to the victim, proceed immediately to arrest
+      under BNSS S.35. If the accused is unknown, collect description from
+      the victim and witnesses, check CCTV, conduct area domination, and
+      alert neighbouring stations. Issue lookout notice if necessary.
+      Arrest must follow D.K. Basu guidelines in all cases.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "35"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── PANCHNAMA NODES ─────────────────────────────────────────────────────────
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Spot Panchnama at the Scene of Attack"
+    description_md: |
+      Prepare spot panchnama describing: exact location, bloodstains (pattern,
+      quantity, direction), weapon or fragments found, signs of struggle,
+      damage to property, position of articles disturbed, entry/exit routes
+      used by the accused. Include rough sketch map. Photograph all details.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "175"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Seizure Panchnama — Weapon and Clothing"
+    description_md: |
+      Seize and document: weapon used in the attack (knife, firearm, rod,
+      acid, etc.), bloodstained clothing of the accused, bloodstained
+      clothing of the victim, mobile phones. Each item individually sealed
+      and labelled. If a firearm is involved, seize spent cartridges and
+      unfired rounds. Describe the condition of the weapon (wet blood,
+      dried blood, damage).
+    legal_basis_citations:
+      - framework: BNSS
+        section: "105"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── EVIDENCE NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Medico-Legal Certificate and Injury Report"
+    description_md: |
+      The MLC is the most critical piece of evidence in attempt to murder cases.
+      It must classify injuries as simple or grievous, describe each wound with
+      dimensions and depth, identify weapon type, and opine whether injuries
+      are dangerous to life. If injuries are not dangerous to life, the charge
+      under S.109 may not be sustained — the IO must correlate the MLC with
+      the case theory on intention.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "CCTV Footage and Electronic Evidence"
+    description_md: |
+      Seize CCTV footage from the scene and approaches. Shows the accused
+      arriving at and departing from the scene, the manner of attack, the
+      weapon used, and whether the attack was premeditated or spontaneous.
+      Extract and preserve with hash values. Prepare S.63 BSA certificate.
+      CDR analysis for the accused and victim to establish movements and
+      communication before and after the incident.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Weapon Forensic Examination"
+    description_md: |
+      Send the weapon to FSL for: blood group matching (victim's blood on
+      weapon), fingerprint development, tool-mark comparison with wound
+      pattern. If firearm: ballistic test-fire, comparison with recovered
+      bullet, GSR analysis. If acid attack: chemical composition analysis and
+      purchase trail investigation. FSL report linking the weapon to both the
+      accused (through fingerprints/GSR) and the victim (through blood) is
+      powerful corroborative evidence.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── FORENSIC NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: forensic
+    tier: canonical
+    priority: critical
+    title_en: "DNA and Serology"
+    description_md: |
+      Blood samples from the scene, weapon, accused's clothing, and victim's
+      clothing must be sent for serology and DNA profiling. Confirm that the
+      blood on the weapon matches the victim and that the accused's biological
+      material (skin under victim's nails, hair) links the accused to the
+      attack. Maintain cold chain for biological samples.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Digital Forensics — Mobile and Social Media"
+    description_md: |
+      Examine the accused's mobile phone for: prior threats, messages
+      expressing intent to kill, purchase of weapon, location data at the
+      time of the offence, internet searches related to the attack. Social
+      media posts and private messages may establish premeditation. All
+      electronic evidence requires S.63 BSA certificate.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  # ── WITNESS / BAYAN NODES ───────────────────────────────────────────────────
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Victim's Statement under BNSS S.180 and S.183"
+    description_md: |
+      The victim is the most important witness. Record statement under
+      BNSS S.180 at the earliest. Also obtain S.183 BNSS statement before
+      a Magistrate to preserve the testimony against the possibility of
+      the victim turning hostile (common in cases involving family or
+      community disputes). Medical fitness certificate required before
+      recording.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BNSS
+        section: "183"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Eyewitness and Bystander Statements"
+    description_md: |
+      Record statements of persons who witnessed the attack. Focus on:
+      the manner of attack (stabbing, shooting, hitting), number of blows,
+      which part of the body was targeted (head, chest, abdomen indicate
+      murderous intent; limbs may indicate lesser intent), words used by
+      the accused during the attack, and whether the accused continued
+      attacking after the victim fell. Targeting vital organs is strong
+      evidence of murderous intent.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── GAP / HISTORICAL NODES ─────────────────────────────────────────────────
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Failure to Establish Intention — Charge Downgrading"
+    description_md: |
+      In State of M.P. v. Kashiram (2009) 4 SCC 26, the Supreme Court held
+      that mere causing of injury, even grievous injury, does not by itself
+      establish the intention to kill. The prosecution must prove: (a) the
+      nature of the weapon, (b) the part of the body targeted, (c) the number
+      of blows, and (d) the force used. NCRB data shows that a significant
+      proportion of S.307 IPC (now S.109 BNS) cases result in conviction for
+      lesser offences due to failure to establish murderous intent.
+
+      IO must collect evidence specifically addressing intent: weapon type,
+      targeting of vital organs, prior threats expressing intent to kill.
+    legal_basis_citations:
+      - framework: BNS
+        section: "109"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: true
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: medium
+    title_en: "Delayed MLC and Its Impact"
+    description_md: |
+      Delay in obtaining the Medico-Legal Certificate is a common institutional
+      gap. In Mahadeo v. State of Maharashtra (2013) 14 SCC 637, the Supreme
+      Court observed that delay between the incident and medical examination
+      allows the defence to argue that injuries were sustained elsewhere or
+      self-inflicted. MLC should be obtained within hours of the incident.
+      If there is delay, reasons must be recorded in the case diary.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  # ── PROCEDURAL SAFEGUARD NODES ──────────────────────────────────────────────
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Arrest and Remand Compliance"
+    description_md: |
+      Arrest must follow D.K. Basu guidelines and BNSS S.35-36. Prepare
+      arrest memo, inform family, produce before Magistrate within 24 hours.
+      Attempt to murder is non-bailable — the accused may apply for bail
+      under BNSS S.480 (discretionary bail in non-bailable offences).
+      Police custody remand may be sought under BNSS S.187 for recovery
+      of weapon and further investigation. Maximum 15 days police custody.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "35"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BNSS
+        section: "187"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Victim's Right to Information and Compensation"
+    description_md: |
+      The victim has the right to be informed about the progress of the
+      investigation (BNSS S.193). The victim may apply for interim
+      compensation under BNSS S.396 even during the investigation stage.
+      The IO must facilitate the victim's access to legal aid and medical
+      treatment. Under the Victim Compensation Scheme of the respective
+      State, the victim of attempt to murder is entitled to compensation
+      for medical expenses and loss of livelihood.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "193"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BNSS
+        section: "396"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false

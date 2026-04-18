@@ -1,0 +1,305 @@
+{
+  "case_category": "cyber_crime",
+  "template_version": "1.0.0",
+  "description": "Chargesheet mindmap template for cybercrime cases under Information Technology Act, 2000 (Sections 66/66C/66D/67) and related IPC/BNS provisions",
+  "branches": [
+    {
+      "node_type": "legal_section",
+      "title": "Applicable Legal Sections",
+      "description_md": "IT Act provisions and companion IPC/BNS sections. Electronic evidence must comply with Section 65B of the Indian Evidence Act / Section 63 BSA for admissibility.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "legal_section",
+          "title": "IT Act Section 66 -- Computer Related Offences",
+          "description_md": "Whoever commits any act referred to in Section 43 (unauthorized access, data theft, virus introduction, denial of service) dishonestly or fraudulently. Punishment: up to 3 years imprisonment or fine up to Rs.5 lakh or both.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IT Act Section 66C -- Identity Theft",
+          "description_md": "Fraudulently or dishonestly using the electronic signature, password, or any other unique identification feature of any other person. Punishment: up to 3 years imprisonment + fine up to Rs.1 lakh. Covers phishing, credential theft, SIM swap fraud.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IT Act Section 66D -- Cheating by Personation Using Computer Resource",
+          "description_md": "Cheating by personation by means of any communication device or computer resource. Covers: fake websites, impersonation on social media, online romance scams, fake customer care numbers. Punishment: up to 3 years imprisonment + fine up to Rs.1 lakh.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IT Act Section 67 -- Publishing Obscene Material Electronically",
+          "description_md": "Publishing or transmitting obscene material in electronic form. First conviction: up to 3 years + fine Rs.5 lakh. Second conviction: up to 5 years + fine Rs.10 lakh. Section 67A for sexually explicit material; Section 67B for child pornography.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 420 / BNS 318(4) -- Cheating",
+          "description_md": "Companion charge for online fraud, e-commerce fraud, investment scams, and UPI fraud. Cheating and dishonestly inducing delivery of property. Punishment: up to 7 years imprisonment + fine.",
+          "ipc_section": "420",
+          "bns_section": "318(4)",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 465/468 / BNS 336/338 -- Forgery",
+          "description_md": "Forgery of electronic documents and digital forgery for the purpose of cheating. Applicable when forged documents (KYC, bank letters, government orders) are used in cyber fraud. Punishment for 468: up to 7 years + fine.",
+          "ipc_section": "468",
+          "bns_section": "338",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "immediate_action",
+      "title": "Immediate Actions",
+      "description_md": "Digital evidence is volatile and can be destroyed remotely. Speed is critical. Engage cyber cell specialists from the outset.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "immediate_action",
+          "title": "Register FIR and Report to Cybercrime Portal",
+          "description_md": "Register FIR immediately. Also report on National Cyber Crime Reporting Portal (cybercrime.gov.in) and the 1930 helpline for financial fraud (golden hour for freezing funds). Time is critical for financial fraud cases as money moves through multiple accounts rapidly.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Freeze Suspicious Bank Accounts and Wallets",
+          "description_md": "Immediately contact the bank's nodal officer to freeze accounts where stolen funds have been transferred. Use RBI's Cyber Fraud Reporting mechanism. Block UPI IDs, e-wallets (Paytm, PhonePe, GPay), and cryptocurrency exchange accounts. Issue Section 91 CrPC / BNSS 94 notice to banks.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Preserve Digital Evidence (Section 65B IEA)",
+          "description_md": "Immediately preserve: screenshots of fraudulent websites/messages/social media profiles, email headers, transaction records, URLs (before they are taken down). Calculate hash values (MD5/SHA-256) of all digital files. Prepare Section 65B certificate for each electronic record.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Request Data Preservation to Service Providers",
+          "description_md": "Send data preservation requests to: email providers (Google, Microsoft), social media platforms (Facebook, Instagram, Twitter), hosting providers, domain registrars, ISPs. Most providers retain data for limited periods. Request under Section 91 CrPC / BNSS 94 or through MLAT for foreign entities.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Engage Cyber Forensic Expert",
+          "description_md": "Involve trained cyber forensic examiner from the outset. Do not attempt to access or examine devices without proper forensic procedures. Improper handling renders digital evidence inadmissible. Use write-blockers for storage media.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "evidence",
+      "title": "Evidence Collection",
+      "description_md": "Digital evidence collection following standard forensic protocols. Every piece of electronic evidence must have a Section 65B certificate for admissibility.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "evidence",
+          "title": "Server Logs and IP Address Tracing",
+          "description_md": "Obtain server access logs, login logs, and IP addresses used for the offence. Trace IP addresses to the ISP, then obtain subscriber details via Section 91 notice. Check for VPN/proxy usage. Correlate IP timestamps with ISP DHCP logs for dynamic IPs. Request WHOIS data for domains.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Financial Fraud Trail",
+          "description_md": "Complete money trail: victim's account to first beneficiary, then to subsequent layers of mule accounts. Obtain bank statements, UPI transaction logs, e-wallet transaction history. Identify withdrawal points (ATMs with CCTV), cash-out methods (cryptocurrency exchanges). Link accounts to real identities through KYC records.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Social Media Account Analysis",
+          "description_md": "Analyze fake/fraudulent social media profiles: creation date, IP used for creation, linked phone number, linked email, friend list, messages sent, posts made. Request data from platform through legal process. Screenshot and archive profile before it is deleted.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Email Header and Communication Analysis",
+          "description_md": "Full email headers showing originating server, relay path, sender IP, and timestamp. Analyze phishing emails for: spoofed sender addresses, malicious links, attachment analysis (malware reverse engineering). Preserve in original electronic format with Section 65B certificate.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Malware and Attack Vector Analysis",
+          "description_md": "If attack involved malware, ransomware, or hacking: capture and analyze the malicious code, identify command-and-control servers, check for signatures matching known threat actors. Engage CERT-In (Indian Computer Emergency Response Team) for sophisticated attacks.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "interrogation",
+      "title": "Interrogation Plan",
+      "description_md": "Interrogation in cybercrime cases requires technical understanding. Focus on identifying the actual person behind the digital identity.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "interrogation",
+          "title": "Accused Interrogation (Technical Details)",
+          "description_md": "Focus on: technical skill level, tools and software used, how they obtained victim's information, social engineering techniques employed, accomplices (technical and financial), device used, location of operation. Obtain passwords and encryption keys voluntarily.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Mule Account Holders",
+          "description_md": "Interrogate persons in whose names bank accounts were used for laundering funds. Establish: who opened the account, who provided KYC documents, who controls the account, what commission was received. Many mule account holders are vulnerable persons recruited by organized gangs.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Victim Detailed Statement",
+          "description_md": "Comprehensive victim statement covering: how they were contacted, what information they shared, sequence of events, amount lost, devices used, screenshots preserved. Verify victim's account with bank records. Check if victim was previously targeted.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Technical Witness Statements",
+          "description_md": "Statements from: bank officials (transaction verification), ISP nodal officers (subscriber details), social media platform liaison officers, domain registrar officials. Their testimony links digital identity to real-world identity.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "panchnama",
+      "title": "Panchnama Requirements",
+      "description_md": "Panchnamas for digital evidence seizure require special procedures to maintain forensic integrity. Panchas should be briefed on the digital nature of evidence.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "panchnama",
+          "title": "Device Seizure Panchnama",
+          "description_md": "Seizure of computers, laptops, mobile phones, tablets, hard drives, pen drives, SIM cards, routers, and servers. Record: make, model, serial number, IMEI, condition (on/off), screen content (photograph if device is on). Do NOT power off a running computer (volatile data loss). Use write-blockers for storage media. Seal all ports.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Digital Evidence Imaging Panchnama",
+          "description_md": "Forensic imaging (bit-by-bit copy) of seized storage media in presence of panchas. Record: hash value (MD5/SHA-256) of original and image to prove integrity. Use certified forensic tools (FTK Imager, EnCase). Panchas to sign hash verification report.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Online Evidence Preservation Panchnama",
+          "description_md": "When preserving online evidence (websites, social media profiles, online transactions): document URL, take screenshots with timestamp and URL visible, record hash of screenshot file. Use web archiving tools (Wayback Machine, Hunchly). Panchas to witness the online content displayed.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Search of Premises Panchnama",
+          "description_md": "If accused operates from a specific location (call center fraud, fake website operations): document the setup including number of computers, phone banks, scripts used, SIM cards found, printed documents. Photograph the entire operation layout.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "forensic",
+      "title": "Forensic Requirements",
+      "description_md": "Cyber forensic analysis by trained examiners using validated tools. Results must be reproducible and defensible in court.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "forensic",
+          "title": "Computer and Device Forensics",
+          "description_md": "Forensic examination of seized devices: extract files, emails, browser history, chat logs, installed applications, deleted files (file carving), registry entries, login timestamps. Use forensic tools (EnCase, FTK, Autopsy). Prepare detailed examination report with hash verification.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Mobile Phone Forensics",
+          "description_md": "Extract data from smartphones: call logs, SMS, WhatsApp/Telegram messages (including deleted), contacts, photos, videos, app data, location history (GPS logs), SIM data. Use UFED/Cellebrite or similar certified tools. Bypass screen lock through legal forensic methods.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Network Forensics and Log Analysis",
+          "description_md": "Analyze network logs, firewall logs, intrusion detection system alerts, and packet captures. Reconstruct the attack timeline. Identify the source and method of unauthorized access. Correlate timestamps across different log sources.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Cryptocurrency and Blockchain Analysis",
+          "description_md": "If cryptocurrency is involved: trace transactions on the blockchain, identify wallet addresses, correlate with exchange KYC data. Use blockchain analysis tools (Chainalysis, CipherTrace). Identify cash-out points and linked bank accounts.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "witness_bayan",
+      "title": "Witness Statements (Bayan)",
+      "description_md": "Witness statements under CrPC 161 / BNSS 180. Technical witnesses are essential to bridge the gap between digital evidence and court understanding.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "witness_bayan",
+          "title": "Victim / Complainant Statement",
+          "description_md": "Detailed statement covering: timeline of events, how they were deceived, what information/money was lost, devices used, screenshots preserved, any prior interaction with accused. Provide all original electronic records and give Section 65B certificate.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Cyber Forensic Expert Witness",
+          "description_md": "Statement of the forensic examiner who analyzed the devices and digital evidence. Must explain: methodology used, tools employed, findings, chain of custody maintained, and how findings link accused to the offence. Must be prepared for detailed cross-examination on technical aspects.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Bank and Financial Institution Witnesses",
+          "description_md": "Nodal officers from banks, UPI platforms, and e-wallets. Testify on: account opening details, KYC documents used, transaction records, IP addresses from which transactions were initiated, and account freeze actions taken.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "ISP and Platform Witnesses",
+          "description_md": "Nodal officers from ISPs, email providers, and social media platforms. Testify on: subscriber information linked to the IP address, account registration details, content posted, and data provided pursuant to legal process.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Section 65B Certificate Provider",
+          "description_md": "Person who provides the Section 65B certificate for electronic records (usually the IO or the person in charge of the computer from which the record was generated). Must certify: the computer was operating properly, the record was produced in the regular course, and the contents are accurate.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    }
+  ]
+}

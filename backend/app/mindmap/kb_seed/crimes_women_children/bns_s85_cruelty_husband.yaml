@@ -1,0 +1,383 @@
+offence_code: BNS_S85_CRUELTY_HUSBAND
+category_id: crimes_women_children
+bns_section: "85"
+bns_subsection: ""
+display_name_en: "Cruelty by Husband or Relatives of Husband"
+display_name_gu: "પતિ અથવા પતિના સંબંધીઓ દ્વારા ક્રૂરતા"
+short_description_md: |
+  Whoever, being the husband or the relative of the husband of a woman,
+  subjects such woman to cruelty shall be punished with imprisonment for a
+  term which may extend to three years and shall also be liable to fine.
+  "Cruelty" includes: (a) any wilful conduct which is of such a nature as
+  is likely to drive the woman to commit suicide or to cause grave injury
+  or danger to life, limb, or health (whether mental or physical); and
+  (b) harassment of the woman where such harassment is with a view to
+  coercing her or any person related to her to meet any unlawful demand for
+  any property or valuable security.
+punishment: "Imprisonment up to 3 years and fine"
+cognizable: true
+bailable: false
+triable_by: "Magistrate of the first class"
+compoundable: "no"
+schedule_reference: "BNS Schedule I, Part I"
+related_offence_codes:
+  - BNS_S80_DOWRY_DEATH
+  - BNS_S115_VOLUNTARILY_CAUSING_HURT
+  - BNS_S74_ASSAULT_ON_WOMAN
+special_acts:
+  - "Dowry Prohibition Act, 1961"
+  - "Protection of Women from Domestic Violence Act, 2005"
+
+knowledge_nodes:
+
+  # ── LEGAL SECTION NODES ─────────────────────────────────────────────────────
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BNS S.85 — Cruelty: Definition and Scope"
+    description_md: |
+      S.85 of the Bharatiya Nyaya Sanhita 2023 penalises cruelty by husband
+      or his relatives against a married woman. Two limbs of cruelty:
+
+      Limb (a) — Physical or mental cruelty: any wilful conduct of such a
+      nature as is likely to drive the woman to commit suicide or to cause
+      grave injury or danger to life, limb, or health. Mental cruelty includes
+      persistent taunting, humiliation, verbal abuse, and deprivation of
+      basic necessities.
+
+      Limb (b) — Dowry-related harassment: harassment with a view to coercing
+      the woman or her relatives to meet any unlawful demand for property or
+      valuable security.
+
+      Per Supreme Court in Shobha Rani v. Madhukar Reddi (1988) 1 SCC 105,
+      cruelty is a continuing offence.
+    legal_basis_citations:
+      - framework: BNS
+        section: "85"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "Protection of Women from Domestic Violence Act, 2005"
+    description_md: |
+      The DV Act provides civil remedies alongside criminal prosecution under
+      S.85 BNS. The victim can obtain: protection orders (S.18 DV Act),
+      residence orders (S.19), monetary relief (S.20), custody orders (S.21),
+      and compensation orders (S.22). The IO should inform the victim about
+      these parallel remedies. A complaint under the DV Act can be filed with
+      the Protection Officer or Magistrate and does not require police involvement.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "18-22"
+        source_authority: "Protection of Women from Domestic Violence Act, 2005"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "Arnesh Kumar Guidelines on Arrest"
+    description_md: |
+      In Arnesh Kumar v. State of Bihar (2014) 8 SCC 273, the Supreme Court
+      held that in cases under S.498-A IPC (now BNS S.85), arrest should not
+      be made routinely. The IO must satisfy that arrest is necessary under
+      BNSS S.35(1) checklist: (a) commission of further offence, (b) tampering
+      with evidence, (c) influencing witnesses, (d) absconding. Notice of
+      appearance under BNSS S.35(3) should be the first step. The Magistrate
+      authorising detention must also independently apply the checklist. Non-
+      compliance may lead to departmental action and contempt proceedings.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "35"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── IMMEDIATE ACTION NODES ─────────────────────────────────────────────────
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Register FIR and Record Victim's Statement"
+    description_md: |
+      Register FIR under BNSS S.173. The victim's statement should be
+      recorded by a woman police officer wherever possible, at the victim's
+      residence or a place of her choice. Record specific instances of
+      cruelty with approximate dates, nature of cruelty (physical, mental,
+      dowry demand), persons involved (husband, mother-in-law, father-in-law,
+      others), and any previous complaints filed.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "173"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Medical Examination if Physical Injuries"
+    description_md: |
+      If the victim has physical injuries, obtain MLC from the nearest
+      government hospital. Document injuries with photographs. If the victim
+      reports sexual violence within the marriage, handle as per BNS S.64
+      procedures (medical examination within 24 hours, S.183 BNSS statement).
+      If the victim is suicidal, arrange immediate psychiatric evaluation
+      and safety planning.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Safety of the Victim — Shelter and Protection"
+    description_md: |
+      Assess immediate safety of the victim. If she cannot return to the
+      matrimonial home safely, facilitate admission to a government shelter
+      home or women's shelter (One Stop Centre / Sakhi Centre). Inform the
+      victim about the option of obtaining a Protection Order under S.18 of
+      the DV Act through the Magistrate. If the victim has children, ensure
+      their safety as well.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "18"
+        source_authority: "Protection of Women from Domestic Violence Act, 2005"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: medium
+    title_en: "Issue Notice of Appearance — Arnesh Kumar Compliance"
+    description_md: |
+      Before arresting the accused, issue a notice of appearance under
+      BNSS S.35(3). The accused must be given an opportunity to appear before
+      the IO. Only if the IO, after due application of the BNSS S.35(1)
+      checklist, is satisfied that arrest is necessary, should the arrest be
+      effected. Record reasons for arrest/non-arrest in the case diary.
+      Forward the checklist to the Magistrate.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "35"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── PANCHNAMA NODES ─────────────────────────────────────────────────────────
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: medium
+    title_en: "Seizure Panchnama — Dowry Articles and Documents"
+    description_md: |
+      If dowry-related cruelty is alleged, seize dowry articles at the
+      matrimonial home per the Stridhan/dowry list. Prepare inventory with
+      photographs. Seize demand letters, messages, or notes related to dowry.
+      Seize mobile phones and electronic devices for message extraction.
+      Panchas should include women panchas wherever possible.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "105"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── EVIDENCE NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Evidence of Cruelty — Specific Instances"
+    description_md: |
+      The prosecution must prove specific instances of cruelty, not vague
+      generalities. Collect evidence of:
+      - Physical violence: MLC, injury photographs, hospital records.
+      - Mental cruelty: messages, call recordings, witness statements.
+      - Dowry demands: demand lists, bank transfer records, gold purchase
+        receipts, messages/WhatsApp chats demanding money or property.
+      - Prior complaints: to police, women's cell, Protection Officer, family
+        counselling centres, or women's helpline (181).
+      - Economic deprivation: evidence that the victim was denied food,
+        clothing, medical treatment, or access to her own income/Stridhan.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Electronic Evidence — Messages and Call Records"
+    description_md: |
+      Examine mobile phones and electronic devices of both the victim and
+      accused for: threatening/abusive messages, dowry demand messages,
+      the victim's distress messages to friends/family, call frequency
+      patterns, photographs of injuries taken by the victim, voice recordings
+      if any. Social media posts showing harassment or the victim's distress.
+      All electronic evidence requires S.63 BSA certificate.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: medium
+    title_en: "Prior Complaints and Institutional Records"
+    description_md: |
+      Obtain certified copies of any prior complaints filed by the victim
+      at police stations, women's cell, Protection Officer (under DV Act),
+      family court, or women's helpline (181). Obtain records from One Stop
+      Centres (Sakhi Centres) if the victim sought assistance. Prior
+      complaints are strong corroborative evidence of continuing cruelty.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── FORENSIC NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Digital Forensics — Device Examination"
+    description_md: |
+      Forensic imaging and examination of mobile phones and devices of both
+      parties. Extract: WhatsApp/Telegram chat history, SMS, call logs,
+      deleted messages (recovery), photographs, videos, GPS location data.
+      Examine social media accounts for relevant posts. Prepare S.63 BSA
+      certificate for each electronic exhibit. Hash values of original and
+      forensic images must be documented.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  # ── WITNESS / BAYAN NODES ───────────────────────────────────────────────────
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Victim's Detailed Statement"
+    description_md: |
+      Record the victim's statement under BNSS S.180 with specific details:
+      each instance of cruelty (date, time, place, persons involved, nature
+      of act), dowry demands (what was demanded, when, by whom, what was
+      given), whether the victim was turned out of the house, denial of food/
+      medical treatment, threats, and the impact on her physical and mental
+      health. Also obtain S.183 BNSS statement before a Magistrate.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BNSS
+        section: "183"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Victim's Parents, Siblings, and Natal Family"
+    description_md: |
+      Record statements about: what dowry was given at the time of marriage,
+      subsequent demands, complaints by the victim to them, whether they
+      visited the matrimonial home and witnessed cruelty, any marks of injury
+      they observed, whether the victim was sent back after being turned out,
+      communications from the accused or his family demanding dowry.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: medium
+    title_en: "Neighbours and Community Witnesses"
+    description_md: |
+      Neighbours at the matrimonial home who may have witnessed quarrels,
+      physical violence, the victim's distress, or the victim being turned
+      out. Colleagues or friends of the victim who received complaints from
+      her. Mediators who attempted to reconcile the couple and can testify
+      to the demands and behaviour of the accused's family.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── GAP / HISTORICAL NODES ─────────────────────────────────────────────────
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Vague Allegations Without Specific Instances"
+    description_md: |
+      In Preeti Gupta v. State of Jharkhand (2010) 7 SCC 667, the Supreme
+      Court observed that in many S.498-A IPC (now S.85 BNS) cases, vague
+      and omnibus allegations are made against all family members without
+      specifying each person's role. This leads to acquittals. Per NCRB data,
+      the conviction rate for cruelty cases remains around 12-14%.
+
+      IO must ensure the victim's statement contains specific instances:
+      date, time, who did what, and what demand was made. Each accused
+      person's individual role must be particularised.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: medium
+    title_en: "Overreach — Arrest of Distant Relatives"
+    description_md: |
+      In Rajesh Sharma v. State of UP (2017) 10 SCC 294, the Supreme Court
+      expressed concern about misuse of S.498-A and directed constitution
+      of Family Welfare Committees. While the Arnesh Kumar guidelines restrict
+      routine arrest, institutional overreach in arresting distant relatives
+      (married sisters of husband, elderly parents) without evidence of their
+      individual involvement weakens the case and invites judicial criticism.
+      IO must apply the necessity test under BNSS S.35(1) for each accused
+      individually.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "35"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: true
+
+  # ── PROCEDURAL SAFEGUARD NODES ──────────────────────────────────────────────
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Victim's Rights and Support"
+    description_md: |
+      The victim has the right to:
+      - Free legal aid through DLSA.
+      - Shelter in a government shelter home or One Stop Centre.
+      - Protection Order under DV Act S.18.
+      - Residence order under DV Act S.19 (right to reside in shared household).
+      - Monetary relief under DV Act S.20.
+      - Interim compensation under BNSS S.396.
+      - Women's helpline (181) and emergency response (112).
+      IO must inform the victim of these rights and facilitate access.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "396"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Accused's Rights — Arnesh Kumar Compliance"
+    description_md: |
+      Per Arnesh Kumar v. State of Bihar (2014) 8 SCC 273 and BNSS S.35:
+      - Notice of appearance before arrest.
+      - IO must record reasons for arrest based on S.35(1) checklist.
+      - Magistrate must independently satisfy necessity of detention.
+      - Right to legal representation and free legal aid.
+      - Right to know grounds of arrest.
+      - D.K. Basu guidelines for arrest procedure.
+      - Production before Magistrate within 24 hours.
+      Non-compliance with Arnesh Kumar is taken seriously by courts.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "35"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false

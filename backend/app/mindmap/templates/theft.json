@@ -1,0 +1,306 @@
+{
+  "case_category": "theft",
+  "template_version": "1.0.0",
+  "description": "Chargesheet mindmap template for theft and property crime cases under IPC 378-381, 411, 457 and corresponding BNS provisions",
+  "branches": [
+    {
+      "node_type": "legal_section",
+      "title": "Applicable Legal Sections",
+      "description_md": "Legal sections applicable to theft and property crime cases. Charge depends on circumstances: simple theft, theft in dwelling, housebreaking, or receiving stolen property.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "legal_section",
+          "title": "IPC 378/379 / BNS 303(1)/303(2) -- Theft",
+          "description_md": "IPC 378 defines theft; IPC 379 prescribes punishment. Whoever intending to take dishonestly any movable property out of the possession of any person without that person's consent. Punishment: up to 3 years imprisonment or fine or both.",
+          "ipc_section": "379",
+          "bns_section": "303(2)",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 380 / BNS 305(a) -- Theft in Dwelling House",
+          "description_md": "Theft in any building, tent, or vessel used as a human dwelling or for custody of property. Enhanced punishment: up to 7 years imprisonment + fine.",
+          "ipc_section": "380",
+          "bns_section": "305(a)",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 381 / BNS 305(b) -- Theft by Clerk or Servant",
+          "description_md": "Theft by a clerk or servant of property in possession of the master or employer. Enhanced punishment: up to 7 years imprisonment + fine. Breach of trust element adds to gravity.",
+          "ipc_section": "381",
+          "bns_section": "305(b)",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 457 / BNS 305(c) -- Lurking House Trespass / Housebreaking by Night",
+          "description_md": "Lurking house trespass or housebreaking by night in order to commit theft. Punishment: up to 14 years imprisonment + fine. Night defined as after sunset and before sunrise.",
+          "ipc_section": "457",
+          "bns_section": "305(c)",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 411 / BNS 317(2) -- Dishonestly Receiving Stolen Property",
+          "description_md": "Applicable to persons who receive or retain stolen property knowing or having reason to believe it to be stolen. Punishment: up to 3 years imprisonment or fine or both. Critical for breaking the chain of stolen goods.",
+          "ipc_section": "411",
+          "bns_section": "317(2)",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 34 / BNS 3(5) -- Common Intention",
+          "description_md": "When theft is committed by more than one person acting in furtherance of common intention. Each participant is liable for the entire act.",
+          "ipc_section": "34",
+          "bns_section": "3(5)",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "immediate_action",
+      "title": "Immediate Actions",
+      "description_md": "Time-sensitive steps to be initiated immediately upon receiving information of theft.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "immediate_action",
+          "title": "Register FIR and Secure Scene",
+          "description_md": "Register FIR under CrPC 154 / BNSS 173 with detailed description of stolen property. Seal the point of entry/exit. Do not allow anyone to touch or disturb the scene until forensic team arrives.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Prepare Detailed Stolen Property List",
+          "description_md": "Obtain comprehensive list of stolen items from the complainant with description, make, model, serial numbers, purchase receipts, photographs, and approximate value. This is essential for recovery and identification later.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Alert Nakabandi and Nearby Stations",
+          "description_md": "Immediately flash wireless messages to nearby police stations, nakabandi (checkpoints), and railway police. Provide description of stolen property and suspects (if any). Alert pawn shops, scrap dealers, and second-hand markets.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Seize CCTV Footage Immediately",
+          "description_md": "Identify and seize CCTV cameras in and around the location. Most CCTV systems overwrite within 7-15 days. Collect footage from nearby shops, ATMs, traffic cameras, and residential societies. Preserve with hash values.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Check Known Offenders (History-Sheeters)",
+          "description_md": "Review records of habitual offenders with similar MO (modus operandi) in the area. Check with local informers. Verify if any recently released convicts with property crime history are in the jurisdiction.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "evidence",
+      "title": "Evidence Collection",
+      "description_md": "Physical and digital evidence collection to establish the offence and identify the accused.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "evidence",
+          "title": "Scene of Crime Examination",
+          "description_md": "Forensic examination of the scene: point of entry/exit, tool marks on doors/locks/windows, broken glass pattern (inside or outside), footprints, tire marks. Determine MO to help identify habitual offenders.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Fingerprint Evidence",
+          "description_md": "Develop latent fingerprints from point of entry, touched surfaces, and handled items. Use powder, chemical, or fuming methods as appropriate. Compare with accused and AFIS (Automated Fingerprint Identification System) database of known offenders.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Electronic and Digital Evidence",
+          "description_md": "CCTV footage analysis, mobile phone tower location data of suspect, GPS tracking of stolen vehicles or devices. For stolen mobile phones: obtain IMEI tracking records. All electronic evidence must comply with Section 65B Indian Evidence Act.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Recovery of Stolen Property",
+          "description_md": "Recovery of stolen property from accused or receiver of stolen goods. Prepare recovery memo with panchas. Photograph property before and during recovery. Get complainant to identify recovered property through identification proceedings. Cross-check serial numbers.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Tool and Instrument Examination",
+          "description_md": "If breaking tools are recovered (crowbar, screwdriver, bolt cutter), send for tool-mark comparison with marks at scene. Photograph marks at scene and on tool side-by-side. FSL can confirm match.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "interrogation",
+      "title": "Interrogation Plan",
+      "description_md": "Strategic interrogation to establish identity, motive, and disposal chain of stolen property.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "interrogation",
+          "title": "Accused Interrogation",
+          "description_md": "Focus on: how they identified the target, entry method, what was taken, where property is hidden/sold, accomplices involved, prior thefts committed. Obtain voluntary disclosure statements leading to recovery of property (Section 27 IE Act).",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Receiver of Stolen Property Investigation",
+          "description_md": "Investigate and interrogate persons who purchased or received the stolen property. Establish whether they knew or had reason to believe the property was stolen. Trace the entire chain from theft to final disposition. Charge under IPC 411 / BNS 317(2).",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Complainant Verification",
+          "description_md": "Verify complainant's account: actual ownership of stolen items, insurance claims filed, any false claim indicators, relationship with suspects. Cross-check with purchase records and neighbours. Rule out insurance fraud.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Neighbourhood and Staff Enquiry",
+          "description_md": "Question neighbours, domestic staff, security guards, and delivery personnel. Identify who had knowledge of the property, its location, owner's routine, and absence schedule. Internal information is common in dwelling house theft cases.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "panchnama",
+      "title": "Panchnama Requirements",
+      "description_md": "Mandatory panchnama documentation with independent panch witnesses for establishing the offence and recovery of property.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "panchnama",
+          "title": "Spot Panchnama (Scene of Crime)",
+          "description_md": "Document the crime scene showing: point of entry, broken locks/doors/windows, condition of premises, items displaced, footprints, tool marks. Include rough sketch with measurements. Note what is missing from the scene based on complainant's statement.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Seizure Panchnama",
+          "description_md": "Seizure of tools, gloves, masks, or any articles left behind by the accused at the scene. Each item individually described and sealed. Include broken lock, glass pieces, and any trace evidence.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Recovery Panchnama (Section 27 IE Act)",
+          "description_md": "When stolen property is recovered pursuant to accused's disclosure statement. Document exact location of recovery, condition of property, and identification by complainant. Panchas must witness the recovery from the pointed-out location.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Property Identification Panchnama",
+          "description_md": "Formal identification of recovered property by the complainant in the presence of panchas. Record distinguishing marks, serial numbers, and photographs. Complainant must confirm each item as theirs.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "forensic",
+      "title": "Forensic Requirements",
+      "description_md": "Forensic analysis to scientifically link the accused to the crime scene and stolen property.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "forensic",
+          "title": "Fingerprint Bureau Analysis",
+          "description_md": "Send developed latent prints to Fingerprint Bureau for comparison with accused's prints and AFIS database search. Expert opinion on match with chance prints from the scene. Essential for cases without eyewitnesses.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Tool Mark Comparison",
+          "description_md": "FSL comparison of tool marks found at scene of forced entry with recovered tools from accused. Microscopic examination can establish definitive link between tool and marks.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "CCTV and Video Enhancement",
+          "description_md": "Digital enhancement of CCTV footage for facial identification, vehicle number plate reading, and timeline establishment. Use FSL or CFSL facilities for enhancement of poor quality footage.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Mobile Forensics and IMEI Tracking",
+          "description_md": "If mobile phones are stolen, track IMEI through service providers. Forensic analysis of accused's phone for location data, communication with accomplices, and photos of stolen items. Apply Section 65B certification.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "witness_bayan",
+      "title": "Witness Statements (Bayan)",
+      "description_md": "Witness statement collection under CrPC 161 / BNSS 180 to establish the theft, identify the accused, and corroborate recovery.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "witness_bayan",
+          "title": "Complainant Statement",
+          "description_md": "Detailed statement of the property owner: when they discovered the theft, what is missing, estimated value, last time items were seen, who had access, and any suspects. Must provide proof of ownership for stolen items.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Eyewitness / Identification Witnesses",
+          "description_md": "Persons who saw suspicious persons or vehicles near the scene around the time of theft. Security guards, watchmen, neighbouring shopkeepers. Record detailed description of suspects seen.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Recovery and Panch Witnesses",
+          "description_md": "Independent witnesses who participated in scene panchnama, seizure, and recovery of stolen property. Their testimony corroborates the official proceedings.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Expert Witnesses",
+          "description_md": "Fingerprint expert, forensic expert, CCTV analyst, and any other technical witness. Their expert opinion forms critical corroborative evidence in the absence of direct witnesses.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    }
+  ]
+}

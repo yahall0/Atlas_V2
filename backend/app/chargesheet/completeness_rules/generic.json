@@ -1,0 +1,192 @@
+{
+  "case_category": "generic",
+  "version": "1.0.0",
+  "rules": [
+    {
+      "id": "COMP_001",
+      "title": "Missing Witness Schedule",
+      "description": "Chargesheet must contain a witness schedule listing all witnesses with their bayan reference numbers",
+      "severity": "critical",
+      "category": "witness",
+      "check_type": "field_present",
+      "check_config": {"field": "witnesses_json", "min_entries": 1},
+      "remediation": {
+        "summary": "Add a complete witness schedule to the chargesheet",
+        "steps": [
+          "List all witnesses examined under CrPC 161/BNSS 180",
+          "Include bayan statement reference numbers",
+          "Specify whether each witness is eye-witness, expert, or formal",
+          "Ensure complainant is listed as a witness"
+        ],
+        "estimated_effort": "hours"
+      }
+    },
+    {
+      "id": "COMP_002",
+      "title": "Missing Seizure Memo Reference",
+      "description": "Chargesheet should reference seizure memos for all physical evidence collected",
+      "severity": "high",
+      "category": "evidence",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["seizure memo", "seizure panchnama", "zimni", "fard"], "min_matches": 1},
+      "remediation": {
+        "summary": "Include seizure memo references in evidence schedule",
+        "steps": [
+          "List all items seized during investigation",
+          "Reference each seizure panchnama by number and date",
+          "Ensure chain of custody is documented"
+        ],
+        "estimated_effort": "hours"
+      }
+    },
+    {
+      "id": "COMP_003",
+      "title": "Missing Accused Particulars",
+      "description": "Full particulars of all accused persons must be included: name, parentage, age, address, identification marks",
+      "severity": "critical",
+      "category": "completeness",
+      "check_type": "field_present",
+      "check_config": {"field": "accused_json", "min_entries": 1},
+      "remediation": {
+        "summary": "Add complete accused particulars",
+        "steps": [
+          "Include full name with father/husband name",
+          "Record age and date of birth",
+          "Provide complete residential address",
+          "Note identification marks",
+          "Specify role in the offence"
+        ],
+        "estimated_effort": "minutes"
+      }
+    },
+    {
+      "id": "COMP_004",
+      "title": "Missing IO Identification",
+      "description": "Investigating Officer details (name, rank, belt number) must be clearly stated",
+      "severity": "high",
+      "category": "procedural",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["investigating officer", "IO", "investigation by"], "min_matches": 1},
+      "remediation": {
+        "summary": "Add IO identification details",
+        "steps": [
+          "State IO full name and rank",
+          "Include belt/buckle number",
+          "Mention date of taking over investigation",
+          "Reference any transfer of investigation orders"
+        ],
+        "estimated_effort": "minutes"
+      }
+    },
+    {
+      "id": "COMP_005",
+      "title": "Missing Court Jurisdiction Statement",
+      "description": "Chargesheet must state the court of competent jurisdiction where the case is being filed",
+      "severity": "high",
+      "category": "procedural",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["court", "magistrate", "sessions", "jurisdiction", "judicial"], "min_matches": 1},
+      "remediation": {
+        "summary": "Add court jurisdiction details",
+        "steps": [
+          "Identify court of competent jurisdiction based on offence severity",
+          "For sessions-triable offences, file before Magistrate for committal",
+          "State full court name and address"
+        ],
+        "estimated_effort": "minutes"
+      }
+    },
+    {
+      "id": "COMP_006",
+      "title": "Malformed FIR Reference",
+      "description": "Chargesheet must contain a valid FIR reference number linking to the original complaint",
+      "severity": "critical",
+      "category": "completeness",
+      "check_type": "field_present",
+      "check_config": {"field": "fir_id", "allow_null": false},
+      "remediation": {
+        "summary": "Ensure valid FIR reference in chargesheet",
+        "steps": [
+          "Include FIR number, date, and police station",
+          "Verify FIR number matches the registered case",
+          "Cross-reference with CCTNS records"
+        ],
+        "estimated_effort": "minutes"
+      }
+    },
+    {
+      "id": "COMP_007",
+      "title": "Missing Charges/Sections",
+      "description": "Chargesheet must list the specific legal sections under which the accused is being charged",
+      "severity": "critical",
+      "category": "legal",
+      "check_type": "field_present",
+      "check_config": {"field": "charges_json", "min_entries": 1},
+      "remediation": {
+        "summary": "List all applicable legal sections with charges",
+        "steps": [
+          "Include primary offence sections (BNS/IPC)",
+          "Add companion sections where applicable",
+          "Specify which sections apply to which accused",
+          "Include special act provisions if relevant"
+        ],
+        "estimated_effort": "minutes"
+      }
+    },
+    {
+      "id": "COMP_008",
+      "title": "Missing Evidence Schedule",
+      "description": "Chargesheet should contain an evidence schedule listing all documentary and material evidence",
+      "severity": "high",
+      "category": "evidence",
+      "check_type": "field_present",
+      "check_config": {"field": "evidence_json", "min_entries": 1},
+      "remediation": {
+        "summary": "Add comprehensive evidence schedule",
+        "steps": [
+          "List all documentary evidence with serial numbers",
+          "Reference each material object with seizure memo",
+          "Include expert reports with dates",
+          "Note status of each evidence item (collected/pending/sent to FSL)"
+        ],
+        "estimated_effort": "hours"
+      }
+    },
+    {
+      "id": "COMP_009",
+      "title": "Missing Filing Date",
+      "description": "Chargesheet must have a valid filing date within statutory time limits",
+      "severity": "medium",
+      "category": "procedural",
+      "check_type": "field_present",
+      "check_config": {"field": "filing_date", "allow_null": false},
+      "remediation": {
+        "summary": "Ensure filing date is recorded",
+        "steps": [
+          "Record the date of filing before the court",
+          "Verify filing is within statutory time limit (60/90 days per CrPC 167/BNSS 187)",
+          "If time limit exceeded, note reasons and any extension orders"
+        ],
+        "estimated_effort": "minutes"
+      }
+    },
+    {
+      "id": "COMP_010",
+      "title": "Missing Disposal of Accused Statement",
+      "description": "Chargesheet should state the current disposal status of each accused (arrested/on bail/absconding)",
+      "severity": "medium",
+      "category": "completeness",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["bail", "custody", "absconding", "arrested", "remand", "surrender"], "min_matches": 1},
+      "remediation": {
+        "summary": "Add accused disposal status",
+        "steps": [
+          "State whether each accused is in judicial custody or on bail",
+          "For absconding accused, mention non-bailable warrant details",
+          "Reference bail order numbers where applicable"
+        ],
+        "estimated_effort": "minutes"
+      }
+    }
+  ]
+}

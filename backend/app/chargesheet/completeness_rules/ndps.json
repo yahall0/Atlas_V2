@@ -1,0 +1,143 @@
+{
+  "case_category": "ndps",
+  "version": "1.0.0",
+  "rules": [
+    {
+      "id": "NDPS_001",
+      "title": "Missing Independent Witness for Seizure",
+      "description": "Seizure of narcotic substances must be conducted in the presence of independent witnesses as per NDPS Act requirements",
+      "severity": "critical",
+      "category": "procedural",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["independent witness", "panch witness", "panch", "panchnama", "seizure witness", "public witness"], "min_matches": 1},
+      "remediation": {
+        "summary": "Ensure seizure was conducted with independent witnesses and document their details",
+        "steps": [
+          "Verify at least two independent witnesses were present during seizure",
+          "Record full particulars of each panch witness (name, address, contact)",
+          "Obtain signatures of panch witnesses on the seizure panchnama",
+          "If independent witnesses were unavailable, document reasons per Section 100(5) CrPC/BNSS 105"
+        ],
+        "estimated_effort": "minutes"
+      }
+    },
+    {
+      "id": "NDPS_002",
+      "title": "Missing Sample Sealing Certificate",
+      "description": "Seized narcotic substance samples must be properly sealed and a sealing certificate must be referenced in the chargesheet",
+      "severity": "critical",
+      "category": "evidence",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["seal", "sealing", "sealed", "sample sealed", "sealing certificate", "seal integrity", "farad sealed"], "min_matches": 1},
+      "remediation": {
+        "summary": "Document proper sealing of seized substance samples",
+        "steps": [
+          "Ensure seized substance is divided into sample and bulk quantities",
+          "Seal both sample and bulk portions separately with unique seal impressions",
+          "Record seal details (seal number/impression) in the seizure panchnama",
+          "Obtain sealing certificate signed by the IO and panch witnesses",
+          "Reference the sealing certificate in the chargesheet evidence schedule"
+        ],
+        "estimated_effort": "minutes"
+      }
+    },
+    {
+      "id": "NDPS_003",
+      "title": "Missing Weighment Memo",
+      "description": "Seized narcotic substance must be weighed at the spot and a weighment memo prepared, as quantity determines the severity of the offence under NDPS Act",
+      "severity": "critical",
+      "category": "evidence",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["weighment", "weight", "weighed", "weighing", "gross weight", "net weight", "grams", "kilograms"], "min_matches": 1},
+      "remediation": {
+        "summary": "Prepare and reference the weighment memo for seized substance",
+        "steps": [
+          "Weigh the seized substance at the spot in presence of panch witnesses",
+          "Record both gross weight (with packing) and net weight (substance only)",
+          "Prepare a weighment memo signed by the IO and panch witnesses",
+          "Classify the quantity as small/commercial per NDPS Act notification",
+          "Reference the weighment memo in the chargesheet evidence schedule"
+        ],
+        "estimated_effort": "minutes"
+      }
+    },
+    {
+      "id": "NDPS_004",
+      "title": "Missing Section 50 NDPS Compliance Notice",
+      "description": "If the accused was searched, mandatory compliance with Section 50 of NDPS Act must be documented - the accused must be informed of their right to be searched before a gazetted officer or a magistrate",
+      "severity": "critical",
+      "category": "procedural",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["section 50", "Section 50 NDPS", "right to search", "gazetted officer", "option to be searched", "personal search notice"], "min_matches": 1},
+      "remediation": {
+        "summary": "Document Section 50 NDPS Act compliance",
+        "steps": [
+          "Inform the accused in writing of their right to be searched before a gazetted officer or magistrate",
+          "Record the accused's response (whether they opted for search before gazetted officer/magistrate or waived the right)",
+          "If accused opts for gazetted officer/magistrate search, comply before proceeding",
+          "Include the Section 50 notice and accused's response in the chargesheet evidence schedule",
+          "Non-compliance with Section 50 renders the trial vitiated - ensure strict compliance"
+        ],
+        "estimated_effort": "minutes"
+      }
+    },
+    {
+      "id": "NDPS_005",
+      "title": "Missing FSL Chemical Analysis Report",
+      "description": "Chargesheet must reference the FSL chemical analysis report confirming the identity of the seized narcotic substance",
+      "severity": "critical",
+      "category": "evidence",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["FSL", "chemical analysis", "chemical examination", "forensic science laboratory", "CFSL", "chemical examiner"], "min_matches": 1},
+      "remediation": {
+        "summary": "Include FSL chemical analysis report reference",
+        "steps": [
+          "Send sealed sample to FSL for chemical analysis promptly",
+          "Reference FSL report number, date, and findings in the chargesheet",
+          "Confirm the substance identified by FSL matches the NDPS Act schedule",
+          "If FSL report is pending at the time of filing, note dispatch date and request number"
+        ],
+        "estimated_effort": "hours"
+      }
+    },
+    {
+      "id": "NDPS_006",
+      "title": "Missing Section 42/43 NDPS Compliance",
+      "description": "For searches conducted without warrant, compliance with Section 42 (prior information recording) or Section 43 (public place seizure) of NDPS Act must be documented",
+      "severity": "high",
+      "category": "procedural",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["section 42", "section 43", "prior information", "secret information", "reason to believe", "empowered officer"], "min_matches": 1},
+      "remediation": {
+        "summary": "Document compliance with Section 42 or Section 43 NDPS Act",
+        "steps": [
+          "For Section 42: Record prior information in writing before search",
+          "Send copy of recorded information to immediate superior within 72 hours",
+          "For Section 43: Document the circumstances of seizure in a public place",
+          "Reference the empowered officer's authorization if applicable",
+          "Include all compliance documents in the chargesheet evidence schedule"
+        ],
+        "estimated_effort": "minutes"
+      }
+    },
+    {
+      "id": "NDPS_007",
+      "title": "Missing Quantity Classification",
+      "description": "Chargesheet must specify whether the seized quantity falls under small quantity, intermediate quantity, or commercial quantity as per NDPS Act notifications",
+      "severity": "high",
+      "category": "legal",
+      "check_type": "text_contains",
+      "check_config": {"keywords": ["small quantity", "commercial quantity", "intermediate quantity", "NDPS notification", "schedule quantity"], "min_matches": 1},
+      "remediation": {
+        "summary": "Classify the seized quantity per NDPS Act thresholds",
+        "steps": [
+          "Determine the substance type from the FSL report",
+          "Refer to the latest NDPS notification for quantity thresholds",
+          "Classify as small quantity (below threshold), intermediate, or commercial quantity (above threshold)",
+          "State the classification clearly in the chargesheet as it determines bail provisions and sentencing"
+        ],
+        "estimated_effort": "minutes"
+      }
+    }
+  ]
+}

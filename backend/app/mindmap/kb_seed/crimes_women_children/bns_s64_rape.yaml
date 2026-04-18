@@ -1,0 +1,545 @@
+offence_code: BNS_S64_RAPE
+category_id: crimes_women_children
+bns_section: "64"
+bns_subsection: ""
+display_name_en: "Rape"
+display_name_gu: "બળાત્કાર"
+short_description_md: |
+  BNS S.64 defines rape as sexual intercourse or sexual acts committed against a
+  woman without her consent, or with her consent obtained by coercion, fraud,
+  intoxication, unsoundness of mind, or when she is unable to communicate consent.
+  Sexual intercourse by a man with his own wife who is not under 18 years of age
+  is not rape. Aggravated forms are covered under S.66 (by police officer, public
+  servant, armed forces, etc.) and S.70 (gang rape).
+punishment: "Rigorous imprisonment not less than 10 years, which may extend to imprisonment for life, and fine"
+cognizable: true
+bailable: false
+triable_by: "Court of Session"
+compoundable: "no"
+schedule_reference: "BNS Schedule I, Part I"
+related_offence_codes:
+  - BNS_S66_AGGRAVATED_RAPE
+  - BNS_S70_GANG_RAPE
+  - BNS_S72_VICTIM_IDENTITY_PROTECTION
+  - BNS_S69_RAPE_OF_MINOR
+  - POCSO_S4_PENETRATIVE_SEXUAL_ASSAULT
+special_acts:
+  - "Protection of Children from Sexual Offences Act, 2012 (POCSO)"
+
+knowledge_nodes:
+
+  # ── LEGAL SECTION NODES ─────────────────────────────────────────────────────
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BNS S.64 — Rape: Definition and Elements"
+    description_md: |
+      S.64 of the Bharatiya Nyaya Sanhita 2023 defines rape. A man is said to
+      commit rape if he commits any of the following acts: (a) penetration of
+      the penis into the vagina, mouth, urethra, or anus of a woman, or makes
+      her do so with him or any other person; (b) insertion of any object or
+      body part (not the penis) into the vagina, urethra, or anus of a woman;
+      (c) manipulation of any body part of a woman to cause penetration; (d)
+      application of his mouth to the vagina, anus, urethra of a woman.
+
+      Consent is defined under BNS S.28 — an unequivocal voluntary agreement
+      when the woman by words, gestures, or any form of verbal or non-verbal
+      communication, communicates willingness. Consent obtained through fear,
+      intoxication, unsoundness, mistaken identity, or by a person in authority
+      is no consent.
+    legal_basis_citations:
+      - framework: BNS
+        section: "64"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+      - framework: BNS
+        section: "28"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BNS S.72 — Disclosure of Identity of Victim"
+    description_md: |
+      No person shall disclose the identity of the victim of an offence under
+      S.64, S.66, S.67, S.68, S.69, S.70, or S.71. Disclosure includes name,
+      address, photograph, family details, school, neighbourhood, or any
+      information that may lead to identification. Violation is punishable
+      with imprisonment up to 2 years and fine. The FIR, chargesheet, and all
+      court documents must redact the victim's identity. Media reporting must
+      not reveal identity.
+    legal_basis_citations:
+      - framework: BNS
+        section: "72"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BNSS S.183 — Mandatory Statement Before Magistrate"
+    description_md: |
+      In cases of rape and sexual offences, the statement of the victim MUST
+      be recorded by a Judicial Magistrate under BNSS S.183. This is mandatory,
+      not discretionary. The statement is recorded in the victim's own words,
+      on oath, and constitutes substantive evidence. No police officer shall be
+      present during the recording. The Magistrate must satisfy that the
+      statement is given voluntarily. Audio-video recording of the statement
+      is mandated under BNSS S.183(2) proviso for sexual offences.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "183"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "BNS S.66 — Aggravated Rape and S.70 — Gang Rape"
+    description_md: |
+      S.66: Rape by a police officer, public servant, member of armed forces,
+      management/staff of hospital, management/staff of educational institution,
+      management of remand home, relative/guardian/teacher, or during communal
+      violence. Minimum 10 years RI, which may extend to life.
+
+      S.70: Gang rape — where a woman is raped by one or more persons acting
+      in furtherance of common intention, each is deemed to have committed
+      rape. Minimum 20 years RI which may extend to life imprisonment, and
+      fine which shall be paid to the victim.
+    legal_basis_citations:
+      - framework: BNS
+        section: "66"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+      - framework: BNS
+        section: "70"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── IMMEDIATE ACTION NODES ─────────────────────────────────────────────────
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Zero FIR — Immediate Registration Without Jurisdictional Objection"
+    description_md: |
+      Under BNSS S.173, any police station must register a Zero FIR irrespective
+      of territorial jurisdiction. In sexual offence cases, no station can refuse
+      to register the FIR citing jurisdiction. The FIR must be transferred to the
+      concerned station within 24 hours. Per Supreme Court directions in Lalita
+      Kumari v. Govt. of UP (2014) 2 SCC 1, registration of FIR is mandatory
+      when information discloses commission of a cognizable offence — no
+      preliminary inquiry is permissible in rape cases.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "173"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Women Police Officer — Statement Recording"
+    description_md: |
+      The statement of the victim must be recorded by a woman police officer or
+      any woman officer not below the rank of ASI. Under BNSS S.180 proviso,
+      the statement of the victim of a sexual offence shall be recorded at her
+      residence or a place of her choice, and as far as practicable by a woman
+      police officer. The IO must create a private, safe environment for the
+      victim. No male officer should be present during the victim's statement
+      unless the victim consents.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Medical Examination Within 24 Hours"
+    description_md: |
+      Medical examination of the victim must be conducted within 24 hours of
+      receiving information by a registered medical practitioner at a government
+      or local authority hospital. Under BNSS S.184, the examination shall be
+      conducted with the consent of the victim (or parent/guardian if minor).
+      The medical report must include: general physical condition, injuries on
+      the body, state of clothing, vaginal/anal examination findings, samples
+      collected (swabs, smears, nail clippings, pubic hair, blood). Medical
+      examination of the accused shall also be conducted under BNSS S.184(2).
+
+      CRITICAL: The two-finger test (per-vaginal examination to determine
+      laxity or habituation) is prohibited per Supreme Court judgment in
+      Lillu v. State of Haryana (2013) 14 SCC 643. The WHO has also
+      condemned it as having no scientific validity.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "184"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Record BNSS S.183 Statement Before Magistrate — Mandatory"
+    description_md: |
+      This is a MANDATORY step in all sexual offence cases. The IO must arrange
+      for the victim's statement to be recorded by a Judicial Magistrate under
+      BNSS S.183 at the earliest opportunity. The statement must be audio-video
+      recorded. No police officer shall be present during the recording. The
+      Magistrate shall record the statement in the language of the victim and
+      provide a copy to the IO. This statement is substantive evidence and
+      can be relied upon even if the victim does not appear at trial or turns
+      hostile. Failure to record S.183 statement is a serious procedural lapse.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "183"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Victim Identity Protection — Immediate Measures"
+    description_md: |
+      From the moment of FIR registration, the victim's identity must be
+      protected under BNS S.72. Do not record the victim's name on the FIR
+      in a manner accessible to the public. Use coded identifiers in court
+      documents. Instruct all officers and staff involved in the case about
+      the prohibition on identity disclosure. Any media inquiry must be
+      handled without revealing any identifying information.
+    legal_basis_citations:
+      - framework: BNS
+        section: "72"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── PANCHNAMA NODES ─────────────────────────────────────────────────────────
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Scene of Crime Panchnama"
+    description_md: |
+      Prepare the spot panchnama at the scene of the offence. Include: exact
+      location, condition of the room/area (bed, floor, furniture), any torn
+      clothing, stains (semen, blood, saliva), condom wrappers, tissue paper,
+      signs of struggle. Collect control samples from the scene. Photograph
+      and video-record. Use female panchas wherever possible. If the victim
+      is present, do not compel her to revisit the scene.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "175"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Seizure Panchnama — Clothing and Biological Evidence"
+    description_md: |
+      Seize the victim's clothing worn at the time of the offence and the
+      accused's clothing separately in paper bags. Seize bed sheets, pillow
+      covers, or any article from the scene with stains. Collect the victim's
+      underwear and the accused's underwear separately. Each article individually
+      packed, labelled, and sealed in the presence of panchas. Document the
+      condition of each article (torn, stained, etc.).
+    legal_basis_citations:
+      - framework: BNSS
+        section: "105"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── EVIDENCE NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Medical Examination Report (Victim and Accused)"
+    description_md: |
+      The medical examination report of the victim must detail: injuries on
+      the body (bruises, abrasions, bite marks), genital examination findings,
+      samples collected (vaginal/anal swabs, oral swabs, nail clippings, pubic
+      hair combings, blood sample). The report must not comment on the
+      victim's sexual history or "habituation" — this is prohibited under
+      BSA S.146(3) which bars evidence of the victim's general immoral
+      character or previous sexual experience.
+
+      The accused must also be medically examined under BNSS S.184(2) for:
+      potency, injuries, nail clippings, pubic hair, penile swabs, blood sample.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "184"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BSA
+        section: "146"
+        subsection: "(3)"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "CCTV, CDR, and Digital Evidence"
+    description_md: |
+      Collect CCTV footage from the scene and surrounding areas showing the
+      accused and victim together, or the accused's movements before and after
+      the offence. Obtain CDR/IPDR for both the victim's and accused's mobile
+      numbers. Check for messages, calls, or social media communications between
+      them before and after the incident. Examine the accused's devices for
+      photographs, videos, or messages related to the offence. All electronic
+      evidence requires S.63 BSA certificate.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: medium
+    title_en: "Corroborative Evidence — Independent Corroboration"
+    description_md: |
+      While the Supreme Court has held that the testimony of the prosecutrix
+      alone is sufficient for conviction if it inspires confidence (State of
+      Punjab v. Gurmit Singh (1996) 2 SCC 384), corroborative evidence
+      strengthens the case: injuries on victim's body, DNA matching, torn
+      clothing, eyewitness testimony, CCTV, CDR placing accused near the scene,
+      prior threatening messages. The IO must build corroboration without
+      treating the victim's testimony as inherently suspect.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── FORENSIC NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: forensic
+    tier: canonical
+    priority: critical
+    title_en: "DNA Profiling — Semen and Biological Samples"
+    description_md: |
+      DNA profiling is the most critical forensic evidence in rape cases.
+      Vaginal/anal/oral swabs from the victim must be sent to FSL along with
+      the accused's blood sample for comparison. Semen stains on clothing,
+      bedsheets, and scene articles must be tested. DNA evidence can
+      conclusively establish that sexual intercourse occurred and identify
+      the perpetrator. Samples must be collected within 72 hours of the
+      offence for optimal results. Maintain cold chain throughout.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: critical
+    title_en: "Forensic Analysis of Clothing and Scene Articles"
+    description_md: |
+      FSL analysis of victim's and accused's clothing for: semen stains,
+      blood stains, saliva, hair transfer, fiber transfer. Torn clothing
+      corroborates use of force. Scene articles (bedsheets, pillow covers)
+      for semen and blood stains. UV light examination for biological stains.
+      All articles must be air-dried before packaging in paper bags.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Toxicology — Drug-Facilitated Sexual Assault"
+    description_md: |
+      If the victim was drugged or intoxicated, collect blood and urine samples
+      within 24 hours (many drugs metabolize quickly). Test for: date rape
+      drugs (GHB, Rohypnol, Ketamine), sedatives, alcohol. Toxicology report
+      is critical when the prosecution's case is that consent was vitiated by
+      intoxication. Also seize any glass, bottle, or container from which
+      the victim consumed the drugged substance.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── WITNESS / BAYAN NODES ───────────────────────────────────────────────────
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Victim's Statement — Sensitivity and Legal Protections"
+    description_md: |
+      The victim's statement must be recorded with sensitivity and dignity.
+      Key legal protections:
+      - BSA S.146(3): No question shall be put to the victim about her general
+        immoral character or previous sexual experience during cross-examination.
+      - The victim shall not be called upon to answer any question about her
+        conduct or character in relation to sexual acts with persons other than
+        the accused.
+      - The victim's testimony alone, if found credible, is sufficient for
+        conviction — no rule of corroboration applies (State of H.P. v. Manga
+        Singh (2019) 16 SCC 759).
+    legal_basis_citations:
+      - framework: BSA
+        section: "146"
+        subsection: "(3)"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "First Informant and First Disclosure Witness"
+    description_md: |
+      Record the statement of the first person the victim disclosed the offence
+      to (mother, friend, colleague). The first disclosure is important as it
+      establishes the time and manner of disclosure, the victim's condition at
+      the time, and whether the account was spontaneous and consistent. Under
+      BSA S.6 (res gestae), statements forming part of the same transaction
+      may be admissible as substantive evidence.
+    legal_basis_citations:
+      - framework: BSA
+        section: "6"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: medium
+    title_en: "Medical Expert Witness"
+    description_md: |
+      The doctor who conducted the medical examination is a critical expert
+      witness. Their testimony must correlate clinical findings with the victim's
+      account. Prepare the doctor for cross-examination on: injury interpretation,
+      absence of injuries (which does not negate rape — per SC in State of UP
+      v. Chottey Lal (2011) 2 SCC 550), timing of sexual intercourse, and
+      sample collection procedure.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── GAP / HISTORICAL NODES ─────────────────────────────────────────────────
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Delay in Reporting — Institutional and Social Barriers"
+    description_md: |
+      NCRB Crime in India data consistently shows that a significant proportion
+      of sexual offences are reported with delay. The Supreme Court in State
+      of Punjab v. Gurmit Singh (1996) 2 SCC 384 held: "The reluctance to
+      report sexual offences is understandable — the victim of rape faces social
+      stigma and is often ostracised." Delay alone does not discredit the
+      victim. In State of H.P. v. Prem Singh (2009) 1 SCC 420, the court
+      held that delay caused by social stigma, fear, or institutional barriers
+      is a satisfactory explanation.
+
+      IO must document the reasons for delay in the case diary without treating
+      delay as a negative factor.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Failure to Conduct Timely Medical Examination"
+    description_md: |
+      BNSS S.184 mandates medical examination within 24 hours of receiving
+      information. Per NCRB reports, institutional delays in medical examination
+      — due to unavailability of female doctor, victim referred between hospitals,
+      or waiting for FIR registration — result in degradation of biological
+      evidence. In Shanmugam v. State of Tamil Nadu (2023), the court observed
+      that delay in medical examination beyond 72 hours significantly reduces
+      DNA recovery rates.
+
+      IO must ensure examination at the nearest government hospital without
+      waiting for FIR formalities. Consent of the victim is required; if the
+      victim is a minor, consent of the parent/guardian.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "184"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: true
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: medium
+    title_en: "Prohibited Two-Finger Test and Improper Medical Practices"
+    description_md: |
+      The Supreme Court in Lillu v. State of Haryana (2013) 14 SCC 643 banned
+      the two-finger test (per-vaginal examination for so-called "habituation")
+      as violative of the victim's right to privacy and dignity under Article 21.
+      The WHO Guidelines on Medico-Legal Care for Victims of Sexual Violence
+      (2003) state that the test has no scientific basis. Any medical officer
+      conducting this test is guilty of misconduct.
+
+      IO must verify that the medical examination report does not contain
+      observations on "habituation" or "habitual to sexual intercourse."
+      If it does, request a supplementary report omitting such observations.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  # ── PROCEDURAL SAFEGUARD NODES ──────────────────────────────────────────────
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Victim's Rights and Support Services"
+    description_md: |
+      The victim has the following rights:
+      - Right to free legal aid (DLSA).
+      - Right to have statement recorded by a woman police officer.
+      - Right to have S.183 BNSS statement recorded by a Magistrate.
+      - Right to interim compensation under BNSS S.396 and State Victim
+        Compensation Scheme.
+      - Right to privacy — identity protection under BNS S.72.
+      - Right not to be subjected to the two-finger test.
+      - Right not to be cross-examined on sexual history (BSA S.146(3)).
+      - Right to shelter in a government or NGO shelter home if needed.
+      - Right to free medical treatment at government hospital.
+    legal_basis_citations:
+      - framework: BNS
+        section: "72"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+      - framework: BNSS
+        section: "396"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Accused's Rights — Non-Bailable Offence Procedures"
+    description_md: |
+      Rape is a non-bailable offence. The accused retains:
+      - Right to know grounds of arrest (BNSS S.36).
+      - Right to legal representation and free legal aid.
+      - Right against self-incrimination (Article 20(3)).
+      - Right to be produced before Magistrate within 24 hours (BNSS S.187).
+      - Right to apply for bail (discretionary under BNSS S.480, but bail
+        in rape cases is generally restrictive per SC guidelines).
+      - Right against custodial torture.
+      - No narco-analysis, brain-mapping, or polygraph without consent.
+      - D.K. Basu guidelines must be strictly followed.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "35"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BNSS
+        section: "36"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Prohibition on Character Evidence and Past Sexual History"
+    description_md: |
+      BSA S.146(3) (corresponding to old S.155(4) Indian Evidence Act, as
+      amended by Criminal Law Amendment Act 2013) provides that in prosecution
+      for rape or attempt to rape, it shall not be permissible to put questions
+      in cross-examination of the prosecutrix about her general immoral character
+      or previous sexual experience. BSA S.27 provides that in prosecution for
+      S.64/65/66/67/68/69/70/71 BNS, where the question is whether there was
+      consent, the court shall presume absence of consent if the victim states
+      so. The burden shifts to the accused to prove consent.
+    legal_basis_citations:
+      - framework: BSA
+        section: "146"
+        subsection: "(3)"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+      - framework: BSA
+        section: "27"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false

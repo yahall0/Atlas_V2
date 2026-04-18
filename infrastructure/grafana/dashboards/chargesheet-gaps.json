@@ -1,0 +1,48 @@
+{
+  "dashboard": {
+    "title": "ATLAS Chargesheet Gap Analysis",
+    "uid": "atlas-chargesheet-gaps",
+    "tags": ["atlas", "chargesheet", "gaps"],
+    "panels": [
+      {
+        "title": "Gap Reports Generated",
+        "type": "stat",
+        "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0},
+        "targets": [{"expr": "sum(atlas_chargesheet_gap_reports_total)", "legendFormat": "Total"}]
+      },
+      {
+        "title": "Report Generation P95 Latency",
+        "type": "gauge",
+        "gridPos": {"h": 4, "w": 6, "x": 6, "y": 0},
+        "targets": [{"expr": "histogram_quantile(0.95, sum(rate(atlas_chargesheet_gap_report_duration_seconds_bucket[5m])) by (le))", "legendFormat": "P95"}],
+        "fieldConfig": {"defaults": {"unit": "s", "max": 10, "thresholds": {"steps": [{"color": "green", "value": 0}, {"color": "yellow", "value": 5}, {"color": "red", "value": 8}]}}}
+      },
+      {
+        "title": "Gaps by Severity",
+        "type": "piechart",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 4},
+        "targets": [{"expr": "sum by (severity) (atlas_chargesheet_gaps_by_severity)", "legendFormat": "{{severity}}"}]
+      },
+      {
+        "title": "Gap Actions Over Time",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+        "targets": [{"expr": "sum by (action) (rate(atlas_chargesheet_gap_actions_total[5m]))", "legendFormat": "{{action}}"}]
+      },
+      {
+        "title": "Suggestions Applied",
+        "type": "stat",
+        "gridPos": {"h": 4, "w": 6, "x": 12, "y": 8},
+        "targets": [{"expr": "atlas_chargesheet_suggestions_applied_total", "legendFormat": "Applied"}]
+      },
+      {
+        "title": "Exports by Type",
+        "type": "bargauge",
+        "gridPos": {"h": 4, "w": 6, "x": 18, "y": 8},
+        "targets": [{"expr": "sum by (export_type) (atlas_chargesheet_exports_total)", "legendFormat": "{{export_type}}"}]
+      }
+    ],
+    "refresh": "30s",
+    "time": {"from": "now-1h", "to": "now"}
+  }
+}

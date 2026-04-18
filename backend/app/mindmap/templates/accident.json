@@ -1,0 +1,311 @@
+{
+  "case_category": "accident",
+  "template_version": "1.0.0",
+  "description": "Chargesheet mindmap template for road accident cases under IPC 279/304A/337/338 and corresponding BNS provisions including Motor Vehicles Act",
+  "branches": [
+    {
+      "node_type": "legal_section",
+      "title": "Applicable Legal Sections",
+      "description_md": "Legal sections for road accident cases. Charge depends on: severity of injury/death, rashness vs negligence, hit-and-run, and intoxication. Motor Vehicles Act provisions also apply.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "legal_section",
+          "title": "IPC 279 / BNS 281 -- Rash Driving on Public Way",
+          "description_md": "Driving any vehicle or riding on any public way in a manner so rash or negligent as to endanger human life or to be likely to cause hurt or injury. Punishment: up to 6 months imprisonment or fine up to Rs.1,000 or both.",
+          "ipc_section": "279",
+          "bns_section": "281",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 304A / BNS 106(1) -- Causing Death by Negligence",
+          "description_md": "Causing death by doing any rash or negligent act not amounting to culpable homicide. Primary charge in fatal road accidents. Punishment: up to 2 years imprisonment or fine or both. BNS 106(1) enhances to up to 5 years for death by rash/negligent act.",
+          "ipc_section": "304A",
+          "bns_section": "106(1)",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 337 / BNS 125(a) -- Causing Hurt by Rash/Negligent Act",
+          "description_md": "Causing hurt by doing any rash or negligent act endangering human life or personal safety. For non-fatal accidents with simple injuries. Punishment: up to 6 months or fine up to Rs.500 or both.",
+          "ipc_section": "337",
+          "bns_section": "125(a)",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 338 / BNS 125(b) -- Causing Grievous Hurt by Rash/Negligent Act",
+          "description_md": "Causing grievous hurt by doing any rash or negligent act. For accidents resulting in fractures, permanent disability, disfigurement. Punishment: up to 2 years imprisonment or fine up to Rs.1,000 or both.",
+          "ipc_section": "338",
+          "bns_section": "125(b)",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "Motor Vehicles Act Section 134 -- Duty to Stop and Report",
+          "description_md": "Driver of vehicle involved in an accident must stop and report to the nearest police station. Failure to do so (hit-and-run) is a separate offence. Punishment: up to 6 months or fine up to Rs.500. Essential to establish if accused fled the scene.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 304 / BNS 105 -- Culpable Homicide (Drunken Driving)",
+          "description_md": "In cases of drunken driving causing death, courts have upheld charges under IPC 304 (Part II) instead of 304A, recognizing that driving while intoxicated constitutes knowledge that death may result. Significantly higher punishment: up to 10 years or life.",
+          "ipc_section": "304",
+          "bns_section": "105",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "immediate_action",
+      "title": "Immediate Actions",
+      "description_md": "Immediate steps at the accident scene. Priority: save lives, preserve evidence, identify the offending vehicle.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "immediate_action",
+          "title": "Rescue Injured and Rush to Hospital",
+          "description_md": "Saving life is the first priority. Arrange ambulance or transport to nearest hospital. Under Section 134A MV Act and SC guidelines (Savelife Foundation), Good Samaritans who help accident victims cannot be harassed. Hospital must provide treatment without waiting for MLC formalities.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Secure the Accident Scene",
+          "description_md": "Cordon off the area to prevent tampering and further accidents. Do not move vehicles until spot inspection is complete (unless blocking traffic and causing danger). Place warning signs. Preserve tire marks, debris, broken parts, and victim's belongings in their original position.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Register FIR and Identify Offending Vehicle",
+          "description_md": "Register FIR under CrPC 154 / BNSS 173 immediately. If the vehicle has fled (hit-and-run), note partial vehicle number, color, type, direction of flight from witnesses. Flash wireless alert to nearby police stations and highway patrols. Check toll plaza records and ANPR cameras.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Blood Alcohol / Drug Test of Driver",
+          "description_md": "If driver is apprehended at the scene, immediately arrange for blood alcohol test (breath analyzer followed by blood sample for confirmation). Under Section 203 MV Act, driving under influence is a separate offence. Blood sample must be taken within a few hours as alcohol metabolizes. Two samples to be drawn.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Conduct Inquest (Fatal Accidents)",
+          "description_md": "In fatal accidents, conduct inquest under CrPC 174 / BNSS 194. Note injuries on the body, position of the body relative to the vehicle and road, and clothing damage pattern (consistent with impact direction). Arrange post-mortem.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "evidence",
+      "title": "Evidence Collection",
+      "description_md": "Evidence to reconstruct the accident and establish fault. Scientific evidence is particularly important in road accident cases.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "evidence",
+          "title": "Spot Inspection Report and Photographs",
+          "description_md": "Detailed spot inspection: road width, surface condition, lane markings, visibility, gradient, curves, traffic signs, lighting conditions. Measure and photograph: skid marks (length and direction), gouge marks, point of impact, final rest position of vehicles, debris spread pattern. Prepare scaled sketch map.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Vehicle Inspection Report",
+          "description_md": "Inspection of the offending vehicle: damage pattern (point of initial impact), blood/tissue/hair on vehicle surface, broken headlights/mirrors, paint transfer, fiber transfer. Also note: tire condition (tread depth), speedometer reading (if analog and stuck), odometer reading.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Mechanical Inspection Report",
+          "description_md": "Mechanical fitness inspection by RTO-authorized inspector: condition of brakes (footbrake and handbrake), steering mechanism, tire pressure and condition, horn, lights (headlights, indicators, brake lights), rearview mirrors, windshield wipers. Determine if mechanical failure contributed to the accident.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "MLC and Post-Mortem Report",
+          "description_md": "For injured: Medico-Legal Certificate detailing nature and extent of injuries, whether simple or grievous. For fatal: post-mortem report with cause of death, injury pattern consistent with vehicular impact (bumper height correlation), toxicology for victim's blood alcohol level.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "CCTV, Dashcam, and Electronic Evidence",
+          "description_md": "CCTV footage from nearby establishments, traffic cameras, ANPR (Automatic Number Plate Recognition) cameras. Dashcam footage from the offending vehicle or other vehicles. GPS data from the vehicle (fleet vehicles often have tracking). Toll plaza records for route and time verification.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Driver Documents Verification",
+          "description_md": "Driving license: check validity, category (LMV/HMV/Transport), endorsements, past traffic violations. Vehicle documents: registration certificate, fitness certificate, insurance policy (third party mandatory), PUC certificate, permit (for commercial vehicles). Owner's liability for allowing unauthorized person to drive.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "interrogation",
+      "title": "Interrogation Plan",
+      "description_md": "Establish the driver's state, speed, and actions leading to the accident. Independent witness identification is critical.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "interrogation",
+          "title": "Driver / Accused Interrogation",
+          "description_md": "Question on: speed at the time of accident, what they saw before impact, braking action taken, alcohol/drug consumption before driving, rest/sleep hours (for commercial vehicle drivers), familiarity with the road, distractions (phone use). Verify driving license authenticity and experience.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Eyewitness Statements",
+          "description_md": "Statements from persons who witnessed the accident: speed and manner of driving, which side of the road, use of horn/lights, point of impact, whether driver stopped or fled. Pedestrians, nearby shopkeepers, other drivers on the road. Note their position and visibility.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Vehicle Owner Investigation",
+          "description_md": "If driver is not the owner: establish who authorized driving, whether owner knew driver lacked a valid license, whether vehicle was under lawful custody, owner's liability under Section 181 MV Act. For commercial vehicles: check compliance with driver duty hours.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Co-Passenger Statements",
+          "description_md": "If passengers were in the offending vehicle: their observation of driver's behavior, speed, whether driver was on phone, alcohol consumption by driver. Also passengers in the victim's vehicle. Their independent testimony can establish negligence conclusively.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "panchnama",
+      "title": "Panchnama Requirements",
+      "description_md": "Panchnamas for accident cases are crucial for accident reconstruction. Must be prepared at the actual scene before it is disturbed.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "panchnama",
+          "title": "Spot Inspection Panchnama",
+          "description_md": "Comprehensive scene documentation: road type, width, condition, traffic density, weather, lighting, visibility, signage. Position of vehicles, skid marks (measure length and direction), debris, blood spots, personal belongings. Include scaled rough sketch with North direction and reference points. Photographs from all angles.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Vehicle Seizure Panchnama",
+          "description_md": "Seizure of offending vehicle: registration number, make, model, color, engine number, chassis number, odometer reading. Document damage in detail with photographs. Seal relevant parts (bumper with blood, broken glass). Note fuel gauge reading and any items found in the vehicle.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Mechanical Inspection Panchnama",
+          "description_md": "Panchnama of mechanical inspection by authorized inspector: brake test results, steering play, tire condition report, light functionality test. Conducted at RTO or authorized workshop. Inspector's signed report attached to panchnama.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Inquest Panchnama (Fatal Accidents)",
+          "description_md": "Inquest under CrPC 174 / BNSS 194: position and condition of the body, injuries visible, clothing damage pattern, blood pool location relative to impact point. Correlation of body injuries with vehicle damage (e.g., bumper height matching leg fracture height).",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "forensic",
+      "title": "Forensic Requirements",
+      "description_md": "Forensic analysis for accident reconstruction and driver impairment testing.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "forensic",
+          "title": "Blood Alcohol and Drug Analysis",
+          "description_md": "Quantitative blood alcohol level determination at FSL. Legal limit: 30mg/100ml blood (Section 185 MV Act). If drugs are suspected, screen for: benzodiazepines, opioids, cannabis, amphetamines. Two blood samples: one for testing, one preserved as court sample.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Paint and Glass Transfer Analysis",
+          "description_md": "Compare paint chips from victim's clothing/body with offending vehicle's paint (layer comparison). Analyze broken glass composition to match vehicle headlights or windshield. Critical evidence in hit-and-run cases for vehicle identification.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Accident Reconstruction",
+          "description_md": "Scientific reconstruction based on: skid mark analysis (speed calculation using drag coefficient), point of impact determination, vehicle dynamics, injury pattern analysis. May require specialist from FSL or IIT road safety department. Can establish approximate speed and fault.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Biological Evidence Matching",
+          "description_md": "In hit-and-run cases: match blood, hair, tissue, and fibers found on the vehicle with the victim. DNA analysis may be needed for conclusive identification. This evidence conclusively links a specific vehicle to the victim.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "witness_bayan",
+      "title": "Witness Statements (Bayan)",
+      "description_md": "Witness statements under CrPC 161 / BNSS 180. In road accident cases, independent witnesses are often reluctant; identify and record statements promptly.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "witness_bayan",
+          "title": "Eyewitness to the Accident",
+          "description_md": "Direct witnesses who saw the collision: speed, direction, lane position, signal status, driver's behavior before impact. Note the witness's position relative to the accident. In many cases, other motorists or pedestrians are the only witnesses. Record mobile numbers for future contact.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Victim's / Injured Person's Statement",
+          "description_md": "If the victim is alive and conscious, record their account of the accident: what they saw, from which direction the vehicle came, speed, any evasive action they took. In fatal cases, dying declaration if the victim was conscious before death.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Medical and Expert Witnesses",
+          "description_md": "Doctor who prepared MLC or conducted post-mortem. RTO inspector who conducted mechanical inspection. FSL expert for blood alcohol analysis. Accident reconstruction expert if employed. Their expert testimony explains technical aspects to the court.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "First Responder / Good Samaritan Witnesses",
+          "description_md": "Persons who first reached the scene and helped the victim. Their observation of the scene before it was disturbed, position of vehicles and victim, driver's condition (signs of intoxication), and any admission or statements made by the driver at the scene.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    }
+  ]
+}

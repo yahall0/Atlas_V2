@@ -1,0 +1,303 @@
+{
+  "case_category": "pocso",
+  "template_version": "1.0.0",
+  "description": "Chargesheet mindmap template for cases under the Protection of Children from Sexual Offences Act, 2012 (POCSO Act). Child-friendly investigation procedures are mandatory throughout.",
+  "branches": [
+    {
+      "node_type": "legal_section",
+      "title": "Applicable Legal Sections",
+      "description_md": "POCSO Act provisions and companion sections. POCSO overrides IPC/BNS for sexual offences against children (below 18 years). Investigation must be completed within 2 months (Section 35(2) POCSO).",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "legal_section",
+          "title": "POCSO Section 4 -- Penetrative Sexual Assault",
+          "description_md": "Penetrative sexual assault on a child. Minimum 10 years imprisonment extending to life + fine. If child is below 16 years: minimum 20 years extending to life. Gender-neutral provision covering all forms of penetration.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "POCSO Section 6 -- Aggravated Penetrative Sexual Assault",
+          "description_md": "Penetrative sexual assault by: police officer, public servant, armed forces, management/staff of institution, gang assault, use of deadly weapon, causing grievous hurt, repeated assault, assault on child below 12 years. Minimum 20 years imprisonment extending to life or death + fine.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "POCSO Section 8 -- Sexual Assault (Non-Penetrative)",
+          "description_md": "Sexual assault involving touching with sexual intent: touching vagina, penis, anus, breast of child, or making child touch such body parts. Minimum 3 years extending to 5 years + fine.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "POCSO Section 12 -- Sexual Harassment of Child",
+          "description_md": "Showing pornography, making sexual gestures, repeatedly following or watching, threatening to use sexual images. Punishment: up to 3 years imprisonment + fine.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "POCSO Section 14/15 -- Use of Child for Pornographic Purposes",
+          "description_md": "Using a child for pornographic purposes (Section 14) and storage of pornographic material involving a child (Section 15). Section 14: minimum 5 years up to life. Section 15: up to 3 years for possession, up to 5 years for dissemination.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 376 / BNS 64 read with POCSO -- Rape of Child",
+          "description_md": "IPC 376 may be charged alongside POCSO. BNS 64(2) specifically addresses rape of woman under 16 years (minimum 20 years RI). POCSO Act provides for more stringent punishment and overrides inconsistent IPC provisions per Section 42A POCSO.",
+          "ipc_section": "376",
+          "bns_section": "64",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "immediate_action",
+      "title": "Immediate Actions",
+      "description_md": "POCSO mandates child-friendly procedures at every stage. The child must not be detained at the police station overnight. No child to be kept in jail or lock-up (Section 24 POCSO). Reporting is mandatory (Section 19).",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "immediate_action",
+          "title": "Register FIR by Special Juvenile Police Unit (SJPU)",
+          "description_md": "Report must be registered by the Special Juvenile Police Unit or the local police (Section 19 POCSO). Record in simple language the child can understand. FIR to be registered at the child's residence or a place of child's choice. Do not require child to come to the police station unnecessarily.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Ensure Child's Immediate Safety",
+          "description_md": "If the accused is a family member or guardian, immediately arrange for the child's removal to a safe place or shelter home through the Child Welfare Committee (CWC) under Section 19(5) POCSO. Inform the CWC within 24 hours. Provide emergency medical care if needed.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Medical Examination with Consent",
+          "description_md": "Medical examination must be conducted by a registered medical practitioner in the presence of the parent/guardian or a person the child trusts (Section 27 POCSO). If child is a girl, examination by a female doctor. Informed consent of parent/guardian required. Emergency treatment takes priority over investigation needs.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Record Child's Statement with Care",
+          "description_md": "Statement must be recorded at the child's residence or a place of child's choice, not at the police station (Section 24 POCSO). By a woman officer not below the rank of Sub-Inspector. Child's identity must not be disclosed. No child to be made to repeat the statement. Use child-friendly language. Do not ask leading or suggestive questions.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Inform Child Welfare Committee (CWC)",
+          "description_md": "CWC must be informed within 24 hours of receiving the report (Section 19(6) POCSO). CWC will assess the child's need for care and protection and may order: shelter home placement, foster care, or any other arrangement in the child's best interest.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Appoint Support Person and Interpreter",
+          "description_md": "Appoint a support person (trained counselor or social worker) to assist the child through the investigation and trial process (Section 39 POCSO). If the child speaks a different language or has a disability, arrange for an interpreter or special educator.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "evidence",
+      "title": "Evidence Collection",
+      "description_md": "Evidence collection must be sensitive to the child's age and emotional state. Minimize the number of times the child is questioned. Prioritize corroborative evidence to reduce reliance on child's testimony alone.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "evidence",
+          "title": "Medical Examination Report",
+          "description_md": "Detailed medical report covering: genital and extra-genital injuries, presence of biological evidence (semen, saliva), sexually transmitted infections, pregnancy test (if applicable), psychological assessment. No two-finger test. Use body diagrams to mark injuries. MLC must be completed within 24 hours.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Forensic Biological Evidence",
+          "description_md": "DNA samples from child (blood, swabs) and accused. Semen, saliva, hair samples from the child's body and clothing. Collect clothing of child and accused separately in paper bags. Bedsheets, towels from the scene. All samples to FSL within 24 hours with proper chain of custody.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Digital and Electronic Evidence",
+          "description_md": "Messages, photos, videos exchanged between accused and child. Social media conversations, online grooming evidence. If child pornography is involved, preserve under IT Act Sections 67A/67B with hash values. Do not view or copy child sexual abuse material (CSAM) unnecessarily; let forensic experts handle.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "School and Institutional Records",
+          "description_md": "If offence occurred in school/hostel/institution: attendance records, visitor logs, CCTV footage, staff duty rosters, complaint records, previous incidents. Transfer certificates, character certificates. Report of internal complaints committee if one exists.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Age Verification Documents",
+          "description_md": "Birth certificate, school admission records, Aadhaar card, or hospital birth records to establish the child is below 18 years. If documents are unavailable, ossification test (bone age determination) through medical examination. Age is a critical element of the POCSO offence.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "interrogation",
+      "title": "Interrogation Plan",
+      "description_md": "Child victim interviews must follow NICHD (National Institute of Child Health and Human Development) protocol. Avoid repeated interviews. Never confront child with the accused.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "interrogation",
+          "title": "Child's Statement Recording (Section 25 POCSO)",
+          "description_md": "Record child's statement under CrPC 164 / BNSS 183 before a Magistrate as soon as possible. Magistrate must ensure child-friendly atmosphere. Statement may be recorded at the child's residence. Use dolls, drawings, or other aids for younger children. Audio-video recording is recommended. Child must not be asked to repeat statement.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Accused Interrogation",
+          "description_md": "Interrogate accused on: relationship with the child, access to the child, timeline on the day of offence, alibi, previous interactions with children. Check for prior complaints or offences. Conduct medical examination of accused for corroborative injuries and DNA collection.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Parent/Guardian Statements",
+          "description_md": "Statement of parents or guardians: when they noticed changes in child's behavior, when the child disclosed, who else had access to the child, child's routine, relationship between family and accused. If accused is a family member, handle with extreme sensitivity and ensure child's protection.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Institutional Staff Statements",
+          "description_md": "If offence occurred in a school, hostel, or institution: statements of teachers, wardens, caretakers, other children (age-appropriate and with parental consent), support staff. Focus on accused's access to children, supervision gaps, and any prior complaints.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "panchnama",
+      "title": "Panchnama Requirements",
+      "description_md": "Panchnamas in POCSO cases. The child should not be present during panchnama proceedings unless absolutely necessary.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "panchnama",
+          "title": "Scene of Crime Panchnama",
+          "description_md": "Detailed documentation of the location: room/area where the offence occurred, access points, isolation of the location, presence of beds/furniture, stains, articles left behind. Photograph the scene without the child present. Note proximity to public areas and ease of access.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Seizure Panchnama (Clothing and Articles)",
+          "description_md": "Seizure of clothing of both child and accused, bedsheets, towels, toys or articles used in the offence, electronic devices. Each item individually packed and sealed. Note stains, tears, or biological material visible.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Electronic Device Seizure Panchnama",
+          "description_md": "Seizure of mobile phones, computers, tablets, cameras, and storage media of the accused. Record IMEI, serial numbers, condition. If devices contain CSAM, note without viewing content. Seal and send directly to cyber forensic lab.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "forensic",
+      "title": "Forensic Requirements",
+      "description_md": "Forensic evidence is crucial to corroborate the child's testimony and establish the offence scientifically.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "forensic",
+          "title": "DNA Profiling and Matching",
+          "description_md": "DNA profiling of biological samples from the child and accused. Match semen/saliva DNA from child's body/clothing with accused's DNA profile. In cases of pregnancy resulting from assault, DNA of the fetus/child can conclusively identify the offender.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Digital Forensics (Device Analysis)",
+          "description_md": "Forensic examination of accused's devices for: photos/videos of the child, CSAM, chat conversations with the child, internet browsing history, social media activity. Use certified forensic tools. Prepare Section 65B certificate. Handle CSAM as per legal protocols.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Psychological Assessment",
+          "description_md": "Psychological evaluation of the child by a trained child psychologist. Assess: trauma symptoms, behavioral changes consistent with sexual abuse, credibility of the child's account. This is supportive evidence, not a lie detection test. Report must be prepared sensitively.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Age Determination (Ossification Test)",
+          "description_md": "If the child's age is disputed and no documentary proof is available, conduct ossification test (X-ray of wrist and pelvis) at a government hospital. Medical board opinion on approximate age. Age determination is critical as POCSO applies only to children below 18.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "witness_bayan",
+      "title": "Witness Statements (Bayan)",
+      "description_md": "Witness statements with child-friendly protocols. The child's identity must be protected at all stages. Media disclosure of the child's identity is punishable under Section 23 POCSO.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "witness_bayan",
+          "title": "Child Victim's Statement",
+          "description_md": "To be recorded by a woman sub-inspector or above in a child-friendly environment. Use simple, non-leading questions. Allow the child to narrate in their own words. Use anatomical dolls or drawings for younger children. Audio-video record the statement. Child's statement under CrPC 164 / BNSS 183 before Magistrate has high evidentiary value.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "First Disclosure Witness",
+          "description_md": "The person to whom the child first reported the abuse. Record: what the child said, the child's emotional state, when and where the disclosure happened. This witness's testimony is vital corroboration under Section 6 (Res Gestae) of the Indian Evidence Act.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Medical Expert Witness",
+          "description_md": "Doctor who examined the child: clinical findings, consistency with the alleged assault, presence of biological material, opinion on age of injuries. Must be prepared to explain findings in simple terms to the Special Court.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Support Person and Counselor",
+          "description_md": "Statement of the appointed support person regarding: child's behavior, emotional state, any disclosures made during counseling (with limitations on confidentiality). Counselor's assessment of the impact on the child.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "CWC Member / Probation Officer",
+          "description_md": "Statement of the CWC member who assessed the child's need for care and protection. Report on the child's living conditions, family dynamics, and whether the child is safe to remain with the family or requires institutional care.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    }
+  ]
+}

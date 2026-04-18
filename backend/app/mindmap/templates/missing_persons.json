@@ -1,0 +1,318 @@
+{
+  "case_category": "missing_persons",
+  "template_version": "1.0.0",
+  "description": "Chargesheet mindmap template for missing person cases. Investigation may convert to kidnapping (IPC 363/BNS 137) or murder (IPC 302/BNS 103) depending on evidence uncovered.",
+  "branches": [
+    {
+      "node_type": "legal_section",
+      "title": "Applicable Legal Sections",
+      "description_md": "Missing person cases may not initially involve a specific penal section. FIR is registered and investigation proceeds. If foul play is established, sections are added. Supreme Court in Lalita Kumari v. Govt. of UP mandates FIR registration.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "legal_section",
+          "title": "IPC 363 / BNS 137(2) -- Kidnapping from Lawful Guardianship",
+          "description_md": "If evidence suggests the missing person (especially a minor) has been kidnapped. Whoever takes or entices any person under 16 (male) or 18 (female) from lawful guardianship. Punishment: up to 7 years imprisonment + fine.",
+          "ipc_section": "363",
+          "bns_section": "137(2)",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 364/364A / BNS 140(1)/140(2) -- Kidnapping for Ransom",
+          "description_md": "If kidnapping for ransom is suspected. IPC 364A: kidnapping in order to compel government or person to do or abstain from doing any act, or for ransom. Punishment: death or life imprisonment.",
+          "ipc_section": "364A",
+          "bns_section": "140(2)",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 302 / BNS 103(1) -- Murder",
+          "description_md": "If investigation reveals the missing person has been murdered. Conversion of missing person case to murder case. Body recovery or strong circumstantial evidence of death required.",
+          "ipc_section": "302",
+          "bns_section": "103(1)",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 370 / BNS 143 -- Trafficking of Persons",
+          "description_md": "If investigation reveals the missing person is a victim of human trafficking. Especially relevant for missing women and children. Punishment: minimum 7 years up to life imprisonment.",
+          "ipc_section": "370",
+          "bns_section": "143",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "legal_section",
+          "title": "IPC 366 / BNS 139 -- Kidnapping/Abducting Woman to Compel Marriage",
+          "description_md": "If a missing woman is found to have been kidnapped or abducted with intent to compel her to marry or for illicit intercourse. Punishment: up to 10 years imprisonment + fine.",
+          "ipc_section": "366",
+          "bns_section": "139",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "immediate_action",
+      "title": "Immediate Actions",
+      "description_md": "Golden period: First 48 hours are critical. SC guidelines mandate immediate registration of complaint. No waiting period for registering missing person complaint.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "immediate_action",
+          "title": "Register Missing Person Report / FIR Immediately",
+          "description_md": "Register complaint immediately without insisting on any waiting period (SC guidelines). If the missing person is a child, woman, elderly, or mentally challenged, register FIR immediately under appropriate sections. Collect recent photograph, physical description (height, complexion, build, distinguishing marks, clothing last worn).",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Flash Alert and Local Search",
+          "description_md": "Flash wireless message to all nearby police stations, railway police, bus stands, airports with photograph and description. Deploy beat staff for immediate area search. Check nearby CCTV cameras for last sighting. Alert community through police networks and local contacts.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Verify Last Known Location and Activities",
+          "description_md": "Establish: where the person was last seen, by whom, what they were doing, where they were headed, what they were wearing, what they were carrying. Visit the last known location. Talk to the last person who saw them. Check if they mentioned any plan or destination.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Check Hospitals, Mortuaries, and Shelters",
+          "description_md": "Immediately check all nearby hospitals (emergency wards, unidentified patient admissions), government and private mortuaries, shelter homes, de-addiction centers, beggars' homes, and mental health institutions. Share photograph and description. Continue periodic checks.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Mobile Phone Tracking (CDR/IPDR)",
+          "description_md": "Obtain CDR (Call Detail Records) and IPDR (Internet Protocol Detail Records) of the missing person's mobile phone. Request last known cell tower location from the service provider. If phone is still active, request real-time tracking. Check if phone is switched off and when it was last active.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "immediate_action",
+          "title": "Upload on ZIPNET / TrackChild / NCRB Portal",
+          "description_md": "Upload details on Zonal Integrated Police Network (ZIPNET) for inter-state coordination. For missing children: upload on TrackChild portal (MWCD) and Khoya-Paya portal. Register on NCRB's Missing Persons database. These databases help in cross-matching with unidentified bodies and found persons.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "evidence",
+      "title": "Evidence Collection",
+      "description_md": "Systematic evidence gathering to establish the missing person's trail and identify whether foul play is involved.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "evidence",
+          "title": "CCTV Trail Analysis",
+          "description_md": "Collect CCTV footage along the missing person's last known route. Map the trail: home to last seen location, known habitual routes, nearby markets, transport hubs. Identify if they were alone or with someone. Note vehicle details if they boarded any transport. Time-critical: most CCTV overwrites in 7-30 days.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Mobile Phone and Digital Footprint",
+          "description_md": "Complete CDR analysis: calls made/received, SMS, data usage, tower locations showing movement pattern. Social media activity (last login, messages, posts). Email activity. App-based cab rides (Ola, Uber). Google/Apple location history. UPI/wallet transactions (may show location).",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Financial Activity Trail",
+          "description_md": "Bank account transactions: ATM withdrawals (with CCTV from ATM), UPI payments, credit/debit card usage (location reveals presence). Check if large amounts were withdrawn before disappearance (may indicate planned departure or coercion). Insurance policies, debts, and financial stress.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Personal Belongings and Documents Check",
+          "description_md": "Check what the missing person took: passport, Aadhaar, important documents, clothes, money. If essential documents are left behind, suggests unplanned disappearance. If taken, suggests planned departure. Check if they booked train/bus/flight tickets.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "evidence",
+          "title": "Social Media and Online Activity Analysis",
+          "description_md": "Analyze missing person's social media: recent posts, messages (DMs), new friends/contacts, dating app activity, group memberships. Check for any online threats, cyberstalking, or suspicious interactions. Last login timestamps. Check if they used a VPN or had a secret account.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "interrogation",
+      "title": "Interrogation Plan",
+      "description_md": "Investigation to determine whether the disappearance is voluntary, accidental, or result of foul play. Interrogation of persons closest to the missing person is essential.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "interrogation",
+          "title": "Family Members and Close Relatives",
+          "description_md": "Detailed questioning: missing person's mental state, recent behavior changes, quarrels, relationships, financial situation, health issues, substance abuse, romantic relationships, family disputes. Were there threats from anyone? Any custody disputes? Any previous instances of going missing?",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Friends, Colleagues, and Associates",
+          "description_md": "Question close friends, workplace colleagues, and social circle. Focus on: any confidences shared, plans mentioned, complaints about anyone, new relationships, secrets kept from family. For students: classmates, teachers, coaching institute contacts. Check for any online friends not known to family.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Last Seen Witnesses",
+          "description_md": "Detailed statement from the last person(s) to see the missing person. Exact time, place, circumstances, conversation content, who else was present, which direction the person went, whether they were alone or with someone, their emotional state and demeanor.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Suspects (if foul play suspected)",
+          "description_md": "If investigation reveals foul play: interrogate persons with motive (property disputes, enmity, revenge, relationship conflicts). Verify alibis for the time of disappearance. Check their CDR and location data. Conduct search of their premises if warranted.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "interrogation",
+          "title": "Informer and Local Intelligence Network",
+          "description_md": "Activate local informer network. Check with auto-rickshaw/taxi drivers, street vendors, beggars, and local persons who observe the area regularly. In cases of suspected trafficking: coordinate with Anti-Human Trafficking Units. Check railway stations and bus stands for sightings.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "panchnama",
+      "title": "Panchnama Requirements",
+      "description_md": "Panchnamas in missing person cases may be required if the investigation reveals a crime scene or if the missing person is found deceased.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "panchnama",
+          "title": "Last Known Location Panchnama",
+          "description_md": "Inspection of the place where the missing person was last seen. Document: condition of the area, any signs of struggle, abandoned belongings, blood traces, tire marks, witness statements about activities at the location. Secure potential evidence.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Missing Person's Residence Panchnama",
+          "description_md": "Inspection of the missing person's room/house: condition of belongings, missing items (clothes, documents, valuables), signs of disturbance, diary/journal entries, medications left behind, computer/phone left behind. This helps determine if departure was voluntary.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Body Recovery Panchnama (if found deceased)",
+          "description_md": "If the missing person is found dead: detailed crime scene panchnama, inquest under CrPC 174 / BNSS 194, body identification procedure, seizure of evidence at the recovery site. Case converts to murder/culpable homicide investigation.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "panchnama",
+          "title": "Recovery Panchnama (if kidnapping established)",
+          "description_md": "If the missing person is found alive at a location: document the place of confinement, conditions, any restraints used, statements of the victim about who brought them and how. Seizure of restraints, locks, and articles at the location.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "forensic",
+      "title": "Forensic Requirements",
+      "description_md": "Forensic requirements depend on the direction the investigation takes. These are common forensic needs in missing person cases.",
+      "priority": "recommended",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "forensic",
+          "title": "DNA Collection from Family (for future matching)",
+          "description_md": "Collect DNA samples (buccal swabs) from immediate family members (parents, siblings) for future comparison in case an unidentified body is found. Also collect personal items of the missing person (toothbrush, hairbrush, razor) for DNA extraction and database entry.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Digital Forensics and Phone Analysis",
+          "description_md": "If the missing person's phone or computer is recovered: extract all data including deleted files, browsing history, location history, contacts, messages. Analyze for: plans to leave, threats received, new contacts, meeting arrangements. Section 65B certification required.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Scene Forensics (if foul play suspected)",
+          "description_md": "If blood or biological evidence is found at any location: collect samples for DNA analysis, blood pattern analysis, luminol testing for cleaned blood. Fingerprint development at suspect locations. Soil and trace evidence comparison if body is recovered at a different location.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "forensic",
+          "title": "Body Identification Forensics (if body recovered)",
+          "description_md": "If an unidentified body is found that may be the missing person: DNA matching with family samples, dental record comparison, fingerprint comparison, facial reconstruction (if decomposed), skeletal analysis for age/sex/height, tattoo and scar matching. Superimposition technique for skull identification.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    },
+    {
+      "node_type": "witness_bayan",
+      "title": "Witness Statements (Bayan)",
+      "description_md": "Comprehensive witness statements to establish the missing person's last known movements, state of mind, and any indicators of foul play.",
+      "priority": "critical",
+      "requires_disclaimer": false,
+      "children": [
+        {
+          "node_type": "witness_bayan",
+          "title": "Complainant / Family Member Statement",
+          "description_md": "Detailed statement from the person who reported the missing person: full description (height, weight, complexion, hair, scars, tattoos), when last seen, what they were wearing, mental state, any planned meetings, health conditions, medications. Any recent life events (job loss, breakup, threats).",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Last Seen Witness Statement",
+          "description_md": "Statement of the last person who saw the missing person. Precise time, exact location, what the person said, their demeanor, who they were with, which direction they went. This is the starting point of the investigation trail.",
+          "priority": "critical",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Workplace / School Witnesses",
+          "description_md": "Statements from employer, colleagues, or teachers/classmates. Did the person attend work/school on the day of disappearance? What time did they leave? Any unusual behavior? Conflicts with anyone? Any mention of plans or meetings? Attendance records.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Neighbourhood Witnesses",
+          "description_md": "Statements from neighbours: when they last saw the person, any unusual visitors, vehicles, or activity observed. Security guards, shopkeepers, street vendors who may have noticed the person's movements on the relevant day.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        },
+        {
+          "node_type": "witness_bayan",
+          "title": "Transport and Service Provider Witnesses",
+          "description_md": "Auto/taxi/cab drivers who may have picked up the person. Railway/bus booking staff. Hotel check-in staff. Travel agents. Their records and testimony can trace the person's movement after the last known sighting.",
+          "priority": "recommended",
+          "requires_disclaimer": false
+        }
+      ]
+    }
+  ]
+}

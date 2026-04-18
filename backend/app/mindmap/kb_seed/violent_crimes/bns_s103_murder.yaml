@@ -1,0 +1,699 @@
+offence_code: BNS_S103_MURDER
+category_id: violent_crimes
+bns_section: "103"
+bns_subsection: "(1)"
+display_name_en: "Murder"
+display_name_gu: "હત્યા"
+short_description_md: |
+  Whoever causes death of any person with the intention of causing death,
+  or with the intention of causing such bodily injury as is likely to cause death,
+  or with the knowledge that the act is so imminently dangerous that it must in
+  all probability cause death or such bodily injury as is likely to cause death,
+  commits murder. Exceptions apply under S.103 provisos (grave and sudden
+  provocation, private defence, public servant acting in good faith, sudden fight,
+  and consent of victim above 18 years).
+punishment: "Death or imprisonment for life, and fine"
+cognizable: true
+bailable: false
+triable_by: "Court of Session"
+compoundable: "no"
+schedule_reference: "BNS Schedule I, Part I"
+related_offence_codes:
+  - BNS_S105_CULPABLE_HOMICIDE
+  - BNS_S109_ATTEMPT_TO_MURDER
+  - BNS_S106_DEATH_BY_NEGLIGENCE
+  - BNS_S238_CAUSING_DISAPPEARANCE_OF_EVIDENCE
+  - BNS_S61_CRIMINAL_CONSPIRACY
+special_acts: []
+
+knowledge_nodes:
+
+  # ── LEGAL SECTION NODES ─────────────────────────────────────────────────────
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BNS S.103 — Murder"
+    description_md: |
+      S.103 of the Bharatiya Nyaya Sanhita 2023 defines murder. Culpable homicide
+      is murder if the act by which the death is caused is done with the intention
+      of causing death, or with the intention of causing such bodily injury as the
+      offender knows to be likely to cause the death of the person to whom the harm
+      is caused, or with the intention of causing bodily injury to any person and
+      the bodily injury intended to be inflicted is sufficient in the ordinary
+      course of nature to cause death, or if the person committing the act knows
+      that it is so imminently dangerous that it must in all probability cause death.
+
+      Five exceptions exist (grave and sudden provocation, exceeding private
+      defence, public servant, sudden fight without premeditation, consent above
+      18 years). The burden of proving exceptions lies on the accused under S.22
+      BSA 2023.
+    legal_basis_citations:
+      - framework: BNS
+        section: "103"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BNS S.105 — Culpable Homicide Not Amounting to Murder"
+    description_md: |
+      Alternative charge when the act falls under one of the five exceptions to
+      S.103 BNS or when the act is done with knowledge that it is likely to cause
+      death but without intention to cause death or such bodily injury as is
+      sufficient in the ordinary course of nature to cause death.
+
+      Part I (with intention): imprisonment for life or up to 10 years, and fine.
+      Part II (with knowledge): up to 10 years, and fine.
+    legal_basis_citations:
+      - framework: BNS
+        section: "105"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "BNSS S.194 — Inquest by Police"
+    description_md: |
+      When information is received that a person has died under circumstances
+      raising reasonable suspicion that some other person has committed an offence,
+      the officer in charge of the police station or any officer not below the
+      rank of ASI shall immediately proceed to the place, make an investigation,
+      and draw up a report of the apparent cause of death describing injuries,
+      weapons, and articles found, stating in what manner and by what weapon the
+      injuries appear to have been inflicted. The body shall not be removed
+      without inquest report except with permission of the investigating officer.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "194"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "BNSS S.176 — Inquiry by Magistrate into Cause of Death"
+    description_md: |
+      When any person dies while in custody of the police, or when the cause of
+      death is unknown, or when a woman dies within seven years of marriage under
+      suspicious circumstances, a Judicial Magistrate or Metropolitan Magistrate
+      shall hold an inquiry into the cause of death. In cases of death in police
+      custody, the inquiry is mandatory and the nearest Magistrate shall be
+      informed immediately. The Magistrate may order exhumation and post-mortem
+      if death occurred in custody and no prior PM was conducted.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "176"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "BNS S.61(2) — Criminal Conspiracy to Commit Murder"
+    description_md: |
+      When two or more persons agree to commit murder or do an act in furtherance
+      of that conspiracy, each conspirator is punishable with the same punishment
+      as if they had abetted the murder. Conspiracy requires an agreement and
+      overt act; mere intention without agreement is insufficient.
+    legal_basis_citations:
+      - framework: BNS
+        section: "61"
+        subsection: "(2)"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── IMMEDIATE ACTION NODES ─────────────────────────────────────────────────
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Secure the Crime Scene"
+    description_md: |
+      Immediately upon arrival:
+      - Cordon off the area with barricade tape; establish an inner perimeter
+        (scene proper) and outer perimeter (approach area).
+      - Post constables at entry points. No unauthorized person to enter.
+      - Maintain a **Scene Entry Log** with name, rank, time-in, time-out of every
+        person entering the scene.
+      - Do not touch, move, or disturb any article at the scene.
+      - If the scene is outdoors, protect from weather with tarpaulin if needed
+        without disturbing evidence underneath.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "175"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Register FIR under BNSS S.173"
+    description_md: |
+      Register the First Information Report immediately upon receiving information
+      of the cognizable offence. Record the informant's statement verbatim.
+      Provide a free copy of the FIR to the informant. If the informant is
+      injured or unable to attend the police station, the officer shall proceed
+      to the informant. Under BNSS S.173(1), information may also be given by
+      electronic communication. Zero FIR applicable when offence occurred outside
+      station jurisdiction — FIR must be transferred to the concerned station
+      within 24 hours.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "173"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Preserve Perishable Evidence and Photograph Scene"
+    description_md: |
+      Collect perishable evidence (blood, biological material, hair, fibers)
+      before degradation. Photograph the scene from general, mid-range, and
+      close-up perspectives. Video-record the undisturbed scene. Collect
+      samples in sterile containers; use paper bags for clothing (never plastic).
+      Ensure chain of custody documentation from the first moment of collection.
+      Label every exhibit with case number, date, time, collecting officer name,
+      and location description.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Inform Executive Magistrate and Arrange Post-Mortem"
+    description_md: |
+      Inform the nearest Executive Magistrate or Sub-Divisional Magistrate
+      immediately upon registration of the case. Arrange post-mortem examination
+      by a registered medical practitioner at the nearest government hospital.
+      Under BNSS S.194, post-mortem should be conducted as soon as possible,
+      preferably by two medical officers. Videography of the post-mortem is
+      mandatory in cases involving offences punishable with 7+ years. Body
+      shall be identified by relatives before post-mortem.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "194"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Conduct Inquest Under BNSS S.194"
+    description_md: |
+      Prepare inquest report at the scene in the presence of two or more
+      respectable inhabitants of the locality. Record: apparent cause of death,
+      description and position of the body, visible injuries, weapons or articles
+      found near the body, identity of the deceased if known, clothing and
+      valuables, and all surrounding circumstances. The inquest panchnama is a
+      critical document — any deficiency may be exploited by the defence.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "194"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  # ── PANCHNAMA NODES ─────────────────────────────────────────────────────────
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Spot Panchnama (Scene of Crime Panchnama)"
+    description_md: |
+      Detailed on-site record in the presence of two independent panchas:
+      - Exact location with GPS coordinates and distance from nearest landmark.
+      - Condition of surroundings: doors/windows open or closed, lights on/off.
+      - Position and condition of the body: posture, rigor mortis, lividity.
+      - Bloodstain locations, patterns, and approximate quantity.
+      - Weapon or instrument found at scene (describe without touching).
+      - Signs of struggle: disturbed furniture, broken objects, drag marks.
+      - Entry and exit points.
+      - Rough sketch map drawn to approximate scale.
+      Must be prepared at the actual scene, not at the police station.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "175"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Seizure Panchnama (Zimma Panchnama)"
+    description_md: |
+      Document seizure of every physical exhibit in the presence of panchas:
+      weapon, clothing (victim and accused), mobile phones, documents, biological
+      samples, loose articles. Each item: individually described, labeled with
+      exhibit number, sealed in a tamper-evident container/envelope, signed
+      across the seal by the panchas and the IO. Condition, quantity, and
+      distinguishing marks noted. Seized articles given on superdari where
+      appropriate. BNSS S.105 governs search and seizure procedures.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "105"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Identification Panchnama"
+    description_md: |
+      If the deceased is unidentified: record physical descriptors (height, build,
+      complexion, scars, tattoos, dental features), clothing description,
+      photograph the face and full body, obtain fingerprints, collect DNA sample.
+      Publish descriptions in local newspapers and circulate to nearby stations.
+      If identification by relatives: record the identification proceeding with
+      panchas present and the relative's statement on how they identified the body.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Recovery / Discovery Panchnama under BSA S.8"
+    description_md: |
+      When the accused leads to discovery of a weapon, concealed body part,
+      stolen property, or other incriminating article — record only the
+      admissible portion under S.8 of the Bharatiya Sakshya Adhiniyam 2023
+      (corresponding to old S.27 Indian Evidence Act). The panchnama must state:
+      "The accused voluntarily pointed out the place from which the article was
+      recovered." Panchas must witness the actual discovery. Exact location
+      described with reference to landmarks, GPS coordinates, and photographs.
+    legal_basis_citations:
+      - framework: BSA
+        section: "8"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  # ── EVIDENCE NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Post-Mortem Report"
+    description_md: |
+      Obtain detailed post-mortem report from the authorized medical officer.
+      Must include: cause of death, estimated time of death, nature and number of
+      injuries (ante-mortem vs. post-mortem), description of each wound (incised,
+      lacerated, abrasion, contusion, firearm), dimensions and depth, internal
+      organ examination findings, viscera preservation for chemical analysis
+      (stomach contents, blood, liver, kidney, spleen). Cross-reference injuries
+      with the alleged weapon. Request opinion on whether injuries are consistent
+      with the case theory. Videography of post-mortem is mandatory for offences
+      punishable with 7+ years under BNSS S.194.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "194"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Scene of Crime Report"
+    description_md: |
+      Detailed SOC report prepared by the forensic/CFSL team:
+      - Scene photographs (general, mid-range, close-up) with scale reference.
+      - Videography of undisturbed scene.
+      - Rough and scaled sketch maps.
+      - Bloodstain pattern analysis (BPA): directionality, impact spatter, cast-off.
+      - Location and description of all physical evidence collected.
+      - Point of entry and exit analysis.
+      - Trace evidence: fibers, hair, soil, glass fragments.
+      Scene of Crime Officers (SOCO) report is admissible as expert evidence.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Weapon Recovery and Forensic Matching"
+    description_md: |
+      Recovery of the murder weapon through discovery (BSA S.8) or independent
+      search. Prepare seizure memo with independent witnesses. Weapon must be
+      sent to FSL for matching with wound patterns in the post-mortem report:
+      - Blade weapons: dimensions matched against wound dimensions.
+      - Blunt weapons: surface pattern matched against contusion patterns.
+      - Firearms: test-fire and compare with recovered bullet/cartridge.
+      Weapon should be sealed in the presence of panchas and sent to FSL
+      without delay. FSL opinion on consistency is critical corroborative evidence.
+    legal_basis_citations:
+      - framework: BSA
+        section: "8"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Bloodstain and Biological Evidence"
+    description_md: |
+      Collect blood samples from the scene (control and test), victim's clothing,
+      accused's clothing and person. Collect hair, fibers, tissue, nail clippings.
+      Package biological samples in paper bags or glass vials (never plastic).
+      Maintain cold chain for DNA samples. Send to FSL for serology (blood
+      grouping) and DNA profiling. All collection must be witnessed by panchas
+      and documented in the seizure panchnama with individual exhibit labels.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "CCTV and Electronic Surveillance Evidence"
+    description_md: |
+      Seize CCTV footage from the scene and surrounding areas immediately —
+      footage is typically overwritten within 7-30 days. Obtain tower dump and
+      Call Detail Records (CDR) for the accused and victim's mobile numbers from
+      the service provider via BNSS S.94 requisition. Check for dashcam footage
+      from vehicles in the area. Preserve original digital media with hash values
+      (MD5/SHA-256). Prepare S.63 BSA certificate for electronic evidence
+      admissibility.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+      - framework: BNSS
+        section: "94"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: medium
+    title_en: "Call Detail Records (CDR) and Cell Tower Location"
+    description_md: |
+      CDR analysis establishes the movement pattern and communication timeline
+      of accused and victim. Request CDR/IPDR from telecom providers for relevant
+      numbers covering 7-15 days before and after the incident. Cell tower
+      location data corroborates or rebuts alibi. Plot cell tower hits on a map
+      to show movement trajectory. CDR is electronic evidence — S.63 BSA
+      certificate mandatory for admissibility.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  # ── FORENSIC NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: forensic
+    tier: canonical
+    priority: critical
+    title_en: "DNA Profiling and Analysis"
+    description_md: |
+      DNA profiling of blood, hair, skin cells, semen, and other biological
+      samples collected from the scene, victim, and accused. STR (Short Tandem
+      Repeat) analysis for identification. Compare profiles to establish presence
+      at scene and physical contact between parties. Samples must be collected
+      in sterile containers, stored at 4 degrees Celsius, and dispatched to FSL
+      within 72 hours. DNA evidence is considered highly reliable when chain of
+      custody is maintained — per Supreme Court in Mukesh v. State (NCT of Delhi)
+      (2017) 6 SCC 1.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Ballistics Examination"
+    description_md: |
+      If a firearm is involved: test-fire the recovered weapon and compare with
+      bullet/cartridge recovered from the body or scene. Determine caliber,
+      range of fire, and angle of firing. Check weapon serial number against
+      licensing records. Gunshot Residue (GSR) analysis on the accused's hands
+      and clothing — must be collected within 6 hours of firing. NIBIN (if
+      available) comparison for weapon matching to other cases.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Toxicology Report"
+    description_md: |
+      Chemical analysis of viscera preserved during post-mortem to detect poison,
+      drugs, or alcohol. Essential in suspected poisoning or drugging cases.
+      Viscera must reach FSL within 72 hours in preserved condition (saturated
+      common salt solution or rectified spirit). Also analyze blood alcohol
+      level if relevant. Toxicology report delays are common — request
+      expedited processing through SP/DIG office.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Fingerprint Analysis"
+    description_md: |
+      Develop and lift latent fingerprints from the crime scene, weapon, and
+      articles using powder or chemical methods (ninhydrin, cyanoacrylate fuming).
+      Compare with the accused's fingerprints (chance prints). Send to
+      Fingerprint Bureau for expert examination and opinion. Photograph
+      fingerprints before lifting. Maintain chain of custody for lifted prints.
+      AFIS (Automated Fingerprint Identification System) search if suspect
+      identity is unknown.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Digital Forensics — Device Examination"
+    description_md: |
+      Forensic imaging (bit-by-bit copy) of mobile phones, laptops, and
+      electronic devices of accused and victim using write-blockers. Extract
+      call logs, messages, WhatsApp/Telegram chats, GPS location history,
+      deleted data recovery, social media activity, internet browsing history.
+      Compute hash values (SHA-256) of forensic images and original media.
+      Prepare S.63 BSA certificate for each piece of electronic evidence.
+      All device examinations must be conducted by a certified forensic examiner
+      at the Cyber Forensic Lab.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  # ── WITNESS / BAYAN NODES ───────────────────────────────────────────────────
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Eyewitness Statements under BNSS S.180"
+    description_md: |
+      Record detailed statements of eyewitnesses under BNSS S.180 (police
+      statement — not signed by the witness, not admissible as substantive
+      evidence but usable for contradiction under BSA S.145). Record:
+      exact observation, position, distance, lighting conditions, duration,
+      identification details, sequence of events. Assess natural presence
+      at the location and credibility.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BSA
+        section: "145"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Last Seen Witnesses"
+    description_md: |
+      Record statements of persons who last saw the deceased alive, especially
+      in the company of the accused. Last-seen evidence raises a strong
+      presumption under the last-seen-together doctrine — if the accused was
+      last seen with the deceased and cannot satisfactorily explain the
+      circumstances of death, the burden shifts. Record exact time, place,
+      circumstances, and demeanour of both parties. Corroborate with CDR
+      and CCTV evidence.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Section 183 BNSS Statement Before Magistrate"
+    description_md: |
+      Critical witnesses and witnesses who may turn hostile should be examined
+      under BNSS S.183 before a Judicial Magistrate. This statement is recorded
+      on oath, signed by the witness, and is substantive evidence. It can be
+      used to corroborate or contradict the witness's testimony at trial.
+      The Magistrate must satisfy that the statement is voluntary and record
+      it in the witness's own language. No police officer shall be present
+      during the recording.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "183"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: medium
+    title_en: "Hostile Witness Safeguards"
+    description_md: |
+      Anticipate the possibility of witnesses turning hostile, especially in
+      cases involving community pressure or threats. Safeguards include:
+      - Record S.183 BNSS statement before Magistrate at the earliest.
+      - Obtain audio-video recording of S.183 BNSS statement.
+      - Provide witness protection under Witness Protection Scheme 2018
+        (approved by SC in Mahender Chawla v. Union of India).
+      - If a witness turns hostile at trial, the prosecution may seek permission
+        to cross-examine under BSA S.148.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "183"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BSA
+        section: "148"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  # ── GAP / HISTORICAL NODES ─────────────────────────────────────────────────
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Delay in FIR Registration"
+    description_md: |
+      NCRB Crime in India 2022 data shows that delayed FIR registration remains
+      a persistent issue. In Thulia Kali v. State of Tamil Nadu (1973) 1 SCC 9,
+      the Supreme Court held that delay in lodging FIR must be satisfactorily
+      explained, otherwise it creates doubt about the prosecution case. Under
+      BNSS S.173, information of a cognizable offence must be recorded immediately
+      without waiting for any approval.
+
+      Common institutional reasons for delay: jurisdictional disputes, informant
+      hospitalised, remote area, communication failure. Each delay must be
+      explained in the case diary and chargesheet.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "173"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: true
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Poor Scene Preservation"
+    description_md: |
+      NCRB data and the Report of the Committee on Reforms in Criminal Justice
+      System (Malimath Committee, 2003) identified scene contamination as one
+      of the leading causes of acquittal in murder cases. In Shivaji v. State
+      of Maharashtra (2008) 15 SCC 269, the Supreme Court noted that failure
+      to protect the scene undermines the entire forensic evidence chain.
+
+      Common institutional failures: delayed arrival of SOCO/FSL team, public
+      access before cordoning, movement of body before inquest, failure to
+      photograph the undisturbed scene. IO must document any contamination in
+      the case diary with reasons.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Failure to Seize Weapon in a Timely Manner"
+    description_md: |
+      In State of H.P. v. Jai Lal (1999) 7 SCC 280, the Supreme Court
+      observed that failure to recover the weapon of offence or unreasonable
+      delay in recovery weakens the prosecution case significantly. Per NCRB
+      data, weapon recovery rates in murder cases average below 60% nationally.
+
+      Institutional patterns: delayed pursuit of accused, failure to search
+      accused's premises under BNSS S.185, delay in acting on disclosure
+      statements. IO must prioritize weapon recovery within the first 48 hours.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "185"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: true
+
+  # ── PROCEDURAL SAFEGUARD NODES ──────────────────────────────────────────────
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Arrest Procedure — D.K. Basu Guidelines and BNSS Compliance"
+    description_md: |
+      Every arrest must comply with D.K. Basu v. State of West Bengal (1997)
+      1 SCC 416 guidelines and BNSS provisions:
+
+      1. Arresting officer must bear visible identification with name and
+         designation (D.K. Basu guideline 1).
+      2. Prepare an arrest memo at the time of arrest, attested by at least one
+         witness (family member or respectable person of the locality) and
+         countersigned by the arrested person (BNSS S.35).
+      3. Inform a relative or friend of the arrested person about the arrest
+         and the place of detention (BNSS S.36).
+      4. Right to consult a legal practitioner of choice (BNSS S.36(d)).
+      5. Produce before the nearest Magistrate within 24 hours of arrest
+         (BNSS S.187, Article 22(2) of Constitution).
+      6. Medical examination at the time of arrest (BNSS S.36).
+      7. No female shall be arrested after sunset and before sunrise except
+         in exceptional circumstances with written order from Magistrate (BNSS S.35(5)).
+    legal_basis_citations:
+      - framework: BNSS
+        section: "35"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BNSS
+        section: "36"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BNSS
+        section: "187"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Rights of the Accused"
+    description_md: |
+      The accused in a murder case retains the following rights:
+      - Right to know the grounds of arrest (Article 22(1), BNSS S.36).
+      - Right to legal representation and free legal aid if unable to afford
+        a lawyer (Article 39A, Legal Services Authorities Act 1987).
+      - Right against self-incrimination (Article 20(3), BSA S.132).
+      - Right to be produced before a Magistrate within 24 hours (BNSS S.187).
+      - Right to bail hearing — though murder is non-bailable, the accused
+        may apply for bail under BNSS S.480.
+      - Right against custodial torture and inhuman treatment (Article 21).
+      - No narco-analysis, brain-mapping, or polygraph test without consent
+        of the accused (Selvi v. State of Karnataka (2010) 7 SCC 263).
+    legal_basis_citations:
+      - framework: BNSS
+        section: "36"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BSA
+        section: "132"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: medium
+    title_en: "Legal Aid and Magistrate Oversight"
+    description_md: |
+      If the accused is indigent or unable to engage a lawyer, the IO must
+      inform the accused about the right to free legal aid under the Legal
+      Services Authorities Act 1987 and BNSS S.36(d). The District Legal
+      Services Authority (DLSA) must be notified. During remand hearings
+      under BNSS S.187, the Magistrate must independently satisfy that
+      detention is necessary and that the investigation cannot be completed
+      without further custody. Maximum police custody remand is 15 days;
+      thereafter only judicial custody.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "187"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false

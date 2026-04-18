@@ -1,0 +1,483 @@
+offence_code: BNS_S111_ORGANISED_CRIME
+category_id: organised_serious
+bns_section: "111"
+bns_subsection: ""
+display_name_en: "Organised Crime"
+display_name_gu: "સંગઠિત અપરાધ"
+short_description_md: |
+  BNS S.111 is a new provision in the Bharatiya Nyaya Sanhita 2023 without
+  a direct IPC equivalent. It defines "organised crime" as any continuing
+  unlawful activity by any person or group of persons acting in concert,
+  singly or jointly, by use of violence, threat, intimidation, coercion,
+  or other unlawful means to obtain direct or indirect material benefit
+  including financial benefit. Activities include kidnapping for ransom,
+  robbery, vehicle theft, extortion, land grabbing, contract killing,
+  economic offences having inter-state or international ramifications,
+  cyber crimes, and trafficking of persons, drugs, or arms.
+punishment: "If offence results in death: death or imprisonment for life and fine not less than Rs.10 lakh; Otherwise: imprisonment not less than 5 years up to life and fine not less than Rs.5 lakh"
+cognizable: true
+bailable: false
+triable_by: "Court of Session"
+compoundable: "no"
+schedule_reference: "BNS Schedule I, Part I"
+related_offence_codes:
+  - BNS_S112_PETTY_ORGANISED_CRIME
+  - BNS_S61_CRIMINAL_CONSPIRACY
+  - BNS_S310_DACOITY
+  - BNS_S139_KIDNAPPING_FOR_RANSOM
+special_acts:
+  - "Maharashtra Control of Organised Crime Act, 1999 (MCOCA)"
+  - "Unlawful Activities (Prevention) Act, 1967 (UAPA)"
+  - "Prevention of Money Laundering Act, 2002 (PMLA)"
+
+knowledge_nodes:
+
+  # ── LEGAL SECTION NODES ─────────────────────────────────────────────────────
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BNS S.111 — Organised Crime: Definition and Elements"
+    description_md: |
+      S.111 of the Bharatiya Nyaya Sanhita 2023 introduces a comprehensive
+      organised crime provision. Key elements:
+
+      (1) "Organised crime" means any continuing unlawful activity including
+      kidnapping for ransom, robbery, vehicle theft, extortion, land grabbing,
+      contract killing, economic offence, cyber crime, or trafficking of
+      persons, drugs, weapons, or counterfeit currency.
+
+      (2) The activity must be carried out by any person or a group (organised
+      crime syndicate) acting in concert, using violence, threats,
+      intimidation, coercion, or other unlawful means.
+
+      (3) The object must be obtaining direct or indirect material benefit
+      including financial benefit.
+
+      (4) An "organised crime syndicate" means a group of two or more persons
+      who, acting singly or collectively, as a syndicate or gang, indulge
+      in one or more types of organised crime.
+
+      This section fills a long-standing gap — previously, states relied on
+      MCOCA (Maharashtra), KOCA (Karnataka), or GUJCOC (Gujarat).
+    legal_basis_citations:
+      - framework: BNS
+        section: "111"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: critical
+    title_en: "BNS S.112 — Petty Organised Crime"
+    description_md: |
+      S.112 BNS covers petty organised crime: any person who is a member of
+      a group or gang which indulges in: theft, snatching, cheating, selling
+      of stolen property, pick-pocketing, or similar criminal activities.
+      Punishment: imprisonment from 1 to 7 years and fine. This section
+      targets street-level organised criminal networks (chain snatching
+      gangs, pick-pocket rings, mobile theft networks).
+    legal_basis_citations:
+      - framework: BNS
+        section: "112"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "BNS S.61 — Criminal Conspiracy"
+    description_md: |
+      S.61 BNS (criminal conspiracy) is a companion charge in organised
+      crime cases. When two or more persons agree to do or cause to be done
+      an illegal act, or a legal act by illegal means, this constitutes
+      criminal conspiracy. In organised crime cases, conspiracy is often the
+      foundational charge connecting various members of the syndicate.
+    legal_basis_citations:
+      - framework: BNS
+        section: "61"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: legal_section
+    tier: canonical
+    priority: medium
+    title_en: "Prevention of Money Laundering Act, 2002"
+    description_md: |
+      PMLA is frequently invoked alongside organised crime charges. S.3
+      PMLA defines money laundering as any activity connected with the
+      proceeds of crime. S.4 provides punishment: RI from 3 to 7 years
+      and fine (up to Rs.5 lakh). If the proceeds of crime relate to a
+      scheduled offence under Part A (narcotic drug trafficking), the
+      maximum is 10 years. Enforcement Directorate investigates PMLA
+      cases. Property attachment and confiscation provisions are powerful
+      tools against organised crime networks.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "3, 4"
+        source_authority: "Prevention of Money Laundering Act, 2002"
+    requires_disclaimer: false
+
+  # ── IMMEDIATE ACTION NODES ─────────────────────────────────────────────────
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Register FIR and Identify the Crime Syndicate"
+    description_md: |
+      Register FIR under BNSS S.173 citing BNS S.111 along with specific
+      substantive offences (robbery, extortion, kidnapping, etc.). Begin
+      mapping the organised crime syndicate: identify the leader, key
+      operatives, financiers, foot soldiers, and supporting network. Use
+      organisational chart methodology. Request prior criminal history of
+      all suspects from CCTNS and state crime records.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "173"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Financial Trail Investigation"
+    description_md: |
+      Immediately initiate financial investigation: identify bank accounts,
+      benami properties, shell companies, hawala channels, and cryptocurrency
+      wallets linked to the syndicate. Request bank account statements,
+      property records, company registrations, and income tax returns of
+      all suspects. Coordinate with the Enforcement Directorate for PMLA
+      proceedings. Request Financial Intelligence Unit (FIU-IND) reports
+      for suspicious transaction reports (STRs) and cash transaction
+      reports (CTRs).
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: critical
+    title_en: "Technical Surveillance and Intelligence"
+    description_md: |
+      Obtain telephone interception orders from the competent authority
+      (Home Secretary at State level or Central Government under IT Act
+      S.69 / Telegraph Act S.5(2)). CDR/IPDR analysis for all suspects
+      to map communication patterns and hierarchy. CCTV analysis of known
+      hangouts and operational areas. Open Source Intelligence (OSINT):
+      social media profiles, online presence, public records.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "69"
+        source_authority: "Information Technology Act, 2000"
+    requires_disclaimer: false
+
+  - branch_type: immediate_action
+    tier: canonical
+    priority: medium
+    title_en: "Inter-State and Inter-Agency Coordination"
+    description_md: |
+      Organised crime often spans multiple jurisdictions. Coordinate with:
+      police of other states (through CCTNS and formal requisition),
+      NIA if terrorism nexus is suspected, Enforcement Directorate for
+      PMLA, NCB for drug trafficking, CBI if central investigation is
+      warranted, Interpol (through CBI) for international linkages. Use
+      Letters Rogatory for evidence from foreign jurisdictions.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── PANCHNAMA NODES ─────────────────────────────────────────────────────────
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Search and Seizure Panchnama — Multiple Premises"
+    description_md: |
+      Simultaneous searches at multiple premises of syndicate members to
+      prevent evidence destruction. Prepare individual seizure panchnamas
+      for each location. Seize: cash, financial documents, property
+      documents, weapons, drugs (if applicable), electronic devices,
+      SIM cards, passports, account books, and any records of criminal
+      activity. Use videography for all searches. Coordinate timing across
+      search teams.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "105"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: panchnama
+    tier: canonical
+    priority: critical
+    title_en: "Property Attachment and Asset Documentation"
+    description_md: |
+      Document all properties (movable and immovable) linked to the
+      syndicate. Prepare property inventory panchnama. Record registration
+      details, market value, and ostensible ownership. Identify benami
+      properties through land records, sub-registrar records, and revenue
+      records. This documentation supports attachment and confiscation
+      under PMLA S.5 and BNS S.111 fine provisions.
+    legal_basis_citations:
+      - framework: Special Act
+        section: "5"
+        source_authority: "Prevention of Money Laundering Act, 2002"
+    requires_disclaimer: false
+
+  # ── EVIDENCE NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Evidence of 'Continuing Unlawful Activity'"
+    description_md: |
+      S.111 BNS requires proof of "continuing unlawful activity." This
+      means the prosecution must establish a pattern of criminal conduct,
+      not just a single incident. Evidence sources:
+      - Prior FIRs and chargesheets against syndicate members.
+      - Criminal history from CCTNS.
+      - Court records of prior convictions.
+      - Intelligence reports and surveillance records.
+      - Victim statements from multiple incidents.
+      - Financial records showing systematic criminal income.
+      The IO must compile a dossier demonstrating the syndicate's
+      continuing criminal enterprise.
+    legal_basis_citations:
+      - framework: BNS
+        section: "111"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Financial Evidence — Money Trail"
+    description_md: |
+      Complete financial mapping: bank account statements (all accounts),
+      property documents, vehicle registrations, company records (MCA),
+      income tax returns, GST records, hawala transaction records,
+      cryptocurrency wallet analysis, UPI/digital payment records. Follow
+      the money from criminal activity through layering to integration.
+      Financial Forensics by a Chartered Accountant may be engaged.
+      All bank statements require S.63 BSA certificate.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: critical
+    title_en: "Communication Evidence — CDR and Intercepts"
+    description_md: |
+      CDR/IPDR analysis showing communication patterns between syndicate
+      members — frequency, timing (around criminal incidents), duration.
+      Lawfully intercepted phone calls and messages (with proper
+      authorisation under IT Act S.69). WhatsApp, Telegram, Signal chat
+      records obtained from device forensics. Voice identification matching
+      intercepted calls to specific suspects. Link analysis showing the
+      communication network structure.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: evidence
+    tier: canonical
+    priority: medium
+    title_en: "Weapons and Contraband Recovery"
+    description_md: |
+      Recovery of weapons (firearms, explosives), drugs, counterfeit
+      currency, or other contraband from syndicate members. Each recovery
+      must be documented with a discovery/seizure panchnama. Weapons sent
+      to FSL for ballistic testing and matching with crime scene evidence
+      from prior offences. Drugs sent to FSL for analysis. Contraband
+      currency to RBI for assessment.
+    legal_basis_citations:
+      - framework: BSA
+        section: "8"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  # ── FORENSIC NODES ──────────────────────────────────────────────────────────
+
+  - branch_type: forensic
+    tier: canonical
+    priority: critical
+    title_en: "Digital Forensics — Multi-Device Analysis"
+    description_md: |
+      Forensic examination of multiple devices seized from syndicate
+      members. Cross-reference data across devices: common contacts,
+      shared media, coordinated movements (GPS data), financial app
+      transactions, cryptocurrency wallet links. Use link analysis
+      software to visualize the network. Recover deleted communications.
+      S.63 BSA certificate for each device and each extraction.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Financial Forensics"
+    description_md: |
+      Engage a Chartered Accountant or forensic accountant to: analyse bank
+      statements for suspicious patterns, trace money flow through multiple
+      accounts, identify shell companies and benami transactions, calculate
+      the total proceeds of crime, prepare a financial report suitable for
+      court evidence. The forensic accountant is an expert witness.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    tier: canonical
+    priority: medium
+    title_en: "Ballistics and Weapon Linking"
+    description_md: |
+      If firearms are involved: ballistic testing of recovered weapons,
+      comparison with bullets/cartridges from multiple crime scenes to
+      link weapons to specific offences, NIBIN database search, serial
+      number tracing for weapon source. This evidence connects different
+      criminal acts to the same syndicate.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  # ── WITNESS / BAYAN NODES ───────────────────────────────────────────────────
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Victim Statements from Multiple Incidents"
+    description_md: |
+      Record statements from victims of different criminal acts attributed
+      to the syndicate. Each victim's testimony establishes a separate
+      instance of the continuing unlawful activity. Cross-reference victim
+      statements for common modus operandi, descriptions of accused, and
+      vehicle descriptions. Record S.183 BNSS statements for critical
+      witnesses.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "183"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: critical
+    title_en: "Witness Protection — Critical in Organised Crime"
+    description_md: |
+      Witnesses in organised crime cases face serious threats. Apply
+      Witness Protection Scheme 2018 (approved in Mahender Chawla v.
+      Union of India). Categories of protection: Category A (threat to
+      life — identity protection, relocation, police protection), Category
+      B (threat to safety — regular police visits, accompaniment), Category
+      C (moderate threat — regular follow-up). Record S.183 BNSS statements
+      at the earliest. Court may conduct in-camera trial and permit video
+      testimony.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "183"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    tier: canonical
+    priority: medium
+    title_en: "Approver / Accomplice Testimony"
+    description_md: |
+      A member of the syndicate who turns approver (state's evidence) under
+      BNSS S.343 can provide invaluable inside information about the
+      organisation's structure, operations, and hierarchy. The approver's
+      testimony must be corroborated in material particulars per BSA S.133.
+      The court grants pardon to the approver on condition of making full
+      and true disclosure. If the approver fails to comply, the pardon
+      can be revoked and they can be tried.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "343"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BSA
+        section: "133"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  # ── GAP / HISTORICAL NODES ─────────────────────────────────────────────────
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: critical
+    title_en: "Failure to Establish 'Continuing Unlawful Activity'"
+    description_md: |
+      Under MCOCA (the primary organised crime law before BNS S.111), courts
+      acquitted accused when the prosecution failed to prove "continuing
+      unlawful activity" requiring at least two prior chargesheets filed
+      within 10 years. In Zameer Ahmed Latifur Rehman Sheikh v. State of
+      Maharashtra (2010) 5 SCC 246, the Supreme Court held that mere
+      registration of FIRs is insufficient — there must be chargesheets or
+      convictions. IO must compile a comprehensive crime history dossier
+      with prior chargesheets, court orders, and intelligence reports.
+    legal_basis_citations:
+      - framework: BNS
+        section: "111"
+        source_authority: "Bharatiya Nyaya Sanhita 2023"
+    requires_disclaimer: true
+
+  - branch_type: gap_historical
+    tier: canonical
+    priority: medium
+    title_en: "Witness Intimidation and Hostile Witnesses"
+    description_md: |
+      NCRB data and judicial observations in MCOCA cases show that witness
+      intimidation is the most common reason for acquittal in organised
+      crime cases. In Zahira Habibullah Sheikh v. State of Gujarat (2006)
+      3 SCC 374, the Supreme Court noted that hostile witnesses are a major
+      impediment to justice in organized crime and terrorism cases. IO must:
+      apply for witness protection at the earliest, record S.183 BNSS
+      statements before Magistrate, and arrange for audio-video recording
+      of statements.
+    legal_basis_citations: []
+    requires_disclaimer: true
+
+  # ── PROCEDURAL SAFEGUARD NODES ──────────────────────────────────────────────
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Arrest and Remand — Stringent Provisions"
+    description_md: |
+      BNS S.111 is a non-bailable offence with stringent bail conditions.
+      Arrest must comply with D.K. Basu guidelines and BNSS S.35-36 in
+      full. Produce before Magistrate within 24 hours. The Magistrate may
+      grant up to 15 days police custody and thereafter judicial custody.
+      Bail is restrictive — the court must be satisfied that there are
+      reasonable grounds for believing that the accused is not guilty and
+      is not likely to commit any offence while on bail (similar to MCOCA
+      S.21(4) bail standard).
+    legal_basis_citations:
+      - framework: BNSS
+        section: "35"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: procedural_safeguard
+    tier: canonical
+    priority: critical
+    title_en: "Rights of the Accused in Organised Crime Cases"
+    description_md: |
+      Despite the severity of the charge, constitutional rights are not
+      suspended: right to know grounds of arrest (BNSS S.36), right to
+      legal representation, free legal aid through DLSA, production
+      before Magistrate within 24 hours, right against self-incrimination
+      (Article 20(3)), right against custodial torture (Article 21), no
+      narco-analysis or polygraph without consent. Confessions to police
+      are inadmissible (BSA S.23). Intercepted communications must be
+      obtained through proper legal authorisation.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "36"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - framework: BSA
+        section: "23"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false

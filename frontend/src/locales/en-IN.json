@@ -1,0 +1,153 @@
+{
+  "mindmap": {
+    "title": "Chargesheet Mindmap",
+    "disclaimer": "Advisory — AI-generated suggestions. Investigating Officer retains full discretion. Not a substitute for legal judgment.",
+    "toolbar": {
+      "expandAll": "Expand All",
+      "collapseAll": "Collapse All",
+      "treeView": "Tree View",
+      "checklistView": "Checklist View",
+      "exportPdf": "Export PDF",
+      "regenerate": "Regenerate",
+      "addCustomNode": "Add Custom Node"
+    },
+    "status": {
+      "open": "Open",
+      "in_progress": "In Progress",
+      "addressed": "Addressed",
+      "not_applicable": "Not Applicable",
+      "disputed": "Disputed"
+    },
+    "priority": {
+      "critical": "Critical",
+      "recommended": "Recommended",
+      "optional": "Optional"
+    },
+    "nodeType": {
+      "legal_section": "Legal Section",
+      "immediate_action": "Immediate Action",
+      "evidence": "Evidence",
+      "interrogation": "Interrogation",
+      "panchnama": "Panchnama",
+      "forensic": "Forensic",
+      "witness_bayan": "Witness Bayan",
+      "gap_from_fir": "FIR Gap",
+      "custom": "Custom"
+    },
+    "drawer": {
+      "description": "Description",
+      "legalReferences": "Legal References",
+      "statusUpdate": "Update Status",
+      "note": "Note",
+      "evidenceRef": "Attach Evidence Reference",
+      "save": "Save",
+      "cancel": "Cancel",
+      "auditHistory": "Status History",
+      "noHistory": "No status changes recorded yet."
+    },
+    "regenerateModal": {
+      "title": "Regenerate Mindmap",
+      "description": "This will create a new version of the mindmap. The current version will be preserved.",
+      "justificationLabel": "Justification",
+      "justificationPlaceholder": "Explain why the mindmap needs to be regenerated...",
+      "confirm": "Regenerate",
+      "cancel": "Cancel"
+    },
+    "addNodeModal": {
+      "title": "Add Custom Node",
+      "titleLabel": "Node Title",
+      "descriptionLabel": "Description",
+      "priorityLabel": "Priority",
+      "confirm": "Add Node",
+      "cancel": "Cancel"
+    },
+    "loading": "Loading mindmap...",
+    "error": "Failed to load mindmap.",
+    "empty": "No mindmap generated for this FIR yet.",
+    "generate": "Generate Mindmap",
+    "generating": "Generating mindmap...",
+    "versions": "Versions",
+    "noVersions": "No previous versions."
+  },
+  "gapAnalysis": {
+    "title": "Gap Analysis",
+    "disclaimer": "Advisory — AI-assisted review. Investigating Officer retains full legal responsibility. Not a substitute for legal judgment or supervisor review.",
+    "analyze": "Analyze Gaps",
+    "analyzing": "Analyzing...",
+    "reanalyze": "Reanalyze",
+    "noReport": "No gap analysis has been run for this chargesheet yet.",
+    "partialWarning": "Some analysis sources were unavailable — reanalyze recommended.",
+    "severity": {
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "advisory": "Advisory"
+    },
+    "category": {
+      "legal": "Legal",
+      "evidence": "Evidence",
+      "witness": "Witness",
+      "procedural": "Procedural",
+      "mindmap_divergence": "Mindmap Alignment",
+      "completeness": "Completeness"
+    },
+    "source": {
+      "T54_legal_validator": "Legal Validator",
+      "T55_evidence_ml": "Evidence ML",
+      "mindmap_diff": "Mindmap Diff",
+      "completeness_rules": "Completeness Rules",
+      "manual_review": "Manual Review"
+    },
+    "action": {
+      "accepted": "Accepted",
+      "modified": "Modified",
+      "dismissed": "Dismissed",
+      "deferred": "Deferred",
+      "escalated": "Escalated",
+      "accept": "Accept",
+      "modify": "Modify",
+      "dismiss": "Dismiss",
+      "defer": "Defer",
+      "escalate": "Escalate"
+    },
+    "remediation": "Remediation",
+    "suggestedLanguage": "Suggested Language",
+    "applySuggestion": "Apply to Chargesheet",
+    "copySuggestion": "Copy",
+    "jumpToDocument": "Jump to Document",
+    "legalReferences": "Legal References",
+    "auditHistory": "Action History",
+    "noHistory": "No actions taken yet.",
+    "bulkAction": "Bulk Action",
+    "filter": "Filter",
+    "sort": "Sort",
+    "export": {
+      "title": "Export",
+      "cleanPdf": "Clean PDF (Court-Ready)",
+      "cleanPdfDesc": "Chargesheet with modifications applied. Zero AI annotations. For court submission.",
+      "reviewReport": "AI Review Report",
+      "reviewReportDesc": "Internal document with all gaps, actions, and audit trail. Watermarked.",
+      "redline": "Redline PDF",
+      "redlineDesc": "Original vs. current comparison for supervisor review."
+    },
+    "readiness": {
+      "title": "Readiness",
+      "green": "No open gaps",
+      "amber": "Open gaps (non-critical)",
+      "red": "Critical/high gaps open"
+    },
+    "reanalyzeModal": {
+      "title": "Reanalyze Chargesheet",
+      "description": "This will generate a fresh gap analysis. Previous versions are preserved.",
+      "justificationLabel": "Justification",
+      "justificationPlaceholder": "Explain why reanalysis is needed...",
+      "confirm": "Reanalyze",
+      "cancel": "Cancel"
+    },
+    "tabs": {
+      "document": "Document",
+      "gaps": "Gaps"
+    }
+  }
+}

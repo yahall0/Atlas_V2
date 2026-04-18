@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -520,21 +521,13 @@ export default function ChargesheetPage() {
                       : "--"}
                   </td>
                   <td className="px-4 py-3">
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => {
-                        setSelected(cs);
-                        setActiveTab("accused");
-                        setValidationReport(null);
-                        setValidationError("");
-                        setTooltipSection(null);
-                        setEvidenceReport(null);
-                        setEvidenceError("");
-                      }}
-                    >
-                      View
-                    </Button>
+                    {cs.id && (
+                      <Link href={`/dashboard/chargesheet/${cs.id}/review`}>
+                        <Button size="sm" variant="default" className="bg-blue-600 hover:bg-blue-700 text-white">
+                          Review
+                        </Button>
+                      </Link>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -600,6 +593,13 @@ export default function ChargesheetPage() {
                 >
                   {analyzing ? "Analyzing..." : "Analyze Evidence"}
                 </Button>
+                {selected.id && (
+                  <Link href={`/dashboard/chargesheet/${selected.id}/review`}>
+                    <Button size="sm" variant="default" className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                      Gap Analysis
+                    </Button>
+                  </Link>
+                )}
                 <Button
                   size="sm"
                   variant="ghost"
