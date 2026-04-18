@@ -31,13 +31,20 @@ export type GapCategory =
   | 'witness'
   | 'procedural'
   | 'mindmap_divergence'
-  | 'completeness';
+  | 'completeness'
+  | 'kb_playbook_gap'
+  | 'kb_caselaw_gap';
 export type GapActionType =
   | 'accepted'
   | 'modified'
   | 'dismissed'
   | 'deferred'
   | 'escalated';
+
+export type KBLayer =
+  | 'canonical_legal'
+  | 'investigation_playbook'
+  | 'case_law_intelligence';
 
 export interface Gap {
   id: string;
@@ -56,6 +63,17 @@ export interface Gap {
   tags: string[];
   display_order: number;
   current_action?: GapActionType;
+  // 3-layer KB attribution. Tells the UI which authority column the
+  // finding belongs in (Statute / Playbook / Case-Law).
+  kb_layer?: KBLayer;
+  kb_node_ref?: string;
+}
+
+export interface LayerCounts {
+  canonical_legal: number;
+  investigation_playbook: number;
+  case_law_intelligence: number;
+  unattributed: number;
 }
 
 export interface GapReport {
@@ -73,6 +91,25 @@ export interface GapReport {
   gaps: Gap[];
   disclaimer: string;
   partial_sources: string[];
+  layer_counts?: LayerCounts;
+}
+
+/** Group a gap list into the three KB authority columns. */
+export function groupGapsByLayer(
+  gaps: Gap[] | undefined
+): Record<KBLayer | 'unattributed', Gap[]> {
+  const out: Record<KBLayer | 'unattributed', Gap[]> = {
+    canonical_legal: [],
+    investigation_playbook: [],
+    case_law_intelligence: [],
+    unattributed: [],
+  };
+  if (!gaps) return out;
+  for (const g of gaps) {
+    const k = g.kb_layer ?? 'unattributed';
+    out[k].push(g);
+  }
+  return out;
 }
 
 export interface GapAction {

@@ -30,8 +30,10 @@ import MindmapNodeComponent, {
 import NodeDetailDrawer from './NodeDetailDrawer';
 import {
   useMindmap,
+  useGenerateMindmap,
   useRegenerateMindmap,
   useAddCustomNode,
+  isDemoMindmap,
 } from '@/hooks/mindmap/useMindmap';
 import type { MindmapNode, NodeStatusType, NodePriority } from './nodes/types';
 
@@ -53,9 +55,173 @@ interface LayoutInfo {
 }
 
 /**
- * Simple tree layout: position nodes vertically.
- * Each top-level branch gets its own x column (300px apart).
- * Children stack below parents (120px per level).
+ * Horizontal mindmap layout — matches the classic centre-hub style.
+ *
+ *   - Single root ("hub") sits at the origin.
+ *   - Primary branches are split evenly into a left half and a right
+ *     half (first half goes left, second half goes right) and stacked
+ *     vertically on each side.
+ *   - Each branch's leaves stack vertically next to it, extending
+ *     further outward.
+ *   - Each branch is given a vertical *slot height* proportional to
+ *     its leaf count, then the slots are stacked with a fixed gap.
+ *     Total side height is centred on the hub.
+ *
+ * This guarantees no overlap regardless of how many leaves a branch
+ * has, because each branch reserves enough vertical space for its
+ * own leaves before the next branch's slot begins.
+ *
+ * Falls back to the column tree layout for trees with multiple roots.
+ */
+function layoutHorizontalMindmap(
+  roots: MindmapNode[],
+  onClick: (node: MindmapNode) => void,
+  collapsed: Set<string>
+): LayoutInfo {
+  if (roots.length === 0) return { nodes: [], edges: [] };
+  if (roots.length > 1) {
+    return layoutTree(roots, onClick, collapsed);
+  }
+
+  // Geometry constants. Tweaked so even the largest categories
+  // (Murder, Cyber) fit in a screenful at fitView padding 0.15.
+  const HUB_TO_BRANCH_X = 320;       // horizontal distance hub → branch
+  const BRANCH_TO_LEAF_X = 290;      // horizontal distance branch → leaf
+  const LEAF_VERTICAL_STEP = 38;     // vertical step between sibling leaves
+  const MIN_SLOT_HEIGHT = 110;       // minimum vertical slot per branch
+  const BRANCH_GAP = 28;             // padding between adjacent branch slots
+
+  const nodes: Node<MindmapNodeData>[] = [];
+  const edges: Edge[] = [];
+
+  const root = roots[0];
+
+  // Hub at origin
+  nodes.push({
+    id: root.id,
+    type: 'mindmapNode',
+    position: { x: 0, y: 0 },
+    data: { node: root, onClick, kind: 'hub', side: 'center' },
+  });
+
+  if (collapsed.has(root.id)) return { nodes, edges };
+
+  // Split primary branches: first half left, second half right, in the
+  // order the demo / generator emitted them.
+  const primary = [...root.children].sort(
+    (a, b) => a.display_order - b.display_order
+  );
+  const half = Math.ceil(primary.length / 2);
+  const leftBranches  = primary.slice(0, half);
+  const rightBranches = primary.slice(half);
+
+  layoutSide('left',  leftBranches);
+  layoutSide('right', rightBranches);
+
+  return { nodes, edges };
+
+  // ── side helper ─────────────────────────────────────────────────────────
+  function layoutSide(side: 'left' | 'right', branches: MindmapNode[]) {
+    if (branches.length === 0) return;
+    const sign = side === 'left' ? -1 : 1;
+    const branchX = sign * HUB_TO_BRANCH_X;
+    const leafX   = sign * (HUB_TO_BRANCH_X + BRANCH_TO_LEAF_X);
+
+    // Compute each branch's slot height from its leaf count. A branch
+    // with N leaves needs at least (N * step) vertical space.
+    const slotHeights = branches.map((b) => {
+      const leafCount = collapsed.has(b.id) ? 0 : b.children.length;
+      return Math.max(MIN_SLOT_HEIGHT, leafCount * LEAF_VERTICAL_STEP + 16);
+    });
+
+    const totalHeight =
+      slotHeights.reduce((s, h) => s + h, 0) +
+      (branches.length - 1) * BRANCH_GAP;
+
+    // Centre the stack vertically on the hub.
+    let cursorY = -totalHeight / 2;
+
+    branches.forEach((branch, i) => {
+      const slotH = slotHeights[i];
+      const branchY = cursorY + slotH / 2;
+
+      // Branch box
+      nodes.push({
+        id: branch.id,
+        type: 'mindmapNode',
+        position: { x: branchX, y: branchY },
+        data: { node: branch, onClick, kind: 'branch', side },
+      });
+
+      // Hub → Branch edge: thick coloured Bezier, picks the hub's
+      // left/right source handle so the curve emerges from the right side.
+      edges.push({
+        id: `e-${root.id}-${branch.id}`,
+        source: root.id,
+        sourceHandle: side,
+        target: branch.id,
+        targetHandle: 'hub',
+        type: 'default', // bezier
+        animated: branch.node_type === 'gap_from_fir',
+        style: {
+          stroke: branchEdgeColor(branch.node_type),
+          strokeWidth: 3,
+        },
+      });
+
+      // Leaves of this branch — stacked vertically next to it, centred
+      // on the branch's Y so the layout stays balanced.
+      if (!collapsed.has(branch.id)) {
+        const leaves = [...branch.children].sort(
+          (a, b) => a.display_order - b.display_order
+        );
+        const M = leaves.length;
+        const leavesTop = branchY - ((M - 1) * LEAF_VERTICAL_STEP) / 2;
+
+        leaves.forEach((leaf, li) => {
+          const ly = leavesTop + li * LEAF_VERTICAL_STEP;
+
+          nodes.push({
+            id: leaf.id,
+            type: 'mindmapNode',
+            position: { x: leafX, y: ly },
+            data: { node: leaf, onClick, kind: 'leaf', side },
+          });
+
+          edges.push({
+            id: `e-${branch.id}-${leaf.id}`,
+            source: branch.id,
+            sourceHandle: 'leaf',
+            target: leaf.id,
+            targetHandle: 'branch',
+            type: 'smoothstep',
+            style: { stroke: '#cbd5e1', strokeWidth: 1.2 },
+          });
+        });
+      }
+
+      cursorY += slotH + BRANCH_GAP;
+    });
+  }
+}
+
+/** Trunk colour per branch type — matches the pastel palette in
+ *  MindmapNodeComponent so the curve fades into the branch box. */
+function branchEdgeColor(t: MindmapNode['node_type']): string {
+  switch (t) {
+    case 'legal_section':    return '#3b82f6'; // blue-500
+    case 'immediate_action': return '#ef4444'; // red-500
+    case 'panchnama':        return '#f59e0b'; // amber-500
+    case 'evidence':         return '#22c55e'; // green-500
+    case 'forensic':         return '#14b8a6'; // teal-500
+    case 'witness_bayan':    return '#6366f1'; // indigo-500
+    case 'gap_from_fir':     return '#f97316'; // orange-500
+    default:                 return '#94a3b8'; // slate-400
+  }
+}
+
+/**
+ * Simple column tree layout — kept for the multi-root fallback case.
  */
 function layoutTree(
   roots: MindmapNode[],
@@ -99,7 +265,6 @@ function layoutTree(
     .sort((a, b) => a.display_order - b.display_order)
     .forEach((root) => {
       walk(root, 0, branchIndex * 300);
-      // Advance branch index past all descendants
       branchIndex += countLeaves(root, collapsed);
     });
 
@@ -214,11 +379,27 @@ function AddNodeDialog({
 
 interface MindmapPanelProps {
   firId: string;
+  /** FIR's nlp_classification — picks the right demo mindmap when the
+   *  backend has no real one yet. Optional; the generic demo is used
+   *  as fallback. */
+  caseCategory?: string | null;
+  /** FIR registration number — appears in the centre hub of the demo
+   *  mindmap ("FIR 11192050250010 | Murder"). Optional. */
+  firNumber?: string | null;
 }
 
-export default function MindmapPanel({ firId }: MindmapPanelProps) {
-  const { data: mindmap, isLoading, isError, error } = useMindmap(firId);
+export default function MindmapPanel({
+  firId,
+  caseCategory,
+  firNumber,
+}: MindmapPanelProps) {
+  const { data: mindmap, isLoading, isError, error } = useMindmap(firId, {
+    caseCategory,
+    firNumber,
+  });
   const regenerate = useRegenerateMindmap(firId);
+  const generate = useGenerateMindmap(firId);
+  const showingDemo = isDemoMindmap(mindmap);
 
   const [view, setView] = useState<'tree' | 'checklist'>('tree');
   const [selectedNode, setSelectedNode] = useState<MindmapNode | null>(null);
@@ -230,10 +411,12 @@ export default function MindmapPanel({ firId }: MindmapPanelProps) {
     setSelectedNode(node);
   }, []);
 
-  // Build ReactFlow layout
+  // Build ReactFlow layout — centre-hub radial: root in middle, primary
+  // branches in a ring around it, leaves fanning outward along each
+  // branch axis.
   const { nodes: rfNodes, edges: rfEdges } = useMemo(() => {
     if (!mindmap?.nodes) return { nodes: [], edges: [] };
-    return layoutTree(mindmap.nodes, handleNodeClick, collapsed);
+    return layoutHorizontalMindmap(mindmap.nodes, handleNodeClick, collapsed);
   }, [mindmap, handleNodeClick, collapsed]);
 
   // Flat nodes for checklist
@@ -273,6 +456,14 @@ export default function MindmapPanel({ firId }: MindmapPanelProps) {
     }
   };
 
+  // First-time generation needs no justification — just POST and the
+  // backend builds the mindmap from FIR + KB. The toolbar regenerate
+  // button (which prompts for a justification) is reserved for replacing
+  // an existing mindmap with a new version.
+  const handleFirstGenerate = () => {
+    generate.mutate();
+  };
+
   if (!panelOpen) {
     return (
       <div className="flex items-start">
@@ -291,14 +482,29 @@ export default function MindmapPanel({ firId }: MindmapPanelProps) {
 
   return (
     <div className="flex flex-col h-full border rounded-lg bg-white shadow-sm overflow-hidden">
-      {/* Disclaimer banner */}
-      <div className="bg-yellow-50 border-b border-yellow-200 px-4 py-2 flex items-start gap-2">
-        <AlertTriangle className="w-4 h-4 text-yellow-600 shrink-0 mt-0.5" />
-        <p className="text-xs text-yellow-800 leading-snug">
-          Advisory — AI-generated suggestions. Investigating Officer retains
-          full discretion. Not a substitute for legal judgment.
-        </p>
-      </div>
+      {/* Disclaimer banner — switches copy when running on the static demo */}
+      {showingDemo ? (
+        <div className="bg-blue-50 border-b border-blue-200 px-4 py-2 flex items-start gap-2">
+          <AlertTriangle className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+          <p className="text-xs text-blue-800 leading-snug">
+            <span className="font-semibold">Demo data</span> — showing a static
+            per-category mindmap for{' '}
+            <span className="font-mono">
+              {mindmap?.case_category ?? caseCategory ?? 'generic'}
+            </span>
+            . Will be replaced by KB-driven content once the live 3-layer KB
+            is wired to this FIR.
+          </p>
+        </div>
+      ) : (
+        <div className="bg-yellow-50 border-b border-yellow-200 px-4 py-2 flex items-start gap-2">
+          <AlertTriangle className="w-4 h-4 text-yellow-600 shrink-0 mt-0.5" />
+          <p className="text-xs text-yellow-800 leading-snug">
+            Advisory — AI-generated suggestions. Investigating Officer retains
+            full discretion. Not a substitute for legal judgment.
+          </p>
+        </div>
+      )}
 
       {/* Toolbar */}
       <div className="flex items-center gap-1.5 px-3 py-2 border-b flex-wrap">
@@ -344,14 +550,16 @@ export default function MindmapPanel({ firId }: MindmapPanelProps) {
             className={`w-3.5 h-3.5 ${regenerate.isPending ? 'animate-spin' : ''}`}
           />
         </Button>
-        <Button
-          size="sm"
-          variant="ghost"
-          onClick={() => setShowAddDialog(true)}
-          title="Add Custom Node"
-        >
-          <Plus className="w-3.5 h-3.5" />
-        </Button>
+        {!showingDemo && (
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={() => setShowAddDialog(true)}
+            title="Add Custom Node"
+          >
+            <Plus className="w-3.5 h-3.5" />
+          </Button>
+        )}
 
         <div className="flex-1" />
 
@@ -499,18 +707,30 @@ export default function MindmapPanel({ firId }: MindmapPanelProps) {
         )}
 
         {!mindmap && !isLoading && !isError && (
-          <div className="flex flex-col items-center justify-center h-full gap-3 p-6">
+          <div className="flex flex-col items-center justify-center h-full gap-3 p-6 text-center">
             <p className="text-sm text-slate-500">
               No mindmap generated yet for this FIR.
             </p>
+            <p className="text-xs text-slate-400 max-w-xs">
+              The first generation pulls applicable BNS sections,
+              investigation playbook (panchnama, evidence, bayan, blood
+              forensics), and case-law standards from the 3-layer KB.
+            </p>
             <Button
               size="sm"
-              onClick={handleRegenerate}
-              disabled={regenerate.isPending}
+              onClick={handleFirstGenerate}
+              disabled={generate.isPending}
             >
-              <RefreshCw className="w-4 h-4 mr-1" />
-              Generate Mindmap
+              <RefreshCw
+                className={`w-4 h-4 mr-1 ${generate.isPending ? 'animate-spin' : ''}`}
+              />
+              {generate.isPending ? 'Generating…' : 'Generate Mindmap'}
             </Button>
+            {generate.isError && (
+              <p className="text-xs text-red-600 max-w-xs">
+                {(generate.error as Error)?.message ?? 'Generation failed.'}
+              </p>
+            )}
           </div>
         )}
       </div>

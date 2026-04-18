@@ -1,5 +1,16 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
+export class ApiError extends Error {
+  status: number;
+  detail: string;
+  constructor(status: number, detail: string) {
+    super(detail || `HTTP ${status}`);
+    this.name = "ApiError";
+    this.status = status;
+    this.detail = detail;
+  }
+}
+
 export async function apiClient(endpoint: string, options: RequestInit = {}) {
   const token =
     typeof window !== "undefined" ? localStorage.getItem("atlas_token") : null;
@@ -28,12 +39,13 @@ export async function apiClient(endpoint: string, options: RequestInit = {}) {
       localStorage.removeItem("atlas_token");
       window.location.href = "/login";
     }
-    throw new Error("Unauthorized");
+    throw new ApiError(401, "Unauthorized");
   }
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new Error((body as { detail?: string }).detail ?? `HTTP ${res.status}`);
+    const detail = (body as { detail?: string }).detail ?? `HTTP ${res.status}`;
+    throw new ApiError(res.status, detail);
   }
 
   return res.json();

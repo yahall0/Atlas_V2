@@ -1,0 +1,193 @@
+# Layer 2 — Investigation Playbook (Blood / Biological Forensics for Murder)
+#
+# These nodes augment BNS_S103_MURDER with SOP-grade guidance authored by the
+# Gujarat Police Forensic Science Wing. They are NOT statute (which lives in
+# Layer 1) and NOT court intelligence (Layer 3). They are institutional best
+# practice — the kind of detail that a senior IO would brief a junior IO on
+# before they touch the scene.
+#
+# Each node here explicitly declares kb_layer: investigation_playbook so the
+# 3-layer router treats them as SOP rather than statute.
+
+offence_code: BNS_S103_MURDER_PLAYBOOK_BLOOD
+category_id: violent_crimes
+bns_section: "103"
+display_name_en: "Murder — Blood / Biological Forensics Playbook"
+short_description_md: |
+  Layer-2 SOP supplement for BNS S.103 investigations. Covers blood-stain
+  collection, packaging, cold-chain, FSL requisition sequencing, and the
+  common errors flagged in standing-order audits.
+related_offence_codes:
+  - BNS_S103_MURDER
+
+knowledge_nodes:
+
+  - branch_type: forensic
+    kb_layer: investigation_playbook
+    authored_by_role: sop_committee
+    update_cadence: annual
+    priority: critical
+    title_en: "Blood-Stain Collection — 6 Sample Rule"
+    description_md: |
+      For every blood-stain incident, collect the following six samples in
+      separate, individually labelled containers:
+
+      1. **Wet swab from each distinct stain** (one swab per stain, not one
+         swab for several stains).
+      2. **Dry swab control** taken from a stain-free area on the same
+         surface (carpet, wall, vehicle seat) — establishes substrate baseline.
+      3. **Cutting / scraping** of the substrate where the stain is large
+         enough — the dried stain on cloth/wood survives DNA degradation
+         better than a swab.
+      4. **Reference blood from the deceased** — drawn during post-mortem
+         in EDTA vial, 5 ml minimum.
+      5. **Reference blood from each suspect** — under BNSS S.349 with
+         Magistrate's order if the suspect refuses voluntary sampling.
+      6. **Negative control swab** — a sterile swab opened at the scene but
+         never touched to any surface; proves the swab batch was not
+         contaminated.
+
+      Each sample sealed in a separate paper envelope (not plastic), signed
+      across the seal by two panchas and the IO. Plastic causes condensation
+      → bacterial growth → DNA degradation within 48 hours.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "349"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    kb_layer: investigation_playbook
+    authored_by_role: sop_committee
+    update_cadence: annual
+    priority: critical
+    title_en: "Cold-Chain — 4°C Within 4 Hours, FSL Within 72 Hours"
+    description_md: |
+      Biological samples (blood, semen, saliva, tissue, viscera) must enter
+      a 4 °C cold-chain within four hours of collection and reach the FSL
+      within 72 hours. Beyond 72 hours at ambient temperature, STR amplification
+      success drops below 60% and the FSL report often comes back as
+      "insufficient genetic material" — a defence team will then argue that
+      the prosecution's own forensic sampling was negligent.
+
+      Practical steps for districts without on-site fridges:
+      - Carry an ice-pack cooler in the SOC vehicle (mandatory after
+        DGP standing order 2023/47).
+      - Hand over to the dispatch rider with a sealed cold-bag and a
+        chain-of-custody label noting handover temperature.
+      - Photograph the cold-bag thermometer reading at handover and at
+        FSL receipt — these photos go into the case diary.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    kb_layer: investigation_playbook
+    authored_by_role: sop_committee
+    update_cadence: annual
+    priority: high
+    title_en: "Bloodstain Pattern Analysis (BPA) Photograph Protocol"
+    description_md: |
+      BPA evidence is only as good as the photographs. Required shots, in
+      this order, BEFORE any swabbing:
+
+      - **Establishing shot**: full room with scale-card visible.
+      - **Mid-range** showing the spatter relative to a fixed reference
+        (door frame, furniture).
+      - **Close-up perpendicular shot** of each spatter cluster with an
+        ABFO No. 2 scale placed in-plane.
+      - **Convergence sketch**: pencil-and-string convergence done in
+        situ for impact spatter (camera shot of the convergence point
+        with strings still in place).
+
+      Use a tripod for close-ups. Hand-held shots routinely fail to resolve
+      directionality because of motion blur. RAW + JPEG, never JPEG-only —
+      the FSL re-processes RAW for directional analysis. SHA-256 the SD
+      card at the station before any download.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+    requires_disclaimer: false
+
+  - branch_type: forensic
+    kb_layer: investigation_playbook
+    authored_by_role: sop_committee
+    update_cadence: annual
+    priority: high
+    title_en: "FSL Requisition Sequencing — Don't Collapse Tests"
+    description_md: |
+      Send the requisition in this order, on separate forms, so that a delay
+      in one test does not delay the entire dossier:
+
+      1. **Serology** (presumptive blood / blood grouping) — fastest, often
+         3-5 working days. Get this first to confirm the substance is human
+         blood before committing weeks of DNA work.
+      2. **DNA STR profiling** — 4-8 weeks. Send in parallel with serology
+         if budget permits, otherwise wait for serology positive.
+      3. **Toxicology on viscera** — 6-12 weeks. Send the moment viscera
+         arrive at the station, not after PM report typing.
+      4. **Histopathology** — only if PM cannot fix time of death.
+
+      Common error: the IO bundles all four into one requisition; the FSL
+      treats it as one job and the entire bundle moves at the speed of the
+      slowest test.
+    legal_basis_citations: []
+    requires_disclaimer: false
+
+  - branch_type: panchnama
+    kb_layer: investigation_playbook
+    authored_by_role: sop_committee
+    update_cadence: annual
+    priority: critical
+    title_en: "Panchnama — Independent Pancha Standard"
+    description_md: |
+      Both panchas must be:
+
+      - **Independent** of the police station and unrelated to the
+        deceased / accused (not the village watchman, not the CLG member
+        on a stipend, not the brother-in-law of the constable).
+      - **Resident of the locality** so they can be re-summoned for trial
+        without relying on the police to produce them.
+      - **Adult** with a verifiable identity document — Aadhaar / EPIC /
+        driving licence — copied into the panchnama.
+
+      A panchnama signed by panchas who later cannot be traced or who turn
+      out to be police-station regulars is the single most common reason
+      cited in Gujarat HC acquittal orders for "doubt on the seizure
+      proceedings." Record each pancha's mobile number and a relative's
+      mobile number on the panchnama itself.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "105"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false
+
+  - branch_type: witness_bayan
+    kb_layer: investigation_playbook
+    authored_by_role: sop_committee
+    update_cadence: annual
+    priority: high
+    title_en: "Bayan Recording — Verbatim, Vernacular, Same Day"
+    description_md: |
+      Witness statements under BNSS S.180 must be:
+
+      - Recorded **verbatim in the witness's own language** (Gujarati for
+        most rural witnesses), not paraphrased into Hindi or English.
+      - Recorded **on the same day** the witness is examined; do not stack
+        a day's worth of bayans for end-of-day typing.
+      - Read back to the witness; note the read-back in the bayan itself
+         ("Above statement read over and explained, witness states it is
+          correct").
+      - Cross-referenced against the FIR and any Section 65B/63 BSA-
+        certified electronic evidence.
+
+      Prepare a parallel English translation only if the trial court is
+      English-medium, and submit both versions; do not destroy the
+      vernacular original. Defence counsel routinely cross-examines on
+      translation drift, which is a documented acquittal driver in Gujarat
+      sessions courts.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "180"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: false

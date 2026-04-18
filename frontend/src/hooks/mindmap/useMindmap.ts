@@ -1,17 +1,74 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/lib/api';
+import { apiClient, ApiError } from '@/lib/api';
+import { getDemoMindmap } from '@/components/mindmap/demoMindmaps';
 import type {
   MindmapData,
   MindmapVersion,
   NodeStatusEntry,
 } from '@/components/mindmap/nodes/types';
 
-export function useMindmap(firId: string) {
-  return useQuery<MindmapData>({
-    queryKey: ['mindmap', firId],
-    queryFn: () => apiClient(`/api/v1/fir/${firId}/mindmap`),
+export interface UseMindmapOptions {
+  /** FIR's nlp_classification — used to pick the demo mindmap when the
+   *  backend has no real one yet. Optional; if absent, the generic demo
+   *  is used as fallback. */
+  caseCategory?: string | null;
+  /** FIR registration number — printed in the centre hub of the demo
+   *  mindmap ("FIR 11192050250010 | Murder"). Optional. */
+  firNumber?: string | null;
+  /** Set false to disable the per-category demo fallback (e.g. once the
+   *  live KB is wired and you want the empty state instead). */
+  useDemoFallback?: boolean;
+}
+
+/**
+ * Fetches the active mindmap for a FIR, with two graceful fallbacks:
+ *
+ *   1. 404 from the backend (no mindmap stored yet) → returns a *demo*
+ *      mindmap chosen by the FIR's case category, marked with
+ *      `metadata.demo === true` so the UI can show a "Demo data" badge.
+ *      This is what powers the demo flow before the live 3-layer KB is
+ *      wired to the deployment. Set `useDemoFallback: false` to opt out
+ *      and get `null` instead.
+ *
+ *   2. Other API errors propagate as react-query's `isError`, with the
+ *      status code preserved on `error.status`.
+ */
+export function useMindmap(firId: string, opts: UseMindmapOptions = {}) {
+  const { caseCategory, firNumber, useDemoFallback = true } = opts;
+  return useQuery<MindmapData | null>({
+    queryKey: [
+      'mindmap', firId, caseCategory ?? null, firNumber ?? null, useDemoFallback,
+    ],
+    queryFn: async () => {
+      try {
+        return await apiClient(`/api/v1/fir/${firId}/mindmap`);
+      } catch (e) {
+        if (e instanceof ApiError && e.status === 404) {
+          return useDemoFallback
+            ? getDemoMindmap(caseCategory, { firNumber })
+            : null;
+        }
+        throw e;
+      }
+    },
     enabled: !!firId,
+    retry: (failureCount, error) => {
+      if (error instanceof ApiError && (error.status === 404 || error.status === 401)) {
+        return false;
+      }
+      return failureCount < 2;
+    },
   });
+}
+
+/** Convenience: true if this MindmapData came from the static demo
+ *  registry (vs a live, KB-driven generation by the backend). */
+export function isDemoMindmap(data: MindmapData | null | undefined): boolean {
+  return Boolean(
+    data &&
+      typeof data.id === 'string' &&
+      data.id.startsWith('demo-')
+  );
 }
 
 export function useGenerateMindmap(firId: string) {

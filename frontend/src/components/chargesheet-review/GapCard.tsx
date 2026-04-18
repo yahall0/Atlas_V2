@@ -54,6 +54,8 @@ const CATEGORY_LABELS: Record<GapCategory, string> = {
   procedural: 'Procedural',
   mindmap_divergence: 'Mindmap',
   completeness: 'Completeness',
+  kb_playbook_gap: 'Playbook (KB L2)',
+  kb_caselaw_gap: 'Case Law (KB L3)',
 };
 
 const ACTION_STYLES: Record<GapActionType, { bg: string; text: string; label: string }> = {

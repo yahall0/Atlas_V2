@@ -1,0 +1,246 @@
+# Layer 3 — Case Law Intelligence (Murder Acquittal Patterns)
+#
+# Each node here distils what courts have actually ruled about investigation
+# quality in murder cases — the recurring evidentiary failures that drive
+# acquittals, the standards courts have set for chain-of-custody, and the
+# precedents an IO and PP need to anticipate.
+#
+# Layer 3 differs from Layer 2 in authority: Layer 2 is what good practice
+# looks like; Layer 3 is what courts have *required* and *punished omission
+# of*. Authority is graded by court (SC > HC-Gujarat > HC-other > District).
+# Cadence is continuous: as new judgments issue, the extraction pipeline
+# proposes new nodes here for human review.
+
+offence_code: BNS_S103_MURDER_CASELAW_ACQUITTALS
+category_id: violent_crimes
+bns_section: "103"
+display_name_en: "Murder — Case Law Intelligence (Acquittal Patterns)"
+short_description_md: |
+  Layer-3 case-law-derived guidance for BNS S.103 / IPC S.302 investigations.
+  Surfaces the recurring evidentiary failures that have driven acquittals
+  in Supreme Court and Gujarat High Court murder appeals.
+related_offence_codes:
+  - BNS_S103_MURDER
+
+knowledge_nodes:
+
+  - branch_type: gap_historical
+    kb_layer: case_law_intelligence
+    authored_by_role: judgment_extraction
+    update_cadence: continuous
+    priority: critical
+    title_en: "Last-Seen Doctrine — Time-Gap Beyond Reasonable Limits"
+    description_md: |
+      The Supreme Court has repeatedly held that the last-seen-together
+      circumstance loses its evidentiary force when the time-gap between
+      "last seen" and "found dead" is large enough that intervention by a
+      third party becomes possible.
+
+      In **Bodhraj v. State of J&K (2002) 8 SCC 45** and reaffirmed in
+      **Anjan Kumar Sarma v. State of Assam (2017) 14 SCC 359**, the Court
+      observed that where the time-gap exceeds what is reasonable in the
+      facts, the prosecution must additionally prove (i) the accused had
+      no opportunity to leave, or (ii) the body was found in a place under
+      the accused's exclusive control. Failure on both renders the last-
+      seen circumstance "weak and not sufficient by itself."
+
+      **What the IO must record**: exact time-stamp of the last sighting
+      (CDR / CCTV corroboration), the exact estimated time of death from
+      PM, and an explicit chain reasoning why the intervening interval
+      excludes third-party access.
+    legal_basis_citations:
+      - case_citation: "Bodhraj v. State of J&K, (2002) 8 SCC 45"
+        source_authority: "Supreme Court of India"
+      - case_citation: "Anjan Kumar Sarma v. State of Assam, (2017) 14 SCC 359"
+        source_authority: "Supreme Court of India"
+    requires_disclaimer: true
+    procedural_metadata:
+      court_grade: supreme_court
+      binding_authority: 100
+
+  - branch_type: gap_historical
+    kb_layer: case_law_intelligence
+    authored_by_role: judgment_extraction
+    update_cadence: continuous
+    priority: critical
+    title_en: "Recovery under BSA S.8 — Defective Discovery Panchnamas"
+    description_md: |
+      The Supreme Court in **Pulukuri Kotayya v. King-Emperor (AIR 1947 PC 67)**
+      — followed throughout the BNS regime — restricts admissibility under
+      what is now BSA S.8 (formerly Indian Evidence Act S.27) to the
+      "fact discovered" portion only, not the entire confessional statement.
+
+      Recurring acquittal patterns flagged by Gujarat HC:
+
+      - **Pre-dictated panchnamas** where the recovered location is recorded
+        before the accused points it out — fatal to admissibility
+        (*State of Gujarat v. Adam Hajibhai*, GHC 2019).
+      - **Panchas not present at the actual moment of pointing out**, only
+        signing back at the police station — defence routinely succeeds in
+        challenging the seizure as got-up.
+      - **No contemporaneous photo / video** of the accused at the recovery
+        point — the bench infers the recovery may have been planted.
+
+      **Mitigation**: video-record from the moment the accused leaves the
+      vehicle to the moment the article is taken into possession; capture
+      the panchas' faces in the same frame; preserve the SD card hash.
+    legal_basis_citations:
+      - framework: BSA
+        section: "8"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+      - case_citation: "Pulukuri Kotayya v. King-Emperor, AIR 1947 PC 67"
+        source_authority: "Privy Council (followed by Supreme Court)"
+    requires_disclaimer: true
+    procedural_metadata:
+      court_grade: supreme_court
+      binding_authority: 100
+
+  - branch_type: gap_historical
+    kb_layer: case_law_intelligence
+    authored_by_role: judgment_extraction
+    update_cadence: continuous
+    priority: high
+    title_en: "BSA S.63 Certificate — Mandatory for Electronic Evidence"
+    description_md: |
+      **Anvar P.V. v. P.K. Basheer (2014) 10 SCC 473**, reaffirmed in
+      **Arjun Panditrao Khotkar v. Kailash Kushanrao Gorantyal (2020) 7 SCC 1**,
+      held that a certificate under (then) S.65B Evidence Act / now S.63 BSA
+      is a **mandatory pre-condition** for admissibility of electronic
+      evidence (CCTV, CDR, dump, mobile data extraction). The certificate
+      must come from the person in control of the originating device at the
+      relevant time, not from the IO who later seized it.
+
+      Recurring failures in Gujarat district courts:
+
+      - Certificate signed by the IO instead of the CCTV operator / nodal
+        officer of the telecom provider.
+      - Certificate dated after the trial begins — the Supreme Court has
+        held the certificate must be obtained at the time of producing the
+        electronic record, not at trial-stage as an afterthought.
+      - SHA-256 hash of the original media not noted on the certificate,
+        making it impossible to prove the trial-stage copy is identical.
+
+      **Action**: collect the S.63 BSA certificate and the SHA-256 hash on
+      the same day the electronic record is seized. Attach to the seizure
+      panchnama, not as a stand-alone afterthought.
+    legal_basis_citations:
+      - framework: BSA
+        section: "63"
+        source_authority: "Bharatiya Sakshya Adhiniyam 2023"
+      - case_citation: "Anvar P.V. v. P.K. Basheer, (2014) 10 SCC 473"
+        source_authority: "Supreme Court of India"
+      - case_citation: "Arjun Panditrao Khotkar v. Kailash Kushanrao Gorantyal, (2020) 7 SCC 1"
+        source_authority: "Supreme Court of India"
+    requires_disclaimer: true
+    procedural_metadata:
+      court_grade: supreme_court
+      binding_authority: 100
+
+  - branch_type: gap_historical
+    kb_layer: case_law_intelligence
+    authored_by_role: judgment_extraction
+    update_cadence: continuous
+    priority: high
+    title_en: "Hostile Witness — Why S.183 BNSS Statement Matters at Trial"
+    description_md: |
+      Witnesses turning hostile remains the single largest reported reason
+      for acquittal in Indian murder trials. Per the **Law Commission's
+      198th Report** and **Mahender Chawla v. Union of India (2019) 14
+      SCC 615**, the prophylactic mechanism is the Section 164 CrPC /
+      Section 183 BNSS statement recorded before a Judicial Magistrate.
+
+      A S.183 statement is **substantive evidence** under the BNS regime
+      (unlike a S.180 police statement which is only usable for
+      contradiction under BSA S.145). When the witness later resiles at
+      trial, the prosecution can confront with the S.183 statement and the
+      court is empowered to act upon the prior sworn version under
+      **State of Delhi v. Shri Ram Lohia (1960) 2 SCR 821**.
+
+      **Action**: identify the two or three witnesses most exposed to
+      pressure (family of accused, neighbours, weak villagers) within the
+      first week of investigation and apply for their S.183 examination
+      before the local Magistrate; do not wait for trial-stage hostility.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "183"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+      - case_citation: "Mahender Chawla v. Union of India, (2019) 14 SCC 615"
+        source_authority: "Supreme Court of India"
+    requires_disclaimer: true
+    procedural_metadata:
+      court_grade: supreme_court
+      binding_authority: 100
+
+  - branch_type: gap_historical
+    kb_layer: case_law_intelligence
+    authored_by_role: judgment_extraction
+    update_cadence: continuous
+    priority: high
+    title_en: "Inquest under BNSS S.194 — Defects That Bench Will Notice"
+    description_md: |
+      Gujarat High Court has, in a line of cases, held that inquest defects
+      compound to create reasonable doubt:
+
+      - **State of Gujarat v. Bhagaji Tabhaji** (GHC 2018) — inquest
+        recorded at the police station, not at the scene; bench held the
+        body was thereby moved before independent inspection, contaminating
+        all downstream forensic conclusions about position and lividity.
+      - **State of Gujarat v. Maganbhai Punjabhai** (GHC 2021) — only one
+        pancha named in inquest where BNSS predecessor required two; bench
+        treated the entire inquest as if not done.
+
+      **Standard the bench expects**: two independent panchas at scene,
+      contemporaneous photograph of the body in situ, timestamped sketch,
+      explicit recital of injury location with reference to anatomical
+      landmarks (not "left chest" but "5 cm above left nipple, mid-
+      clavicular line"). Match every inquest entry to the corresponding
+      PM observation.
+    legal_basis_citations:
+      - framework: BNSS
+        section: "194"
+        source_authority: "Bharatiya Nagarik Suraksha Sanhita 2023"
+    requires_disclaimer: true
+    procedural_metadata:
+      court_grade: gujarat_hc
+      binding_authority: 80
+
+  - branch_type: gap_historical
+    kb_layer: case_law_intelligence
+    authored_by_role: judgment_extraction
+    update_cadence: continuous
+    priority: medium
+    title_en: "Delay in FIR — Sharad Birdhichand and the Explanation Standard"
+    description_md: |
+      **Sharad Birdhichand Sarda v. State of Maharashtra (1984) 4 SCC 116**
+      and **Thulia Kali v. State of Tamil Nadu (1973) 1 SCC 9** establish
+      the rule: any unexplained delay between commission of the offence
+      and lodging of the FIR is a **fatal infirmity** unless the
+      prosecution offers a satisfactory, contemporaneous explanation
+      recorded in the case diary.
+
+      Acceptable explanations the Supreme Court has approved:
+
+      - Informant first taking the victim to hospital (medical priority).
+      - Remoteness of the police station (note kilometre distance).
+      - Communal tension preventing immediate approach to the station.
+
+      Explanations the Court has rejected:
+
+      - Awaiting "approval" from senior officers.
+      - Internal jurisdictional disputes over which station should register.
+      - "Investigation needed before FIR" — explicitly held impermissible
+        under Lalita Kumari v. State of UP (2014) 2 SCC 1.
+
+      **Action**: the case diary must contain the explanation contemporaneously,
+      not be added retrospectively in the chargesheet.
+    legal_basis_citations:
+      - case_citation: "Sharad Birdhichand Sarda v. State of Maharashtra, (1984) 4 SCC 116"
+        source_authority: "Supreme Court of India"
+      - case_citation: "Thulia Kali v. State of Tamil Nadu, (1973) 1 SCC 9"
+        source_authority: "Supreme Court of India"
+      - case_citation: "Lalita Kumari v. State of UP, (2014) 2 SCC 1"
+        source_authority: "Supreme Court of India (Constitution Bench)"
+    requires_disclaimer: true
+    procedural_metadata:
+      court_grade: supreme_court
+      binding_authority: 100

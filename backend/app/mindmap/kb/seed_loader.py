@@ -133,6 +133,9 @@ def load_seeds(
             for i, node in enumerate(seed.knowledge_nodes):
                 node_id = uuid.uuid4()
                 citations = [c.model_dump() for c in node.legal_basis_citations]
+                layer = node.resolved_layer().value
+                author = node.resolved_author().value
+                cadence = node.resolved_cadence().value
 
                 cur.execute(
                     """INSERT INTO legal_kb_knowledge_nodes
@@ -140,15 +143,18 @@ def load_seeds(
                         title_en, title_gu, description_md,
                         legal_basis_citations, procedural_metadata,
                         requires_disclaimer, display_order, kb_version,
-                        created_by, approval_status)
+                        created_by, approval_status,
+                        kb_layer, authored_by_role, update_cadence)
                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s,
-                               %s::jsonb, %s::jsonb, %s, %s, %s, NULL, 'approved')""",
+                               %s::jsonb, %s::jsonb, %s, %s, %s, NULL, 'approved',
+                               %s, %s, %s)""",
                     (node_id, offence_id, node.branch_type.value,
                      node.tier.value, node.priority.value,
                      node.title_en, node.title_gu, node.description_md,
                      json.dumps(citations, default=str),
                      json.dumps(node.procedural_metadata, default=str),
-                     node.requires_disclaimer, i, version),
+                     node.requires_disclaimer, i, version,
+                     layer, author, cadence),
                 )
                 nodes_added += 1
 

@@ -42,6 +42,94 @@ class Tier(str, enum.Enum):
     JUDGMENT_DERIVED = "judgment_derived"
 
 
+class KBLayer(str, enum.Enum):
+    """The three authoritative layers of the legal knowledge base.
+
+    1. canonical_legal        — what the statute itself says (BNS / BNSS / BSA).
+                                 Authored by legal advisor. Updates rarely
+                                 (only on Parliamentary amendment). Binding.
+    2. investigation_playbook — what good investigation looks like in general
+                                 (panchnama best practice, evidence packaging,
+                                 forensic requisition sequencing, witness
+                                 statement technique). Authored by senior IPS /
+                                 Gujarat Police training wing. Updates annually.
+                                 Institutional best practice — not statute.
+    3. case_law_intelligence  — what courts have ruled on investigation quality,
+                                 acquittal patterns, and evidentiary standards.
+                                 Authored by the judgment extraction pipeline.
+                                 Updates continuously. Authority graded by court
+                                 (SC > HC-GJ > HC-other > DC).
+    """
+
+    CANONICAL_LEGAL = "canonical_legal"
+    INVESTIGATION_PLAYBOOK = "investigation_playbook"
+    CASE_LAW_INTELLIGENCE = "case_law_intelligence"
+
+
+class AuthoredByRole(str, enum.Enum):
+    LEGAL_ADVISOR = "legal_advisor"
+    SOP_COMMITTEE = "sop_committee"
+    JUDGMENT_EXTRACTION = "judgment_extraction"
+    MANUAL_CURATION = "manual_curation"
+
+
+class UpdateCadence(str, enum.Enum):
+    RARE = "rare"          # Layer 1: only on statutory amendment
+    ANNUAL = "annual"      # Layer 2: when standing orders update
+    CONTINUOUS = "continuous"  # Layer 3: as judgments issue
+
+
+# Branch types that belong to the Investigation Playbook layer when the
+# author is canonical (i.e. SOP-derived rather than statute-derived).
+_PLAYBOOK_BRANCHES = frozenset({
+    "immediate_action",
+    "panchnama",
+    "evidence",
+    "witness_bayan",
+    "forensic",
+    "procedural_safeguard",
+})
+
+
+def derive_kb_layer(branch_type: str, tier: str) -> KBLayer:
+    """Derive a KB layer from a (branch_type, tier) pair.
+
+    Mirrors the SQL backfill in migration 012 so seed loaders, tests, and
+    runtime classification all agree without a database round-trip.
+    """
+    if tier == "judgment_derived":
+        return KBLayer.CASE_LAW_INTELLIGENCE
+    if branch_type == "gap_historical":
+        return KBLayer.CASE_LAW_INTELLIGENCE
+    if branch_type == "legal_section":
+        return KBLayer.CANONICAL_LEGAL
+    if branch_type in _PLAYBOOK_BRANCHES:
+        return KBLayer.INVESTIGATION_PLAYBOOK
+    # Conservative default for unknown future branches.
+    return KBLayer.INVESTIGATION_PLAYBOOK
+
+
+_DEFAULT_AUTHOR = {
+    KBLayer.CANONICAL_LEGAL: AuthoredByRole.LEGAL_ADVISOR,
+    KBLayer.INVESTIGATION_PLAYBOOK: AuthoredByRole.SOP_COMMITTEE,
+    KBLayer.CASE_LAW_INTELLIGENCE: AuthoredByRole.JUDGMENT_EXTRACTION,
+}
+
+_DEFAULT_CADENCE = {
+    KBLayer.CANONICAL_LEGAL: UpdateCadence.RARE,
+    KBLayer.INVESTIGATION_PLAYBOOK: UpdateCadence.ANNUAL,
+    KBLayer.CASE_LAW_INTELLIGENCE: UpdateCadence.CONTINUOUS,
+}
+
+
+def default_author_for(layer: KBLayer) -> AuthoredByRole:
+    return _DEFAULT_AUTHOR[layer]
+
+
+def default_cadence_for(layer: KBLayer) -> UpdateCadence:
+    return _DEFAULT_CADENCE[layer]
+
+
 class NodePriority(str, enum.Enum):
     CRITICAL = "critical"
     HIGH = "high"
@@ -112,6 +200,26 @@ class SeedKnowledgeNode(BaseModel):
     legal_basis_citations: list[LegalCitation] = Field(default_factory=list)
     procedural_metadata: dict[str, Any] = Field(default_factory=dict)
     requires_disclaimer: bool = False
+    # 3-layer fields (auto-derived from branch_type + tier when omitted by
+    # the YAML, so existing seeds keep working without modification).
+    kb_layer: Optional[KBLayer] = None
+    authored_by_role: Optional[AuthoredByRole] = None
+    update_cadence: Optional[UpdateCadence] = None
+
+    def resolved_layer(self) -> KBLayer:
+        if self.kb_layer is not None:
+            return self.kb_layer
+        return derive_kb_layer(self.branch_type.value, self.tier.value)
+
+    def resolved_author(self) -> AuthoredByRole:
+        if self.authored_by_role is not None:
+            return self.authored_by_role
+        return default_author_for(self.resolved_layer())
+
+    def resolved_cadence(self) -> UpdateCadence:
+        if self.update_cadence is not None:
+            return self.update_cadence
+        return default_cadence_for(self.resolved_layer())
 
 
 class SeedOffence(BaseModel):
@@ -177,6 +285,10 @@ class KnowledgeNodeResponse(BaseModel):
     display_order: int = 0
     kb_version: str = ""
     approval_status: str = "proposed"
+    # 3-layer attribution (always populated by the migration backfill).
+    kb_layer: KBLayer = KBLayer.INVESTIGATION_PLAYBOOK
+    authored_by_role: AuthoredByRole = AuthoredByRole.SOP_COMMITTEE
+    update_cadence: UpdateCadence = UpdateCadence.ANNUAL
 
     model_config = {"from_attributes": True}
 
@@ -206,12 +318,37 @@ class RetrievalTrace(BaseModel):
     retrieval_duration_ms: int = 0
 
 
+class LayerStats(BaseModel):
+    canonical_legal: int = 0
+    investigation_playbook: int = 0
+    case_law_intelligence: int = 0
+
+
 class KnowledgeBundle(BaseModel):
     kb_version: str
     primary_offences: list[OffenceWithNodes] = Field(default_factory=list)
     related_offences: list[OffenceWithNodes] = Field(default_factory=list)
     judgment_context: list[RelevantJudgment] = Field(default_factory=list)
     retrieval_trace: RetrievalTrace = Field(default_factory=RetrievalTrace)
+    # Per-layer summary so callers (mindmap, gap analysis, frontend) can
+    # render the bundle as three separate authority columns.
+    layer_stats: LayerStats = Field(default_factory=LayerStats)
+
+    def all_nodes(self) -> list[KnowledgeNodeResponse]:
+        out: list[KnowledgeNodeResponse] = []
+        for ow in self.primary_offences + self.related_offences:
+            out.extend(ow.nodes)
+        return out
+
+    def nodes_by_layer(self) -> dict[KBLayer, list[KnowledgeNodeResponse]]:
+        grouped: dict[KBLayer, list[KnowledgeNodeResponse]] = {
+            KBLayer.CANONICAL_LEGAL: [],
+            KBLayer.INVESTIGATION_PLAYBOOK: [],
+            KBLayer.CASE_LAW_INTELLIGENCE: [],
+        }
+        for n in self.all_nodes():
+            grouped[n.kb_layer].append(n)
+        return grouped
 
 
 # ── Judgment models ──────────────────────────────────────────────────────────

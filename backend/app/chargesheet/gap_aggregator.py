@@ -23,7 +23,7 @@ psycopg2.extras.register_uuid()
 logger = logging.getLogger(__name__)
 
 _GENESIS = "GENESIS"
-_GENERATOR_VERSION = "gap-aggregator-v1"
+_GENERATOR_VERSION = "gap-aggregator-v2-3layer"
 _COMPLETENESS_RULES_DIR = Path(__file__).parent / "completeness_rules"
 
 # Severity ordering for sort
@@ -32,6 +32,32 @@ _SEVERITY_ORDER = {"critical": 0, "high": 1, "medium": 2, "low": 3, "advisory": 
 _T54_SEVERITY_MAP = {"CRITICAL": "critical", "ERROR": "high", "WARNING": "medium"}
 # Map T55 severities
 _T55_SEVERITY_MAP = {"critical": "critical", "important": "high", "suggested": "medium"}
+
+# 3-layer KB attribution. Each gap category names which KB layer the finding
+# argues from — so a "legal" gap is anchored in Layer 1 (statute) while an
+# "evidence" gap is anchored in Layer 2 (SOP playbook).
+_CATEGORY_TO_LAYER = {
+    "legal": "canonical_legal",
+    "evidence": "investigation_playbook",
+    "witness": "investigation_playbook",
+    "procedural": "investigation_playbook",
+    "completeness": "investigation_playbook",
+    "mindmap_divergence": "investigation_playbook",  # refined per-node below
+    "kb_playbook_gap": "investigation_playbook",
+    "kb_caselaw_gap": "case_law_intelligence",
+}
+
+# Minimum severity for KB-driven gaps surfaced from Layer 2/3 missing items.
+_KB_GAP_DEFAULT_SEVERITY = {
+    "investigation_playbook": "high",
+    "case_law_intelligence": "medium",
+}
+
+# Keyword-based "is this Layer 2/3 KB node already addressed in the
+# chargesheet?" matching. Conservative — we only fire a gap when we are
+# fairly sure the chargesheet text doesn't mention it.
+_TITLE_TOKEN_MIN_LEN = 4
+_MIN_TOKENS_FOR_MATCH = 2
 
 
 def _dict_cursor(conn: PgConnection):
@@ -148,7 +174,10 @@ def _fetch_mindmap_for_fir(conn: PgConnection, fir_id: uuid.UUID) -> Optional[Di
 # ── Gap converters ───────────────────────────────────────────────────────────
 
 def _convert_legal_findings(findings: List[Dict]) -> List[Dict]:
-    """Convert T54 legal validator findings to unified gap format."""
+    """Convert T54 legal validator findings to unified gap format.
+
+    Legal validator findings argue from statute → tagged Layer 1.
+    """
     gaps = []
     for f in findings:
         severity = _T54_SEVERITY_MAP.get(f.get("severity", ""), "medium")
@@ -168,13 +197,17 @@ def _convert_legal_findings(findings: List[Dict]) -> List[Dict]:
             },
             "confidence": f.get("confidence", 0.9),
             "tags": [f.get("rule_id", "")] if f.get("rule_id") else [],
+            "kb_layer": "canonical_legal",
             "_dedup_key": ("legal", section, f.get("rule_id", "")),
         })
     return gaps
 
 
 def _convert_evidence_gaps(evidence_gaps: List[Dict]) -> List[Dict]:
-    """Convert T55 evidence gap classifier output to unified gap format."""
+    """Convert T55 evidence gap classifier output to unified gap format.
+
+    Evidence-collection failures argue from SOP best practice → Layer 2.
+    """
     gaps = []
     for eg in evidence_gaps:
         severity = _T55_SEVERITY_MAP.get(eg.get("severity", ""), "medium")
@@ -196,6 +229,7 @@ def _convert_evidence_gaps(evidence_gaps: List[Dict]) -> List[Dict]:
             },
             "confidence": eg.get("confidence", 0.7),
             "tags": [eg.get("tier", ""), eg.get("category", "")],
+            "kb_layer": "investigation_playbook",
             "_dedup_key": ("evidence", eg.get("category", ""), ""),
         })
     return gaps
@@ -258,6 +292,17 @@ def _compute_mindmap_divergences(
 
         if not matched:
             label = "likely_divergence" if confidence < 0.5 else "possible_divergence"
+            # Inherit the KB layer of the mindmap node so the gap shows
+            # up in the right authority column on the frontend.
+            node_meta = node.get("metadata") or {}
+            if isinstance(node_meta, str):
+                try:
+                    node_meta = json.loads(node_meta)
+                except (json.JSONDecodeError, TypeError):
+                    node_meta = {}
+            kb_layer = node_meta.get("kb_layer") or "investigation_playbook"
+            kb_node_ref = node_meta.get("kb_node_id")
+
             divergences.append({
                 "category": "mindmap_divergence",
                 "severity": "medium",
@@ -281,6 +326,8 @@ def _compute_mindmap_divergences(
                 "related_mindmap_node_id": str(node["id"]),
                 "confidence": max(0.1, 1.0 - confidence),
                 "tags": [label, node_type],
+                "kb_layer": kb_layer,
+                "kb_node_ref": kb_node_ref,
                 "_dedup_key": ("mindmap_divergence", str(node["id"]), ""),
             })
 
@@ -326,8 +373,13 @@ def _run_completeness_rules(cs: Dict, case_category: str) -> List[Dict]:
 
         if failed:
             remediation = rule.get("remediation", {})
+            category = rule.get("category", "completeness")
+            # Each completeness rule may name its own KB layer; otherwise
+            # we derive from category so legal-flavoured rules light up
+            # Layer 1, evidence/witness rules light up Layer 2, etc.
+            layer = rule.get("kb_layer") or _CATEGORY_TO_LAYER.get(category, "investigation_playbook")
             gaps.append({
-                "category": rule.get("category", "completeness"),
+                "category": category,
                 "severity": rule.get("severity", "medium"),
                 "source": "completeness_rules",
                 "requires_disclaimer": False,
@@ -340,10 +392,187 @@ def _run_completeness_rules(cs: Dict, case_category: str) -> List[Dict]:
                 },
                 "confidence": 1.0,
                 "tags": [rule.get("id", "")],
-                "_dedup_key": (rule.get("category", "completeness"), rule.get("id", ""), ""),
+                "kb_layer": layer,
+                "_dedup_key": (category, rule.get("id", ""), ""),
             })
 
     return gaps
+
+
+def _kb_driven_gaps(
+    conn: PgConnection,
+    cs: Dict,
+    case_category: str,
+) -> List[Dict]:
+    """Pull Layer-2/3 KB nodes for the charged offences and flag the ones
+    the chargesheet text doesn't mention.
+
+    This is the wiring that makes the 3-layer KB *consequential* for the
+    chargesheet review: every Layer-2 SOP and Layer-3 case-law standard
+    becomes a candidate gap. The IO sees not just "what's missing" but
+    "what authority says it should have been there."
+    """
+    # Local import to avoid a hard cross-package import at module load.
+    try:
+        from app.mindmap.kb.retrieval import get_knowledge_for_mindmap
+    except Exception:
+        logger.warning("KB retrieval not available; skipping KB-driven gaps")
+        return []
+
+    bns_sections = _extract_bns_sections(cs)
+    try:
+        bundle = get_knowledge_for_mindmap(
+            category_id=case_category or "generic",
+            detected_bns_sections=bns_sections,
+            fir_extracted_data={},
+            conn=conn,
+        )
+    except Exception as exc:
+        logger.warning("KB retrieval failed for cs %s: %s", cs.get("id"), exc)
+        return []
+
+    cs_text = (cs.get("raw_text") or "").lower()
+    cs_evidence = cs.get("evidence_json") or []
+    if isinstance(cs_evidence, str):
+        try:
+            cs_evidence = json.loads(cs_evidence)
+        except (json.JSONDecodeError, TypeError):
+            cs_evidence = []
+    cs_evidence_text = " ".join(
+        (ev.get("description") or ev.get("type") or "")
+        for ev in cs_evidence
+        if isinstance(ev, dict)
+    ).lower()
+
+    haystack = cs_text + " " + cs_evidence_text
+
+    grouped = bundle.nodes_by_layer()
+    out: List[Dict] = []
+
+    # Only Layer 2 and Layer 3 are surfaced as KB-driven gaps. Layer 1
+    # (statute) is already covered by the T54 legal validator and the
+    # legal completeness rules.
+    for layer_value, category, source in (
+        ("investigation_playbook", "kb_playbook_gap", "kb_playbook"),
+        ("case_law_intelligence", "kb_caselaw_gap", "kb_caselaw"),
+    ):
+        from app.mindmap.kb.schemas import KBLayer  # local import
+        layer_enum = KBLayer(layer_value)
+        nodes = grouped.get(layer_enum, [])
+
+        for node in nodes:
+            if not _is_kb_node_addressed(node, haystack):
+                title = node.title_en
+                priority = (
+                    node.priority.value if hasattr(node.priority, "value")
+                    else node.priority
+                )
+                # Critical/high KB nodes pass through their own severity.
+                # Medium/low/advisory get capped at the layer default to
+                # avoid drowning the IO in advisory noise.
+                severity = priority if priority in ("critical", "high") else \
+                    _KB_GAP_DEFAULT_SEVERITY[layer_value]
+
+                citations = []
+                for cit in (node.legal_basis_citations or []):
+                    if hasattr(cit, "framework"):
+                        fw, sec = cit.framework, cit.section
+                    elif isinstance(cit, dict):
+                        fw, sec = cit.get("framework"), cit.get("section")
+                    else:
+                        continue
+                    if fw and sec:
+                        citations.append({"framework": fw, "section": sec})
+
+                out.append({
+                    "category": category,
+                    "severity": severity,
+                    "source": source,
+                    "requires_disclaimer": True,
+                    "title": (
+                        f"Missing from chargesheet — {title}"
+                        if layer_value == "investigation_playbook"
+                        else f"Court-set standard not addressed — {title}"
+                    ),
+                    "description_md": (node.description_md or "")[:2000],
+                    "legal_refs": citations,
+                    "remediation": {
+                        "summary": (
+                            "Chargesheet does not appear to address this "
+                            "KB-mandated item. Add the relevant content or "
+                            "document why it does not apply."
+                        ),
+                        "steps": [
+                            f"Confirm whether '{title}' is addressed under "
+                            f"a different heading.",
+                            "If genuinely missing, take corrective action "
+                            "(re-record bayan, send sample to FSL, prepare "
+                            "supplementary panchnama).",
+                            "Attach the additional artifact and update the "
+                            "chargesheet evidence schedule.",
+                        ],
+                        "estimated_effort": "hours",
+                    },
+                    "confidence": 0.75,
+                    "tags": [
+                        layer_value,
+                        node.branch_type.value if hasattr(node.branch_type, "value") else node.branch_type,
+                    ],
+                    "kb_layer": layer_value,
+                    "kb_node_ref": str(node.id),
+                    "_dedup_key": (category, str(node.id), ""),
+                })
+
+    return out
+
+
+def _extract_bns_sections(cs: Dict) -> list[str]:
+    """Best-effort BNS section extraction from the chargesheet.
+
+    Looks at charges_json first (structured) then falls back to a regex
+    over raw_text. Used only to seed the KB query — false positives are
+    cheap because retrieval has its own category fallback.
+    """
+    sections: list[str] = []
+    charges = cs.get("charges_json") or []
+    if isinstance(charges, str):
+        try:
+            charges = json.loads(charges)
+        except (json.JSONDecodeError, TypeError):
+            charges = []
+    for ch in charges if isinstance(charges, list) else []:
+        sec = (ch.get("section") or "").strip() if isinstance(ch, dict) else ""
+        if sec:
+            sections.append(sec)
+    return sections
+
+
+def _is_kb_node_addressed(node, haystack: str) -> bool:
+    """True if the chargesheet appears to mention this KB node already.
+
+    Tokenises the title, drops short tokens, and checks whether at least
+    `_MIN_TOKENS_FOR_MATCH` distinctive tokens appear in the haystack.
+    Also checks any cited section number.
+    """
+    title = (node.title_en or "").lower()
+    tokens = [
+        t for t in title.replace("/", " ").replace("(", " ").replace(")", " ").split()
+        if len(t) >= _TITLE_TOKEN_MIN_LEN and t.isalpha()
+    ]
+    hits = sum(1 for t in tokens if t in haystack)
+    if hits >= _MIN_TOKENS_FOR_MATCH:
+        return True
+
+    for cit in (node.legal_basis_citations or []):
+        if hasattr(cit, "section"):
+            sec = (cit.section or "").lower()
+        elif isinstance(cit, dict):
+            sec = (cit.get("section") or "").lower()
+        else:
+            continue
+        if sec and sec in haystack:
+            return True
+    return False
 
 
 def _load_completeness_rules(case_category: str) -> List[Dict]:
@@ -431,16 +660,19 @@ def _persist_report(
             remediation = gap.get("remediation", {})
             location = gap.get("location")
             related_node = gap.get("related_mindmap_node_id")
+            kb_layer = gap.get("kb_layer")
+            kb_node_ref = gap.get("kb_node_ref")
 
             cur.execute(
                 """INSERT INTO chargesheet_gaps
                    (id, report_id, category, severity, source,
                     requires_disclaimer, title, description_md,
                     location, legal_refs, remediation,
-                    related_mindmap_node_id, confidence, tags, display_order)
+                    related_mindmap_node_id, confidence, tags, display_order,
+                    kb_layer, kb_node_ref)
                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s,
                            %s::jsonb, %s::jsonb, %s::jsonb,
-                           %s, %s, %s, %s)""",
+                           %s, %s, %s, %s, %s, %s)""",
                 (gap_id, report_id, gap["category"], gap["severity"],
                  gap["source"], gap.get("requires_disclaimer", False),
                  gap["title"], gap.get("description_md", ""),
@@ -450,7 +682,9 @@ def _persist_report(
                  uuid.UUID(related_node) if related_node else None,
                  gap.get("confidence", 0.0),
                  gap.get("tags", []),
-                 i),
+                 i,
+                 kb_layer,
+                 uuid.UUID(kb_node_ref) if kb_node_ref else None),
             )
 
     conn.commit()
@@ -479,7 +713,23 @@ def _fetch_report(conn: PgConnection, report_id: uuid.UUID) -> Optional[Dict]:
                ORDER BY g.display_order""",
             (report_id,),
         )
-        report["gaps"] = [dict(r) for r in cur.fetchall()]
+        gaps = [dict(r) for r in cur.fetchall()]
+        report["gaps"] = gaps
+
+        # Per-KB-layer roll-up so the frontend can render three columns.
+        layer_counts = {
+            "canonical_legal": 0,
+            "investigation_playbook": 0,
+            "case_law_intelligence": 0,
+            "unattributed": 0,
+        }
+        for g in gaps:
+            layer = g.get("kb_layer")
+            if layer in layer_counts:
+                layer_counts[layer] += 1
+            else:
+                layer_counts["unattributed"] += 1
+        report["layer_counts"] = layer_counts
         return report
 
 
@@ -539,6 +789,12 @@ def aggregate_gaps(
     # 4. Static completeness rules
     completeness_gaps = _run_completeness_rules(cs, case_category)
 
+    # 5. KB-driven gaps — Layer 2 (SOP) and Layer 3 (case law) items
+    #    that the chargesheet does not appear to address.
+    kb_gaps = _kb_driven_gaps(conn, cs, case_category)
+    if not kb_gaps:
+        partial_sources.append("kb_3layer")
+
     # Convert and unify
     all_gaps = []
     all_gaps.extend(_convert_legal_findings(legal_findings))
@@ -546,6 +802,7 @@ def aggregate_gaps(
     if mindmap_data:
         all_gaps.extend(_compute_mindmap_divergences(mindmap_data, cs))
     all_gaps.extend(completeness_gaps)
+    all_gaps.extend(kb_gaps)
 
     # Deduplicate
     all_gaps = _deduplicate(all_gaps)

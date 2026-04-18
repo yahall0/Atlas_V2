@@ -19,6 +19,11 @@ class GapCategory(str, enum.Enum):
     PROCEDURAL = "procedural"
     MINDMAP_DIVERGENCE = "mindmap_divergence"
     COMPLETENESS = "completeness"
+    # KB-derived gaps — surfaced when the chargesheet omits an item
+    # explicitly required by the 3-layer KB (Layer 2 SOP or Layer 3
+    # case-law standard).
+    KB_PLAYBOOK_GAP = "kb_playbook_gap"
+    KB_CASELAW_GAP = "kb_caselaw_gap"
 
 
 class GapSeverity(str, enum.Enum):
@@ -35,6 +40,16 @@ class GapSource(str, enum.Enum):
     MINDMAP_DIFF = "mindmap_diff"
     COMPLETENESS_RULES = "completeness_rules"
     MANUAL_REVIEW = "manual_review"
+    KB_PLAYBOOK = "kb_playbook"
+    KB_CASELAW = "kb_caselaw"
+
+
+class KBLayerTag(str, enum.Enum):
+    """Mirrors app.mindmap.kb.schemas.KBLayer for gap attribution."""
+
+    CANONICAL_LEGAL = "canonical_legal"
+    INVESTIGATION_PLAYBOOK = "investigation_playbook"
+    CASE_LAW_INTELLIGENCE = "case_law_intelligence"
 
 
 class GapActionType(str, enum.Enum):
@@ -87,8 +102,18 @@ class GapResponse(BaseModel):
     tags: list[str] = Field(default_factory=list)
     display_order: int
     current_action: Optional[GapActionType] = None
+    # 3-layer KB attribution: which authority is the gap arguing from?
+    kb_layer: Optional[KBLayerTag] = None
+    kb_node_ref: Optional[UUID] = None
 
     model_config = {"from_attributes": True}
+
+
+class LayerCounts(BaseModel):
+    canonical_legal: int = 0
+    investigation_playbook: int = 0
+    case_law_intelligence: int = 0
+    unattributed: int = 0
 
 
 class GapReportResponse(BaseModel):
@@ -104,6 +129,9 @@ class GapReportResponse(BaseModel):
     advisory_count: int
     generation_duration_ms: Optional[int] = None
     gaps: list[GapResponse] = Field(default_factory=list)
+    # Per-KB-layer breakdown so the frontend can render three columns
+    # (Statute / Playbook / Case-Law) with gap counts each.
+    layer_counts: LayerCounts = Field(default_factory=LayerCounts)
     disclaimer: str = (
         "Advisory — AI-assisted review. "
         "Investigating Officer retains full legal responsibility. "

@@ -179,7 +179,11 @@ export default function FIRDetailPage() {
         {/* Right: Mindmap panel */}
         <div className="hidden lg:flex flex-1 min-w-0">
           <div className="w-full">
-            <MindmapPanel firId={firId} />
+            <MindmapPanel
+              firId={firId}
+              caseCategory={fir?.nlp_classification}
+              firNumber={fir?.fir_number}
+            />
           </div>
         </div>
       </div>

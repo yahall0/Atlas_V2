@@ -17,13 +17,20 @@ import psycopg2.extras
 from psycopg2.extensions import connection as PgConnection
 
 from app.mindmap.kb.schemas import (
+    AuthoredByRole,
+    KBLayer,
     KnowledgeBundle,
     KnowledgeNodeResponse,
+    LayerStats,
     LegalCitation,
     OffenceResponse,
     OffenceWithNodes,
     RelevantJudgment,
     RetrievalTrace,
+    UpdateCadence,
+    derive_kb_layer,
+    default_author_for,
+    default_cadence_for,
 )
 
 psycopg2.extras.register_uuid()
@@ -98,6 +105,21 @@ def _fetch_offence_with_nodes(
             if isinstance(proc_meta, str):
                 proc_meta = json.loads(proc_meta)
 
+            # Layer attribution: prefer the persisted column (populated by
+            # migration 012); fall back to derivation for any row that
+            # somehow predates the migration in a dev DB.
+            raw_layer = n.get("kb_layer")
+            if raw_layer:
+                layer = KBLayer(raw_layer)
+            else:
+                layer = derive_kb_layer(n["branch_type"], n["tier"])
+
+            raw_author = n.get("authored_by_role")
+            author = AuthoredByRole(raw_author) if raw_author else default_author_for(layer)
+
+            raw_cadence = n.get("update_cadence")
+            cadence = UpdateCadence(raw_cadence) if raw_cadence else default_cadence_for(layer)
+
             nodes.append(KnowledgeNodeResponse(
                 id=n["id"],
                 offence_id=n["offence_id"],
@@ -113,6 +135,9 @@ def _fetch_offence_with_nodes(
                 display_order=n.get("display_order", 0),
                 kb_version=n.get("kb_version", ""),
                 approval_status=n.get("approval_status", "proposed"),
+                kb_layer=layer,
+                authored_by_role=author,
+                update_cadence=cadence,
             ))
 
         return OffenceWithNodes(offence=offence, nodes=nodes)
@@ -217,13 +242,25 @@ def get_knowledge_for_mindmap(
     trace.total_nodes_returned = total_nodes
     trace.retrieval_duration_ms = int((time.monotonic() - start) * 1000)
 
-    return KnowledgeBundle(
+    bundle = KnowledgeBundle(
         kb_version=kb_version,
         primary_offences=primary_bundles,
         related_offences=related_bundles,
         judgment_context=judgment_context,
         retrieval_trace=trace,
     )
+
+    # Populate per-layer counts so the mindmap and gap analysis can show
+    # at a glance how much of each authority backed the recommendation.
+    grouped = bundle.nodes_by_layer()
+    bundle.layer_stats = LayerStats(
+        canonical_legal=len(grouped[KBLayer.CANONICAL_LEGAL]),
+        investigation_playbook=len(grouped[KBLayer.INVESTIGATION_PLAYBOOK]),
+        case_law_intelligence=(
+            len(grouped[KBLayer.CASE_LAW_INTELLIGENCE]) + len(judgment_context)
+        ),
+    )
+    return bundle
 
 
 def _fetch_relevant_judgments(

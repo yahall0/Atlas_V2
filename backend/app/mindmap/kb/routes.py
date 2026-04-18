@@ -411,6 +411,22 @@ def kb_stats_endpoint(
             stats["canonical_nodes"] = cur.fetchone()["c"]
             cur.execute("SELECT COUNT(*) AS c FROM legal_kb_knowledge_nodes WHERE tier = 'judgment_derived'")
             stats["judgment_derived_nodes"] = cur.fetchone()["c"]
+            # 3-layer counts: lit up by migration 012 backfill.
+            cur.execute(
+                "SELECT COUNT(*) AS c FROM legal_kb_knowledge_nodes "
+                "WHERE kb_layer = 'canonical_legal'"
+            )
+            stats["canonical_legal_nodes"] = cur.fetchone()["c"]
+            cur.execute(
+                "SELECT COUNT(*) AS c FROM legal_kb_knowledge_nodes "
+                "WHERE kb_layer = 'investigation_playbook'"
+            )
+            stats["investigation_playbook_nodes"] = cur.fetchone()["c"]
+            cur.execute(
+                "SELECT COUNT(*) AS c FROM legal_kb_knowledge_nodes "
+                "WHERE kb_layer = 'case_law_intelligence'"
+            )
+            stats["case_law_intelligence_nodes"] = cur.fetchone()["c"]
             cur.execute("SELECT COUNT(*) AS c FROM legal_kb_judgments")
             stats["total_judgments"] = cur.fetchone()["c"]
             cur.execute("SELECT COUNT(*) AS c FROM legal_kb_judgment_insights WHERE review_status = 'pending'")
