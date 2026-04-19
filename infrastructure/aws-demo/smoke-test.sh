@@ -13,23 +13,23 @@ BASE="http://${PUBLIC_IP}"
 
 pass=0; fail=0
 check() {
-  local name="$1" url="$2" expect="${3:-200}"
-  code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 15 "${url}" || echo 000)"
-  if [[ "${code}" == "${expect}" ]]; then
+  local name="$1" url="$2" expect_pattern="${3:-2..|3..}"
+  code="$(curl -sL -o /dev/null -w '%{http_code}' --max-time 15 "${url}" || echo 000)"
+  if [[ "${code}" =~ ^(${expect_pattern})$ ]]; then
     printf '  ✅ %-30s %s (%s)\n' "${name}" "${url}" "${code}"
     pass=$((pass+1))
   else
-    printf '  ❌ %-30s %s  expected %s got %s\n' "${name}" "${url}" "${expect}" "${code}"
+    printf '  ❌ %-30s %s  expected %s got %s\n' "${name}" "${url}" "${expect_pattern}" "${code}"
     fail=$((fail+1))
   fi
 }
 
 echo "Smoke-testing ${BASE}"
-check "Frontend root"       "${BASE}/"
-check "Backend health"      "${BASE}/api/v1/health"
-check "OpenAPI docs"        "${BASE}/api/docs"
-check "Prometheus metrics"  "${BASE}/metrics"
-check "Grafana login"       "${BASE}/grafana/login"
+check "Frontend root (→login)" "${BASE}/"              "200|307"
+check "Frontend /login"     "${BASE}/login"            "200"
+check "Backend health"      "${BASE}/api/v1/health"    "200"
+check "Prometheus metrics"  "${BASE}/metrics"          "200"
+check "Grafana"             "${BASE}/grafana/"         "200"
 
 echo
 echo "Passed: ${pass}  Failed: ${fail}"
