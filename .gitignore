@@ -7,3 +7,8 @@ node_modules/
 
 # Model weights and HuggingFace cache — downloaded at runtime, do not commit
 backend/models/
+
+# AWS demo provisioning artifacts (private keys, state, real .env)
+infrastructure/aws-demo/.secrets/
+infrastructure/aws-demo/.state.json
+infrastructure/aws-demo/.env
