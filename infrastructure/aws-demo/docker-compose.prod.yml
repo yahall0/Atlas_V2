@@ -10,8 +10,10 @@ version: "3.9"
 
 services:
   backend:
-    ports:
-      - "127.0.0.1:8000:8000"
+    # Note: base compose binds 0.0.0.0:8000. On the EC2 demo box, the security
+    # group + UFW block public access to 8000; nginx reaches it via 127.0.0.1:8000.
+    # Compose merges `ports` (not replaces), so we can't narrow the binding here
+    # without a version bump to use `!override`.
     environment:
       - DATABASE_URL=${DATABASE_URL}
       - REDIS_URL=${REDIS_URL}
@@ -31,8 +33,7 @@ services:
       - ZERO_SHOT_THRESHOLD=0.20
 
   frontend:
-    ports:
-      - "127.0.0.1:3000:3000"
+    # Same as backend: base binds 0.0.0.0:3000; SG/UFW block public access.
     environment:
       - NEXT_PUBLIC_API_URL=${PUBLIC_URL}/api
 
