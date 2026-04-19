@@ -130,8 +130,23 @@ def _extract_fir_number(text: str) -> Optional[str]:
 
     The serial suffix after 'o.' / '0.' on the next line is appended to give
     the complete identifier (e.g. 11192050250010).
+
+    For some FIRs Tesseract reads ``FIRN`` as ``FIR [`` (the 'N' becomes
+    a stray bracket). Fall through to the no-N variant in that case.
     """
+    # ── Primary: 'FIRN' label  ────────────────────────────────────────────
     m = re.search(r"\bFIRN\s*[:\-]?\s*([\d]+)(?:\s+Date)?", text, re.IGNORECASE)
+    if not m:
+        # ── Variant: 'FIR' (no N) followed by up to ~10 chars of OCR
+        # noise (brackets, stray Gujarati / ASCII glyphs) before the
+        # long digit run.  Anchor on the trailing 'Date' label so we
+        # don't pick up 'FIRST INFORMATION REPORT' from the document
+        # title.  The captured group requires 10+ digits which alone
+        # would pass through the noise window otherwise.
+        m = re.search(
+            r"\bFIR\b.{0,10}?(\d{10,15})\s+Date\b",
+            text, re.IGNORECASE,
+        )
     if m:
         part1 = m.group(1).strip()
         # Look for trailing serial on the following line: "o. 010" or "0. 010"
@@ -140,9 +155,12 @@ def _extract_fir_number(text: str) -> Optional[str]:
             part2 = m2.group(1).strip()
             return part1 + part2
         return part1
-    # Fallback: F.I.R. No. label
+    # ── Fallback: explicit 'F.I.R. No.' label  ────────────────────────────
+    # Require the 'No.' / 'Number' qualifier so we don't match 'FIRST' in
+    # the document title 'FIRST INFORMATION REPORT' (which would otherwise
+    # capture 'ST' as the FIR number).
     m = re.search(
-        r"F\.?I\.?R\.?\s*(?:No\.?|Number)?\s*[:\-]?\s*([A-Z0-9/\-]+)",
+        r"F\.?I\.?R\.?\s*(?:No\.?|Number)\s*[:\-]?\s*([A-Z0-9/\-]+)",
         text, re.IGNORECASE,
     )
     if m:
@@ -194,37 +212,58 @@ def _extract_district(text: str) -> Optional[str]:
 def _extract_police_station(text: str) -> Optional[str]:
     """Extract police station name from the Field-1 header row.
 
-    The PS name appears immediately after 'Polic' in the header row and ends
-    before the year indicator ('Ye') or a multi-digit number.
+    The PS name appears immediately after 'Polic' in the header row and
+    ends before the year indicator ('Ye') or a multi-digit number.
+
+    eGujCop layout splits the cell across two OCR lines::
+
+        ... Polic કેરાલા જી.આઈ. Ye 20 FIR ...
+        ...     e Sta ડી.સી.       ar 25 ...
+
+    PS names commonly contain ASCII periods (abbreviations like
+    ``જી.આઈ.ડી.સી.`` for GIDC), so the character class permits ``.``
+    inside the captured run. After the head value is captured, the
+    second-line tail (between ``e Sta`` and ``ar``) is stitched on.
     """
-    # Primary: Gujarati text between 'Polic' and 'Ye' / year
+    # ── Primary: head value between 'Polic ' and ' Ye' on the row-1 header ─
+    head_m = re.search(
+        r"Polic\s+([\u0A80-\u0AFF][\u0A80-\u0AFF.\s]*?)\s+(?:Ye|Year)\b",
+        text, re.IGNORECASE,
+    )
+    if head_m:
+        # Keep the trailing '.' on the head until after stitching, so an
+        # abbreviation-style PS name like 'જી.આઈ.' joins cleanly with its
+        # tail-line continuation 'ડી.સી.' as 'જી.આઈ.ડી.સી.' rather than
+        # 'જી.આઈ ડી.સી'.
+        head = re.sub(r"\s+", " ", head_m.group(1)).strip(" ,")
+        tail_m = re.search(
+            r"e\s+Sta\b[\s\u0A80-\u0AFF.]*?([\u0A80-\u0AFF][\u0A80-\u0AFF.]*)\s+ar\b",
+            text, re.IGNORECASE,
+        )
+        if tail_m:
+            tail = tail_m.group(1).strip()
+            if tail and tail not in head:
+                # If head ends with a period (an abbreviation), join
+                # without an extra space; else use a space separator.
+                head = f"{head}{tail}" if head.endswith(".") else f"{head} {tail}"
+        ps = re.sub(r"\s+", " ", head).strip(" .,")
+        if ps:
+            return ps
+
+    # ── Fallback A: classic English label "Police Station: <value>"  ─────
     m = re.search(
-        r"Polic\s+(?:e\s+Sta\s*tion\s+)?([\u0A80-\u0AFF][\u0A80-\u0AFF\s]*?)(?:Ye|Year|\s+\d{2}\s)",
+        r"Police\s+Station\s*[:\-]?\s*([A-Za-z\u0A80-\u0AFF.\s]+?)(?:[\(\n]|\d)",
         text, re.IGNORECASE,
     )
     if m:
-        val = re.sub(r"\s+", " ", m.group(1)).strip()
+        val = re.sub(r"\s+", " ", m.group(1)).strip(" .,")
         if val:
             return val
 
-    # Fallback 1: same-line "Distric <district> Polic <ps_name>" classic layout
-    m = re.search(r"Distric\w*\s+[\S][^\n]+?\s+Polic\w*\s+([^\n\(]+)", text, re.IGNORECASE)
+    # ── Fallback B: Gujarati label ('સ્ટેશન')  ───────────────────────────
+    m = re.search(r"સ્ટેશન\)?\s*([\u0A80-\u0AFF.]+)", text)
     if m:
-        val = re.sub(r"\s+", " ", m.group(1)).strip()
-        if val and not re.fullmatch(r"\([^)]+\)", val):
-            return val
-
-    # Fallback 2: "Police Station <value>"
-    m = re.search(r"Police\s+Station\s+(.+?)[\(\n]", text, re.IGNORECASE | re.DOTALL)
-    if m:
-        val = re.sub(r"\s+", " ", m.group(1)).strip().rstrip(")")
-        if val:
-            return val
-
-    # Fallback 3: Gujarati label
-    m = re.search(r"(?:સ્ટેશન)\)?\s*([\u0A80-\u0AFF]+)", text)
-    if m:
-        val = m.group(1).strip()
+        val = m.group(1).strip(" .,")
         if val and val not in ("નું", "ની", "નો"):
             return val
 

@@ -526,6 +526,139 @@ def _kb_driven_gaps(
     return out
 
 
+def _playbook_driven_gaps(cs: Dict, fir: Optional[Dict]) -> List[Dict]:
+    """Compendium-playbook gap detection (ADR-D19).
+
+    For the chargesheet's recommended sections, look up the matching Delhi
+    Police Academy Compendium scenarios, aggregate the required forms /
+    evidence / deadlines / actors, and emit a gap entry for each item that
+    is not detectably present in the chargesheet's text or structured fields.
+
+    The Compendium is the authority — when a Compendium scenario says
+    *"FSL Form must be filled and forwarded with Sample Seal"*, the
+    chargesheet must show evidence of compliance or the gap surfaces.
+    """
+    try:
+        from app.legal_sections.io_scenarios import (  # noqa: PLC0415
+            find_scenarios_for_sections,
+        )
+        from app.legal_sections.scenario_adapter import (  # noqa: PLC0415
+            checklist_for_scenarios,
+        )
+    except Exception:
+        return []
+
+    # Sections to ground the lookup: prefer recommender output (sub-clause precise)
+    # then chargesheet's own charges_json.
+    citations: list[str] = []
+    if fir:
+        meta = fir.get("nlp_metadata") or {}
+        for r in meta.get("recommended_sections") or []:
+            if isinstance(r, str):
+                citations.append(r)
+            elif isinstance(r, dict) and r.get("canonical_citation"):
+                citations.append(r["canonical_citation"])
+    if not citations:
+        for s in _extract_bns_sections(cs):
+            citations.append(s if s.startswith(("BNS ", "IPC ")) else f"BNS {s}")
+    if not citations:
+        return []
+
+    scenarios = find_scenarios_for_sections(citations)
+    if not scenarios:
+        return []
+
+    checklist = checklist_for_scenarios(scenarios)
+
+    # Build a single haystack from chargesheet fields the IO would write into
+    haystack_parts = [
+        cs.get("raw_text") or "",
+        json.dumps(cs.get("evidence_json") or [], ensure_ascii=False),
+        json.dumps(cs.get("witnesses_json") or [], ensure_ascii=False),
+        cs.get("reviewer_notes") or "",
+    ]
+    haystack = " ".join(haystack_parts).lower()
+
+    gaps: List[Dict] = []
+
+    # Form / artefact gaps — the highest-ROI surface
+    for form in checklist.get("forms_required", []):
+        form_norm = form.lower()
+        if form_norm in haystack:
+            continue
+        gaps.append({
+            "category": "playbook_form_missing",
+            "severity": "high",
+            "tier": "playbook",
+            "description": (
+                f"The Delhi Police Academy investigation playbook for this "
+                f"offence requires the form / artefact: '{form}'. The "
+                f"chargesheet does not appear to record it."
+            ),
+            "legal_refs": [],
+            "remediation": {
+                "action": "complete_and_attach",
+                "artefact": form,
+                "guidance": (
+                    "Refer to the Compendium scenario for the precise step in "
+                    "which this form is filled / sealed / forwarded."
+                ),
+            },
+            "location": {"source": "playbook"},
+            "confidence": 0.85,
+            "source": "compendium_playbook",
+            "playbook_reference": [
+                {"scenario_id": sc["scenario_id"], "name": sc["scenario_name"],
+                 "page_start": sc["page_start"], "page_end": sc["page_end"]}
+                for sc in scenarios
+            ],
+        })
+
+    # Critical evidence gaps — items the playbook flagged as evidence
+    for ev in checklist.get("evidence_to_collect", []):
+        # Reduce noise: only flag items short enough to be actionable
+        ev_short = ev[:160].strip()
+        # Use first 5 distinctive tokens to test presence
+        tokens = [t for t in ev_short.lower().replace(",", " ").split() if len(t) >= 5][:5]
+        if tokens and sum(1 for t in tokens if t in haystack) >= 2:
+            continue
+        gaps.append({
+            "category": "playbook_evidence_missing",
+            "severity": "medium",
+            "tier": "playbook",
+            "description": (
+                f"Playbook step likely not addressed: \"{ev_short}\""
+            ),
+            "legal_refs": [],
+            "remediation": {
+                "action": "address_playbook_step",
+                "step_text": ev_short,
+            },
+            "location": {"source": "playbook"},
+            "confidence": 0.55,
+            "source": "compendium_playbook",
+        })
+
+    # Deadline reminders (informational — surfaces statutory clocks)
+    for dl in checklist.get("deadlines", []):
+        gaps.append({
+            "category": "playbook_deadline_reminder",
+            "severity": "low",
+            "tier": "playbook",
+            "description": (
+                f"Statutory clock applicable to this offence: '{dl}'. "
+                f"Confirm the chargesheet is filed within this window."
+            ),
+            "legal_refs": [],
+            "remediation": {"action": "verify_deadline_compliance", "deadline": dl},
+            "location": {"source": "playbook"},
+            "confidence": 1.00,
+            "source": "compendium_playbook",
+        })
+
+    return gaps
+
+
 def _extract_bns_sections(cs: Dict) -> list[str]:
     """Best-effort BNS section extraction from the chargesheet.
 
@@ -795,6 +928,13 @@ def aggregate_gaps(
     if not kb_gaps:
         partial_sources.append("kb_3layer")
 
+    # 6. Compendium-playbook gaps (ADR-D19) — items from the Delhi Police
+    #    Academy investigation playbook that the chargesheet's evidence /
+    #    documentation appear to be missing.
+    playbook_gaps = _playbook_driven_gaps(cs, fir)
+    if not playbook_gaps:
+        partial_sources.append("playbook_compendium")
+
     # Convert and unify
     all_gaps = []
     all_gaps.extend(_convert_legal_findings(legal_findings))
@@ -803,6 +943,7 @@ def aggregate_gaps(
         all_gaps.extend(_compute_mindmap_divergences(mindmap_data, cs))
     all_gaps.extend(completeness_gaps)
     all_gaps.extend(kb_gaps)
+    all_gaps.extend(playbook_gaps)
 
     # Deduplicate
     all_gaps = _deduplicate(all_gaps)

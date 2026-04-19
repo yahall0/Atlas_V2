@@ -310,7 +310,10 @@ def _fetch_mindmap_tree(conn: PgConnection, mindmap_id: uuid.UUID) -> MindmapRes
             """SELECT n.*,
                       (SELECT s.status FROM mindmap_node_status s
                        WHERE s.node_id = n.id
-                       ORDER BY s.updated_at DESC LIMIT 1) AS current_status
+                       ORDER BY s.updated_at DESC LIMIT 1) AS current_status,
+                      (SELECT s.hash_self FROM mindmap_node_status s
+                       WHERE s.node_id = n.id
+                       ORDER BY s.updated_at DESC LIMIT 1) AS last_status_hash
                FROM mindmap_nodes n
                WHERE n.mindmap_id = %s
                ORDER BY n.display_order""",
@@ -339,6 +342,7 @@ def _fetch_mindmap_tree(conn: PgConnection, mindmap_id: uuid.UUID) -> MindmapRes
             display_order=n["display_order"],
             metadata=n.get("metadata") or {},
             current_status=n.get("current_status"),
+            last_status_hash=n.get("last_status_hash") or _GENESIS,
         )
         node_map[n["id"]] = resp
 
@@ -365,6 +369,29 @@ def _fetch_mindmap_tree(conn: PgConnection, mindmap_id: uuid.UUID) -> MindmapRes
 
 # ── Public API ───────────────────────────────────────────────────────────────
 
+def _recommended_citations_from_fir(fir: Dict[str, Any]) -> List[str]:
+    """Extract sub-clause-precise citations recorded in the FIR's nlp_metadata.
+
+    The recommender (per ADR-D17) writes its output to
+    ``firs.nlp_metadata['recommended_sections']`` after the auto-trigger
+    runs. This helper reads that list back so the mindmap generator can
+    decide whether the playbook path applies.
+    """
+    meta = fir.get("nlp_metadata") or {}
+    recs = meta.get("recommended_sections") or []
+    out: list[str] = []
+    for r in recs:
+        if isinstance(r, str):
+            out.append(r)
+        elif isinstance(r, dict) and r.get("canonical_citation"):
+            out.append(r["canonical_citation"])
+    # Fallback: primary_sections (raw, may not be sub-clause precise)
+    if not out:
+        for s in (fir.get("primary_sections") or []):
+            out.append(f"BNS {s}" if not s.startswith(("BNS", "IPC")) else s)
+    return out
+
+
 def generate_mindmap(
     fir_id: uuid.UUID,
     *,
@@ -375,6 +402,12 @@ def generate_mindmap(
 
     Idempotent: if a mindmap already exists for (fir_id, template_version),
     returns it. Set regenerate=True to force a new version (old one retained).
+
+    Routing (ADR-D19):
+      1. If the FIR's recommended citations match a Delhi Police Academy
+         Compendium scenario, build the mindmap from that scenario
+         (government-authority playbook).
+      2. Otherwise, fall back to the model-authored case-category template.
     """
     fir = _get_fir_data(conn, fir_id)
     if fir is None:
@@ -383,7 +416,7 @@ def generate_mindmap(
     case_category, is_uncertain = _get_case_category(fir)
     tpl_version = template_version(case_category)
 
-    # Idempotency check
+    # Idempotency check (template path)
     if not regenerate:
         existing = _existing_mindmap(conn, fir_id, tpl_version)
         if existing:
@@ -392,6 +425,34 @@ def generate_mindmap(
                 existing["id"], fir_id,
             )
             return _fetch_mindmap_tree(conn, existing["id"])
+
+    # ── Canonical chargesheet-checklist path (ADR-D19/D20) ───────────────────
+    # Always preferred; produces a fixed 6-branch tree (Applicable BNS
+    # Sections, Panchnama, Evidence, Forensics, Witness/Bayan, Gaps in FIR)
+    # with content from the Compendium and the BNS/IPC corpus.
+    try:
+        from app.mindmap.playbook_generator import (  # noqa: PLC0415
+            generate_chargesheet_mindmap,
+        )
+        citations = _recommended_citations_from_fir(fir)
+        completeness = _get_completeness_gaps(fir)
+        logger.info(
+            "Using canonical chargesheet mindmap for FIR %s (citations=%s, gaps=%d)",
+            fir_id, citations, len(completeness),
+        )
+        playbook_resp = generate_chargesheet_mindmap(
+            fir=dict(fir),
+            citations=citations,
+            completeness_gaps=completeness,
+            conn=conn,
+        )
+        if playbook_resp and playbook_resp.get("id"):
+            return _fetch_mindmap_tree(conn, uuid.UUID(playbook_resp["id"]))
+    except Exception:
+        logger.exception(
+            "Chargesheet mindmap path failed for FIR %s; falling back to template",
+            fir_id,
+        )
 
     # If regenerating, mark old as superseded
     if regenerate:

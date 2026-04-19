@@ -1,12 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Trash2 } from 'lucide-react';
 import { apiClient } from '@/lib/api';
 import MindmapPanel from '@/components/mindmap/MindmapPanel';
 
@@ -34,11 +34,27 @@ const STATUS_COLOURS: Record<string, string> = {
 
 export default function FIRDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const firId = params.firId as string;
 
   const [fir, setFir] = useState<FIRDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+  async function handleDelete() {
+    if (!firId) return;
+    setDeleting(true);
+    try {
+      await apiClient(`/api/v1/firs/${firId}`, { method: 'DELETE' });
+      router.push('/dashboard/fir');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Delete failed.');
+      setDeleting(false);
+      setConfirmDelete(false);
+    }
+  }
 
   useEffect(() => {
     if (!firId) return;
@@ -77,19 +93,70 @@ export default function FIRDetailPage() {
 
   return (
     <div className="h-full flex flex-col">
-      {/* Breadcrumb */}
-      <div className="flex items-center gap-1.5 text-sm text-slate-500 mb-4">
-        <Link
-          href="/dashboard/fir"
-          className="hover:text-slate-800 transition-colors"
+      {/* Breadcrumb + actions */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-1.5 text-sm text-slate-500">
+          <Link
+            href="/dashboard/fir"
+            className="hover:text-slate-800 transition-colors"
+          >
+            FIR Review
+          </Link>
+          <ChevronRight className="w-3.5 h-3.5" />
+          <span className="font-medium text-slate-800">
+            {fir?.fir_number ?? firId}
+          </span>
+        </div>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setConfirmDelete(true)}
+          className="text-red-600 border-red-300 hover:bg-red-50 hover:text-red-700 gap-1"
         >
-          FIR Review
-        </Link>
-        <ChevronRight className="w-3.5 h-3.5" />
-        <span className="font-medium text-slate-800">
-          {fir?.fir_number ?? firId}
-        </span>
+          <Trash2 className="w-3.5 h-3.5" />
+          Delete FIR
+        </Button>
       </div>
+
+      {/* Delete confirmation modal */}
+      {confirmDelete && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+          onClick={() => !deleting && setConfirmDelete(false)}
+        >
+          <div
+            className="w-full max-w-md rounded-lg bg-white p-5 shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-lg font-semibold text-slate-800 mb-2">
+              Delete FIR {fir?.fir_number ?? firId}?
+            </h3>
+            <p className="text-sm text-slate-600 mb-4">
+              This permanently removes the FIR plus its mindmap, status history,
+              complainants, accused, property details, and gap reports. This
+              action cannot be undone.
+            </p>
+            <div className="flex justify-end gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setConfirmDelete(false)}
+                disabled={deleting}
+              >
+                Cancel
+              </Button>
+              <Button
+                size="sm"
+                onClick={handleDelete}
+                disabled={deleting}
+                className="bg-red-600 hover:bg-red-700 text-white"
+              >
+                {deleting ? 'Deleting…' : 'Delete'}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Main layout: FIR details + Mindmap */}
       <div className="flex-1 flex gap-6 min-h-0">

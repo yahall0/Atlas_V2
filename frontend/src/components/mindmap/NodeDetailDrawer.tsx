@@ -111,6 +111,86 @@ export default function NodeDetailDrawer({
             </div>
           )}
 
+          {/* Compendium playbook provenance (ADR-D19) */}
+          {(node.source === 'playbook' ||
+            (node.metadata as Record<string, unknown> | undefined)?.source_kind === 'playbook') && (
+            <div className="rounded-md border border-indigo-200 bg-indigo-50/60 p-3">
+              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-indigo-700">
+                Source
+              </p>
+              <p className="text-sm text-indigo-900">
+                Delhi Police Academy — Compendium of Scenarios for Investigating Officers, 2024
+              </p>
+              {node.metadata && (() => {
+                const meta = node.metadata as Record<string, unknown>;
+                const forms = meta.forms as string[] | undefined;
+                const deadlines = meta.deadlines as string[] | undefined;
+                const actors = meta.actors as string[] | undefined;
+                const items = meta.items as Array<{
+                  marker: string; text: string; deadline?: string;
+                  forms?: string[]; actors?: string[];
+                  legal_refs?: Array<{ act: string; section: string }>;
+                  is_evidence?: boolean;
+                }> | undefined;
+                return (
+                  <div className="mt-2 space-y-2 text-xs text-indigo-800">
+                    {forms && forms.length > 0 && (
+                      <div>
+                        <span className="font-medium">Forms:</span> {forms.join(', ')}
+                      </div>
+                    )}
+                    {deadlines && deadlines.length > 0 && (
+                      <div>
+                        <span className="font-medium">Deadlines:</span> {deadlines.join(', ')}
+                      </div>
+                    )}
+                    {actors && actors.length > 0 && (
+                      <div>
+                        <span className="font-medium">Actors:</span> {actors.join(', ')}
+                      </div>
+                    )}
+                    {items && items.length > 0 && (
+                      <div className="mt-3 border-t border-indigo-200 pt-2">
+                        <p className="mb-1.5 font-semibold text-indigo-900">
+                          Investigation steps ({items.length})
+                        </p>
+                        <ol className="space-y-1.5">
+                          {items.map((it, i) => (
+                            <li key={i} className="flex gap-2 leading-relaxed">
+                              <span className="shrink-0 font-medium text-indigo-700">{it.marker}</span>
+                              <span className="flex-1">
+                                {it.text}
+                                {(it.deadline || (it.forms && it.forms.length > 0) || it.is_evidence) && (
+                                  <span className="ml-1 inline-flex flex-wrap gap-1">
+                                    {it.is_evidence && (
+                                      <span className="rounded bg-amber-100 px-1 text-[10px] font-medium text-amber-800">
+                                        evidence
+                                      </span>
+                                    )}
+                                    {it.deadline && (
+                                      <span className="rounded bg-red-100 px-1 text-[10px] font-medium text-red-800">
+                                        ⏱ {it.deadline}
+                                      </span>
+                                    )}
+                                    {it.forms?.map((f) => (
+                                      <span key={f} className="rounded bg-slate-100 px-1 text-[10px] font-medium text-slate-700">
+                                        {f}
+                                      </span>
+                                    ))}
+                                  </span>
+                                )}
+                              </span>
+                            </li>
+                          ))}
+                        </ol>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
+            </div>
+          )}
+
           {/* Legal references */}
           {(node.ipc_section || node.bns_section || node.crpc_section) && (
             <div>

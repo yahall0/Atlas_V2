@@ -13,6 +13,7 @@ import {
   Tag,
   ChevronRight,
   Plus,
+  BookOpen,
 } from "lucide-react";
 import {
   useKBStats,
@@ -252,7 +253,7 @@ export default function KBDashboardPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
           <h2 className="text-2xl font-bold">Knowledge Base</h2>
           {isAdmin && (
             <Link href="/dashboard/kb/offences/new">
@@ -261,6 +262,16 @@ export default function KBDashboardPage() {
               </Button>
             </Link>
           )}
+          <Link href="/dashboard/kb/scenarios">
+            <Button
+              size="sm"
+              variant="outline"
+              className="gap-1 border-indigo-300 text-indigo-700 hover:bg-indigo-50"
+            >
+              <BookOpen className="w-4 h-4" />
+              IO Scenarios (Compendium)
+            </Button>
+          </Link>
         </div>
         {stats && stats.pending_insights > 0 && (
           <Link href="/dashboard/kb/judgments">

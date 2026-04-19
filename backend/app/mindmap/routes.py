@@ -111,22 +111,42 @@ def create_mindmap_endpoint(
 @router.get(
     "/fir/{fir_id}/mindmap",
     response_model=MindmapResponse,
-    summary="Get latest chargesheet mindmap",
+    summary="Get latest chargesheet mindmap (auto-generates on first read)",
 )
 def get_mindmap_endpoint(
     fir_id: UUID,
     user: dict = Depends(require_role(*_READ_ROLES)),
 ):
+    """Return the active mindmap for a FIR.
+
+    If no mindmap has been generated yet (e.g. the FIR was uploaded before
+    auto-trigger was enabled, or the auto-trigger task failed), this endpoint
+    generates one synchronously on first read so the IO never sees the
+    frontend's "demo data" fallback. Idempotent — subsequent calls return
+    the cached version.
+    """
     try:
         conn = get_connection()
         fir = _get_fir_or_404(conn, fir_id)
         _check_district_scope(user, fir)
         result = get_latest_mindmap(conn, fir_id)
         if result is None:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="No mindmap generated for this FIR yet",
+            logger.info(
+                "mindmap.auto_generate_on_get",
+                fir_id=str(fir_id),
             )
+            try:
+                result = generate_mindmap(fir_id, conn=conn)
+            except Exception as gen_exc:
+                logger.error(
+                    "mindmap.auto_generate_failed",
+                    fir_id=str(fir_id),
+                    error=str(gen_exc),
+                )
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="No mindmap generated for this FIR yet",
+                )
         return result
     except HTTPException:
         raise

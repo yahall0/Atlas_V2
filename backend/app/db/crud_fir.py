@@ -284,6 +284,49 @@ def get_fir_by_id(conn: PgConnection, fir_id: str, district: Optional[str] = Non
     return fir_row
 
 
+def delete_fir(
+    conn: PgConnection,
+    fir_id: str,
+    district: Optional[str] = None,
+) -> bool:
+    """Delete a FIR and every cascaded child row.
+
+    The cascade chain (per migrations 001/005/006/007/009):
+      firs -> complainants, accused, property_details         (CASCADE)
+      firs -> chargesheet_mindmaps -> mindmap_nodes
+                                  -> mindmap_node_status      (CASCADE; gated)
+      firs -> chargesheets, validation_reports,
+              evidence_gap_reports                            (SET NULL)
+
+    The append-only trigger on ``mindmap_node_status`` is bypassed for
+    the lifetime of this transaction by setting
+    ``atlas.allow_status_delete`` (see migration 014).
+
+    Returns
+    -------
+    bool
+        ``True`` if a row was deleted, ``False`` if no matching FIR existed
+        (so the caller can return 404).
+    """
+    with conn:  # transaction scope
+        with _dict_cursor(conn) as cur:
+            # Open the narrow trigger escape hatch for this txn only.
+            cur.execute("SET LOCAL atlas.allow_status_delete = 'on'")
+
+            if district is not None:
+                cur.execute(
+                    "DELETE FROM firs WHERE id = %s AND district = %s RETURNING id",
+                    (fir_id, district),
+                )
+            else:
+                cur.execute(
+                    "DELETE FROM firs WHERE id = %s RETURNING id",
+                    (fir_id,),
+                )
+            row = cur.fetchone()
+    return row is not None
+
+
 def list_firs(
     conn: PgConnection,
     limit: int = 10,

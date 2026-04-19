@@ -4,11 +4,11 @@ from __future__ import annotations
 
 import logging
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 
 from app.core.pii import mask_pii_for_role
 from app.core.rbac import Role, get_current_user, require_role
-from app.db.crud_fir import create_fir, get_fir_by_id, list_firs
+from app.db.crud_fir import create_fir, delete_fir, get_fir_by_id, list_firs
 from app.db.session import get_connection
 from app.schemas.fir import FIRCreate, FIRResponse
 
@@ -25,6 +25,49 @@ def _district_for(user: dict) -> str | None:
     return user["district"] if user["role"] in _DISTRICT_SCOPED_ROLES else None
 
 
+def _trigger_recommender_in_background(fir_record: dict) -> None:
+    """Run the section recommender + Compendium-scenario lookup for a new FIR.
+
+    Persists results to ``firs.nlp_metadata['recommended_sections']`` and
+    ``firs.nlp_metadata['compendium_scenarios']``. Best-effort: failures are
+    logged and never block the FIR-creation response.
+    """
+    try:
+        from app.legal_sections.auto_trigger import (  # noqa: PLC0415
+            run_recommender_for_fir,
+        )
+    except Exception:
+        logger.warning("auto_trigger import failed; skipping for fir=%s",
+                       fir_record.get("id"))
+        return
+
+    try:
+        occurrence_iso = None
+        occ = fir_record.get("occurrence_start")
+        if occ:
+            occurrence_iso = occ.isoformat() if hasattr(occ, "isoformat") else str(occ)
+
+        accused = fir_record.get("accused") or []
+        accused_count = max(len(accused) if isinstance(accused, list) else 0, 1)
+
+        narrative = fir_record.get("narrative") or fir_record.get("raw_text") or ""
+        if not narrative.strip():
+            logger.info("auto_trigger.skip empty_narrative fir=%s", fir_record.get("id"))
+            return
+
+        conn = get_connection()
+        run_recommender_for_fir(
+            fir_id=str(fir_record["id"]),
+            narrative=narrative,
+            occurrence_date_iso=occurrence_iso,
+            accused_count=accused_count,
+            conn=conn,
+        )
+    except Exception:
+        logger.exception("auto_trigger background task failed for fir=%s",
+                         fir_record.get("id"))
+
+
 @router.post(
     "/firs",
     response_model=FIRResponse,
@@ -33,13 +76,22 @@ def _district_for(user: dict) -> str | None:
 )
 def create_fir_endpoint(
     payload: FIRCreate,
+    background_tasks: BackgroundTasks,
     user: dict = Depends(require_role(Role.IO, Role.SHO, Role.ADMIN)),
 ) -> FIRResponse:
-    """Accept a ``FIRCreate`` payload, persist it, and return the full record."""
+    """Accept a ``FIRCreate`` payload, persist it, and return the full record.
+
+    On successful creation, schedule the section recommender + Compendium
+    scenario lookup as a background task (per ADR-D17 + ADR-D19). The
+    recommendation results land in ``firs.nlp_metadata`` and become available
+    to the mindmap engine and chargesheet gap analyser on their next call.
+    """
     try:
         conn = get_connection()
         fir_dict = payload.model_dump()
         created = create_fir(conn, fir_dict)
+        # Schedule auto-trigger AFTER the response goes out
+        background_tasks.add_task(_trigger_recommender_in_background, dict(created))
         return FIRResponse(**mask_pii_for_role(created, user["role"]))
     except HTTPException:
         raise
@@ -103,6 +155,69 @@ def list_firs_endpoint(
         raise
     except Exception as exc:
         logger.error("API error in GET /firs", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(exc),
+        )
+
+
+@router.delete(
+    "/firs/{fir_id}",
+    status_code=status.HTTP_200_OK,
+    summary="Delete a FIR and every cascaded child row",
+)
+def delete_fir_endpoint(
+    fir_id: str,
+    user: dict = Depends(require_role(Role.SHO, Role.DYSP, Role.SP, Role.ADMIN)),
+) -> dict:
+    """Permanently delete a FIR plus its mindmap, statuses, complainants,
+    accused, property details, and gap reports.
+
+    RBAC
+    ----
+    SHO / DYSP / SP / ADMIN.  IO and READONLY cannot delete.  SHO is
+    additionally district-scoped.
+
+    The action is recorded in ``audit_log`` before the cascade fires so
+    that the audit row survives the deletion.
+    """
+    try:
+        conn = get_connection()
+        district = _district_for(user)
+
+        # Verify existence within the caller's district scope before audit-logging.
+        existing = get_fir_by_id(conn, fir_id, district=district)
+        if existing is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"FIR '{fir_id}' not found.",
+            )
+
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                INSERT INTO audit_log (user_id, action, resource_type, resource_id, details)
+                VALUES (%s, 'delete_fir', 'fir', %s, %s::jsonb)
+                """,
+                (
+                    user.get("sub"),
+                    fir_id,
+                    '{"fir_number": "' + str(existing.get("fir_number") or "") + '"}',
+                ),
+            )
+            conn.commit()
+
+        deleted = delete_fir(conn, fir_id, district=district)
+        if not deleted:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"FIR '{fir_id}' not found.",
+            )
+        return {"deleted": True, "fir_id": fir_id}
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.error("API error in DELETE /firs/%s", fir_id, exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(exc),

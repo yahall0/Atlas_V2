@@ -138,6 +138,11 @@ class MindmapNodeResponse(BaseModel):
     display_order: int
     metadata: dict[str, Any] = Field(default_factory=dict)
     current_status: Optional[NodeStatus] = None
+    # Latest status-chain hash; the frontend echoes this back as `hash_prev`
+    # on the next status PATCH so the audit chain stays continuous. When
+    # there is no prior status entry the value is the literal string
+    # "GENESIS".
+    last_status_hash: Optional[str] = None
     children: list[MindmapNodeResponse] = Field(default_factory=list)
 
     model_config = {"from_attributes": True}

@@ -188,6 +188,45 @@ def update_chargesheet_review(
     return dict(row) if row else None
 
 
+def delete_chargesheet(
+    conn: PgConnection,
+    cs_id: str,
+    district: Optional[str] = None,
+) -> bool:
+    """Delete a chargesheet and every cascaded child row.
+
+    Cascades (per migrations 006/007/008/010):
+      chargesheets -> validation_reports, evidence_gap_reports,
+                      chargesheet_gap_reports
+                          -> chargesheet_gap_actions          (CASCADE; gated)
+                      audit_log_chargesheet,
+                      recommendation_actions                  (CASCADE)
+
+    The append-only trigger on ``chargesheet_gap_actions`` is bypassed
+    for the lifetime of this transaction by setting
+    ``atlas.allow_status_delete`` (see migration 015).
+
+    Returns ``True`` if a row was deleted, ``False`` otherwise.
+    """
+    with conn:
+        with _dict_cursor(conn) as cur:
+            # Open the narrow trigger escape hatch for this txn only.
+            cur.execute("SET LOCAL atlas.allow_status_delete = 'on'")
+
+            if district is not None:
+                cur.execute(
+                    "DELETE FROM chargesheets WHERE id = %s AND district = %s RETURNING id",
+                    (cs_id, district),
+                )
+            else:
+                cur.execute(
+                    "DELETE FROM chargesheets WHERE id = %s RETURNING id",
+                    (cs_id,),
+                )
+            row = cur.fetchone()
+    return row is not None
+
+
 def find_fir_by_number(
     conn: PgConnection,
     fir_number: str,
