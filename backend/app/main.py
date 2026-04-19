@@ -17,6 +17,7 @@ from app.api.v1.review import router as review_router
 from app.mindmap.routes import router as mindmap_router
 from app.chargesheet.gap_routes import router as gap_routes_router
 from app.mindmap.kb.routes import router as kb_router
+from app.legal_sections.routes import router as legal_sections_router
 
 structlog.configure(
     processors=[
@@ -56,6 +57,7 @@ app.include_router(review_router, prefix="/api/v1")
 app.include_router(mindmap_router, prefix="/api/v1")
 app.include_router(gap_routes_router, prefix="/api/v1")
 app.include_router(kb_router, prefix="/api/v1")
+app.include_router(legal_sections_router, prefix="/api/v1")
 
 try:
     from app.api.v1.ingest import router as ingest_router

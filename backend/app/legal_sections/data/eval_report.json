@@ -1,0 +1,3348 @@
+{
+  "n_fir": 60,
+  "top1_accuracy": 0.0667,
+  "top3_accuracy": 0.1667,
+  "top5_accuracy": 0.2,
+  "top10_accuracy": 0.35,
+  "exact_recovery_rate": 0.15,
+  "subclause_recall": 0.2715,
+  "subclause_precision": 0.0306,
+  "over_charging_rate": 0.9694,
+  "missed_charging_rate": 0.7285,
+  "per_fir": [
+    {
+      "fir_id": "GS_0001",
+      "expected": [
+        "BNS 303(2)",
+        "BNS 305(a)",
+        "BNS 317(2)",
+        "BNS 331(3)",
+        "BNS 332 Provided that",
+        "BNS 334(1)"
+      ],
+      "recommended_top10": [
+        "BNS 303(1)(h)",
+        "BNS 330(2)(f)",
+        "BNS 317(1)",
+        "BNS 252",
+        "BNS 303(1)(f)",
+        "BNS 303 Provided that",
+        "BNS 316(1)(b)",
+        "BNS 330(2)(d)",
+        "BNS 3",
+        "BNS 330(2)(a)"
+      ],
+      "recovered": [
+        "BNS 334(1)"
+      ],
+      "missed": [
+        "BNS 303(2)",
+        "BNS 305(a)",
+        "BNS 317(2)",
+        "BNS 331(3)",
+        "BNS 332 Provided that"
+      ],
+      "over_charges": [
+        "BNS 177",
+        "BNS 228(a)",
+        "BNS 252",
+        "BNS 297(2)",
+        "BNS 3",
+        "BNS 303 Provided that",
+        "BNS 303(1)(c)",
+        "BNS 303(1)(f)",
+        "BNS 303(1)(h)",
+        "BNS 303(1)(n)",
+        "BNS 316(1)(b)",
+        "BNS 316(1)(c)",
+        "BNS 317(1)",
+        "BNS 324(5)",
+        "BNS 330(2)(a)",
+        "BNS 330(2)(d)",
+        "BNS 330(2)(e)",
+        "BNS 330(2)(f)",
+        "BNS 330(2)(h)",
+        "BNS 334(2)",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 62",
+        "BNS 62(a)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0002",
+      "expected": [
+        "BNS 115(2)",
+        "BNS 118(1)",
+        "BNS 126(2)",
+        "BNS 3(5)",
+        "BNS 351(2)",
+        "BNS 351(3)"
+      ],
+      "recommended_top10": [
+        "BNS 200",
+        "BNS 135",
+        "BNS 151",
+        "BNS 195(1)",
+        "BNS 130(c)",
+        "BNS 125(b)",
+        "BNS 118(1)",
+        "BNS 136",
+        "BNS 162",
+        "BNS 209"
+      ],
+      "recovered": [
+        "BNS 115(2)",
+        "BNS 118(1)",
+        "BNS 3(5)"
+      ],
+      "missed": [
+        "BNS 126(2)",
+        "BNS 351(2)",
+        "BNS 351(3)"
+      ],
+      "over_charges": [
+        "BNS 106(1)",
+        "BNS 117(4)",
+        "BNS 121(2)",
+        "BNS 122(1)",
+        "BNS 122(2)",
+        "BNS 125(a)",
+        "BNS 125(b)",
+        "BNS 130(c)",
+        "BNS 133",
+        "BNS 135",
+        "BNS 136",
+        "BNS 151",
+        "BNS 154",
+        "BNS 161",
+        "BNS 162",
+        "BNS 195(1)",
+        "BNS 200",
+        "BNS 209",
+        "BNS 225",
+        "BNS 267",
+        "BNS 333",
+        "BNS 354(a)",
+        "BNS 357"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": true,
+      "exact_recovery": false,
+      "conflict_findings": [
+        {
+          "rule_id": "REQ-001",
+          "severity": "block"
+        }
+      ]
+    },
+    {
+      "fir_id": "GS_0003",
+      "expected": [
+        "BNS 3(5)",
+        "BNS 303(2)",
+        "BNS 305(a)",
+        "BNS 331(4)",
+        "BNS 332 Provided that"
+      ],
+      "recommended_top10": [
+        "BNS 303(1)(h)",
+        "BNS 330(2)(f)",
+        "BNS 303(1)(i)",
+        "BNS 331(2)",
+        "BNS 331(4)",
+        "BNS 330(2)(a)",
+        "BNS 303(1)(j)",
+        "BNS 303(1)(f)",
+        "BNS 330(2)(c)",
+        "BNS 331(8)"
+      ],
+      "recovered": [
+        "BNS 331(4)"
+      ],
+      "missed": [
+        "BNS 3(5)",
+        "BNS 303(2)",
+        "BNS 305(a)",
+        "BNS 332 Provided that"
+      ],
+      "over_charges": [
+        "BNS 212",
+        "BNS 212(b)",
+        "BNS 303(1)(d)",
+        "BNS 303(1)(f)",
+        "BNS 303(1)(h)",
+        "BNS 303(1)(i)",
+        "BNS 303(1)(j)",
+        "BNS 303(1)(k)",
+        "BNS 316(1)(b)",
+        "BNS 316(1)(c)",
+        "BNS 324(1)(a)",
+        "BNS 330(2)",
+        "BNS 330(2)(a)",
+        "BNS 330(2)(c)",
+        "BNS 330(2)(d)",
+        "BNS 330(2)(e)",
+        "BNS 330(2)(f)",
+        "BNS 331(1)",
+        "BNS 331(2)",
+        "BNS 331(3)",
+        "BNS 331(6)",
+        "BNS 331(8)",
+        "BNS 334(1)",
+        "BNS 356(1)(b)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": true,
+      "top10_hit": true,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0004",
+      "expected": [
+        "BNS 304(2)"
+      ],
+      "recommended_top10": [
+        "BNS 309(3)(b)",
+        "BNS 304(1)",
+        "BNS 314(b)",
+        "BNS 309(3)(c)",
+        "BNS 303(1)(h)",
+        "BNS 303 Provided that",
+        "BNS 308(1)(e)",
+        "BNS 317(1)",
+        "BNS 314(a)",
+        "BNS 193(1)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 304(2)"
+      ],
+      "over_charges": [
+        "BNS 111(7)",
+        "BNS 137(1)(a)",
+        "BNS 140(1)(a)",
+        "BNS 176 Provided that",
+        "BNS 182(2)",
+        "BNS 193(1)",
+        "BNS 217(c)",
+        "BNS 252",
+        "BNS 303 Provided that",
+        "BNS 303(1)",
+        "BNS 303(1)(d)",
+        "BNS 303(1)(g)",
+        "BNS 303(1)(h)",
+        "BNS 303(1)(j)",
+        "BNS 303(1)(l)",
+        "BNS 304(1)",
+        "BNS 308(1)(e)",
+        "BNS 309(3)(b)",
+        "BNS 309(3)(c)",
+        "BNS 309(3)(d)",
+        "BNS 314(a)",
+        "BNS 314(b)",
+        "BNS 314(f)",
+        "BNS 316(1)(c)",
+        "BNS 317(1)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0005",
+      "expected": [
+        "BNS 115(2)",
+        "BNS 118(1)",
+        "BNS 3(5)",
+        "BNS 310(2)",
+        "BNS 351(3)"
+      ],
+      "recommended_top10": [
+        "BNS 309(3)(d)",
+        "BNS 309(3)(b)",
+        "BNS 308(1)(e)",
+        "BNS 130(c)",
+        "BNS 125(a)",
+        "BNS 307(b)",
+        "BNS 111(7)",
+        "BNS 130(a)",
+        "BNS 136",
+        "BNS 111(2)(a)"
+      ],
+      "recovered": [
+        "BNS 118(1)",
+        "BNS 3(5)"
+      ],
+      "missed": [
+        "BNS 115(2)",
+        "BNS 310(2)",
+        "BNS 351(3)"
+      ],
+      "over_charges": [
+        "BNS 111(2)(a)",
+        "BNS 111(6)",
+        "BNS 111(7)",
+        "BNS 119(1)",
+        "BNS 125(a)",
+        "BNS 130(a)",
+        "BNS 130(c)",
+        "BNS 134",
+        "BNS 135",
+        "BNS 136",
+        "BNS 149",
+        "BNS 188",
+        "BNS 193(1)",
+        "BNS 218",
+        "BNS 220",
+        "BNS 307(b)",
+        "BNS 308(1)(e)",
+        "BNS 308(6)",
+        "BNS 309(3)",
+        "BNS 309(3)(b)",
+        "BNS 309(3)(c)",
+        "BNS 309(3)(d)",
+        "BNS 357"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": [
+        {
+          "rule_id": "REQ-001",
+          "severity": "block"
+        }
+      ]
+    },
+    {
+      "fir_id": "GS_0006",
+      "expected": [
+        "BNS 316(2)"
+      ],
+      "recommended_top10": [
+        "BNS 335",
+        "BNS 335(c)",
+        "BNS 356(1)(a)",
+        "BNS 356",
+        "BNS 316(1)(c)",
+        "BNS 335(d)",
+        "BNS 314(d)",
+        "BNS 314(c)",
+        "BNS 314(e)",
+        "BNS 176 Provided that"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 316(2)"
+      ],
+      "over_charges": [
+        "BNS 176 Provided that",
+        "BNS 177",
+        "BNS 303(1)(e)",
+        "BNS 314",
+        "BNS 314(a)",
+        "BNS 314(b)",
+        "BNS 314(c)",
+        "BNS 314(d)",
+        "BNS 314(e)",
+        "BNS 316",
+        "BNS 316(1)(b)",
+        "BNS 316(1)(c)",
+        "BNS 316(1)(d)",
+        "BNS 316(1)(e)",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 335(c)",
+        "BNS 335(d)",
+        "BNS 356",
+        "BNS 356(1)(a)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0007",
+      "expected": [
+        "BNS 318(4)"
+      ],
+      "recommended_top10": [
+        "BNS 318(1)(i)",
+        "BNS 314",
+        "BNS 335",
+        "BNS 316(1)(c)",
+        "BNS 335(d)",
+        "BNS 335(h)",
+        "BNS 314(b)",
+        "BNS 318(1)(d)",
+        "BNS 318(1)(g)",
+        "BNS 335(a)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 318(4)"
+      ],
+      "over_charges": [
+        "BNS 219",
+        "BNS 220",
+        "BNS 243",
+        "BNS 244",
+        "BNS 314",
+        "BNS 314(a)",
+        "BNS 314(b)",
+        "BNS 314(c)",
+        "BNS 314(d)",
+        "BNS 314(e)",
+        "BNS 316(1)(c)",
+        "BNS 318(1)(d)",
+        "BNS 318(1)(g)",
+        "BNS 318(1)(h)",
+        "BNS 318(1)(i)",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 335(d)",
+        "BNS 335(h)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0008",
+      "expected": [
+        "BNS 356(2)"
+      ],
+      "recommended_top10": [
+        "BNS 356(1)(a)",
+        "BNS 356",
+        "BNS 228(b)",
+        "BNS 317(1)",
+        "BNS 303 Provided that",
+        "BNS 309(3)(b)",
+        "BNS 227(a)",
+        "BNS 316(1)(b)",
+        "BNS 101",
+        "BNS 217(c)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 356(2)"
+      ],
+      "over_charges": [
+        "BNS 101",
+        "BNS 101 Provided that(d)",
+        "BNS 2(4)",
+        "BNS 217(b)",
+        "BNS 217(c)",
+        "BNS 227(a)",
+        "BNS 228(b)",
+        "BNS 3",
+        "BNS 303 Provided that",
+        "BNS 303(1)",
+        "BNS 303(1)(h)",
+        "BNS 303(1)(i)",
+        "BNS 303(1)(j)",
+        "BNS 303(1)(l)",
+        "BNS 303(1)(o)",
+        "BNS 309(3)(a)",
+        "BNS 309(3)(b)",
+        "BNS 314",
+        "BNS 314(a)",
+        "BNS 316(1)(b)",
+        "BNS 317(1)",
+        "BNS 356",
+        "BNS 356(1)(a)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0009",
+      "expected": [
+        "BNS 78(2)"
+      ],
+      "recommended_top10": [
+        "BNS 78(1)(i)",
+        "BNS 78(1)(ii)",
+        "BNS 78 Provided that(ii)",
+        "BNS 316(1)(c)",
+        "BNS 293",
+        "BNS 78(2)",
+        "BNS 212(b)",
+        "BNS 284",
+        "BNS 330(2)",
+        "BNS 351(4)"
+      ],
+      "recovered": [
+        "BNS 78(2)"
+      ],
+      "missed": [],
+      "over_charges": [
+        "BNS 136",
+        "BNS 137(1)(a)",
+        "BNS 199(a)",
+        "BNS 209",
+        "BNS 211(c)",
+        "BNS 212",
+        "BNS 212(b)",
+        "BNS 217(c)",
+        "BNS 284",
+        "BNS 289",
+        "BNS 293",
+        "BNS 308(1)(e)",
+        "BNS 316(1)(c)",
+        "BNS 330(2)",
+        "BNS 330(2)(h)",
+        "BNS 331(8)",
+        "BNS 347(2)",
+        "BNS 351(4)",
+        "BNS 77",
+        "BNS 78 Provided that(i)",
+        "BNS 78 Provided that(ii)",
+        "BNS 78(1)(i)",
+        "BNS 78(1)(ii)",
+        "BNS 84"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": true,
+      "exact_recovery": true,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0010",
+      "expected": [
+        "BNS 115(2)",
+        "BNS 85"
+      ],
+      "recommended_top10": [
+        "BNS 80(1)",
+        "BNS 86(b)",
+        "BNS 85",
+        "BNS 162",
+        "BNS 161",
+        "BNS 74",
+        "BNS 335(a)",
+        "BNS 335",
+        "BNS 135",
+        "BNS 133"
+      ],
+      "recovered": [
+        "BNS 85"
+      ],
+      "missed": [
+        "BNS 115(2)"
+      ],
+      "over_charges": [
+        "BNS 119(1)",
+        "BNS 120(1)",
+        "BNS 120(1)(c)",
+        "BNS 133",
+        "BNS 134",
+        "BNS 135",
+        "BNS 136",
+        "BNS 151",
+        "BNS 161",
+        "BNS 162",
+        "BNS 176 Provided that",
+        "BNS 195(1)",
+        "BNS 252",
+        "BNS 309(3)(a)",
+        "BNS 309(3)(b)",
+        "BNS 333",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 52",
+        "BNS 63(d)(v)",
+        "BNS 74",
+        "BNS 76",
+        "BNS 80(1)",
+        "BNS 86(b)"
+      ],
+      "top1_hit": false,
+      "top3_hit": true,
+      "top5_hit": true,
+      "top10_hit": true,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0011",
+      "expected": [
+        "BNS 115(2)",
+        "BNS 194(2)"
+      ],
+      "recommended_top10": [
+        "BNS 194(1)",
+        "BNS 352",
+        "BNS 130(a)",
+        "BNS 101",
+        "BNS 356",
+        "BNS 136",
+        "BNS 309(3)(b)",
+        "BNS 356(1)(b)",
+        "BNS 129(d)",
+        "BNS 280"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 115(2)",
+        "BNS 194(2)"
+      ],
+      "over_charges": [
+        "BNS 101",
+        "BNS 129(d)",
+        "BNS 130(a)",
+        "BNS 130(b)",
+        "BNS 130(c)",
+        "BNS 132",
+        "BNS 135",
+        "BNS 136",
+        "BNS 154",
+        "BNS 194(1)",
+        "BNS 195",
+        "BNS 195(1)",
+        "BNS 267",
+        "BNS 280",
+        "BNS 292",
+        "BNS 309(3)(b)",
+        "BNS 352",
+        "BNS 355",
+        "BNS 356",
+        "BNS 356(1)(b)",
+        "BNS 46"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0012",
+      "expected": [
+        "BNS 74",
+        "BNS 75(2)",
+        "BNS 79"
+      ],
+      "recommended_top10": [
+        "BNS 75(1)(i)",
+        "BNS 75",
+        "BNS 63(d)(ii)",
+        "BNS 85",
+        "BNS 63(d)(v)",
+        "BNS 63(d)",
+        "BNS 74",
+        "BNS 129(d)",
+        "BNS 135",
+        "BNS 86(b)"
+      ],
+      "recovered": [
+        "BNS 74",
+        "BNS 79"
+      ],
+      "missed": [
+        "BNS 75(2)"
+      ],
+      "over_charges": [
+        "BNS 129(d)",
+        "BNS 129(f)",
+        "BNS 129(g)",
+        "BNS 130(a)",
+        "BNS 135",
+        "BNS 295",
+        "BNS 357",
+        "BNS 63(c)",
+        "BNS 63(d)",
+        "BNS 63(d)(ii)",
+        "BNS 63(d)(v)",
+        "BNS 64(2)(i)",
+        "BNS 68",
+        "BNS 69",
+        "BNS 75",
+        "BNS 75(1)",
+        "BNS 75(1)(i)",
+        "BNS 75(1)(iii)",
+        "BNS 85",
+        "BNS 86(b)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": true,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0013",
+      "expected": [
+        "BNS 3(5)",
+        "BNS 324(4)",
+        "BNS 329(4)",
+        "BNS 351(2)"
+      ],
+      "recommended_top10": [
+        "BNS 330(2)(h)",
+        "BNS 324(1)(a)",
+        "BNS 330(2)(c)",
+        "BNS 324(5)",
+        "BNS 330(2)(g)",
+        "BNS 331(8)",
+        "BNS 127(8)",
+        "BNS 331(6)",
+        "BNS 135",
+        "BNS 308(1)(e)"
+      ],
+      "recovered": [
+        "BNS 324(4)"
+      ],
+      "missed": [
+        "BNS 3(5)",
+        "BNS 329(4)",
+        "BNS 351(2)"
+      ],
+      "over_charges": [
+        "BNS 127(8)",
+        "BNS 135",
+        "BNS 197(1)(d)",
+        "BNS 243",
+        "BNS 244",
+        "BNS 302",
+        "BNS 303(1)(j)",
+        "BNS 308(1)(e)",
+        "BNS 316(1)(b)",
+        "BNS 316(1)(c)",
+        "BNS 324(1)(a)",
+        "BNS 324(5)",
+        "BNS 326(g)",
+        "BNS 329(1)",
+        "BNS 330(2)(c)",
+        "BNS 330(2)(e)",
+        "BNS 330(2)(g)",
+        "BNS 330(2)(h)",
+        "BNS 331(2)",
+        "BNS 331(4)",
+        "BNS 331(6)",
+        "BNS 331(8)",
+        "BNS 352",
+        "BNS 43(e)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0014",
+      "expected": [
+        "BNS 303(2)",
+        "BNS 305(b)"
+      ],
+      "recommended_top10": [
+        "BNS 317(1)",
+        "BNS 317",
+        "BNS 314(b)",
+        "BNS 303 Provided that",
+        "BNS 309(3)(b)",
+        "BNS 309(3)(c)",
+        "BNS 303(1)(h)",
+        "BNS 8(7)",
+        "BNS 111(7)",
+        "BNS 252"
+      ],
+      "recovered": [
+        "BNS 305(b)"
+      ],
+      "missed": [
+        "BNS 303(2)"
+      ],
+      "over_charges": [
+        "BNS 111(7)",
+        "BNS 165",
+        "BNS 182(2)",
+        "BNS 252",
+        "BNS 3",
+        "BNS 303",
+        "BNS 303 Provided that",
+        "BNS 303(1)(h)",
+        "BNS 303(1)(j)",
+        "BNS 303(1)(l)",
+        "BNS 305",
+        "BNS 305(a)",
+        "BNS 305(c)",
+        "BNS 305(e)",
+        "BNS 309(3)(b)",
+        "BNS 309(3)(c)",
+        "BNS 309(3)(d)",
+        "BNS 314",
+        "BNS 314(a)",
+        "BNS 314(b)",
+        "BNS 316(1)(c)",
+        "BNS 317",
+        "BNS 317(1)",
+        "BNS 8(7)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0015",
+      "expected": [
+        "BNS 303(2)",
+        "BNS 305(d)",
+        "BNS 331(4)",
+        "BNS 332 Provided that"
+      ],
+      "recommended_top10": [
+        "BNS 305(d)",
+        "BNS 294(2)(b)(ii)",
+        "BNS 140(1)(a)",
+        "BNS 303 Provided that",
+        "BNS 252",
+        "BNS 303(1)(h)",
+        "BNS 188",
+        "BNS 297(2)",
+        "BNS 193(1)",
+        "BNS 314(f)"
+      ],
+      "recovered": [
+        "BNS 305(d)"
+      ],
+      "missed": [
+        "BNS 303(2)",
+        "BNS 331(4)",
+        "BNS 332 Provided that"
+      ],
+      "over_charges": [
+        "BNS 113(1)(a)(iv)",
+        "BNS 140(1)(a)",
+        "BNS 176 Provided that",
+        "BNS 185",
+        "BNS 188",
+        "BNS 193(1)",
+        "BNS 252",
+        "BNS 277",
+        "BNS 294(2)(b)(ii)",
+        "BNS 295",
+        "BNS 297(2)",
+        "BNS 298",
+        "BNS 303 Provided that",
+        "BNS 303(1)(c)",
+        "BNS 303(1)(h)",
+        "BNS 314",
+        "BNS 314(f)",
+        "BNS 317(1)",
+        "BNS 324(4)",
+        "BNS 324(5)",
+        "BNS 354(a)",
+        "BNS 8(6)(b)"
+      ],
+      "top1_hit": true,
+      "top3_hit": true,
+      "top5_hit": true,
+      "top10_hit": true,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0016",
+      "expected": [
+        "BNS 309(4)",
+        "BNS 351(3)"
+      ],
+      "recommended_top10": [
+        "BNS 308(1)(e)",
+        "BNS 309(3)(b)",
+        "BNS 303(1)(h)",
+        "BNS 303(1)(f)",
+        "BNS 309(3)(d)",
+        "BNS 309(3)(c)",
+        "BNS 252",
+        "BNS 101",
+        "BNS 307(b)",
+        "BNS 303(1)(i)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 309(4)",
+        "BNS 351(3)"
+      ],
+      "over_charges": [
+        "BNS 101",
+        "BNS 111(6)",
+        "BNS 111(7)",
+        "BNS 118(1)",
+        "BNS 134",
+        "BNS 135",
+        "BNS 188",
+        "BNS 252",
+        "BNS 303 Provided that",
+        "BNS 303(1)(f)",
+        "BNS 303(1)(h)",
+        "BNS 303(1)(i)",
+        "BNS 303(1)(j)",
+        "BNS 307(a)",
+        "BNS 307(b)",
+        "BNS 308(1)(b)",
+        "BNS 308(1)(e)",
+        "BNS 309(3)",
+        "BNS 309(3)(a)",
+        "BNS 309(3)(b)",
+        "BNS 309(3)(c)",
+        "BNS 309(3)(d)",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 357"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0017",
+      "expected": [
+        "BNS 318(4)",
+        "BNS 319(2)"
+      ],
+      "recommended_top10": [
+        "BNS 176 Provided that",
+        "BNS 308(1)(e)",
+        "BNS 177",
+        "BNS 335(a)",
+        "BNS 335",
+        "BNS 185",
+        "BNS 316(1)(c)",
+        "BNS 182(2)",
+        "BNS 314(b)",
+        "BNS 182(1)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 318(4)",
+        "BNS 319(2)"
+      ],
+      "over_charges": [
+        "BNS 176 Provided that",
+        "BNS 177",
+        "BNS 180",
+        "BNS 182(1)",
+        "BNS 182(2)",
+        "BNS 185",
+        "BNS 211(b)",
+        "BNS 215",
+        "BNS 221",
+        "BNS 239",
+        "BNS 243",
+        "BNS 308(1)(b)",
+        "BNS 308(1)(e)",
+        "BNS 309(3)(d)",
+        "BNS 314(b)",
+        "BNS 316",
+        "BNS 316(1)(c)",
+        "BNS 317(1)",
+        "BNS 321",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 335(c)",
+        "BNS 8(6)(b)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0018",
+      "expected": [
+        "BNS 318(4)",
+        "BNS 336(3)",
+        "BNS 338"
+      ],
+      "recommended_top10": [
+        "BNS 335(a)",
+        "BNS 335",
+        "BNS 335(b)",
+        "BNS 335(j)",
+        "BNS 335(c)",
+        "BNS 335(d)",
+        "BNS 335(e)",
+        "BNS 335(h)",
+        "BNS 335(k)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 318(4)",
+        "BNS 336(3)",
+        "BNS 338"
+      ],
+      "over_charges": [
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 335(b)",
+        "BNS 335(c)",
+        "BNS 335(d)",
+        "BNS 335(e)",
+        "BNS 335(h)",
+        "BNS 335(j)",
+        "BNS 335(k)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0019",
+      "expected": [
+        "BNS 198",
+        "BNS 351(2)"
+      ],
+      "recommended_top10": [
+        "BNS 170 Provided that",
+        "BNS 218",
+        "BNS 256",
+        "BNS 220",
+        "BNS 203",
+        "BNS 214",
+        "BNS 335(a)",
+        "BNS 335",
+        "BNS 182(2)",
+        "BNS 213"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 198",
+        "BNS 351(2)"
+      ],
+      "over_charges": [
+        "BNS 170 Provided that",
+        "BNS 176 Provided that",
+        "BNS 182(2)",
+        "BNS 193(1)",
+        "BNS 193(3)",
+        "BNS 203",
+        "BNS 210(b)",
+        "BNS 211(b)",
+        "BNS 213",
+        "BNS 214",
+        "BNS 215",
+        "BNS 217(b)",
+        "BNS 218",
+        "BNS 219",
+        "BNS 220",
+        "BNS 221",
+        "BNS 241",
+        "BNS 256",
+        "BNS 257",
+        "BNS 267",
+        "BNS 309(3)(d)",
+        "BNS 335",
+        "BNS 335(a)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0020",
+      "expected": [
+        "BNS 106(1)"
+      ],
+      "recommended_top10": [
+        "BNS 106(2)",
+        "BNS 281",
+        "BNS 106(1)",
+        "BNS 100",
+        "BNS 100(a)",
+        "BNS 102",
+        "BNS 92",
+        "BNS 106",
+        "BNS 101",
+        "BNS 101(a)"
+      ],
+      "recovered": [
+        "BNS 106(1)"
+      ],
+      "missed": [],
+      "over_charges": [
+        "BNS 100",
+        "BNS 100(a)",
+        "BNS 100(b)",
+        "BNS 100(c)",
+        "BNS 101",
+        "BNS 101(a)",
+        "BNS 102",
+        "BNS 106",
+        "BNS 106(2)",
+        "BNS 110",
+        "BNS 111(2)(a)",
+        "BNS 281",
+        "BNS 3",
+        "BNS 66",
+        "BNS 92"
+      ],
+      "top1_hit": false,
+      "top3_hit": true,
+      "top5_hit": true,
+      "top10_hit": true,
+      "exact_recovery": true,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0021",
+      "expected": [
+        "BNS 125(b)"
+      ],
+      "recommended_top10": [
+        "BNS 122(1)",
+        "BNS 122(2)",
+        "BNS 314(b)",
+        "BNS 281",
+        "BNS 115(2)",
+        "BNS 117(1)",
+        "BNS 129(d)",
+        "BNS 106(1)",
+        "BNS 53",
+        "BNS 289"
+      ],
+      "recovered": [
+        "BNS 125(b)"
+      ],
+      "missed": [],
+      "over_charges": [
+        "BNS 106(1)",
+        "BNS 115(2)",
+        "BNS 116(h)",
+        "BNS 117",
+        "BNS 117(1)",
+        "BNS 117(2)",
+        "BNS 117(3)",
+        "BNS 117(4)",
+        "BNS 119(1)",
+        "BNS 119(2)",
+        "BNS 120(2)",
+        "BNS 121",
+        "BNS 122(1)",
+        "BNS 122(2)",
+        "BNS 129(d)",
+        "BNS 136",
+        "BNS 198",
+        "BNS 281",
+        "BNS 289",
+        "BNS 291",
+        "BNS 309(3)(b)",
+        "BNS 314(b)",
+        "BNS 354(a)",
+        "BNS 53"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": true,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0022",
+      "expected": [
+        "BNS 303(2)"
+      ],
+      "recommended_top10": [
+        "BNS 314(b)",
+        "BNS 309(3)(b)",
+        "BNS 335",
+        "BNS 335(d)",
+        "BNS 335(c)",
+        "BNS 303(1)(j)",
+        "BNS 303(1)(c)",
+        "BNS 178(1)",
+        "BNS 314(e)",
+        "BNS 309(3)(c)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 303(2)"
+      ],
+      "over_charges": [
+        "BNS 176 Provided that",
+        "BNS 178(1)",
+        "BNS 178(4)",
+        "BNS 180",
+        "BNS 303(1)(c)",
+        "BNS 303(1)(j)",
+        "BNS 303(1)(k)",
+        "BNS 303(1)(l)",
+        "BNS 307(b)",
+        "BNS 309(3)",
+        "BNS 309(3)(a)",
+        "BNS 309(3)(b)",
+        "BNS 309(3)(c)",
+        "BNS 314(b)",
+        "BNS 314(c)",
+        "BNS 314(d)",
+        "BNS 314(e)",
+        "BNS 316(1)(b)",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 335(c)",
+        "BNS 335(d)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0023",
+      "expected": [
+        "BNS 117(2)",
+        "BNS 118(2)",
+        "BNS 351(3)"
+      ],
+      "recommended_top10": [
+        "BNS 130(a)",
+        "BNS 101",
+        "BNS 118(1)",
+        "BNS 309(3)(b)",
+        "BNS 357",
+        "BNS 119(1)",
+        "BNS 316(1)(c)",
+        "BNS 106(1)",
+        "BNS 198",
+        "BNS 3"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 117(2)",
+        "BNS 118(2)",
+        "BNS 351(3)"
+      ],
+      "over_charges": [
+        "BNS 1(5)(c)",
+        "BNS 101",
+        "BNS 106(1)",
+        "BNS 109(2)(d)",
+        "BNS 111(7)",
+        "BNS 115(2)",
+        "BNS 118(1)",
+        "BNS 119(1)",
+        "BNS 123",
+        "BNS 129(d)",
+        "BNS 130(a)",
+        "BNS 176 Provided that",
+        "BNS 198",
+        "BNS 200",
+        "BNS 217(c)",
+        "BNS 252",
+        "BNS 3",
+        "BNS 307(a)",
+        "BNS 309(3)(a)",
+        "BNS 309(3)(b)",
+        "BNS 316(1)(c)",
+        "BNS 357"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0024",
+      "expected": [
+        "BNS 137(2)"
+      ],
+      "recommended_top10": [
+        "BNS 139(3)",
+        "BNS 139(1)",
+        "BNS 139",
+        "BNS 303(1)(h)",
+        "BNS 142",
+        "BNS 137(1)(b)",
+        "BNS 93",
+        "BNS 137(1)(a)",
+        "BNS 140(1)(b)",
+        "BNS 137(1)"
+      ],
+      "recovered": [
+        "BNS 137(2)"
+      ],
+      "missed": [],
+      "over_charges": [
+        "BNS 137(1)",
+        "BNS 137(1)(a)",
+        "BNS 137(1)(b)",
+        "BNS 139",
+        "BNS 139(1)",
+        "BNS 139(2)",
+        "BNS 139(3)",
+        "BNS 139(4)(ii)",
+        "BNS 139(4)(iv)",
+        "BNS 140(1)(b)",
+        "BNS 140(3)",
+        "BNS 142",
+        "BNS 144(1)",
+        "BNS 303(1)(h)",
+        "BNS 309(3)(c)",
+        "BNS 84",
+        "BNS 93",
+        "BNS 94",
+        "BNS 97",
+        "BNS 98",
+        "BNS 99"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": true,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0025",
+      "expected": [
+        "BNS 115(2)",
+        "BNS 118(1)",
+        "BNS 3(5)",
+        "BNS 309(4)",
+        "BNS 351(3)"
+      ],
+      "recommended_top10": [
+        "BNS 309(3)(b)",
+        "BNS 309(4)",
+        "BNS 309(3)(c)",
+        "BNS 309(3)(d)",
+        "BNS 303 Provided that",
+        "BNS 188",
+        "BNS 307(a)",
+        "BNS 134",
+        "BNS 307(b)",
+        "BNS 135"
+      ],
+      "recovered": [
+        "BNS 309(4)"
+      ],
+      "missed": [
+        "BNS 115(2)",
+        "BNS 118(1)",
+        "BNS 3(5)",
+        "BNS 351(3)"
+      ],
+      "over_charges": [
+        "BNS 133",
+        "BNS 134",
+        "BNS 135",
+        "BNS 136",
+        "BNS 149",
+        "BNS 188",
+        "BNS 193(1)",
+        "BNS 252",
+        "BNS 281",
+        "BNS 289",
+        "BNS 303 Provided that",
+        "BNS 303(1)(f)",
+        "BNS 307(a)",
+        "BNS 307(b)",
+        "BNS 309(3)",
+        "BNS 309(3)(a)",
+        "BNS 309(3)(b)",
+        "BNS 309(3)(c)",
+        "BNS 309(3)(d)",
+        "BNS 314(b)",
+        "BNS 317(1)",
+        "BNS 324(4)",
+        "BNS 74"
+      ],
+      "top1_hit": false,
+      "top3_hit": true,
+      "top5_hit": true,
+      "top10_hit": true,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0026",
+      "expected": [
+        "BNS 326(g)"
+      ],
+      "recommended_top10": [
+        "BNS 324(1)(h)",
+        "BNS 326(f)",
+        "BNS 324(1)(a)",
+        "BNS 324(1)(g)",
+        "BNS 324(1)(d)",
+        "BNS 287",
+        "BNS 193(1)",
+        "BNS 193(3)",
+        "BNS 326(a)",
+        "BNS 318(1)(g)"
+      ],
+      "recovered": [
+        "BNS 326(g)"
+      ],
+      "missed": [],
+      "over_charges": [
+        "BNS 100",
+        "BNS 100(b)",
+        "BNS 101",
+        "BNS 118(1)",
+        "BNS 140(1)(a)",
+        "BNS 193(1)",
+        "BNS 193(2)",
+        "BNS 193(3)",
+        "BNS 287",
+        "BNS 314(a)",
+        "BNS 316(1)(c)",
+        "BNS 316(1)(f)",
+        "BNS 318(1)(g)",
+        "BNS 324(1)(a)",
+        "BNS 324(1)(d)",
+        "BNS 324(1)(g)",
+        "BNS 324(1)(h)",
+        "BNS 324(5)",
+        "BNS 326(a)",
+        "BNS 326(f)",
+        "BNS 354(a)",
+        "BNS 41(c)",
+        "BNS 46",
+        "BNS 46(c)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": true,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0027",
+      "expected": [
+        "BNS 318(4)",
+        "BNS 319(2)"
+      ],
+      "recommended_top10": [
+        "BNS 277",
+        "BNS 318(1)(g)",
+        "BNS 316(1)(c)",
+        "BNS 276",
+        "BNS 278",
+        "BNS 356(1)(a)",
+        "BNS 356",
+        "BNS 220",
+        "BNS 349(a)",
+        "BNS 176 Provided that"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 318(4)",
+        "BNS 319(2)"
+      ],
+      "over_charges": [
+        "BNS 176 Provided that",
+        "BNS 213",
+        "BNS 220",
+        "BNS 227(a)",
+        "BNS 275",
+        "BNS 276",
+        "BNS 277",
+        "BNS 278",
+        "BNS 31",
+        "BNS 314",
+        "BNS 316(1)(c)",
+        "BNS 318(1)(b)",
+        "BNS 318(1)(e)",
+        "BNS 318(1)(g)",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 349(a)",
+        "BNS 349(b)",
+        "BNS 349(c)",
+        "BNS 356",
+        "BNS 356(1)(a)",
+        "BNS 356(4)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0028",
+      "expected": [
+        "BNS 115(2)",
+        "BNS 118(1)"
+      ],
+      "recommended_top10": [
+        "BNS 136",
+        "BNS 354(a)",
+        "BNS 267",
+        "BNS 3",
+        "BNS 100",
+        "BNS 122",
+        "BNS 101",
+        "BNS 130(a)",
+        "BNS 3(3)",
+        "BNS 224"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 115(2)",
+        "BNS 118(1)"
+      ],
+      "over_charges": [
+        "BNS 100",
+        "BNS 101",
+        "BNS 116",
+        "BNS 120(1)(c)",
+        "BNS 121",
+        "BNS 122",
+        "BNS 130(a)",
+        "BNS 132",
+        "BNS 135",
+        "BNS 136",
+        "BNS 161",
+        "BNS 162",
+        "BNS 198",
+        "BNS 224",
+        "BNS 225",
+        "BNS 267",
+        "BNS 3",
+        "BNS 3(3)",
+        "BNS 351",
+        "BNS 354(a)",
+        "BNS 357",
+        "BNS 86(b)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0029",
+      "expected": [
+        "BNS 351(2)"
+      ],
+      "recommended_top10": [
+        "BNS 86(b)",
+        "BNS 357",
+        "BNS 76",
+        "BNS 74",
+        "BNS 136",
+        "BNS 135",
+        "BNS 205",
+        "BNS 197(1)(c)",
+        "BNS 351",
+        "BNS 129(f)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 351(2)"
+      ],
+      "over_charges": [
+        "BNS 129(f)",
+        "BNS 133",
+        "BNS 134",
+        "BNS 135",
+        "BNS 136",
+        "BNS 145",
+        "BNS 197(1)(a)",
+        "BNS 197(1)(c)",
+        "BNS 205",
+        "BNS 220",
+        "BNS 309(3)",
+        "BNS 32",
+        "BNS 329(1)",
+        "BNS 351",
+        "BNS 356(1)(a)",
+        "BNS 357",
+        "BNS 63(c)",
+        "BNS 74",
+        "BNS 75(1)(i)",
+        "BNS 76",
+        "BNS 86(b)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0030",
+      "expected": [
+        "BNS 204",
+        "BNS 318(4)"
+      ],
+      "recommended_top10": [
+        "BNS 45",
+        "BNS 335(a)",
+        "BNS 335",
+        "BNS 182(2)",
+        "BNS 217(c)",
+        "BNS 335(d)",
+        "BNS 335(c)",
+        "BNS 176 Provided that",
+        "BNS 204",
+        "BNS 309(3)(b)"
+      ],
+      "recovered": [
+        "BNS 204"
+      ],
+      "missed": [
+        "BNS 318(4)"
+      ],
+      "over_charges": [
+        "BNS 14(b)",
+        "BNS 176 Provided that",
+        "BNS 182(1)",
+        "BNS 182(2)",
+        "BNS 2(4)",
+        "BNS 205",
+        "BNS 213",
+        "BNS 217(a)",
+        "BNS 217(c)",
+        "BNS 227(a)",
+        "BNS 229(2)",
+        "BNS 309(3)(b)",
+        "BNS 318(1)(a)",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 335(c)",
+        "BNS 335(d)",
+        "BNS 335(e)",
+        "BNS 45"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": true,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0031",
+      "expected": [
+        "BNS 103(1)",
+        "BNS 80(2)",
+        "BNS 85"
+      ],
+      "recommended_top10": [
+        "BNS 80(1)",
+        "BNS 324(1)(a)",
+        "BNS 2(33)",
+        "BNS 101",
+        "BNS 80(2)",
+        "BNS 41(c)",
+        "BNS 101 Provided that(d)",
+        "BNS 66",
+        "BNS 315",
+        "BNS 118(1)"
+      ],
+      "recovered": [
+        "BNS 80(2)",
+        "BNS 85"
+      ],
+      "missed": [
+        "BNS 103(1)"
+      ],
+      "over_charges": [
+        "BNS 100",
+        "BNS 101",
+        "BNS 101 Provided that(c)",
+        "BNS 101 Provided that(d)",
+        "BNS 106(1)",
+        "BNS 106(2)",
+        "BNS 118(1)",
+        "BNS 147",
+        "BNS 2(33)",
+        "BNS 3",
+        "BNS 315",
+        "BNS 324(1)(a)",
+        "BNS 326(g)",
+        "BNS 41(c)",
+        "BNS 46",
+        "BNS 46(c)",
+        "BNS 66",
+        "BNS 80(1)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": true,
+      "top10_hit": true,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0032",
+      "expected": [
+        "BNS 351(2)",
+        "BNS 77"
+      ],
+      "recommended_top10": [
+        "BNS 78(1)(ii)",
+        "BNS 69",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 335(e)",
+        "BNS 240(8)",
+        "BNS 318(1)(c)",
+        "BNS 77",
+        "BNS 217(a)",
+        "BNS 356"
+      ],
+      "recovered": [
+        "BNS 77"
+      ],
+      "missed": [
+        "BNS 351(2)"
+      ],
+      "over_charges": [
+        "BNS 217(a)",
+        "BNS 217(b)",
+        "BNS 217(c)",
+        "BNS 240(8)",
+        "BNS 318(1)(b)",
+        "BNS 318(1)(c)",
+        "BNS 319",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 335(c)",
+        "BNS 335(e)",
+        "BNS 335(j)",
+        "BNS 356",
+        "BNS 69",
+        "BNS 78(1)(i)",
+        "BNS 78(1)(ii)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": true,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0033",
+      "expected": [
+        "BNS 351(3)",
+        "BNS 351(4)"
+      ],
+      "recommended_top10": [
+        "BNS 224",
+        "BNS 232(2)",
+        "BNS 232(1)",
+        "BNS 175",
+        "BNS 225",
+        "BNS 351",
+        "BNS 106(1)",
+        "BNS 217(c)",
+        "BNS 263(e)",
+        "BNS 113(2)(a)"
+      ],
+      "recovered": [
+        "BNS 351(3)",
+        "BNS 351(4)"
+      ],
+      "missed": [],
+      "over_charges": [
+        "BNS 106(1)",
+        "BNS 109(1)",
+        "BNS 113(2)(a)",
+        "BNS 113(5)",
+        "BNS 171(2)(a)",
+        "BNS 175",
+        "BNS 191(3)",
+        "BNS 215",
+        "BNS 216",
+        "BNS 217(c)",
+        "BNS 218",
+        "BNS 224",
+        "BNS 225",
+        "BNS 232(1)",
+        "BNS 232(2)",
+        "BNS 263(e)",
+        "BNS 308(1)(e)",
+        "BNS 308(5)",
+        "BNS 308(6)",
+        "BNS 351",
+        "BNS 351(1)",
+        "BNS 44",
+        "BNS 59(b)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": true,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0034",
+      "expected": [
+        "BNS 123",
+        "BNS 303(2)",
+        "BNS 305(a)"
+      ],
+      "recommended_top10": [
+        "BNS 303(1)(f)",
+        "BNS 303(1)(h)",
+        "BNS 317(1)",
+        "BNS 252",
+        "BNS 63(d)(v)",
+        "BNS 315",
+        "BNS 314",
+        "BNS 314(d)",
+        "BNS 314(b)",
+        "BNS 303(1)(o)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 123",
+        "BNS 303(2)",
+        "BNS 305(a)"
+      ],
+      "over_charges": [
+        "BNS 228(a)",
+        "BNS 252",
+        "BNS 275",
+        "BNS 286",
+        "BNS 288",
+        "BNS 303 Provided that",
+        "BNS 303(1)(d)",
+        "BNS 303(1)(f)",
+        "BNS 303(1)(h)",
+        "BNS 303(1)(n)",
+        "BNS 303(1)(o)",
+        "BNS 305",
+        "BNS 309(3)(a)",
+        "BNS 314",
+        "BNS 314(b)",
+        "BNS 314(d)",
+        "BNS 314(e)",
+        "BNS 315",
+        "BNS 316(1)(c)",
+        "BNS 317(1)",
+        "BNS 324(1)(b)",
+        "BNS 355",
+        "BNS 63(d)(v)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0035",
+      "expected": [
+        "BNS 137(2)",
+        "BNS 62"
+      ],
+      "recommended_top10": [
+        "BNS 309(3)(c)",
+        "BNS 139(3)",
+        "BNS 134",
+        "BNS 139(4)(iv)",
+        "BNS 139",
+        "BNS 139(1)",
+        "BNS 109(2)(b)",
+        "BNS 44",
+        "BNS 130(a)",
+        "BNS 139(4)(ii)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 137(2)",
+        "BNS 62"
+      ],
+      "over_charges": [
+        "BNS 109(2)(b)",
+        "BNS 130(a)",
+        "BNS 132",
+        "BNS 134",
+        "BNS 135",
+        "BNS 136",
+        "BNS 139",
+        "BNS 139(1)",
+        "BNS 139(2)",
+        "BNS 139(3)",
+        "BNS 139(4)(i)",
+        "BNS 139(4)(ii)",
+        "BNS 139(4)(iv)",
+        "BNS 217(b)",
+        "BNS 218",
+        "BNS 224",
+        "BNS 225",
+        "BNS 226",
+        "BNS 30",
+        "BNS 309(3)(c)",
+        "BNS 44",
+        "BNS 45",
+        "BNS 96"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0036",
+      "expected": [
+        "BNS 318(4)"
+      ],
+      "recommended_top10": [
+        "BNS 318(1)(g)",
+        "BNS 293",
+        "BNS 335",
+        "BNS 318(1)(h)",
+        "BNS 8(7)",
+        "BNS 215",
+        "BNS 335(a)",
+        "BNS 357",
+        "BNS 318(1)(d)",
+        "BNS 316(1)(c)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 318(4)"
+      ],
+      "over_charges": [
+        "BNS 182(2)",
+        "BNS 211(b)",
+        "BNS 213",
+        "BNS 215",
+        "BNS 218",
+        "BNS 239",
+        "BNS 244",
+        "BNS 290",
+        "BNS 293",
+        "BNS 303(1)(l)",
+        "BNS 309(3)(a)",
+        "BNS 314",
+        "BNS 316(1)(c)",
+        "BNS 318(1)(d)",
+        "BNS 318(1)(g)",
+        "BNS 318(1)(h)",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 335(d)",
+        "BNS 335(h)",
+        "BNS 357",
+        "BNS 8(7)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0037",
+      "expected": [
+        "BNS 3(5)",
+        "BNS 303(2)",
+        "BNS 305(a)",
+        "BNS 331(4)",
+        "BNS 332 Provided that",
+        "BNS 334(1)"
+      ],
+      "recommended_top10": [
+        "BNS 303(1)(j)",
+        "BNS 303(1)(i)",
+        "BNS 62(a)",
+        "BNS 62",
+        "BNS 303(1)(h)",
+        "BNS 316(1)(b)",
+        "BNS 188",
+        "BNS 303 Provided that",
+        "BNS 324(5)",
+        "BNS 309(3)(a)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 3(5)",
+        "BNS 303(2)",
+        "BNS 305(a)",
+        "BNS 331(4)",
+        "BNS 332 Provided that",
+        "BNS 334(1)"
+      ],
+      "over_charges": [
+        "BNS 111(6)",
+        "BNS 188",
+        "BNS 228(a)",
+        "BNS 303 Provided that",
+        "BNS 303(1)(c)",
+        "BNS 303(1)(f)",
+        "BNS 303(1)(h)",
+        "BNS 303(1)(i)",
+        "BNS 303(1)(j)",
+        "BNS 303(1)(l)",
+        "BNS 303(1)(o)",
+        "BNS 309(3)(a)",
+        "BNS 309(3)(b)",
+        "BNS 314(d)",
+        "BNS 316(1)(b)",
+        "BNS 316(1)(c)",
+        "BNS 317(1)",
+        "BNS 317(2)",
+        "BNS 324(4)",
+        "BNS 324(5)",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 62",
+        "BNS 62(a)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0038",
+      "expected": [
+        "BNS 117(2)",
+        "BNS 118(2)",
+        "BNS 189",
+        "BNS 190",
+        "BNS 191"
+      ],
+      "recommended_top10": [
+        "BNS 357",
+        "BNS 130(a)",
+        "BNS 130(c)",
+        "BNS 117(4)",
+        "BNS 118(1)",
+        "BNS 161",
+        "BNS 51 Provided that(c)",
+        "BNS 28(a)",
+        "BNS 301",
+        "BNS 162"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 117(2)",
+        "BNS 118(2)",
+        "BNS 189",
+        "BNS 190",
+        "BNS 191"
+      ],
+      "over_charges": [
+        "BNS 100",
+        "BNS 101",
+        "BNS 103(2)",
+        "BNS 116(h)",
+        "BNS 117(4)",
+        "BNS 118",
+        "BNS 118(1)",
+        "BNS 121",
+        "BNS 125(b)",
+        "BNS 130(a)",
+        "BNS 130(c)",
+        "BNS 161",
+        "BNS 162",
+        "BNS 25",
+        "BNS 28(a)",
+        "BNS 3(5)",
+        "BNS 30",
+        "BNS 301",
+        "BNS 324(1)(g)",
+        "BNS 333",
+        "BNS 357",
+        "BNS 51 Provided that(c)",
+        "BNS 80(1)",
+        "BNS 86(b)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": [
+        {
+          "rule_id": "REQ-001",
+          "severity": "block"
+        }
+      ]
+    },
+    {
+      "fir_id": "GS_0039",
+      "expected": [
+        "BNS 329(4)",
+        "BNS 332 Provided that"
+      ],
+      "recommended_top10": [
+        "BNS 330(2)(d)",
+        "BNS 330(2)(f)",
+        "BNS 36(b)",
+        "BNS 303(1)(h)",
+        "BNS 330(2)(h)",
+        "BNS 303(1)(f)",
+        "BNS 303(1)(d)",
+        "BNS 316(1)(b)",
+        "BNS 309(3)(c)",
+        "BNS 318(1)(d)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 329(4)",
+        "BNS 332 Provided that"
+      ],
+      "over_charges": [
+        "BNS 142",
+        "BNS 2(4)",
+        "BNS 253",
+        "BNS 253(c)",
+        "BNS 303(1)(d)",
+        "BNS 303(1)(f)",
+        "BNS 303(1)(h)",
+        "BNS 303(1)(m)",
+        "BNS 305",
+        "BNS 309(3)(c)",
+        "BNS 316(1)(b)",
+        "BNS 317(1)",
+        "BNS 318(1)(d)",
+        "BNS 329(1)",
+        "BNS 329(2)",
+        "BNS 330(1)",
+        "BNS 330(2)(c)",
+        "BNS 330(2)(d)",
+        "BNS 330(2)(f)",
+        "BNS 330(2)(h)",
+        "BNS 331(4)",
+        "BNS 356",
+        "BNS 356(1)(b)",
+        "BNS 36(b)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0040",
+      "expected": [
+        "BNS 115(2)",
+        "BNS 3(5)",
+        "BNS 85"
+      ],
+      "recommended_top10": [
+        "BNS 86(b)",
+        "BNS 85",
+        "BNS 135",
+        "BNS 74",
+        "BNS 64(2)(h)",
+        "BNS 130(a)",
+        "BNS 131(c)",
+        "BNS 130(c)",
+        "BNS 79",
+        "BNS 63 Provided that"
+      ],
+      "recovered": [
+        "BNS 85"
+      ],
+      "missed": [
+        "BNS 115(2)",
+        "BNS 3(5)"
+      ],
+      "over_charges": [
+        "BNS 130(a)",
+        "BNS 130(c)",
+        "BNS 131(c)",
+        "BNS 134",
+        "BNS 135",
+        "BNS 333",
+        "BNS 356",
+        "BNS 63 Provided that",
+        "BNS 64(2)(h)",
+        "BNS 67",
+        "BNS 74",
+        "BNS 76",
+        "BNS 79",
+        "BNS 80(1)",
+        "BNS 84",
+        "BNS 86(b)",
+        "BNS 88"
+      ],
+      "top1_hit": false,
+      "top3_hit": true,
+      "top5_hit": true,
+      "top10_hit": true,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0041",
+      "expected": [
+        "BNS 303(2)",
+        "BNS 305(a)"
+      ],
+      "recommended_top10": [
+        "BNS 303(1)(d)",
+        "BNS 317(1)",
+        "BNS 176 Provided that",
+        "BNS 303(1)(h)",
+        "BNS 243",
+        "BNS 357",
+        "BNS 323",
+        "BNS 316(1)(c)",
+        "BNS 303(1)(j)",
+        "BNS 8(6)(b)"
+      ],
+      "recovered": [
+        "BNS 305(a)"
+      ],
+      "missed": [
+        "BNS 303(2)"
+      ],
+      "over_charges": [
+        "BNS 165",
+        "BNS 176 Provided that",
+        "BNS 177",
+        "BNS 182(2)",
+        "BNS 193(1)",
+        "BNS 206(b)",
+        "BNS 243",
+        "BNS 303(1)(d)",
+        "BNS 303(1)(f)",
+        "BNS 303(1)(h)",
+        "BNS 303(1)(j)",
+        "BNS 303(1)(k)",
+        "BNS 303(1)(l)",
+        "BNS 303(1)(m)",
+        "BNS 306",
+        "BNS 315",
+        "BNS 316(1)(c)",
+        "BNS 317(1)",
+        "BNS 320",
+        "BNS 323",
+        "BNS 324(5)",
+        "BNS 357",
+        "BNS 8(6)(b)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": [
+        {
+          "rule_id": "OVR-001",
+          "severity": "warn"
+        }
+      ]
+    },
+    {
+      "fir_id": "GS_0042",
+      "expected": [
+        "BNS 318(4)"
+      ],
+      "recommended_top10": [
+        "BNS 176 Provided that",
+        "BNS 356(1)(a)",
+        "BNS 356",
+        "BNS 308(1)(e)",
+        "BNS 316(1)(c)",
+        "BNS 357",
+        "BNS 318(1)(h)",
+        "BNS 318(1)(g)",
+        "BNS 308(1)(b)",
+        "BNS 318(1)(a)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 318(4)"
+      ],
+      "over_charges": [
+        "BNS 159",
+        "BNS 176 Provided that",
+        "BNS 2(4)",
+        "BNS 220",
+        "BNS 239",
+        "BNS 244",
+        "BNS 277",
+        "BNS 294(2)(e)",
+        "BNS 295",
+        "BNS 308(1)(b)",
+        "BNS 308(1)(e)",
+        "BNS 309(3)(d)",
+        "BNS 316(1)(c)",
+        "BNS 318(1)(a)",
+        "BNS 318(1)(g)",
+        "BNS 318(1)(h)",
+        "BNS 321",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 356",
+        "BNS 356(1)(a)",
+        "BNS 357",
+        "BNS 95",
+        "BNS 99"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0043",
+      "expected": [
+        "BNS 117(2)"
+      ],
+      "recommended_top10": [
+        "BNS 116",
+        "BNS 120",
+        "BNS 119",
+        "BNS 130(a)",
+        "BNS 125(b)",
+        "BNS 333",
+        "BNS 315",
+        "BNS 122",
+        "BNS 86(b)",
+        "BNS 85"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 117(2)"
+      ],
+      "over_charges": [
+        "BNS 116",
+        "BNS 117",
+        "BNS 118",
+        "BNS 119",
+        "BNS 119(1)",
+        "BNS 119(2)",
+        "BNS 120",
+        "BNS 120(2)",
+        "BNS 122",
+        "BNS 122(2)",
+        "BNS 124",
+        "BNS 125(b)",
+        "BNS 130(a)",
+        "BNS 134",
+        "BNS 155",
+        "BNS 162",
+        "BNS 3",
+        "BNS 311",
+        "BNS 315",
+        "BNS 333",
+        "BNS 85",
+        "BNS 86(b)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0044",
+      "expected": [
+        "BNS 303(2)",
+        "BNS 305(a)"
+      ],
+      "recommended_top10": [
+        "BNS 303(1)(h)",
+        "BNS 303(1)(n)",
+        "BNS 303(1)(f)",
+        "BNS 303(1)(o)",
+        "BNS 316(1)(b)",
+        "BNS 309(3)(a)",
+        "BNS 316(1)(c)",
+        "BNS 303(1)(e)",
+        "BNS 303(1)(i)",
+        "BNS 335(a)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 303(2)",
+        "BNS 305(a)"
+      ],
+      "over_charges": [
+        "BNS 222(b)",
+        "BNS 228(a)",
+        "BNS 252",
+        "BNS 3",
+        "BNS 303 Provided that",
+        "BNS 303(1)(c)",
+        "BNS 303(1)(d)",
+        "BNS 303(1)(e)",
+        "BNS 303(1)(f)",
+        "BNS 303(1)(h)",
+        "BNS 303(1)(i)",
+        "BNS 303(1)(l)",
+        "BNS 303(1)(n)",
+        "BNS 303(1)(o)",
+        "BNS 308(1)(e)",
+        "BNS 309(3)(a)",
+        "BNS 309(3)(b)",
+        "BNS 314",
+        "BNS 314(f)",
+        "BNS 316(1)(b)",
+        "BNS 316(1)(c)",
+        "BNS 317(1)",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 357"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0045",
+      "expected": [
+        "BNS 137(2)",
+        "BNS 140(2)",
+        "BNS 3(5)"
+      ],
+      "recommended_top10": [
+        "BNS 309(3)(c)",
+        "BNS 309(3)(d)",
+        "BNS 309(3)(b)",
+        "BNS 308(1)(e)",
+        "BNS 137(1)",
+        "BNS 309(4)",
+        "BNS 137(2)",
+        "BNS 140(1)(a)",
+        "BNS 97",
+        "BNS 141"
+      ],
+      "recovered": [
+        "BNS 137(2)",
+        "BNS 140(2)"
+      ],
+      "missed": [
+        "BNS 3(5)"
+      ],
+      "over_charges": [
+        "BNS 136",
+        "BNS 137(1)",
+        "BNS 137(1)(a)",
+        "BNS 139(1)",
+        "BNS 139(4)(i)",
+        "BNS 139(4)(ii)",
+        "BNS 139(4)(iv)",
+        "BNS 140(1)",
+        "BNS 140(1)(a)",
+        "BNS 140(1)(b)",
+        "BNS 140(3)",
+        "BNS 140(4)",
+        "BNS 141",
+        "BNS 252",
+        "BNS 295",
+        "BNS 308(1)(e)",
+        "BNS 309(3)(a)",
+        "BNS 309(3)(b)",
+        "BNS 309(3)(c)",
+        "BNS 309(3)(d)",
+        "BNS 309(4)",
+        "BNS 70(2)",
+        "BNS 97"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": true,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0046",
+      "expected": [
+        "BNS 303(2)",
+        "BNS 305(a)",
+        "BNS 331(4)"
+      ],
+      "recommended_top10": [
+        "BNS 303(1)(f)",
+        "BNS 303(1)(j)",
+        "BNS 317(1)",
+        "BNS 303(1)(k)",
+        "BNS 303(1)(h)",
+        "BNS 303 Provided that",
+        "BNS 335(a)",
+        "BNS 335",
+        "BNS 316(1)(b)",
+        "BNS 212"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 303(2)",
+        "BNS 305(a)",
+        "BNS 331(4)"
+      ],
+      "over_charges": [
+        "BNS 212",
+        "BNS 212(b)",
+        "BNS 303 Provided that",
+        "BNS 303(1)(f)",
+        "BNS 303(1)(h)",
+        "BNS 303(1)(j)",
+        "BNS 303(1)(k)",
+        "BNS 303(1)(l)",
+        "BNS 303(1)(m)",
+        "BNS 303(1)(o)",
+        "BNS 305",
+        "BNS 306",
+        "BNS 314",
+        "BNS 314(d)",
+        "BNS 314(e)",
+        "BNS 315",
+        "BNS 316(1)(b)",
+        "BNS 317(1)",
+        "BNS 330(2)(f)",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 344",
+        "BNS 356",
+        "BNS 356(1)(b)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0047",
+      "expected": [
+        "BNS 75(2)",
+        "BNS 78(2)"
+      ],
+      "recommended_top10": [
+        "BNS 74",
+        "BNS 79",
+        "BNS 86(b)",
+        "BNS 84",
+        "BNS 78(1)(i)",
+        "BNS 75(3)",
+        "BNS 75",
+        "BNS 76",
+        "BNS 85",
+        "BNS 75(2)"
+      ],
+      "recovered": [
+        "BNS 75(2)",
+        "BNS 78(2)"
+      ],
+      "missed": [],
+      "over_charges": [
+        "BNS 111(7)",
+        "BNS 133",
+        "BNS 136",
+        "BNS 284",
+        "BNS 289",
+        "BNS 355",
+        "BNS 69",
+        "BNS 74",
+        "BNS 75",
+        "BNS 75(1)",
+        "BNS 75(1)(iii)",
+        "BNS 75(3)",
+        "BNS 76",
+        "BNS 78 Provided that(iii)",
+        "BNS 78(1)(i)",
+        "BNS 78(1)(ii)",
+        "BNS 79",
+        "BNS 84",
+        "BNS 85",
+        "BNS 86(b)",
+        "BNS 87"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": true,
+      "exact_recovery": true,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0048",
+      "expected": [
+        "BNS 303(2)",
+        "BNS 305(e)",
+        "BNS 329(4)"
+      ],
+      "recommended_top10": [
+        "BNS 309(3)(b)",
+        "BNS 335(a)",
+        "BNS 335",
+        "BNS 303 Provided that",
+        "BNS 303(1)(j)",
+        "BNS 314(b)",
+        "BNS 309(3)(c)",
+        "BNS 303",
+        "BNS 309(3)(d)",
+        "BNS 317(1)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 303(2)",
+        "BNS 305(e)",
+        "BNS 329(4)"
+      ],
+      "over_charges": [
+        "BNS 111(6)",
+        "BNS 111(7)",
+        "BNS 176 Provided that",
+        "BNS 252",
+        "BNS 303",
+        "BNS 303 Provided that",
+        "BNS 303(1)(a)",
+        "BNS 303(1)(h)",
+        "BNS 303(1)(j)",
+        "BNS 303(1)(l)",
+        "BNS 308(1)(e)",
+        "BNS 309(3)(a)",
+        "BNS 309(3)(b)",
+        "BNS 309(3)(c)",
+        "BNS 309(3)(d)",
+        "BNS 309(4)",
+        "BNS 314",
+        "BNS 314(b)",
+        "BNS 314(d)",
+        "BNS 316(1)(c)",
+        "BNS 317(1)",
+        "BNS 317(2)",
+        "BNS 317(3)",
+        "BNS 335",
+        "BNS 335(a)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0049",
+      "expected": [
+        "BNS 109(1)",
+        "BNS 351(3)",
+        "BNS 85"
+      ],
+      "recommended_top10": [
+        "BNS 85",
+        "BNS 46",
+        "BNS 46(c)",
+        "BNS 67",
+        "BNS 122(1)",
+        "BNS 80(1)",
+        "BNS 19(b)",
+        "BNS 287",
+        "BNS 122(2)",
+        "BNS 2(33)"
+      ],
+      "recovered": [
+        "BNS 85"
+      ],
+      "missed": [
+        "BNS 109(1)",
+        "BNS 351(3)"
+      ],
+      "over_charges": [
+        "BNS 122(1)",
+        "BNS 122(2)",
+        "BNS 129(g)",
+        "BNS 136",
+        "BNS 19(b)",
+        "BNS 2(33)",
+        "BNS 287",
+        "BNS 324(1)(a)",
+        "BNS 326(f)",
+        "BNS 326(g)",
+        "BNS 333",
+        "BNS 351(1)",
+        "BNS 354(a)",
+        "BNS 41(c)",
+        "BNS 46",
+        "BNS 46(c)",
+        "BNS 67",
+        "BNS 74",
+        "BNS 80(1)",
+        "BNS 81"
+      ],
+      "top1_hit": true,
+      "top3_hit": true,
+      "top5_hit": true,
+      "top10_hit": true,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0050",
+      "expected": [
+        "BNS 316(2)"
+      ],
+      "recommended_top10": [
+        "BNS 316(1)(c)",
+        "BNS 314(d)",
+        "BNS 316(1)(b)",
+        "BNS 335(a)",
+        "BNS 335",
+        "BNS 314(e)",
+        "BNS 303(1)(k)",
+        "BNS 335(c)",
+        "BNS 317(1)",
+        "BNS 335(d)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 316(2)"
+      ],
+      "over_charges": [
+        "BNS 176 Provided that",
+        "BNS 182(2)",
+        "BNS 303(1)(k)",
+        "BNS 303(1)(l)",
+        "BNS 309(3)(a)",
+        "BNS 314(b)",
+        "BNS 314(d)",
+        "BNS 314(e)",
+        "BNS 316(1)(b)",
+        "BNS 316(1)(c)",
+        "BNS 317(1)",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 335(c)",
+        "BNS 335(d)",
+        "BNS 335(e)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0051",
+      "expected": [
+        "BNS 109(1)",
+        "BNS 117(2)",
+        "BNS 118(2)"
+      ],
+      "recommended_top10": [
+        "BNS 101",
+        "BNS 118(1)",
+        "BNS 118(2)",
+        "BNS 116(h)",
+        "BNS 124(1)",
+        "BNS 119(2)",
+        "BNS 118",
+        "BNS 125(b)",
+        "BNS 281",
+        "BNS 116"
+      ],
+      "recovered": [
+        "BNS 117(2)",
+        "BNS 118(2)"
+      ],
+      "missed": [
+        "BNS 109(1)"
+      ],
+      "over_charges": [
+        "BNS 101",
+        "BNS 116",
+        "BNS 116(h)",
+        "BNS 117",
+        "BNS 117(3)",
+        "BNS 118",
+        "BNS 118(1)",
+        "BNS 119",
+        "BNS 119(2)",
+        "BNS 120(2)",
+        "BNS 121(2)",
+        "BNS 122",
+        "BNS 122(1)",
+        "BNS 122(2)",
+        "BNS 124",
+        "BNS 124(1)",
+        "BNS 125(a)",
+        "BNS 125(b)",
+        "BNS 129(d)",
+        "BNS 136",
+        "BNS 281",
+        "BNS 309(3)(b)",
+        "BNS 38(b)"
+      ],
+      "top1_hit": false,
+      "top3_hit": true,
+      "top5_hit": true,
+      "top10_hit": true,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0052",
+      "expected": [
+        "BNS 303(2)",
+        "BNS 305(b)",
+        "BNS 334(1)"
+      ],
+      "recommended_top10": [
+        "BNS 317(1)",
+        "BNS 303(1)(b)",
+        "BNS 303(1)(j)",
+        "BNS 314(b)",
+        "BNS 330(2)(f)",
+        "BNS 303(1)(o)",
+        "BNS 307(a)",
+        "BNS 303(1)(f)",
+        "BNS 303(1)(c)",
+        "BNS 303(1)(k)"
+      ],
+      "recovered": [
+        "BNS 305(b)"
+      ],
+      "missed": [
+        "BNS 303(2)",
+        "BNS 334(1)"
+      ],
+      "over_charges": [
+        "BNS 3",
+        "BNS 303 Provided that",
+        "BNS 303(1)",
+        "BNS 303(1)(a)",
+        "BNS 303(1)(b)",
+        "BNS 303(1)(c)",
+        "BNS 303(1)(d)",
+        "BNS 303(1)(f)",
+        "BNS 303(1)(i)",
+        "BNS 303(1)(j)",
+        "BNS 303(1)(k)",
+        "BNS 303(1)(l)",
+        "BNS 303(1)(o)",
+        "BNS 305(a)",
+        "BNS 305(c)",
+        "BNS 306",
+        "BNS 307(a)",
+        "BNS 314",
+        "BNS 314(b)",
+        "BNS 316(1)(b)",
+        "BNS 317",
+        "BNS 317(1)",
+        "BNS 330(2)(d)",
+        "BNS 330(2)(f)",
+        "BNS 331(3)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": [
+        {
+          "rule_id": "REQ-002",
+          "severity": "warn"
+        },
+        {
+          "rule_id": "OVR-001",
+          "severity": "warn"
+        }
+      ]
+    },
+    {
+      "fir_id": "GS_0053",
+      "expected": [
+        "BNS 318(4)"
+      ],
+      "recommended_top10": [
+        "BNS 335(a)",
+        "BNS 335",
+        "BNS 314",
+        "BNS 316(1)(c)",
+        "BNS 318(1)(g)",
+        "BNS 227(a)",
+        "BNS 357",
+        "BNS 30(3)",
+        "BNS 335(c)",
+        "BNS 335(d)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 318(4)"
+      ],
+      "over_charges": [
+        "BNS 227(a)",
+        "BNS 30",
+        "BNS 30(3)",
+        "BNS 308(1)(e)",
+        "BNS 314",
+        "BNS 316(1)(c)",
+        "BNS 318(1)(a)",
+        "BNS 318(1)(d)",
+        "BNS 318(1)(e)",
+        "BNS 318(1)(f)",
+        "BNS 318(1)(g)",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 335(c)",
+        "BNS 335(d)",
+        "BNS 335(e)",
+        "BNS 356",
+        "BNS 356(1)(a)",
+        "BNS 357"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0054",
+      "expected": [
+        "BNS 3(5)",
+        "BNS 324(5)"
+      ],
+      "recommended_top10": [
+        "BNS 324(5)",
+        "BNS 324(4)",
+        "BNS 248(a)",
+        "BNS 314(b)",
+        "BNS 316(1)(c)",
+        "BNS 324(1)(h)",
+        "BNS 115(2)",
+        "BNS 346",
+        "BNS 125(a)",
+        "BNS 316(1)(b)"
+      ],
+      "recovered": [
+        "BNS 3(5)",
+        "BNS 324(5)"
+      ],
+      "missed": [],
+      "over_charges": [
+        "BNS 115(2)",
+        "BNS 122(1)",
+        "BNS 125(a)",
+        "BNS 248(a)",
+        "BNS 280",
+        "BNS 314",
+        "BNS 314(b)",
+        "BNS 314(d)",
+        "BNS 316(1)(b)",
+        "BNS 316(1)(c)",
+        "BNS 316(1)(f)",
+        "BNS 316(2)",
+        "BNS 316(5)",
+        "BNS 318(4)",
+        "BNS 324(1)(d)",
+        "BNS 324(1)(g)",
+        "BNS 324(1)(h)",
+        "BNS 324(3)",
+        "BNS 324(4)",
+        "BNS 326(e)",
+        "BNS 326(f)",
+        "BNS 346",
+        "BNS 354(a)"
+      ],
+      "top1_hit": true,
+      "top3_hit": true,
+      "top5_hit": true,
+      "top10_hit": true,
+      "exact_recovery": true,
+      "conflict_findings": [
+        {
+          "rule_id": "REQ-001",
+          "severity": "block"
+        }
+      ]
+    },
+    {
+      "fir_id": "GS_0055",
+      "expected": [
+        "BNS 324(2)",
+        "BNS 325"
+      ],
+      "recommended_top10": [
+        "BNS 3",
+        "BNS 130(b)",
+        "BNS 3(8)(a)",
+        "BNS 101",
+        "BNS 303(1)(b)",
+        "BNS 212(a)",
+        "BNS 212",
+        "BNS 100(a)",
+        "BNS 100",
+        "BNS 325"
+      ],
+      "recovered": [
+        "BNS 325"
+      ],
+      "missed": [
+        "BNS 324(2)"
+      ],
+      "over_charges": [
+        "BNS 100",
+        "BNS 100(a)",
+        "BNS 100(b)",
+        "BNS 101",
+        "BNS 101 Provided that(d)",
+        "BNS 101(a)",
+        "BNS 101(c)",
+        "BNS 109(2)(d)",
+        "BNS 130(b)",
+        "BNS 212",
+        "BNS 212(a)",
+        "BNS 3",
+        "BNS 3(8)(a)",
+        "BNS 3(8)(b)",
+        "BNS 30(2)",
+        "BNS 303(1)(b)",
+        "BNS 324(1)(g)"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": true,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0056",
+      "expected": [
+        "BNS 117(2)",
+        "BNS 118(1)",
+        "BNS 189",
+        "BNS 190",
+        "BNS 191",
+        "BNS 303(2)",
+        "BNS 305(a)",
+        "BNS 324(4)",
+        "BNS 329(4)"
+      ],
+      "recommended_top10": [
+        "BNS 136",
+        "BNS 135",
+        "BNS 303 Provided that",
+        "BNS 134",
+        "BNS 333",
+        "BNS 252",
+        "BNS 357",
+        "BNS 85",
+        "BNS 133",
+        "BNS 111(7)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 117(2)",
+        "BNS 118(1)",
+        "BNS 189",
+        "BNS 190",
+        "BNS 191",
+        "BNS 303(2)",
+        "BNS 305(a)",
+        "BNS 324(4)",
+        "BNS 329(4)"
+      ],
+      "over_charges": [
+        "BNS 111(7)",
+        "BNS 119(1)",
+        "BNS 122(1)",
+        "BNS 125(b)",
+        "BNS 130(a)",
+        "BNS 130(c)",
+        "BNS 133",
+        "BNS 134",
+        "BNS 135",
+        "BNS 136",
+        "BNS 154",
+        "BNS 252",
+        "BNS 303 Provided that",
+        "BNS 306",
+        "BNS 313",
+        "BNS 317(1)",
+        "BNS 329(1)",
+        "BNS 333",
+        "BNS 357",
+        "BNS 74",
+        "BNS 76",
+        "BNS 85",
+        "BNS 87"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0057",
+      "expected": [
+        "BNS 117(2)",
+        "BNS 125(b)"
+      ],
+      "recommended_top10": [
+        "BNS 116(b)",
+        "BNS 30",
+        "BNS 30(3)",
+        "BNS 106(1)",
+        "BNS 116(c)",
+        "BNS 28(b)",
+        "BNS 117(3)",
+        "BNS 303(1)(d)",
+        "BNS 276",
+        "BNS 303(1)(a)"
+      ],
+      "recovered": [],
+      "missed": [
+        "BNS 117(2)",
+        "BNS 125(b)"
+      ],
+      "over_charges": [
+        "BNS 106(1)",
+        "BNS 116(b)",
+        "BNS 116(c)",
+        "BNS 116(f)",
+        "BNS 117(3)",
+        "BNS 14(a)",
+        "BNS 217(a)",
+        "BNS 23",
+        "BNS 245",
+        "BNS 276",
+        "BNS 277",
+        "BNS 28(b)",
+        "BNS 30",
+        "BNS 30(1)",
+        "BNS 30(3)",
+        "BNS 303(1)(a)",
+        "BNS 303(1)(d)",
+        "BNS 303(1)(l)",
+        "BNS 335",
+        "BNS 335(B)",
+        "BNS 335(b)",
+        "BNS 357"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": false,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0058",
+      "expected": [
+        "BNS 318(4)",
+        "BNS 336(3)",
+        "BNS 338"
+      ],
+      "recommended_top10": [
+        "BNS 335",
+        "BNS 335(c)",
+        "BNS 335(d)",
+        "BNS 335(a)",
+        "BNS 335(e)",
+        "BNS 344",
+        "BNS 336(3)",
+        "BNS 335(b)",
+        "BNS 180",
+        "BNS 318(1)(b)"
+      ],
+      "recovered": [
+        "BNS 336(3)"
+      ],
+      "missed": [
+        "BNS 318(4)",
+        "BNS 338"
+      ],
+      "over_charges": [
+        "BNS 180",
+        "BNS 318(1)(b)",
+        "BNS 335",
+        "BNS 335(a)",
+        "BNS 335(b)",
+        "BNS 335(c)",
+        "BNS 335(d)",
+        "BNS 335(e)",
+        "BNS 335(k)",
+        "BNS 344"
+      ],
+      "top1_hit": false,
+      "top3_hit": false,
+      "top5_hit": false,
+      "top10_hit": true,
+      "exact_recovery": false,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0059",
+      "expected": [
+        "BNS 226"
+      ],
+      "recommended_top10": [
+        "BNS 226",
+        "BNS 309(3)(b)",
+        "BNS 354(a)",
+        "BNS 158",
+        "BNS 309(3)(c)",
+        "BNS 109(2)(c)",
+        "BNS 62(a)",
+        "BNS 62",
+        "BNS 101",
+        "BNS 269"
+      ],
+      "recovered": [
+        "BNS 226"
+      ],
+      "missed": [],
+      "over_charges": [
+        "BNS 101",
+        "BNS 101 Provided that(c)",
+        "BNS 109(2)(c)",
+        "BNS 113(1)(c)",
+        "BNS 120(1)(c)",
+        "BNS 129(d)",
+        "BNS 130(a)",
+        "BNS 135",
+        "BNS 140(1)(a)",
+        "BNS 158",
+        "BNS 253",
+        "BNS 269",
+        "BNS 309(3)",
+        "BNS 309(3)(b)",
+        "BNS 309(3)(c)",
+        "BNS 32 Provided that",
+        "BNS 354(a)",
+        "BNS 46",
+        "BNS 62",
+        "BNS 62(a)",
+        "BNS 78 Provided that(iii)"
+      ],
+      "top1_hit": true,
+      "top3_hit": true,
+      "top5_hit": true,
+      "top10_hit": true,
+      "exact_recovery": true,
+      "conflict_findings": []
+    },
+    {
+      "fir_id": "GS_0060",
+      "expected": [
+        "BNS 227",
+        "BNS 229"
+      ],
+      "recommended_top10": [
+        "BNS 227(a)",
+        "BNS 227(d)",
+        "BNS 229",
+        "BNS 229(2)",
+        "BNS 227(b)",
+        "BNS 228(b)",
+        "BNS 227(e)",
+        "BNS 217(c)",
+        "BNS 335",
+        "BNS 212(a)"
+      ],
+      "recovered": [
+        "BNS 229"
+      ],
+      "missed": [
+        "BNS 227"
+      ],
+      "over_charges": [
+        "BNS 101",
+        "BNS 101 Provided that(d)",
+        "BNS 208(a)",
+        "BNS 208(b)",
+        "BNS 212",
+        "BNS 212(a)",
+        "BNS 217(b)",
+        "BNS 217(c)",
+        "BNS 227(a)",
+        "BNS 227(b)",
+        "BNS 227(d)",
+        "BNS 227(e)",
+        "BNS 228(a)",
+        "BNS 228(b)",
+        "BNS 229(1)",
+        "BNS 229(2)",
+        "BNS 246",
+        "BNS 269",
+        "BNS 314",
+        "BNS 335",
+        "BNS 335(d)",
+        "BNS 335(h)"
+      ],
+      "top1_hit": false,
+      "top3_hit": true,
+      "top5_hit": true,
+      "top10_hit": true,
+      "exact_recovery": false,
+      "conflict_findings": []
+    }
+  ]
+}

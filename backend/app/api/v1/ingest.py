@@ -10,7 +10,7 @@ from __future__ import annotations
 import logging
 from datetime import datetime, timezone
 
-from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
+from fastapi import APIRouter, BackgroundTasks, Depends, File, HTTPException, UploadFile, status
 
 from app.core.rbac import Role, require_role
 from app.db.crud_fir import create_fir
@@ -33,6 +33,7 @@ router = APIRouter(tags=["ingestion"])
     summary="Ingest a FIR PDF",
 )
 async def ingest_fir(
+    background_tasks: BackgroundTasks,
     file: UploadFile = File(...),
     user: dict = Depends(require_role(Role.IO, Role.SHO, Role.ADMIN)),
 ) -> FIRResponse:
@@ -103,6 +104,15 @@ async def ingest_fir(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(exc),
         )
+
+    # Schedule the section recommender + Compendium-scenario lookup as a
+    # background task (ADR-D17 + ADR-D19). Best-effort; never blocks the
+    # ingestion response.
+    try:
+        from app.api.v1.firs import _trigger_recommender_in_background  # noqa: PLC0415
+        background_tasks.add_task(_trigger_recommender_in_background, dict(created))
+    except Exception:
+        logger.exception("Failed to schedule recommender for FIR %s", created.get("id"))
 
     # Fire-and-forget: persist raw OCR text to MongoDB for the ML pipeline.
     # A failure here must never block the HTTP response.

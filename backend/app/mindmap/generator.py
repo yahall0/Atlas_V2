@@ -365,6 +365,29 @@ def _fetch_mindmap_tree(conn: PgConnection, mindmap_id: uuid.UUID) -> MindmapRes
 
 # ── Public API ───────────────────────────────────────────────────────────────
 
+def _recommended_citations_from_fir(fir: Dict[str, Any]) -> List[str]:
+    """Extract sub-clause-precise citations recorded in the FIR's nlp_metadata.
+
+    The recommender (per ADR-D17) writes its output to
+    ``firs.nlp_metadata['recommended_sections']`` after the auto-trigger
+    runs. This helper reads that list back so the mindmap generator can
+    decide whether the playbook path applies.
+    """
+    meta = fir.get("nlp_metadata") or {}
+    recs = meta.get("recommended_sections") or []
+    out: list[str] = []
+    for r in recs:
+        if isinstance(r, str):
+            out.append(r)
+        elif isinstance(r, dict) and r.get("canonical_citation"):
+            out.append(r["canonical_citation"])
+    # Fallback: primary_sections (raw, may not be sub-clause precise)
+    if not out:
+        for s in (fir.get("primary_sections") or []):
+            out.append(f"BNS {s}" if not s.startswith(("BNS", "IPC")) else s)
+    return out
+
+
 def generate_mindmap(
     fir_id: uuid.UUID,
     *,
@@ -375,6 +398,12 @@ def generate_mindmap(
 
     Idempotent: if a mindmap already exists for (fir_id, template_version),
     returns it. Set regenerate=True to force a new version (old one retained).
+
+    Routing (ADR-D19):
+      1. If the FIR's recommended citations match a Delhi Police Academy
+         Compendium scenario, build the mindmap from that scenario
+         (government-authority playbook).
+      2. Otherwise, fall back to the model-authored case-category template.
     """
     fir = _get_fir_data(conn, fir_id)
     if fir is None:
@@ -383,7 +412,7 @@ def generate_mindmap(
     case_category, is_uncertain = _get_case_category(fir)
     tpl_version = template_version(case_category)
 
-    # Idempotency check
+    # Idempotency check (template path)
     if not regenerate:
         existing = _existing_mindmap(conn, fir_id, tpl_version)
         if existing:
@@ -392,6 +421,33 @@ def generate_mindmap(
                 existing["id"], fir_id,
             )
             return _fetch_mindmap_tree(conn, existing["id"])
+
+    # ── Compendium-playbook path (preferred, ADR-D19) ────────────────────────
+    try:
+        from app.mindmap.playbook_generator import (  # noqa: PLC0415
+            generate_playbook_mindmap,
+            has_playbook_for,
+        )
+        citations = _recommended_citations_from_fir(fir)
+        if citations and has_playbook_for(citations):
+            logger.info(
+                "Using Compendium playbook for FIR %s (citations=%s)",
+                fir_id, citations,
+            )
+            playbook_resp = generate_playbook_mindmap(
+                fir_id=fir_id, citations=citations, conn=conn,
+                regenerate=regenerate,
+            )
+            if playbook_resp:
+                # Re-fetch via the standard reader so the returned tree
+                # exactly matches the MindmapResponse contract.
+                return _fetch_mindmap_tree(conn, uuid.UUID(playbook_resp["id"]))
+    except Exception:
+        # Playbook is best-effort augmentation; fall through to template path.
+        logger.exception(
+            "Playbook mindmap path failed for FIR %s; falling back to template",
+            fir_id,
+        )
 
     # If regenerating, mark old as superseded
     if regenerate:

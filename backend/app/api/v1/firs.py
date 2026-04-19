@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 
 from app.core.pii import mask_pii_for_role
 from app.core.rbac import Role, get_current_user, require_role
@@ -25,6 +25,49 @@ def _district_for(user: dict) -> str | None:
     return user["district"] if user["role"] in _DISTRICT_SCOPED_ROLES else None
 
 
+def _trigger_recommender_in_background(fir_record: dict) -> None:
+    """Run the section recommender + Compendium-scenario lookup for a new FIR.
+
+    Persists results to ``firs.nlp_metadata['recommended_sections']`` and
+    ``firs.nlp_metadata['compendium_scenarios']``. Best-effort: failures are
+    logged and never block the FIR-creation response.
+    """
+    try:
+        from app.legal_sections.auto_trigger import (  # noqa: PLC0415
+            run_recommender_for_fir,
+        )
+    except Exception:
+        logger.warning("auto_trigger import failed; skipping for fir=%s",
+                       fir_record.get("id"))
+        return
+
+    try:
+        occurrence_iso = None
+        occ = fir_record.get("occurrence_start")
+        if occ:
+            occurrence_iso = occ.isoformat() if hasattr(occ, "isoformat") else str(occ)
+
+        accused = fir_record.get("accused") or []
+        accused_count = max(len(accused) if isinstance(accused, list) else 0, 1)
+
+        narrative = fir_record.get("narrative") or fir_record.get("raw_text") or ""
+        if not narrative.strip():
+            logger.info("auto_trigger.skip empty_narrative fir=%s", fir_record.get("id"))
+            return
+
+        conn = get_connection()
+        run_recommender_for_fir(
+            fir_id=str(fir_record["id"]),
+            narrative=narrative,
+            occurrence_date_iso=occurrence_iso,
+            accused_count=accused_count,
+            conn=conn,
+        )
+    except Exception:
+        logger.exception("auto_trigger background task failed for fir=%s",
+                         fir_record.get("id"))
+
+
 @router.post(
     "/firs",
     response_model=FIRResponse,
@@ -33,13 +76,22 @@ def _district_for(user: dict) -> str | None:
 )
 def create_fir_endpoint(
     payload: FIRCreate,
+    background_tasks: BackgroundTasks,
     user: dict = Depends(require_role(Role.IO, Role.SHO, Role.ADMIN)),
 ) -> FIRResponse:
-    """Accept a ``FIRCreate`` payload, persist it, and return the full record."""
+    """Accept a ``FIRCreate`` payload, persist it, and return the full record.
+
+    On successful creation, schedule the section recommender + Compendium
+    scenario lookup as a background task (per ADR-D17 + ADR-D19). The
+    recommendation results land in ``firs.nlp_metadata`` and become available
+    to the mindmap engine and chargesheet gap analyser on their next call.
+    """
     try:
         conn = get_connection()
         fir_dict = payload.model_dump()
         created = create_fir(conn, fir_dict)
+        # Schedule auto-trigger AFTER the response goes out
+        background_tasks.add_task(_trigger_recommender_in_background, dict(created))
         return FIRResponse(**mask_pii_for_role(created, user["role"]))
     except HTTPException:
         raise
