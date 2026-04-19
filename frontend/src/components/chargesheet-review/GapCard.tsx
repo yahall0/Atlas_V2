@@ -25,6 +25,7 @@ import type {
   GapSeverity,
   GapCategory,
 } from '@/hooks/chargesheet-gaps/useGapReport';
+import { PlaybookReference } from '@/components/mindmap/PlaybookReference';
 
 // ─── Props ──────────────────────────────────────────────────────────────────
 
@@ -56,7 +57,17 @@ const CATEGORY_LABELS: Record<GapCategory, string> = {
   completeness: 'Completeness',
   kb_playbook_gap: 'Playbook (KB L2)',
   kb_caselaw_gap: 'Case Law (KB L3)',
+  // ADR-D20: Compendium playbook gap categories
+  playbook_form_missing: 'Playbook · Form missing',
+  playbook_evidence_missing: 'Playbook · Evidence missing',
+  playbook_deadline_reminder: 'Playbook · Deadline',
 };
+
+const PLAYBOOK_CATEGORIES = new Set<GapCategory>([
+  'playbook_form_missing',
+  'playbook_evidence_missing',
+  'playbook_deadline_reminder',
+]);
 
 const ACTION_STYLES: Record<GapActionType, { bg: string; text: string; label: string }> = {
   accepted: { bg: 'bg-green-100', text: 'text-green-800', label: 'Accepted' },
@@ -191,9 +202,19 @@ export default function GapCard({
           >
             {sevStyle.label}
           </Badge>
-          <Badge variant="outline" className="text-[10px] px-1.5 py-0 shrink-0">
+          <Badge
+            variant="outline"
+            className={`text-[10px] px-1.5 py-0 shrink-0 ${
+              PLAYBOOK_CATEGORIES.has(gap.category)
+                ? 'border-indigo-300 bg-indigo-50 text-indigo-800'
+                : ''
+            }`}
+          >
             {CATEGORY_LABELS[gap.category]}
           </Badge>
+          {gap.playbook_reference && gap.playbook_reference.length > 0 && (
+            <PlaybookReference references={gap.playbook_reference} compact />
+          )}
           {gap.requires_disclaimer && (
             <span className="inline-flex items-center gap-0.5 text-[10px] text-amber-700 bg-amber-50 border border-amber-200 rounded px-1 py-0 shrink-0">
               <Bot className="w-3 h-3" aria-hidden="true" />

@@ -51,6 +51,10 @@ const CATEGORY_OPTIONS: { value: GapCategory | 'all'; label: string }[] = [
   { value: 'procedural', label: 'Procedural' },
   { value: 'mindmap_divergence', label: 'Mindmap' },
   { value: 'completeness', label: 'Completeness' },
+  // ADR-D20: Compendium playbook gap categories
+  { value: 'playbook_form_missing', label: 'Playbook · Form' },
+  { value: 'playbook_evidence_missing', label: 'Playbook · Evidence' },
+  { value: 'playbook_deadline_reminder', label: 'Playbook · Deadline' },
 ];
 
 const SOURCE_OPTIONS: { value: string; label: string }[] = [
@@ -59,6 +63,7 @@ const SOURCE_OPTIONS: { value: string; label: string }[] = [
   { value: 'T55', label: 'T55' },
   { value: 'mindmap', label: 'Mindmap' },
   { value: 'completeness', label: 'Completeness' },
+  { value: 'compendium_playbook', label: 'Compendium playbook' },
   { value: 'manual', label: 'Manual' },
 ];
 

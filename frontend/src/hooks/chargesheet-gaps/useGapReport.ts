@@ -33,7 +33,11 @@ export type GapCategory =
   | 'mindmap_divergence'
   | 'completeness'
   | 'kb_playbook_gap'
-  | 'kb_caselaw_gap';
+  | 'kb_caselaw_gap'
+  // ADR-D20: Compendium playbook gap sources
+  | 'playbook_form_missing'
+  | 'playbook_evidence_missing'
+  | 'playbook_deadline_reminder';
 export type GapActionType =
   | 'accepted'
   | 'modified'
@@ -45,6 +49,16 @@ export type KBLayer =
   | 'canonical_legal'
   | 'investigation_playbook'
   | 'case_law_intelligence';
+
+/** Reference to a Delhi Police Academy Compendium scenario (ADR-D19/D20). */
+export interface PlaybookScenarioRef {
+  scenario_id: string;
+  scenario_name?: string;
+  name?: string;
+  page_start: number;
+  page_end: number;
+  applicable_sections?: string[];
+}
 
 export interface Gap {
   id: string;
@@ -67,6 +81,8 @@ export interface Gap {
   // finding belongs in (Statute / Playbook / Case-Law).
   kb_layer?: KBLayer;
   kb_node_ref?: string;
+  // ADR-D20: Compendium scenario citations attached to playbook gaps.
+  playbook_reference?: PlaybookScenarioRef[];
 }
 
 export interface LayerCounts {

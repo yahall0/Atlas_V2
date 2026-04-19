@@ -134,6 +134,14 @@ function BranchNode({ data }: { data: MindmapNodeData }) {
         <span className="text-sm font-semibold leading-tight flex-1 text-slate-800">
           {node.title}
         </span>
+        {node.source === 'playbook' && (
+          <span
+            className="shrink-0 rounded border border-indigo-300 bg-indigo-50 px-1 text-[9px] font-semibold text-indigo-700"
+            title="Source: Delhi Police Academy Compendium of Scenarios for Investigating Officers, 2024"
+          >
+            DPA
+          </span>
+        )}
       </div>
     </div>
   );

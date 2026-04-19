@@ -111,6 +111,40 @@ export default function NodeDetailDrawer({
             </div>
           )}
 
+          {/* Compendium playbook provenance (ADR-D19) */}
+          {node.source === 'playbook' && (
+            <div className="rounded-md border border-indigo-200 bg-indigo-50/60 p-3">
+              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-indigo-700">
+                Source
+              </p>
+              <p className="text-sm text-indigo-900">
+                Delhi Police Academy — Compendium of Scenarios for Investigating Officers, 2024
+              </p>
+              {node.metadata && (
+                <div className="mt-2 space-y-1 text-xs text-indigo-800">
+                  {(node.metadata as Record<string, unknown>).forms ? (
+                    <div>
+                      <span className="font-medium">Forms:</span>{' '}
+                      {((node.metadata as Record<string, unknown>).forms as string[]).join(', ')}
+                    </div>
+                  ) : null}
+                  {(node.metadata as Record<string, unknown>).deadline ? (
+                    <div>
+                      <span className="font-medium">Deadline:</span>{' '}
+                      {(node.metadata as Record<string, unknown>).deadline as string}
+                    </div>
+                  ) : null}
+                  {(node.metadata as Record<string, unknown>).actors ? (
+                    <div>
+                      <span className="font-medium">Actors:</span>{' '}
+                      {((node.metadata as Record<string, unknown>).actors as string[]).join(', ')}
+                    </div>
+                  ) : null}
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Legal references */}
           {(node.ipc_section || node.bns_section || node.crpc_section) && (
             <div>

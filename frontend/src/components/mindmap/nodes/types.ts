@@ -13,7 +13,8 @@ export type NodeSource =
   | 'static_template'
   | 'ml_suggestion'
   | 'completeness_engine'
-  | 'io_custom';
+  | 'io_custom'
+  | 'playbook';   // ADR-D19/D20: Delhi Police Academy Compendium scenario
 
 export type NodePriority = 'critical' | 'recommended' | 'optional';
 
