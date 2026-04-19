@@ -36,7 +36,9 @@ def test_playbook_mindmap_structure_no_db():
     assert resp["status"] == "preview"
     assert resp["case_category"] == "Snatching"
     assert resp["template_version"] == "playbook-v1"
-    assert resp["root"]["title"].startswith("Snatching")
+    # Hub title is compact; full scenario name lives in description_md
+    assert "Playbook" in resp["root"]["title"]
+    assert "Snatching" in resp["root"]["description_md"]
     assert resp["root"]["children"], "expected phases as children"
     assert any(sc["scenario_id"] == "SCN_014" for sc in resp["playbook_scenarios"])
 
@@ -50,8 +52,8 @@ def test_playbook_mindmap_combines_multiple_scenarios():
         conn=None,
     )
     assert resp is not None
-    # 2 matching scenarios -> synthetic root wrapping both
-    assert "Investigation Playbook" in resp["root"]["title"]
+    # Multi-scenario root carries the count
+    assert "Playbook" in resp["root"]["title"]
     assert len(resp["playbook_scenarios"]) >= 2
 
 

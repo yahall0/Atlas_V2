@@ -134,7 +134,8 @@ function BranchNode({ data }: { data: MindmapNodeData }) {
         <span className="text-sm font-semibold leading-tight flex-1 text-slate-800">
           {node.title}
         </span>
-        {node.source === 'playbook' && (
+        {(node.source === 'playbook' ||
+          (node.metadata as Record<string, unknown> | undefined)?.source_kind === 'playbook') && (
           <span
             className="shrink-0 rounded border border-indigo-300 bg-indigo-50 px-1 text-[9px] font-semibold text-indigo-700"
             title="Source: Delhi Police Academy Compendium of Scenarios for Investigating Officers, 2024"
@@ -171,7 +172,7 @@ function LeafNode({ data }: { data: MindmapNodeData }) {
     <div
       onClick={() => onClick(node)}
       className={`
-        group relative px-2 py-1 cursor-pointer max-w-[260px]
+        group relative px-2 py-1 cursor-pointer w-[300px] max-w-[300px]
         flex items-center gap-1.5
         ${side === 'left' ? 'flex-row-reverse text-right' : 'flex-row text-left'}
       `}
@@ -180,28 +181,31 @@ function LeafNode({ data }: { data: MindmapNodeData }) {
 
       <ChevronRight className={`w-3 h-3 shrink-0 ${chevronCls}`} />
 
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-1.5 flex-wrap">
-          <span
-            className={`text-[13px] leading-tight text-slate-700 group-hover:text-slate-900 ${
-              node.current_status === 'addressed' ? 'line-through text-slate-400' : ''
-            }`}
-          >
-            {node.title}
-          </span>
-          <span
-            className={`w-1.5 h-1.5 rounded-full shrink-0 ${PRIORITY_DOT[node.priority]}`}
-            title={`Priority: ${node.priority}`}
-          />
-          {node.current_status && (
-            <span className={`w-1.5 h-1.5 rounded-full ${STATUS_DOT[node.current_status]}`} />
-          )}
-          {node.requires_disclaimer && (
-            <Info className="w-3 h-3 text-amber-500 shrink-0" />
-          )}
-        </div>
+      <div className="min-w-0 flex-1 flex items-center gap-1.5">
+        <span
+          // Force single-line truncation in mindmap leaves: the layout
+          // algorithm assumes each leaf is one line tall. Multi-line wrap
+          // collides with the next leaf. Full text is in the drawer +
+          // checklist tab.
+          title={node.title}
+          className={`text-[13px] leading-tight text-slate-700 group-hover:text-slate-900 truncate whitespace-nowrap overflow-hidden ${
+            node.current_status === 'addressed' ? 'line-through text-slate-400' : ''
+          }`}
+        >
+          {node.title}
+        </span>
+        <span
+          className={`w-1.5 h-1.5 rounded-full shrink-0 ${PRIORITY_DOT[node.priority]}`}
+          title={`Priority: ${node.priority}`}
+        />
+        {node.current_status && (
+          <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${STATUS_DOT[node.current_status]}`} />
+        )}
+        {node.requires_disclaimer && (
+          <Info className="w-3 h-3 text-amber-500 shrink-0" />
+        )}
         {sectionLabel && (
-          <span className="text-[10px] font-medium text-slate-500 mt-0.5 block">
+          <span className="text-[10px] font-medium text-slate-500 shrink-0">
             {sectionLabel}
           </span>
         )}

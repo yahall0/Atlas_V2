@@ -149,17 +149,29 @@ SCENARIOS: list[dict] = [
 
 # ---------- Patterns for structural extraction ---------- #
 
+# Phase header — `1. HANDLING THE CALL/INFORMATION:` (sometimes ends with
+# a colon, sometimes not; title may carry parens, slash, dash). The number
+# and the title can be on the same line or split across two lines.
 PHASE_RE = re.compile(
-    r"^(\d{1,2})\.\s+([A-Z][A-Z /\-\(\)]{4,})\s*$",
+    r"^(\d{1,2})\.\s+([A-Z][A-Z :/\-\(\)]{4,}?)\s*:?\s*$",
     re.MULTILINE,
 )
 SUB_BLOCK_RE = re.compile(
     r"^\s*([a-z])\.\s+([^\n]{4,})$",
     re.MULTILINE,
 )
+# Items use roman-numeral markers in the Compendium: (i), (ii), (iii)…
+# Numeric markers like `(1)` only appear *inside* legal-section citations
+# such as `section 122 (1)` — never as item prefixes — so excluding them
+# from the item alphabet eliminates a major source of mid-sentence splits.
 ITEM_RE = re.compile(
-    r"^\s*\(([ivxlcdm]+|[1-9]\d?)\)\s+(.+?)(?=^\s*\(|^\s*[a-z]\.\s|^\s*\d{1,2}\.\s+[A-Z]|\Z)",
+    r"^\s*\(([ivxlcdm]+)\)\s+(.+?)(?=^\s*\([ivxlcdm]+\)|^\s*[a-z]\.\s|^\s*\d{1,2}\.\s+[A-Z]|\Z)",
     re.MULTILINE | re.DOTALL,
+)
+# Page-footer noise injected by PDF text extraction. Stripped before parsing.
+PAGE_FOOTER_RE = re.compile(
+    r"\s*Delhi\s+Police\s+Academy\s+\d{1,3}\s+Scenarios\s*Handbook\s*",
+    re.IGNORECASE,
 )
 
 # References inline in a sentence
@@ -257,7 +269,12 @@ def _join_pages(raw: list[dict], page_start: int, page_end: int) -> str:
     for r in raw:
         if page_start <= r["page"] <= page_end:
             chunks.append(r["text"])
-    return "\n".join(chunks)
+    joined = "\n".join(chunks)
+    # Strip page-footer noise that PDF extraction injects mid-body
+    # (e.g. "Delhi Police Academy 73 Scenarios Handbook"). Replace with a
+    # single space so we don't accidentally glue surrounding tokens.
+    joined = PAGE_FOOTER_RE.sub(" ", joined)
+    return joined
 
 
 def _extract_legal_refs(text: str) -> list[dict]:
@@ -344,13 +361,11 @@ def parse_scenario(spec: dict, raw: list[dict]) -> IOScenario:
         phase_text = text[phase_start:phase_end]
         phase = Phase(number=phase_num, title=phase_title)
 
-        # Find sub-blocks (a. b. c.) within the phase
+        # Find sub-blocks (a. b. c.) within the phase. If none exist, parse
+        # items directly under the phase as a single, unnamed group.
         sub_matches = list(SUB_BLOCK_RE.finditer(phase_text))
         if not sub_matches:
-            # whole phase is a single implicit sub-block
-            sub_matches = [type("M", (), {"start": lambda: 0, "end": lambda: 0,
-                                          "group": lambda i: ("a", "(default)")[i - 1]})()]
-            sub_blocks_iter = [(0, len(phase_text), "a", "(default)")]
+            sub_blocks_iter = [(0, len(phase_text), "", "")]
         else:
             sub_blocks_iter = []
             for j, sm in enumerate(sub_matches):
@@ -359,13 +374,13 @@ def parse_scenario(spec: dict, raw: list[dict]) -> IOScenario:
 
         for start, end, label, title in sub_blocks_iter:
             sub_text = phase_text[start:end]
-            sb = SubBlock(label=label, title=title)
+            items: list[Item] = []
             for im in ITEM_RE.finditer(sub_text):
                 marker = f"({im.group(1)})"
                 item_text = re.sub(r"\s+", " ", im.group(2)).strip()
                 if len(item_text) < 5:
                     continue
-                sb.items.append(Item(
+                items.append(Item(
                     marker=marker,
                     text=item_text,
                     actors=_extract_actors(item_text),
@@ -374,6 +389,17 @@ def parse_scenario(spec: dict, raw: list[dict]) -> IOScenario:
                     deadline=_extract_deadline(item_text),
                     is_evidence=_is_evidence(item_text),
                 ))
+
+            # Skip empty placeholder sub-blocks: nothing to label, nothing to
+            # render. Cleaner to drop than to surface an "(default)" stub.
+            if not items and not title:
+                continue
+
+            sb = SubBlock(
+                label=label or "·",
+                title=title or "(no sub-block heading in source)",
+            )
+            sb.items = items
             phase.sub_blocks.append(sb)
 
         sc.phases.append(phase)

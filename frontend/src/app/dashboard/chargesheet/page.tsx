@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Trash2 } from "lucide-react";
 import { apiClient } from "@/lib/api";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -167,6 +168,26 @@ export default function ChargesheetPage() {
   const [filterDistrict, setFilterDistrict] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
   const PAGE_SIZE = 10;
+
+  // Delete state
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  async function handleDeleteSheet(cs: ChargeSheet) {
+    if (!cs.id) return;
+    const ok = window.confirm(
+      `Delete this charge-sheet${cs.court_name ? ` (${cs.court_name})` : ""}?\n\nThis permanently removes its validation reports, evidence-gap reports, recommendation actions, and audit entries. This action cannot be undone.`,
+    );
+    if (!ok) return;
+    setDeletingId(cs.id);
+    try {
+      await apiClient(`/api/v1/chargesheet/${cs.id}`, { method: "DELETE" });
+      setSheets((prev) => prev.filter((s) => s.id !== cs.id));
+    } catch (err) {
+      setListError(err instanceof Error ? err.message : "Delete failed.");
+    } finally {
+      setDeletingId(null);
+    }
+  }
 
   // Detail state
   const [selected, setSelected] = useState<ChargeSheet | null>(null);
@@ -522,11 +543,23 @@ export default function ChargesheetPage() {
                   </td>
                   <td className="px-4 py-3">
                     {cs.id && (
-                      <Link href={`/dashboard/chargesheet/${cs.id}/review`}>
-                        <Button size="sm" variant="default" className="bg-blue-600 hover:bg-blue-700 text-white">
-                          Review
+                      <div className="flex items-center gap-2 justify-end">
+                        <Link href={`/dashboard/chargesheet/${cs.id}/review`}>
+                          <Button size="sm" variant="default" className="bg-blue-600 hover:bg-blue-700 text-white">
+                            Review
+                          </Button>
+                        </Link>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          disabled={deletingId === cs.id}
+                          onClick={() => handleDeleteSheet(cs)}
+                          className="text-red-600 border-red-300 hover:bg-red-50 hover:text-red-700"
+                          title="Delete charge-sheet"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
                         </Button>
-                      </Link>
+                      </div>
                     )}
                   </td>
                 </tr>

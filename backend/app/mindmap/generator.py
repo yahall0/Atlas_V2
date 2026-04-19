@@ -310,7 +310,10 @@ def _fetch_mindmap_tree(conn: PgConnection, mindmap_id: uuid.UUID) -> MindmapRes
             """SELECT n.*,
                       (SELECT s.status FROM mindmap_node_status s
                        WHERE s.node_id = n.id
-                       ORDER BY s.updated_at DESC LIMIT 1) AS current_status
+                       ORDER BY s.updated_at DESC LIMIT 1) AS current_status,
+                      (SELECT s.hash_self FROM mindmap_node_status s
+                       WHERE s.node_id = n.id
+                       ORDER BY s.updated_at DESC LIMIT 1) AS last_status_hash
                FROM mindmap_nodes n
                WHERE n.mindmap_id = %s
                ORDER BY n.display_order""",
@@ -339,6 +342,7 @@ def _fetch_mindmap_tree(conn: PgConnection, mindmap_id: uuid.UUID) -> MindmapRes
             display_order=n["display_order"],
             metadata=n.get("metadata") or {},
             current_status=n.get("current_status"),
+            last_status_hash=n.get("last_status_hash") or _GENESIS,
         )
         node_map[n["id"]] = resp
 
@@ -422,30 +426,31 @@ def generate_mindmap(
             )
             return _fetch_mindmap_tree(conn, existing["id"])
 
-    # ── Compendium-playbook path (preferred, ADR-D19) ────────────────────────
+    # ── Canonical chargesheet-checklist path (ADR-D19/D20) ───────────────────
+    # Always preferred; produces a fixed 6-branch tree (Applicable BNS
+    # Sections, Panchnama, Evidence, Forensics, Witness/Bayan, Gaps in FIR)
+    # with content from the Compendium and the BNS/IPC corpus.
     try:
         from app.mindmap.playbook_generator import (  # noqa: PLC0415
-            generate_playbook_mindmap,
-            has_playbook_for,
+            generate_chargesheet_mindmap,
         )
         citations = _recommended_citations_from_fir(fir)
-        if citations and has_playbook_for(citations):
-            logger.info(
-                "Using Compendium playbook for FIR %s (citations=%s)",
-                fir_id, citations,
-            )
-            playbook_resp = generate_playbook_mindmap(
-                fir_id=fir_id, citations=citations, conn=conn,
-                regenerate=regenerate,
-            )
-            if playbook_resp:
-                # Re-fetch via the standard reader so the returned tree
-                # exactly matches the MindmapResponse contract.
-                return _fetch_mindmap_tree(conn, uuid.UUID(playbook_resp["id"]))
+        completeness = _get_completeness_gaps(fir)
+        logger.info(
+            "Using canonical chargesheet mindmap for FIR %s (citations=%s, gaps=%d)",
+            fir_id, citations, len(completeness),
+        )
+        playbook_resp = generate_chargesheet_mindmap(
+            fir=dict(fir),
+            citations=citations,
+            completeness_gaps=completeness,
+            conn=conn,
+        )
+        if playbook_resp and playbook_resp.get("id"):
+            return _fetch_mindmap_tree(conn, uuid.UUID(playbook_resp["id"]))
     except Exception:
-        # Playbook is best-effort augmentation; fall through to template path.
         logger.exception(
-            "Playbook mindmap path failed for FIR %s; falling back to template",
+            "Chargesheet mindmap path failed for FIR %s; falling back to template",
             fir_id,
         )
 

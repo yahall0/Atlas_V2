@@ -1,11 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Trash2 } from "lucide-react";
 import { apiClient } from "@/lib/api";
 import RecommendationCard from "@/components/RecommendationCard";
 import AuditTimeline from "@/components/AuditTimeline";
@@ -70,7 +71,26 @@ interface AuditEntry {
 
 export default function ChargesheetReviewPage() {
   const params = useParams();
+  const router = useRouter();
   const csId = params.id as string;
+
+  // Delete state
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+  async function handleDelete() {
+    if (!csId) return;
+    setDeleting(true);
+    try {
+      await apiClient(`/api/v1/chargesheet/${csId}`, { method: "DELETE" });
+      router.push("/dashboard/chargesheet");
+    } catch (err) {
+      setDeleting(false);
+      setConfirmDelete(false);
+      // Surface via top-level error state set below
+      setError(err instanceof Error ? err.message : "Delete failed.");
+    }
+  }
 
   // Data
   const [cs, setCs] = useState<ChargeSheet | null>(null);
@@ -292,8 +312,57 @@ export default function ChargesheetReviewPage() {
               Gap Analysis
             </Button>
           </Link>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setConfirmDelete(true)}
+            className="text-red-600 border-red-300 hover:bg-red-50 hover:text-red-700 gap-1"
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+            Delete
+          </Button>
         </div>
       </div>
+
+      {/* Delete confirmation modal */}
+      {confirmDelete && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+          onClick={() => !deleting && setConfirmDelete(false)}
+        >
+          <div
+            className="w-full max-w-md rounded-lg bg-white p-5 shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-lg font-semibold text-slate-800 mb-2">
+              Delete this charge-sheet?
+            </h3>
+            <p className="text-sm text-slate-600 mb-4">
+              This permanently removes the charge-sheet plus its validation
+              reports, evidence-gap reports, recommendation actions, and audit
+              entries. This action cannot be undone.
+            </p>
+            <div className="flex justify-end gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setConfirmDelete(false)}
+                disabled={deleting}
+              >
+                Cancel
+              </Button>
+              <Button
+                size="sm"
+                onClick={handleDelete}
+                disabled={deleting}
+                className="bg-red-600 hover:bg-red-700 text-white"
+              >
+                {deleting ? "Deleting…" : "Delete"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {error && (
         <div className="mx-4 mt-2 p-2 bg-red-50 border border-red-200 rounded text-sm text-red-800">

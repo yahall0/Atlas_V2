@@ -8,7 +8,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 
 from app.core.pii import mask_pii_for_role
 from app.core.rbac import Role, get_current_user, require_role
-from app.db.crud_fir import create_fir, get_fir_by_id, list_firs
+from app.db.crud_fir import create_fir, delete_fir, get_fir_by_id, list_firs
 from app.db.session import get_connection
 from app.schemas.fir import FIRCreate, FIRResponse
 
@@ -155,6 +155,69 @@ def list_firs_endpoint(
         raise
     except Exception as exc:
         logger.error("API error in GET /firs", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(exc),
+        )
+
+
+@router.delete(
+    "/firs/{fir_id}",
+    status_code=status.HTTP_200_OK,
+    summary="Delete a FIR and every cascaded child row",
+)
+def delete_fir_endpoint(
+    fir_id: str,
+    user: dict = Depends(require_role(Role.SHO, Role.DYSP, Role.SP, Role.ADMIN)),
+) -> dict:
+    """Permanently delete a FIR plus its mindmap, statuses, complainants,
+    accused, property details, and gap reports.
+
+    RBAC
+    ----
+    SHO / DYSP / SP / ADMIN.  IO and READONLY cannot delete.  SHO is
+    additionally district-scoped.
+
+    The action is recorded in ``audit_log`` before the cascade fires so
+    that the audit row survives the deletion.
+    """
+    try:
+        conn = get_connection()
+        district = _district_for(user)
+
+        # Verify existence within the caller's district scope before audit-logging.
+        existing = get_fir_by_id(conn, fir_id, district=district)
+        if existing is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"FIR '{fir_id}' not found.",
+            )
+
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                INSERT INTO audit_log (user_id, action, resource_type, resource_id, details)
+                VALUES (%s, 'delete_fir', 'fir', %s, %s::jsonb)
+                """,
+                (
+                    user.get("sub"),
+                    fir_id,
+                    '{"fir_number": "' + str(existing.get("fir_number") or "") + '"}',
+                ),
+            )
+            conn.commit()
+
+        deleted = delete_fir(conn, fir_id, district=district)
+        if not deleted:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"FIR '{fir_id}' not found.",
+            )
+        return {"deleted": True, "fir_id": fir_id}
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.error("API error in DELETE /firs/%s", fir_id, exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(exc),

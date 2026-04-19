@@ -17,6 +17,7 @@ from psycopg2.errors import UndefinedTable
 from app.core.rbac import Role, get_current_user, require_role
 from app.db.crud_chargesheet import (
     create_chargesheet,
+    delete_chargesheet,
     find_fir_by_number,
     get_chargesheet_by_id,
     list_chargesheets,
@@ -247,6 +248,56 @@ def list_chargesheets_endpoint(
         raise _schema_not_ready_error()
     except Exception as exc:
         logger.error("API error in GET /chargesheet/", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(exc),
+        )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DELETE /{id}
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+@router.delete(
+    "/{cs_id}",
+    status_code=status.HTTP_200_OK,
+    summary="Delete a charge-sheet and every cascaded child row",
+)
+def delete_chargesheet_endpoint(
+    cs_id: str,
+    user: dict = Depends(require_role(Role.SHO, Role.DYSP, Role.SP, Role.ADMIN)),
+) -> dict:
+    """Permanently remove a charge-sheet, its validation reports, evidence
+    gap reports, recommendation actions, and audit-log entries.
+
+    RBAC: SHO / DYSP / SP / ADMIN. SHO is district-scoped.
+    """
+    try:
+        conn = get_connection()
+        district = _district_for(user)
+
+        existing = get_chargesheet_by_id(conn, cs_id, district=district)
+        if existing is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Chargesheet '{cs_id}' not found.",
+            )
+
+        deleted = delete_chargesheet(conn, cs_id, district=district)
+        if not deleted:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Chargesheet '{cs_id}' not found.",
+            )
+        return {"deleted": True, "chargesheet_id": cs_id}
+    except HTTPException:
+        raise
+    except UndefinedTable:
+        logger.error("Chargesheet schema is missing during delete.", exc_info=True)
+        raise _schema_not_ready_error()
+    except Exception as exc:
+        logger.error("API error in DELETE /chargesheet/%s", cs_id, exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(exc),

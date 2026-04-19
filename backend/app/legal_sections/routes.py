@@ -41,6 +41,71 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter(tags=["legal-sections"])
 
+
+# ---------- IO Scenarios KB review surface (admin) ---------- #
+
+
+@router.get(
+    "/kb/io-scenarios",
+    summary="List IO scenarios from the Compendium KB (admin review table)",
+)
+def list_io_scenarios():
+    """Return a flat list of every Compendium scenario with a row-summary.
+
+    Used by the ``/dashboard/kb/scenarios`` admin page so the SME panel can
+    eyeball the KB and flag mis-categorised content. Each row carries
+    aggregate counts (phases, items, evidence, forms, deadlines) so the
+    reviewer can spot anomalies at a glance.
+    """
+    from .io_scenarios import load_kb  # noqa: PLC0415
+
+    rows = []
+    for sc in load_kb():
+        item_count = sum(
+            len(sb.get("items") or [])
+            for ph in sc.get("phases", [])
+            for sb in ph.get("sub_blocks", [])
+        )
+        evidence_count = sum(
+            1
+            for ph in sc.get("phases", [])
+            for sb in ph.get("sub_blocks", [])
+            for it in (sb.get("items") or [])
+            if it.get("is_evidence")
+        )
+        rows.append({
+            "scenario_id": sc.get("scenario_id"),
+            "scenario_name": sc.get("scenario_name"),
+            "applicable_sections": sc.get("applicable_sections") or [],
+            "punishment_summary": sc.get("punishment_summary"),
+            "page_start": sc.get("page_start"),
+            "page_end": sc.get("page_end"),
+            "linked_acts": sc.get("linked_acts") or [],
+            "phase_count": len(sc.get("phases") or []),
+            "item_count": item_count,
+            "evidence_count": evidence_count,
+            "forms_required": sc.get("forms_required") or [],
+            "deadlines": sc.get("deadlines") or [],
+            "source_authority": sc.get("source_authority"),
+        })
+    return {"total": len(rows), "scenarios": rows}
+
+
+@router.get(
+    "/kb/io-scenarios/{scenario_id}",
+    summary="Full Compendium scenario with all phases / sub-blocks / items",
+)
+def get_io_scenario(scenario_id: str):
+    """Return the complete scenario for the admin's deep-review pane."""
+    from .io_scenarios import load_kb  # noqa: PLC0415
+    for sc in load_kb():
+        if sc.get("scenario_id") == scenario_id:
+            return sc
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail=f"Scenario '{scenario_id}' not found",
+    )
+
 # ---------- Process-level retriever (built once at import time) ---------- #
 
 _DATA = Path(__file__).resolve().parent / "data"

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Trash2 } from "lucide-react";
 import { apiClient } from "@/lib/api";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -52,7 +52,25 @@ export default function FIRPage() {
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [filterDistrict, setFilterDistrict] = useState("");
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const PAGE_SIZE = 10;
+
+  async function handleDeleteFir(fir: FIRResult) {
+    if (!fir.id) return;
+    const ok = window.confirm(
+      `Delete FIR ${fir.fir_number ?? fir.id}?\n\nThis permanently removes the FIR plus its mindmap, statuses, complainants, accused, property, and gap reports. This action cannot be undone.`,
+    );
+    if (!ok) return;
+    setDeletingId(fir.id);
+    try {
+      await apiClient(`/api/v1/firs/${fir.id}`, { method: "DELETE" });
+      setFirs((prev) => prev.filter((f) => f.id !== fir.id));
+    } catch (err) {
+      setListError(err instanceof Error ? err.message : "Delete failed.");
+    } finally {
+      setDeletingId(null);
+    }
+  }
 
   const loadFirs = useCallback(
     async (pageIndex: number, district: string) => {
@@ -295,11 +313,23 @@ export default function FIRPage() {
                   </td>
                   <td className="px-4 py-3">
                     {fir.id && (
-                      <Link href={`/dashboard/fir/${fir.id}`}>
-                        <Button size="sm" variant="default" className="bg-blue-600 hover:bg-blue-700 text-white">
-                          Details
+                      <div className="flex items-center gap-2 justify-end">
+                        <Link href={`/dashboard/fir/${fir.id}`}>
+                          <Button size="sm" variant="default" className="bg-blue-600 hover:bg-blue-700 text-white">
+                            Details
+                          </Button>
+                        </Link>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          disabled={deletingId === fir.id}
+                          onClick={() => handleDeleteFir(fir)}
+                          className="text-red-600 border-red-300 hover:bg-red-50 hover:text-red-700"
+                          title="Delete FIR"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
                         </Button>
-                      </Link>
+                      </div>
                     )}
                   </td>
                 </tr>

@@ -41,6 +41,9 @@ export interface MindmapNode {
   display_order: number;
   metadata: Record<string, unknown>;
   current_status: NodeStatusType | null;
+  /** Latest hash in this node's status chain. Echoed back as `hash_prev`
+   *  on the next status PATCH so the audit chain stays continuous. */
+  last_status_hash?: string | null;
   children: MindmapNode[];
 }
 

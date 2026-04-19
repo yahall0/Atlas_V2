@@ -11,10 +11,7 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import {
-  ChevronRight,
-  ChevronDown,
   Download,
   RefreshCw,
   Plus,
@@ -33,9 +30,12 @@ import {
   useGenerateMindmap,
   useRegenerateMindmap,
   useAddCustomNode,
+  useUpdateNodeStatus,
   isDemoMindmap,
 } from '@/hooks/mindmap/useMindmap';
 import type { MindmapNode, NodeStatusType, NodePriority } from './nodes/types';
+// NodeStatusType retained — used by ChecklistView for status transitions.
+void (null as unknown as NodeStatusType);
 
 /* ------------------------------------------------------------------ */
 /* ReactFlow node type map                                            */
@@ -86,10 +86,13 @@ function layoutHorizontalMindmap(
   // Geometry constants. Tweaked so even the largest categories
   // (Murder, Cyber) fit in a screenful at fitView padding 0.15.
   const HUB_TO_BRANCH_X = 320;       // horizontal distance hub → branch
-  const BRANCH_TO_LEAF_X = 290;      // horizontal distance branch → leaf
-  const LEAF_VERTICAL_STEP = 38;     // vertical step between sibling leaves
+  const BRANCH_TO_LEAF_X = 320;      // horizontal distance branch → leaf
+  // Leaves now render single-line (truncated). 32 px is comfortable for
+  // a single text line at text-[13px]; previously 38 was tuned for
+  // two-line wraps but those have been disabled.
+  const LEAF_VERTICAL_STEP = 32;
   const MIN_SLOT_HEIGHT = 110;       // minimum vertical slot per branch
-  const BRANCH_GAP = 28;             // padding between adjacent branch slots
+  const BRANCH_GAP = 32;             // padding between adjacent branch slots
 
   const nodes: Node<MindmapNodeData>[] = [];
   const edges: Edge[] = [];
@@ -301,19 +304,166 @@ function flattenTree(nodes: MindmapNode[], depth: number = 0): FlatNode[] {
 /* Status helpers                                                     */
 /* ------------------------------------------------------------------ */
 
-const STATUS_DOT: Record<NodeStatusType, string> = {
-  open: 'bg-gray-400',
-  in_progress: 'bg-yellow-400',
-  addressed: 'bg-green-500',
-  not_applicable: 'bg-slate-400',
-  disputed: 'bg-red-500',
-};
-
 const PRIORITY_LABEL: Record<NodePriority, string> = {
   critical: 'text-red-600',
   recommended: 'text-amber-600',
   optional: 'text-green-600',
 };
+
+/* ------------------------------------------------------------------ */
+/* Checklist view — checkbox-driven, multi-line wrapping              */
+/* ------------------------------------------------------------------ */
+
+const NODE_TYPE_PILL: Record<string, string> = {
+  legal_section: 'bg-teal-50 text-teal-700 border-teal-200',
+  immediate_action: 'bg-rose-50 text-rose-700 border-rose-200',
+  evidence: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+  panchnama: 'bg-amber-50 text-amber-700 border-amber-200',
+  forensic: 'bg-violet-50 text-violet-700 border-violet-200',
+  witness_bayan: 'bg-sky-50 text-sky-700 border-sky-200',
+  gap_from_fir: 'bg-red-50 text-red-700 border-red-200',
+  interrogation: 'bg-orange-50 text-orange-700 border-orange-200',
+  custom: 'bg-slate-50 text-slate-600 border-slate-200',
+};
+
+function ChecklistView({
+  firId,
+  flatNodes,
+  onItemClick,
+}: {
+  firId: string;
+  flatNodes: FlatNode[];
+  onItemClick: (n: MindmapNode) => void;
+}) {
+  const updateStatus = useUpdateNodeStatus(firId);
+
+  const toggleAddressed = useCallback(
+    (node: MindmapNode) => {
+      const next: NodeStatusType =
+        node.current_status === 'addressed' ? 'open' : 'addressed';
+      updateStatus.mutate({
+        nodeId: node.id,
+        status: next,
+        // Echo back the latest status-chain hash so the audit chain stays
+        // continuous. Falls back to "GENESIS" when no prior status exists.
+        hash_prev: node.last_status_hash ?? 'GENESIS',
+      });
+    },
+    [updateStatus],
+  );
+
+  if (flatNodes.length === 0) {
+    return (
+      <p className="p-6 text-sm text-slate-400 text-center">
+        No nodes found. Generate a mindmap to get started.
+      </p>
+    );
+  }
+
+  // Total visible checklist items (leaves only)
+  const checkable = flatNodes.filter((f) => f.node.children.length === 0);
+  const completed = checkable.filter((f) => f.node.current_status === 'addressed').length;
+
+  return (
+    <div className="p-4 space-y-3">
+      <div className="sticky top-0 z-10 -mx-4 px-4 py-2 bg-white/95 backdrop-blur border-b text-xs text-slate-500 flex items-center justify-between">
+        <span>
+          <span className="font-semibold text-slate-700">{completed}</span>
+          {' / '}
+          <span className="font-semibold text-slate-700">{checkable.length}</span>
+          {' items addressed'}
+        </span>
+        <span className="text-[10px] text-slate-400">
+          tap the checkbox to mark complete · click the row for details
+        </span>
+      </div>
+
+      <ul className="space-y-1.5">
+        {flatNodes.map(({ node, depth }) => {
+          const isLeaf = node.children.length === 0;
+          const isAddressed = node.current_status === 'addressed';
+          const pillCls = NODE_TYPE_PILL[node.node_type] ?? NODE_TYPE_PILL.custom;
+
+          return (
+            <li
+              key={node.id}
+              className={`group flex items-start gap-3 rounded-md border ${
+                isAddressed ? 'border-slate-100 bg-slate-50/40' : 'border-slate-200 bg-white'
+              } px-3 py-2 transition-colors hover:bg-slate-50`}
+              style={{ marginLeft: `${depth * 16}px` }}
+            >
+              {/* Checkbox — only for leaves; non-leaves get an opaque bullet so
+                  the indent reads as a hierarchy. */}
+              {isLeaf ? (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleAddressed(node);
+                  }}
+                  aria-label={isAddressed ? 'Mark as not done' : 'Mark as done'}
+                  className={`mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded border transition-colors ${
+                    isAddressed
+                      ? 'border-emerald-500 bg-emerald-500 text-white'
+                      : 'border-slate-300 bg-white hover:border-slate-500'
+                  }`}
+                  disabled={updateStatus.isPending}
+                >
+                  {isAddressed && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      className="h-3 w-3"
+                    >
+                      <path d="M13.485 4.43a.75.75 0 0 1 0 1.061l-6 6a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 1 1 1.06-1.061L7 9.939l5.424-5.51a.75.75 0 0 1 1.06 0Z" />
+                    </svg>
+                  )}
+                </button>
+              ) : (
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-400" />
+              )}
+
+              {/* Title + meta — wraps freely; pills sit below on narrow widths */}
+              <div className="min-w-0 flex-1 cursor-pointer" onClick={() => onItemClick(node)}>
+                <p
+                  className={`whitespace-normal break-words text-sm leading-snug ${
+                    isAddressed
+                      ? 'text-slate-400 line-through'
+                      : 'text-slate-800'
+                  }`}
+                >
+                  {node.title}
+                </p>
+                <div className="mt-1 flex flex-wrap items-center gap-1.5">
+                  <span
+                    className={`rounded border px-1.5 py-0.5 text-[10px] font-medium capitalize ${pillCls}`}
+                  >
+                    {node.node_type.replace(/_/g, ' ')}
+                  </span>
+                  <span
+                    className={`text-[10px] font-medium capitalize ${PRIORITY_LABEL[node.priority]}`}
+                  >
+                    {node.priority}
+                  </span>
+                  {(node.ipc_section || node.bns_section) && (
+                    <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-medium text-slate-600">
+                      {[
+                        node.ipc_section ? `IPC ${node.ipc_section}` : null,
+                        node.bns_section ? `BNS ${node.bns_section}` : null,
+                      ]
+                        .filter(Boolean)
+                        .join(' / ')}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
 
 /* ------------------------------------------------------------------ */
 /* Add Custom Node Dialog (simple inline)                             */
@@ -440,14 +590,9 @@ export default function MindmapPanel({
     setCollapsed(ids);
   };
 
-  const toggleCollapse = (id: string) => {
-    setCollapsed((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  };
+  // (toggleCollapse retained when checklist still used expand/collapse;
+  // checkbox-driven ChecklistView no longer needs it. Kept inline-only
+  // for the tree view's collapse-all/expand-all controls.)
 
   const handleRegenerate = () => {
     const justification = prompt('Provide a justification for regeneration:');
@@ -625,85 +770,11 @@ export default function MindmapPanel({
         )}
 
         {mindmap && !isLoading && !isError && view === 'checklist' && (
-          <div className="p-4 space-y-1">
-            {flatNodes.map(({ node, depth }) => (
-              <div
-                key={node.id}
-                className="flex items-center gap-2 py-1.5 px-2 rounded hover:bg-slate-50 cursor-pointer transition-colors"
-                style={{ paddingLeft: `${depth * 24 + 8}px` }}
-                onClick={() => handleNodeClick(node)}
-              >
-                {/* Collapse toggle for nodes with children */}
-                {node.children.length > 0 ? (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleCollapse(node.id);
-                    }}
-                    className="text-slate-400 hover:text-slate-600"
-                  >
-                    {collapsed.has(node.id) ? (
-                      <ChevronRight className="w-3.5 h-3.5" />
-                    ) : (
-                      <ChevronDown className="w-3.5 h-3.5" />
-                    )}
-                  </button>
-                ) : (
-                  <span className="w-3.5" />
-                )}
-
-                {/* Status dot */}
-                <span
-                  className={`w-2 h-2 rounded-full shrink-0 ${
-                    STATUS_DOT[node.current_status ?? 'open']
-                  }`}
-                />
-
-                {/* Title */}
-                <span
-                  className={`text-sm flex-1 ${
-                    node.current_status === 'addressed'
-                      ? 'line-through text-slate-400'
-                      : 'text-slate-700'
-                  }`}
-                >
-                  {node.title}
-                </span>
-
-                {/* Section pills */}
-                {(node.ipc_section || node.bns_section) && (
-                  <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-slate-100 text-slate-500">
-                    {[
-                      node.ipc_section ? `IPC ${node.ipc_section}` : null,
-                      node.bns_section ? `BNS ${node.bns_section}` : null,
-                    ]
-                      .filter(Boolean)
-                      .join(' / ')}
-                  </span>
-                )}
-
-                {/* Type badge */}
-                <Badge variant="outline" className="text-[10px] capitalize">
-                  {node.node_type.replace(/_/g, ' ')}
-                </Badge>
-
-                {/* Priority */}
-                <span
-                  className={`text-[10px] font-medium capitalize ${
-                    PRIORITY_LABEL[node.priority]
-                  }`}
-                >
-                  {node.priority}
-                </span>
-              </div>
-            ))}
-
-            {flatNodes.length === 0 && (
-              <p className="text-sm text-slate-400 text-center py-8">
-                No nodes found. Generate a mindmap to get started.
-              </p>
-            )}
-          </div>
+          <ChecklistView
+            firId={firId}
+            flatNodes={flatNodes}
+            onItemClick={handleNodeClick}
+          />
         )}
 
         {!mindmap && !isLoading && !isError && (
